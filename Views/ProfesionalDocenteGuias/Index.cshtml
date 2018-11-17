@@ -1,0 +1,112 @@
+﻿@model IEnumerable<SAS.v1.Models.ProfesionalDocenteGuia>
+
+@{
+    ViewBag.Title = "Docentes Guías";
+    
+}
+
+<h2>Docentes Guías</h2>
+
+<form class="form-inline" method="POST">
+    <div class="form-group"><input type="text" class="form-control" id="Filtro" placeholder="Ingrese rut" name="Filtro"></div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+<table class="table" id="TablaDocenteGuia">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Persona.Rut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Persona.Dv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Persona.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Persona.ApPaterno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Profesion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroSuperintendencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorDocente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocenciaHospitalaria.NombreDocenciaHospitalaria)
+            </th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Persona.Rut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Persona.Dv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Persona.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Persona.ApPaterno)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Profesion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroSuperintendencia)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorDocente)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DocenciaHospitalaria.NombreDocenciaHospitalaria)
+                </td>
+
+                <td>
+
+                    @Html.ActionLink("Detalles", "Details", new { id = item.ProfesionalDocenteGuiaId })
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#TablaDocenteGuia').DataTable({
+                "sDom": '<"top"ip>rt<"clear">',
+                "bLengthChange": false,
+                "iDisplayLength": 10,
+                "bFilter": false,
+                "aaSorting": [[0, "asc"]],
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "oLanguage": {
+                    "sLengthMenu": "Mostrar _MENU_ registros por página",
+                    "sZeroRecords": "No se encontraron resultados.",
+                    "sInfo": "Mostrando _START_ al _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 al 0 de 0 registros",
+                    "sInfoFiltered": "(filtrado(s) de _MAX_ registro(s))",
+                    "oPaginate": {
+                        "sFirst": "Inicio",
+                        "sLast": "Final",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    }
+                },
+                "aoColumnDefs": []
+            });
+        });
+</script>
+

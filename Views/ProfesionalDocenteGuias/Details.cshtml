@@ -1,0 +1,180 @@
+﻿@model SAS.v1.ClasesNP.DocenteGuiaCamposClinicos
+@{
+    ViewBag.Title = "Detalles Docente Guia";
+}
+
+
+
+<div>
+    <h4>ProfesionalDocenteGuia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.profesional.Persona.Rut)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profesional.Persona.Rut)-@Html.DisplayFor(model => model.profesional.Persona.Dv)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.profesional.Persona.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.profesional.Persona.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.profesional.Persona.ApPaterno)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.profesional.Persona.ApPaterno)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.profesional.Persona.ApMaterno)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.profesional.Persona.ApMaterno)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.profesional.Profesion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profesional.Profesion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.profesional.NumeroSuperintendencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profesional.NumeroSuperintendencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.profesional.Telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profesional.Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.profesional.Correo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profesional.Correo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.profesional.ValorDocente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profesional.ValorDocente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.profesional.DocenciaHospitalaria.NombreDocenciaHospitalaria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profesional.DocenciaHospitalaria.NombreDocenciaHospitalaria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.profesional.Inmunizacion.NombreInmunizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profesional.Inmunizacion.NombreInmunizacion)
+        </dd>
+
+    </dl>
+</div>
+<table class="table" id="tablaDetalleCampos">
+    <thead>
+        <tr>
+
+            <th>
+                Rut
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                ApPaterno
+            </th>
+            <th>
+                ApMaterno
+            </th>
+            <th>
+                Carrera
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.listaCamposClinicos)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alumno.Persona.Rut)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alumno.Persona.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alumno.Persona.ApPaterno)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alumno.Persona.ApMaterno)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alumno.CentroFormador.Carrera.NombreCarrera)
+                </td>
+
+                <td>
+
+                                @Html.ActionLink("Detalles", "Details","Alumnos", new { id = item.Id },null)
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.ProfesionalDocenteGuiaId }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#tablaDetalleCampos').DataTable({
+                "sDom": '<"top"ip>rt<"clear">',
+                "bLengthChange": false,
+                "iDisplayLength": 10,
+                "bFilter": false,
+                "aaSorting": [[0, "asc"]],
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "oLanguage": {
+                    "sLengthMenu": "Mostrar _MENU_ registros por página",
+                    "sZeroRecords": "No se encontraron resultados.",
+                    "sInfo": "Mostrando _START_ al _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 al 0 de 0 registros",
+                    "sInfoFiltered": "(filtrado(s) de _MAX_ registro(s))",
+                    "oPaginate": {
+                        "sFirst": "Inicio",
+                        "sLast": "Final",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    }
+                },
+                "aoColumnDefs": []
+            });
+        });
+</script>
+

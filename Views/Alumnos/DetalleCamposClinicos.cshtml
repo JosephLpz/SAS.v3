@@ -1,0 +1,106 @@
+﻿@using SAS.v1.Models
+
+@model  IEnumerable<CampoClinicoAlumno>
+
+@{
+    ViewBag.Title = "Detalle Campos Clinicos";
+}
+
+<h2>Detalle Campos Clinicos</h2>
+
+    <table class="table" id="tablaDetalleCampos">
+        <thead>
+            <tr>
+                
+                <th>
+                    @Html.DisplayNameFor(model => model.UnidadDeServicio.NombreUnidadDeServicio.NombreUnidadDeServicio1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnidadDeServicio.CampoClinico.NombreCampoClinico.NombreCampo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnidadDeServicio.CampoClinico.Institucion.NombreInstitucion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Periodo.NombreJornada)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Periodo.FechaInicio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Periodo.FechaTermino)
+                </th>
+
+                @*<th>
+                    @Html.DisplayNameFor(model => model.Carrera)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Inmunizacion)
+                </th>*@
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.AlumnoId)
+                        </td>*@
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnidadDeServicio.NombreUnidadDeServicio.NombreUnidadDeServicio1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnidadDeServicio.CampoClinico.NombreCampoClinico.NombreCampo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnidadDeServicio.CampoClinico.Institucion.NombreInstitucion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Periodo.NombreJornada.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Periodo.FInicio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Periodo.FTermino)
+                    </td>
+
+                    <td>
+
+                        @Html.ActionLink("Detalles", "Details", new { id = item.Id })
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#tablaDetalleCampos').DataTable({
+                "sDom": '<"top"ip>rt<"clear">',
+                "bLengthChange": false,
+                "iDisplayLength": 10,
+                "bFilter": false,
+                "aaSorting": [[0, "asc"]],
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "oLanguage": {
+                    "sLengthMenu": "Mostrar _MENU_ registros por página",
+                    "sZeroRecords": "No se encontraron resultados.",
+                    "sInfo": "Mostrando _START_ al _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 al 0 de 0 registros",
+                    "sInfoFiltered": "(filtrado(s) de _MAX_ registro(s))",
+                    "oPaginate": {
+                        "sFirst": "Inicio",
+                        "sLast": "Final",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    }
+                },
+                "aoColumnDefs": []
+            });
+        });
+    </script>
+

@@ -1,0 +1,230 @@
+﻿@model  SAS.v1.Models.CampoClinicoAlumno
+
+@{
+    ViewBag.Title = "Detalles Alumno";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Alumno</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Alumno.Persona.Rut)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alumno.Persona.Rut)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alumno.Persona.Dv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alumno.Persona.Dv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alumno.Persona.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alumno.Persona.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alumno.Persona.ApPaterno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alumno.Persona.ApPaterno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alumno.Persona.ApMaterno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alumno.Persona.ApMaterno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alumno.CursoNivel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alumno.CursoNivel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alumno.Observaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alumno.Observaciones)
+        </dd>
+        <dt>
+            Centro Fromador:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Alumno.CentroFormador.NombreCentroFormador.NombreCentroFormador1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alumno.Inmunizacion.NombreInmunizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alumno.Inmunizacion.NombreInmunizacion)
+        </dd>
+    </dl>
+    <hr />
+    <h4>Docente Guía</h4>
+    <dl class="dl-horizontal">
+        <dt>Rut
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalDocenteGuia.Persona.Rut)-@Html.DisplayFor(model => model.ProfesionalDocenteGuia.Persona.Dv)
+        </dd>
+        <dt>
+            Nombre
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalDocenteGuia.Persona.Nombre)
+        </dd>
+        <dt>
+            Apellidos
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalDocenteGuia.Persona.ApPaterno) @Html.DisplayFor(model => model.ProfesionalDocenteGuia.Persona.ApMaterno)
+        </dd>
+        <dt>
+            Profesion
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalDocenteGuia.Profesion)
+        </dd>
+        <dt>
+           N° SuperIntendencia
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalDocenteGuia.NumeroSuperintendencia)
+        </dd>
+        <dt>
+            Telefono
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalDocenteGuia.Telefono)
+        </dd>
+        <dt>
+            Correo
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalDocenteGuia.Correo)
+        </dd>
+        <dt>
+            Valor
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalDocenteGuia.ValorDocente)
+        </dd>
+        <dt>
+            Docencia Hospitalaria
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalDocenteGuia.DocenciaHospitalaria.NombreDocenciaHospitalaria)
+        </dd>
+        <dt>
+            Inmunización
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalDocenteGuia.Inmunizacion.NombreInmunizacion)
+        </dd>
+    </dl>
+    <hr />
+    <h4>Profesional Supervisor</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            Rut
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.Rut)-@Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.Dv)
+        </dd>
+        <dt>
+            Nombre
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.Nombre)
+        </dd>
+        <dt>
+            Apellidos
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.ApPaterno) @Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.ApMaterno)
+        </dd>
+        <dt>
+            Valor
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalSupervidor.ValorSupervisor)
+        </dd>
+        <dt>
+            Observaciones
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProfesionalSupervidor.Observaciones)
+        </dd>
+    </dl>
+    <hr />
+    <h4>Campo Clinico</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            Unidad de Servicio
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UnidadDeServicio.NombreUnidadDeServicio.NombreUnidadDeServicio1)
+        </dd>
+        <dt>
+            Campo Clinico
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UnidadDeServicio.CampoClinico.NombreCampoClinico.NombreCampo)
+        </dd>
+        <dt>
+           Institución
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UnidadDeServicio.CampoClinico.Institucion.NombreInstitucion)
+        </dd>
+        <dt>
+            Periodo
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Periodo.NombreJornada.Nombre)
+        </dd>
+        <dt>
+            Desde - Hasta
+        </dt>
+        <dd>
+            @*@Html.DisplayFor(model => model.Periodo.FechaInicio)-@Html.DisplayFor(model => model.Periodo.FechaTermino)*@
+           @Html.DisplayFor(model => model.Periodo.DesdeHasta)
+        </dd>
+        <dt>Días</dt>
+        <dd>
+                        @foreach (var item in Model.CampoClinicoAlumnoDias)
+                        {
+                            @Html.DisplayFor(modelItem => item.Dias.Dia)<p>-</p>
+                        }
+            
+        </dd>
+        
+        
+    </dl>
+             
+</div>
+<p>
+    
+    @Html.ActionLink("Back to List", "Index")
+</p>
