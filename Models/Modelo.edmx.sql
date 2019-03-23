@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/10/2018 17:13:58
--- Generated from EDMX file: D:\ProyectoAreaSalud.v4\SAS.v3\SAS.v3\Models\Modelo.edmx
+-- Date Created: 01/10/2019 18:41:32
+-- Generated from EDMX file: D:\Proyecto area Salud\SES\SAS.v3\SAS.v3\Models\Modelo.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [BD_SAS.v6];
+USE [BD_SES.v9];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -29,14 +29,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoDiasDias]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CampoClinicoAlumnoDiasSet] DROP CONSTRAINT [FK_CampoClinicoAlumnoDiasDias];
 GO
-IF OBJECT_ID(N'[dbo].[FK_UnidadDeServicioNombreUnidadDeServicio]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UnidadDeServicios] DROP CONSTRAINT [FK_UnidadDeServicioNombreUnidadDeServicio];
-GO
 IF OBJECT_ID(N'[dbo].[FK_CampoClinicoNombreCampoClinico]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CampoClinicos] DROP CONSTRAINT [FK_CampoClinicoNombreCampoClinico];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UnidadDeServicioCampoClinico]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UnidadDeServicios] DROP CONSTRAINT [FK_UnidadDeServicioCampoClinico];
 GO
 IF OBJECT_ID(N'[dbo].[FK_InstitucionCampoClinico]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CampoClinicos] DROP CONSTRAINT [FK_InstitucionCampoClinico];
@@ -50,6 +44,33 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_AlumnoCentroFormador]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Alumnos] DROP CONSTRAINT [FK_AlumnoCentroFormador];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ProfesionalSupervidorPersona]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProfesionalSupervisorSet] DROP CONSTRAINT [FK_ProfesionalSupervidorPersona];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoAlumno]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CampoClinicoAlumnos] DROP CONSTRAINT [FK_CampoClinicoAlumnoAlumno];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoProfesionalSupervidor]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CampoClinicoAlumnos] DROP CONSTRAINT [FK_CampoClinicoAlumnoProfesionalSupervidor];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoPeriodo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CampoClinicoAlumnos] DROP CONSTRAINT [FK_CampoClinicoAlumnoPeriodo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoDiasCampoClinicoAlumno]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CampoClinicoAlumnoDiasSet] DROP CONSTRAINT [FK_CampoClinicoAlumnoDiasCampoClinicoAlumno];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoAsignatura]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CampoClinicoAlumnos] DROP CONSTRAINT [FK_CampoClinicoAlumnoAsignatura];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoSemestre]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CampoClinicoAlumnos] DROP CONSTRAINT [FK_CampoClinicoAlumnoSemestre];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoAnio]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CampoClinicoAlumnos] DROP CONSTRAINT [FK_CampoClinicoAlumnoAnio];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoCampoClinico]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CampoClinicoAlumnos] DROP CONSTRAINT [FK_CampoClinicoAlumnoCampoClinico];
+GO
 IF OBJECT_ID(N'[dbo].[FK_ProfesionalDocenteGuiaPersona]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ProfesionalDocenteGuias] DROP CONSTRAINT [FK_ProfesionalDocenteGuiaPersona];
 GO
@@ -59,26 +80,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ProfesionalDocenteGuiaInmunizacion]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ProfesionalDocenteGuias] DROP CONSTRAINT [FK_ProfesionalDocenteGuiaInmunizacion];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ProfesionalSupervidorPersona]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ProfesionalSupervisorSet] DROP CONSTRAINT [FK_ProfesionalSupervidorPersona];
-GO
-IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoAlumno]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CampoClinicoAlumnos] DROP CONSTRAINT [FK_CampoClinicoAlumnoAlumno];
-GO
-IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoProfesionalDocenteGuia]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CampoClinicoAlumnos] DROP CONSTRAINT [FK_CampoClinicoAlumnoProfesionalDocenteGuia];
-GO
-IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoProfesionalSupervidor]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CampoClinicoAlumnos] DROP CONSTRAINT [FK_CampoClinicoAlumnoProfesionalSupervidor];
-GO
-IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoUnidadDeServicio]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CampoClinicoAlumnos] DROP CONSTRAINT [FK_CampoClinicoAlumnoUnidadDeServicio];
-GO
-IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoPeriodo]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CampoClinicoAlumnos] DROP CONSTRAINT [FK_CampoClinicoAlumnoPeriodo];
-GO
-IF OBJECT_ID(N'[dbo].[FK_CampoClinicoAlumnoDiasCampoClinicoAlumno]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CampoClinicoAlumnoDiasSet] DROP CONSTRAINT [FK_CampoClinicoAlumnoDiasCampoClinicoAlumno];
+IF OBJECT_ID(N'[dbo].[FK_ProfesionalDocenteGuiaCampoClinicoAlumno]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CampoClinicoAlumnos] DROP CONSTRAINT [FK_ProfesionalDocenteGuiaCampoClinicoAlumno];
 GO
 
 -- --------------------------------------------------
@@ -112,14 +115,8 @@ GO
 IF OBJECT_ID(N'[dbo].[Periodos]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Periodos];
 GO
-IF OBJECT_ID(N'[dbo].[UnidadDeServicios]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UnidadDeServicios];
-GO
 IF OBJECT_ID(N'[dbo].[CampoClinicoAlumnoDiasSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[CampoClinicoAlumnoDiasSet];
-GO
-IF OBJECT_ID(N'[dbo].[NombreUnidadDeServicios]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[NombreUnidadDeServicios];
 GO
 IF OBJECT_ID(N'[dbo].[NombreCampoClinicoSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[NombreCampoClinicoSet];
@@ -136,11 +133,20 @@ GO
 IF OBJECT_ID(N'[dbo].[Alumnos]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Alumnos];
 GO
-IF OBJECT_ID(N'[dbo].[ProfesionalDocenteGuias]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ProfesionalDocenteGuias];
-GO
 IF OBJECT_ID(N'[dbo].[ProfesionalSupervisorSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProfesionalSupervisorSet];
+GO
+IF OBJECT_ID(N'[dbo].[Asignaturas]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Asignaturas];
+GO
+IF OBJECT_ID(N'[dbo].[Semestres]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Semestres];
+GO
+IF OBJECT_ID(N'[dbo].[Anios]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Anios];
+GO
+IF OBJECT_ID(N'[dbo].[ProfesionalDocenteGuias]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProfesionalDocenteGuias];
 GO
 
 -- --------------------------------------------------
@@ -217,26 +223,11 @@ CREATE TABLE [dbo].[Periodos] (
 );
 GO
 
--- Creating table 'UnidadDeServicios'
-CREATE TABLE [dbo].[UnidadDeServicios] (
-    [UnidadDeServicioId] int IDENTITY(1,1) NOT NULL,
-    [NombreUnidadDeServicioId] int  NOT NULL,
-    [CampoClinicoId] int  NOT NULL
-);
-GO
-
 -- Creating table 'CampoClinicoAlumnoDiasSet'
 CREATE TABLE [dbo].[CampoClinicoAlumnoDiasSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [DiasDiasId] int  NOT NULL,
     [CampoClinicoAlumnoId] int  NOT NULL
-);
-GO
-
--- Creating table 'NombreUnidadDeServicios'
-CREATE TABLE [dbo].[NombreUnidadDeServicios] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [NombreUnidadDeServicio1] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -266,10 +257,14 @@ GO
 CREATE TABLE [dbo].[CampoClinicoAlumnos] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [AlumnoAlumnoId] int  NOT NULL,
-    [ProfesionalDocenteGuiaProfesionalDocenteGuiaId] int  NOT NULL,
     [ProfesionalSupervidorProfesionalSupervisorId] int  NOT NULL,
     [UnidadDeServicioUnidadDeServicioId] int  NOT NULL,
-    [PeriodoPeriodoId] int  NOT NULL
+    [PeriodoPeriodoId] int  NOT NULL,
+    [AsignaturaId] int  NOT NULL,
+    [SemestreId] int  NOT NULL,
+    [AnioId] int  NOT NULL,
+    [CampoClinicoId] int  NOT NULL,
+    [ProfesionalDocenteGuiaProfesionalDocenteGuiaId] int  NOT NULL
 );
 GO
 
@@ -284,25 +279,67 @@ CREATE TABLE [dbo].[Alumnos] (
 );
 GO
 
+-- Creating table 'ProfesionalSupervisorSet'
+CREATE TABLE [dbo].[ProfesionalSupervisorSet] (
+    [ProfesionalSupervisorId] int IDENTITY(1,1) NOT NULL,
+    [ValorSupervisor] int  NOT NULL,
+    [Observaciones] nvarchar(max)  NOT NULL,
+    [PersonaPersonaId] int  NOT NULL
+);
+GO
+
+-- Creating table 'Asignaturas'
+CREATE TABLE [dbo].[Asignaturas] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [NombreAsignatura] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'Semestres'
+CREATE TABLE [dbo].[Semestres] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [NombreSemestre] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'Anios'
+CREATE TABLE [dbo].[Anios] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Ano] nvarchar(max)  NOT NULL
+);
+GO
+
 -- Creating table 'ProfesionalDocenteGuias'
 CREATE TABLE [dbo].[ProfesionalDocenteGuias] (
     [ProfesionalDocenteGuiaId] int IDENTITY(1,1) NOT NULL,
     [Profesion] nvarchar(max)  NOT NULL,
-    [NumeroSuperintendencia] int  NOT NULL,
+    [NumeroSuperintendencia] bigint  NOT NULL,
     [Telefono] bigint  NOT NULL,
     [Correo] nvarchar(max)  NOT NULL,
-    [ValorDocente] int  NOT NULL,
+    [CumpleDatos] nvarchar(max)  NOT NULL,
+    [ValorDocente] bigint  NOT NULL,
     [PersonaPersonaId] int  NOT NULL,
     [DocenciaHospitalariaDocenciaHospitalariaId] int  NOT NULL,
     [InmunizacionInmunizacionId] int  NOT NULL
 );
 GO
 
--- Creating table 'ProfesionalSupervisorSet'
-CREATE TABLE [dbo].[ProfesionalSupervisorSet] (
-    [ProfesionalSupervisorId] int IDENTITY(1,1) NOT NULL,
-    [ValorSupervisor] int  NOT NULL,
-    [Observaciones] nvarchar(max)  NOT NULL,
+-- Creating table 'PerfilUsuarios'
+CREATE TABLE [dbo].[PerfilUsuarios] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Perfil] nvarchar(max)  NOT NULL,
+    [Estado] nvarchar(max)  NOT NULL,
+    [UsuarioId] int  NOT NULL
+);
+GO
+
+-- Creating table 'Usuarios'
+CREATE TABLE [dbo].[Usuarios] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Cuenta] nvarchar(max)  NOT NULL,
+    [Password] nvarchar(max)  NOT NULL,
+    [Correo] nvarchar(max)  NOT NULL,
+    [Estado] nvarchar(max)  NOT NULL,
     [PersonaPersonaId] int  NOT NULL
 );
 GO
@@ -365,21 +402,9 @@ ADD CONSTRAINT [PK_Periodos]
     PRIMARY KEY CLUSTERED ([PeriodoId] ASC);
 GO
 
--- Creating primary key on [UnidadDeServicioId] in table 'UnidadDeServicios'
-ALTER TABLE [dbo].[UnidadDeServicios]
-ADD CONSTRAINT [PK_UnidadDeServicios]
-    PRIMARY KEY CLUSTERED ([UnidadDeServicioId] ASC);
-GO
-
 -- Creating primary key on [Id] in table 'CampoClinicoAlumnoDiasSet'
 ALTER TABLE [dbo].[CampoClinicoAlumnoDiasSet]
 ADD CONSTRAINT [PK_CampoClinicoAlumnoDiasSet]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'NombreUnidadDeServicios'
-ALTER TABLE [dbo].[NombreUnidadDeServicios]
-ADD CONSTRAINT [PK_NombreUnidadDeServicios]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -413,16 +438,46 @@ ADD CONSTRAINT [PK_Alumnos]
     PRIMARY KEY CLUSTERED ([AlumnoId] ASC);
 GO
 
+-- Creating primary key on [ProfesionalSupervisorId] in table 'ProfesionalSupervisorSet'
+ALTER TABLE [dbo].[ProfesionalSupervisorSet]
+ADD CONSTRAINT [PK_ProfesionalSupervisorSet]
+    PRIMARY KEY CLUSTERED ([ProfesionalSupervisorId] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Asignaturas'
+ALTER TABLE [dbo].[Asignaturas]
+ADD CONSTRAINT [PK_Asignaturas]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Semestres'
+ALTER TABLE [dbo].[Semestres]
+ADD CONSTRAINT [PK_Semestres]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Anios'
+ALTER TABLE [dbo].[Anios]
+ADD CONSTRAINT [PK_Anios]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- Creating primary key on [ProfesionalDocenteGuiaId] in table 'ProfesionalDocenteGuias'
 ALTER TABLE [dbo].[ProfesionalDocenteGuias]
 ADD CONSTRAINT [PK_ProfesionalDocenteGuias]
     PRIMARY KEY CLUSTERED ([ProfesionalDocenteGuiaId] ASC);
 GO
 
--- Creating primary key on [ProfesionalSupervisorId] in table 'ProfesionalSupervisorSet'
-ALTER TABLE [dbo].[ProfesionalSupervisorSet]
-ADD CONSTRAINT [PK_ProfesionalSupervisorSet]
-    PRIMARY KEY CLUSTERED ([ProfesionalSupervisorId] ASC);
+-- Creating primary key on [Id] in table 'PerfilUsuarios'
+ALTER TABLE [dbo].[PerfilUsuarios]
+ADD CONSTRAINT [PK_PerfilUsuarios]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Usuarios'
+ALTER TABLE [dbo].[Usuarios]
+ADD CONSTRAINT [PK_Usuarios]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -489,21 +544,6 @@ ON [dbo].[CampoClinicoAlumnoDiasSet]
     ([DiasDiasId]);
 GO
 
--- Creating foreign key on [NombreUnidadDeServicioId] in table 'UnidadDeServicios'
-ALTER TABLE [dbo].[UnidadDeServicios]
-ADD CONSTRAINT [FK_UnidadDeServicioNombreUnidadDeServicio]
-    FOREIGN KEY ([NombreUnidadDeServicioId])
-    REFERENCES [dbo].[NombreUnidadDeServicios]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UnidadDeServicioNombreUnidadDeServicio'
-CREATE INDEX [IX_FK_UnidadDeServicioNombreUnidadDeServicio]
-ON [dbo].[UnidadDeServicios]
-    ([NombreUnidadDeServicioId]);
-GO
-
 -- Creating foreign key on [NombreCampoClinicoId] in table 'CampoClinicos'
 ALTER TABLE [dbo].[CampoClinicos]
 ADD CONSTRAINT [FK_CampoClinicoNombreCampoClinico]
@@ -517,21 +557,6 @@ GO
 CREATE INDEX [IX_FK_CampoClinicoNombreCampoClinico]
 ON [dbo].[CampoClinicos]
     ([NombreCampoClinicoId]);
-GO
-
--- Creating foreign key on [CampoClinicoId] in table 'UnidadDeServicios'
-ALTER TABLE [dbo].[UnidadDeServicios]
-ADD CONSTRAINT [FK_UnidadDeServicioCampoClinico]
-    FOREIGN KEY ([CampoClinicoId])
-    REFERENCES [dbo].[CampoClinicos]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UnidadDeServicioCampoClinico'
-CREATE INDEX [IX_FK_UnidadDeServicioCampoClinico]
-ON [dbo].[UnidadDeServicios]
-    ([CampoClinicoId]);
 GO
 
 -- Creating foreign key on [InstitucionId] in table 'CampoClinicos'
@@ -594,6 +619,141 @@ ON [dbo].[Alumnos]
     ([CentroFormadorCentroFormadorId]);
 GO
 
+-- Creating foreign key on [PersonaPersonaId] in table 'ProfesionalSupervisorSet'
+ALTER TABLE [dbo].[ProfesionalSupervisorSet]
+ADD CONSTRAINT [FK_ProfesionalSupervidorPersona]
+    FOREIGN KEY ([PersonaPersonaId])
+    REFERENCES [dbo].[Personas]
+        ([PersonaId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProfesionalSupervidorPersona'
+CREATE INDEX [IX_FK_ProfesionalSupervidorPersona]
+ON [dbo].[ProfesionalSupervisorSet]
+    ([PersonaPersonaId]);
+GO
+
+-- Creating foreign key on [AlumnoAlumnoId] in table 'CampoClinicoAlumnos'
+ALTER TABLE [dbo].[CampoClinicoAlumnos]
+ADD CONSTRAINT [FK_CampoClinicoAlumnoAlumno]
+    FOREIGN KEY ([AlumnoAlumnoId])
+    REFERENCES [dbo].[Alumnos]
+        ([AlumnoId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CampoClinicoAlumnoAlumno'
+CREATE INDEX [IX_FK_CampoClinicoAlumnoAlumno]
+ON [dbo].[CampoClinicoAlumnos]
+    ([AlumnoAlumnoId]);
+GO
+
+-- Creating foreign key on [ProfesionalSupervidorProfesionalSupervisorId] in table 'CampoClinicoAlumnos'
+ALTER TABLE [dbo].[CampoClinicoAlumnos]
+ADD CONSTRAINT [FK_CampoClinicoAlumnoProfesionalSupervidor]
+    FOREIGN KEY ([ProfesionalSupervidorProfesionalSupervisorId])
+    REFERENCES [dbo].[ProfesionalSupervisorSet]
+        ([ProfesionalSupervisorId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CampoClinicoAlumnoProfesionalSupervidor'
+CREATE INDEX [IX_FK_CampoClinicoAlumnoProfesionalSupervidor]
+ON [dbo].[CampoClinicoAlumnos]
+    ([ProfesionalSupervidorProfesionalSupervisorId]);
+GO
+
+-- Creating foreign key on [PeriodoPeriodoId] in table 'CampoClinicoAlumnos'
+ALTER TABLE [dbo].[CampoClinicoAlumnos]
+ADD CONSTRAINT [FK_CampoClinicoAlumnoPeriodo]
+    FOREIGN KEY ([PeriodoPeriodoId])
+    REFERENCES [dbo].[Periodos]
+        ([PeriodoId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CampoClinicoAlumnoPeriodo'
+CREATE INDEX [IX_FK_CampoClinicoAlumnoPeriodo]
+ON [dbo].[CampoClinicoAlumnos]
+    ([PeriodoPeriodoId]);
+GO
+
+-- Creating foreign key on [CampoClinicoAlumnoId] in table 'CampoClinicoAlumnoDiasSet'
+ALTER TABLE [dbo].[CampoClinicoAlumnoDiasSet]
+ADD CONSTRAINT [FK_CampoClinicoAlumnoDiasCampoClinicoAlumno]
+    FOREIGN KEY ([CampoClinicoAlumnoId])
+    REFERENCES [dbo].[CampoClinicoAlumnos]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CampoClinicoAlumnoDiasCampoClinicoAlumno'
+CREATE INDEX [IX_FK_CampoClinicoAlumnoDiasCampoClinicoAlumno]
+ON [dbo].[CampoClinicoAlumnoDiasSet]
+    ([CampoClinicoAlumnoId]);
+GO
+
+-- Creating foreign key on [AsignaturaId] in table 'CampoClinicoAlumnos'
+ALTER TABLE [dbo].[CampoClinicoAlumnos]
+ADD CONSTRAINT [FK_CampoClinicoAlumnoAsignatura]
+    FOREIGN KEY ([AsignaturaId])
+    REFERENCES [dbo].[Asignaturas]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CampoClinicoAlumnoAsignatura'
+CREATE INDEX [IX_FK_CampoClinicoAlumnoAsignatura]
+ON [dbo].[CampoClinicoAlumnos]
+    ([AsignaturaId]);
+GO
+
+-- Creating foreign key on [SemestreId] in table 'CampoClinicoAlumnos'
+ALTER TABLE [dbo].[CampoClinicoAlumnos]
+ADD CONSTRAINT [FK_CampoClinicoAlumnoSemestre]
+    FOREIGN KEY ([SemestreId])
+    REFERENCES [dbo].[Semestres]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CampoClinicoAlumnoSemestre'
+CREATE INDEX [IX_FK_CampoClinicoAlumnoSemestre]
+ON [dbo].[CampoClinicoAlumnos]
+    ([SemestreId]);
+GO
+
+-- Creating foreign key on [AnioId] in table 'CampoClinicoAlumnos'
+ALTER TABLE [dbo].[CampoClinicoAlumnos]
+ADD CONSTRAINT [FK_CampoClinicoAlumnoAnio]
+    FOREIGN KEY ([AnioId])
+    REFERENCES [dbo].[Anios]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CampoClinicoAlumnoAnio'
+CREATE INDEX [IX_FK_CampoClinicoAlumnoAnio]
+ON [dbo].[CampoClinicoAlumnos]
+    ([AnioId]);
+GO
+
+-- Creating foreign key on [CampoClinicoId] in table 'CampoClinicoAlumnos'
+ALTER TABLE [dbo].[CampoClinicoAlumnos]
+ADD CONSTRAINT [FK_CampoClinicoAlumnoCampoClinico]
+    FOREIGN KEY ([CampoClinicoId])
+    REFERENCES [dbo].[CampoClinicos]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CampoClinicoAlumnoCampoClinico'
+CREATE INDEX [IX_FK_CampoClinicoAlumnoCampoClinico]
+ON [dbo].[CampoClinicoAlumnos]
+    ([CampoClinicoId]);
+GO
+
 -- Creating foreign key on [PersonaPersonaId] in table 'ProfesionalDocenteGuias'
 ALTER TABLE [dbo].[ProfesionalDocenteGuias]
 ADD CONSTRAINT [FK_ProfesionalDocenteGuiaPersona]
@@ -639,109 +799,49 @@ ON [dbo].[ProfesionalDocenteGuias]
     ([InmunizacionInmunizacionId]);
 GO
 
--- Creating foreign key on [PersonaPersonaId] in table 'ProfesionalSupervisorSet'
-ALTER TABLE [dbo].[ProfesionalSupervisorSet]
-ADD CONSTRAINT [FK_ProfesionalSupervidorPersona]
-    FOREIGN KEY ([PersonaPersonaId])
-    REFERENCES [dbo].[Personas]
-        ([PersonaId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ProfesionalSupervidorPersona'
-CREATE INDEX [IX_FK_ProfesionalSupervidorPersona]
-ON [dbo].[ProfesionalSupervisorSet]
-    ([PersonaPersonaId]);
-GO
-
--- Creating foreign key on [AlumnoAlumnoId] in table 'CampoClinicoAlumnos'
-ALTER TABLE [dbo].[CampoClinicoAlumnos]
-ADD CONSTRAINT [FK_CampoClinicoAlumnoAlumno]
-    FOREIGN KEY ([AlumnoAlumnoId])
-    REFERENCES [dbo].[Alumnos]
-        ([AlumnoId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_CampoClinicoAlumnoAlumno'
-CREATE INDEX [IX_FK_CampoClinicoAlumnoAlumno]
-ON [dbo].[CampoClinicoAlumnos]
-    ([AlumnoAlumnoId]);
-GO
-
 -- Creating foreign key on [ProfesionalDocenteGuiaProfesionalDocenteGuiaId] in table 'CampoClinicoAlumnos'
 ALTER TABLE [dbo].[CampoClinicoAlumnos]
-ADD CONSTRAINT [FK_CampoClinicoAlumnoProfesionalDocenteGuia]
+ADD CONSTRAINT [FK_ProfesionalDocenteGuiaCampoClinicoAlumno]
     FOREIGN KEY ([ProfesionalDocenteGuiaProfesionalDocenteGuiaId])
     REFERENCES [dbo].[ProfesionalDocenteGuias]
         ([ProfesionalDocenteGuiaId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_CampoClinicoAlumnoProfesionalDocenteGuia'
-CREATE INDEX [IX_FK_CampoClinicoAlumnoProfesionalDocenteGuia]
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProfesionalDocenteGuiaCampoClinicoAlumno'
+CREATE INDEX [IX_FK_ProfesionalDocenteGuiaCampoClinicoAlumno]
 ON [dbo].[CampoClinicoAlumnos]
     ([ProfesionalDocenteGuiaProfesionalDocenteGuiaId]);
 GO
 
--- Creating foreign key on [ProfesionalSupervidorProfesionalSupervisorId] in table 'CampoClinicoAlumnos'
-ALTER TABLE [dbo].[CampoClinicoAlumnos]
-ADD CONSTRAINT [FK_CampoClinicoAlumnoProfesionalSupervidor]
-    FOREIGN KEY ([ProfesionalSupervidorProfesionalSupervisorId])
-    REFERENCES [dbo].[ProfesionalSupervisorSet]
-        ([ProfesionalSupervisorId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_CampoClinicoAlumnoProfesionalSupervidor'
-CREATE INDEX [IX_FK_CampoClinicoAlumnoProfesionalSupervidor]
-ON [dbo].[CampoClinicoAlumnos]
-    ([ProfesionalSupervidorProfesionalSupervisorId]);
-GO
-
--- Creating foreign key on [UnidadDeServicioUnidadDeServicioId] in table 'CampoClinicoAlumnos'
-ALTER TABLE [dbo].[CampoClinicoAlumnos]
-ADD CONSTRAINT [FK_CampoClinicoAlumnoUnidadDeServicio]
-    FOREIGN KEY ([UnidadDeServicioUnidadDeServicioId])
-    REFERENCES [dbo].[UnidadDeServicios]
-        ([UnidadDeServicioId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_CampoClinicoAlumnoUnidadDeServicio'
-CREATE INDEX [IX_FK_CampoClinicoAlumnoUnidadDeServicio]
-ON [dbo].[CampoClinicoAlumnos]
-    ([UnidadDeServicioUnidadDeServicioId]);
-GO
-
--- Creating foreign key on [PeriodoPeriodoId] in table 'CampoClinicoAlumnos'
-ALTER TABLE [dbo].[CampoClinicoAlumnos]
-ADD CONSTRAINT [FK_CampoClinicoAlumnoPeriodo]
-    FOREIGN KEY ([PeriodoPeriodoId])
-    REFERENCES [dbo].[Periodos]
-        ([PeriodoId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_CampoClinicoAlumnoPeriodo'
-CREATE INDEX [IX_FK_CampoClinicoAlumnoPeriodo]
-ON [dbo].[CampoClinicoAlumnos]
-    ([PeriodoPeriodoId]);
-GO
-
--- Creating foreign key on [CampoClinicoAlumnoId] in table 'CampoClinicoAlumnoDiasSet'
-ALTER TABLE [dbo].[CampoClinicoAlumnoDiasSet]
-ADD CONSTRAINT [FK_CampoClinicoAlumnoDiasCampoClinicoAlumno]
-    FOREIGN KEY ([CampoClinicoAlumnoId])
-    REFERENCES [dbo].[CampoClinicoAlumnos]
+-- Creating foreign key on [UsuarioId] in table 'PerfilUsuarios'
+ALTER TABLE [dbo].[PerfilUsuarios]
+ADD CONSTRAINT [FK_UsuarioPerfilUsuario]
+    FOREIGN KEY ([UsuarioId])
+    REFERENCES [dbo].[Usuarios]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_CampoClinicoAlumnoDiasCampoClinicoAlumno'
-CREATE INDEX [IX_FK_CampoClinicoAlumnoDiasCampoClinicoAlumno]
-ON [dbo].[CampoClinicoAlumnoDiasSet]
-    ([CampoClinicoAlumnoId]);
+-- Creating non-clustered index for FOREIGN KEY 'FK_UsuarioPerfilUsuario'
+CREATE INDEX [IX_FK_UsuarioPerfilUsuario]
+ON [dbo].[PerfilUsuarios]
+    ([UsuarioId]);
+GO
+
+-- Creating foreign key on [PersonaPersonaId] in table 'Usuarios'
+ALTER TABLE [dbo].[Usuarios]
+ADD CONSTRAINT [FK_UsuarioPersona]
+    FOREIGN KEY ([PersonaPersonaId])
+    REFERENCES [dbo].[Personas]
+        ([PersonaId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UsuarioPersona'
+CREATE INDEX [IX_FK_UsuarioPersona]
+ON [dbo].[Usuarios]
+    ([PersonaPersonaId]);
 GO
 
 -- --------------------------------------------------

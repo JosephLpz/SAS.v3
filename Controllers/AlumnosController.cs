@@ -31,15 +31,16 @@ namespace SAS.v1.Controllers
         [HttpPost]
         public ActionResult Index(string Filtro)
         {
-            AlumnosServices ListaAlumno = new AlumnosServices();
+            //AlumnosServices ListaAlumno = new AlumnosServices();
             List<Alumno> alumnos = new List<Alumno>();
             //List<AlumnoNP> alumnos = ListaAlumno.ListaAlumnos(Filtro);
             if (Filtro == null || Filtro == "")
             {
                 alumnos = db.Alumnos.Include(p => p.Persona).ToList();
-            }else
+            } else
             {
-            alumnos = db.Alumnos.Include(p => p.Persona).Where(p=>p.Persona.Rut==Filtro).ToList();
+                alumnos = db.Alumnos.Include(p => p.Persona).Where(p => p.Persona.Rut.Contains(Filtro) || p.Persona.Nombre.Contains(Filtro) 
+                || p.Persona.ApPaterno.Contains(Filtro) || p.CentroFormador.Carrera.NombreCarrera.Contains(Filtro)).ToList();
             }
             
             return View(alumnos);
@@ -58,105 +59,153 @@ namespace SAS.v1.Controllers
           // }
                            AlumnosServices AlumnoServ = new AlumnosServices();
                            CampoClinicoAlumno CampoAlumnos = AlumnoServ.DatosCampoClinico(id);
+
            return View(CampoAlumnos);
        }
 
        public ActionResult DetalleCamposClinicos(int? id)
         {
-            AlumnosServices CampoAlumnos = new AlumnosServices();
-            List<CampoClinicoAlumno> listaCamposAlumnos = CampoAlumnos.DatosCampoClinicoAlumnos(id);
+            //AlumnosServices CampoAlumnos = new AlumnosServices();
+            //List<CampoClinicoAlumno> listaCamposAlumnos = CampoAlumnos.DatosCampoClinicoAlumnos(id);
+            Alumno listaCamposAlumnos = new Alumno();
+            listaCamposAlumnos = db.Alumnos.Find(id);
             return View(listaCamposAlumnos);
 
         }
-       //// GET: Alumnos/Create
-       //public ActionResult Create()
-       //{
-       //    ViewBag.CentroFormadorCentroFormadorId = new SelectList(db.CentroFormadors, "CentroFormadorId", "CentroFormadorId");
-       //    ViewBag.InmunizacionInmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
-       //    return View();
-       //}
+        
+        public ActionResult CamposClinicosSemestres(int? id,string selectValue)
+        {
+            //AlumnosServices CampoAlumnos = new AlumnosServices();
+            //List<CampoClinicoAlumno> listaCamposAlumnos = CampoAlumnos.DatosCampoClinicoAlumnos(id);
+            
+            //Alumno listaCamposAlumnos = new Alumno();
+            //listaCamposAlumnos =(Alumno) db.Alumnos.Where();
+            List<CampoClinicoAlumno> CamposAlumnos = new List<CampoClinicoAlumno>();
+            CamposAlumnos = db.CampoClinicoAlumnos.Where(a => a.Alumno.AlumnoId == id && a.Semestre.NombreSemestre == selectValue).ToList();
+            return View(CamposAlumnos);
 
-       // POST: Alumnos/Create
-       // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-       // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-       //[HttpPost]
-       //[ValidateAntiForgeryToken]
-       //public ActionResult Create([Bind(Include = "PersonaId,Rut,Dv,Nombre,ApPaterno,ApMaterno,AlumnoId,CursoNivel,Observaciones,InmunizacionInmunizacionId,CentroFormadorCentroFormadorId")] Alumno alumno)
-       //{
-       //    if (ModelState.IsValid)
-       //    {
-       //        db.Personas.Add(alumno);
-       //        db.SaveChanges();
-       //        return RedirectToAction("Index");
-       //    }
+        }
+        // GET: MantenedorAlumnos/Create
+        public ActionResult Create()
+        {
+            ViewBag.InmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
+            ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
+            ViewBag.NombreCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
+            return View();
+        }
 
-       //    ViewBag.CentroFormadorCentroFormadorId = new SelectList(db.CentroFormadors, "CentroFormadorId", "CentroFormadorId", alumno.CentroFormadorCentroFormadorId);
-       //    ViewBag.InmunizacionInmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion", alumno.InmunizacionInmunizacionId);
-       //    return View(alumno);
-       //}
+        // POST: MantenedorAlumnos/Create
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,CursoNivel,Observaciones,InmunizacionId,CarreraId,NombreCentroFormadorId")] Persona persona,Alumno alumno,Inmunizacion inmunizacion,Carrera carrera, NombreCentroFormador nombreCentroFormador)
+        {
+            IngresoServices ingresoDatos = new IngresoServices();
+            if (ModelState.IsValid)
+            {
+                 persona = ingresoDatos.CrearPersona(persona,1);
+                CentroFormador centroFormador = ingresoDatos.CrearCentroFormador(nombreCentroFormador.NombreCentroFormadorId,carrera.CarreraId);
 
-       // GET: Alumnos/Edit/5
-       //public ActionResult Edit(int? id)
-       //{
-       //    if (id == null)
-       //    {
-       //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-       //    }
-       //    Alumno alumno = (Alumno)db.Personas.Find(id);
-       //    if (alumno == null)
-       //    {
-       //        return HttpNotFound();
-       //    }
-       //    ViewBag.CentroFormadorCentroFormadorId = new SelectList(db.CentroFormadors, "CentroFormadorId", "CentroFormadorId", alumno.CentroFormadorCentroFormadorId);
-       //    ViewBag.InmunizacionInmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion", alumno.InmunizacionInmunizacionId);
-       //    return View(alumno);
-       //}
+                if (alumno.Observaciones==null)
+                {
+                    alumno.Observaciones = "";
+                }
+                    
+                alumno = ingresoDatos.CrearAlumno(persona, alumno, inmunizacion, centroFormador,1);
 
-       //// POST: Alumnos/Edit/5
-       //// Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-       //// más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-       //[HttpPost]
-       //[ValidateAntiForgeryToken]
-       //public ActionResult Edit([Bind(Include = "PersonaId,Rut,Dv,Nombre,ApPaterno,ApMaterno,AlumnoId,CursoNivel,Observaciones,InmunizacionInmunizacionId,CentroFormadorCentroFormadorId")] Alumno alumno)
-       //{
-       //    if (ModelState.IsValid)
-       //    {
-       //        db.Entry(alumno).State = EntityState.Modified;
-       //        db.SaveChanges();
-       //        return RedirectToAction("Index");
-       //    }
-       //    ViewBag.CentroFormadorCentroFormadorId = new SelectList(db.CentroFormadors, "CentroFormadorId", "CentroFormadorId", alumno.CentroFormadorCentroFormadorId);
-       //    ViewBag.InmunizacionInmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion", alumno.InmunizacionInmunizacionId);
-       //    return View(alumno);
-       //}
+                
+                return RedirectToAction("Create");
+            }
 
-       // GET: Alumnos/Delete/5
-       //public ActionResult Delete(int? id)
-       //{
-       //    if (id == null)
-       //    {
-       //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-       //    }
-       //    Alumno alumno = (Alumno)db.Personas.Find(id);
-       //    if (alumno == null)
-       //    {
-       //        return HttpNotFound();
-       //    }
-       //    return View(alumno);
-       //}
+           
+            ViewBag.InmunizacionInmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
+            ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
+            ViewBag.CentroFormadorCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
+            return View(alumno);
+        }
 
-       //// POST: Alumnos/Delete/5
-       //[HttpPost, ActionName("Delete")]
-       //[ValidateAntiForgeryToken]
-       //public ActionResult DeleteConfirmed(int id)
-       //{
-       //    Alumno alumno = (Alumno)db.Personas.Find(id);
-       //    db.Personas.Remove(alumno);
-       //    db.SaveChanges();
-       //    return RedirectToAction("Index");
-       //}
+        // GET: MantenedorAlumnos/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Alumno alumno = db.Alumnos.Find(id);
+            if (alumno == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.InmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
+            ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
+            ViewBag.NombreCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
+            return View(alumno);
+        }
 
-       protected override void Dispose(bool disposing)
+        // POST: MantenedorAlumnos/Edit/5
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,CursoNivel,Observaciones,InmunizacionId,CarreraId,NombreCentroFormadorId")] Persona persona, Alumno alumno, Inmunizacion inmunizacion, Carrera carrera, NombreCentroFormador nombreCentroFormador)
+        {
+            IngresoServices ingreso = new IngresoServices();
+
+            // obtengo el centro formador
+            CentroFormador centroFormador = new CentroFormador();
+            centroFormador = ingreso.BuscarCentroFormador(nombreCentroFormador.NombreCentroFormadorId,carrera.CarreraId);
+
+            // Utilizo metodo de la clase ingresoServices para poder ingresar y modificar los datos con Estado 1 que indica actualizar
+            if (ModelState.IsValid)
+            {
+                //llamo al metodo crear persona para modificar los datos de persona con el estado 1 de modificar y utilizo el mismo objeto para enviarselo a al metodo de alumno
+                persona = ingreso.CrearPersona(persona,1);
+                //objeto ingreso el cual se comunica con la clase Ingreso services para modificar los datos
+                ingreso.CrearAlumno(persona, alumno, inmunizacion, centroFormador, 1);
+               
+                return RedirectToAction("Index");
+            }
+            ViewBag.InmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
+            ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
+            ViewBag.NombreCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
+            return View(alumno);
+        }
+
+        // GET: MantenedorAlumnos/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Alumno alumno = db.Alumnos.Find(id);
+            if (alumno == null)
+            {
+                return HttpNotFound();
+            }
+            return View(alumno);
+        }
+
+        // POST: MantenedorAlumnos/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            IngresoServices ingreso = new IngresoServices();
+            List<CampoClinicoAlumno> campoClinicoAlumno = db.CampoClinicoAlumnos.Where(c => c.AlumnoAlumnoId == id).ToList();
+            foreach(var item in campoClinicoAlumno)
+            {
+                db.CampoClinicoAlumnos.Remove(item);
+            }
+
+            Alumno alumno = db.Alumnos.Find(id);
+            db.Alumnos.Remove(alumno);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
        {
            if (disposing)
            {

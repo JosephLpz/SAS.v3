@@ -17,7 +17,7 @@ namespace SAS.v1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CampoClinico()
         {
-            this.UnidadDeServicio = new HashSet<UnidadDeServicio>();
+            this.CampoClinicoAlumno = new HashSet<CampoClinicoAlumno>();
         }
     
         public int Id { get; set; }
@@ -25,8 +25,8 @@ namespace SAS.v1.Models
         public int InstitucionId { get; set; }
     
         public virtual NombreCampoClinico NombreCampoClinico { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UnidadDeServicio> UnidadDeServicio { get; set; }
         public virtual Institucion Institucion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CampoClinicoAlumno> CampoClinicoAlumno { get; set; }
     }
 }

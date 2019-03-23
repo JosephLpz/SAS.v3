@@ -1,0 +1,129 @@
+﻿@model SAS.v1.Models.UnidadDeServicio
+@{
+    ViewBag.Title = "Detalles Unidad de servicio alumnos";
+}
+
+
+
+<div>
+    <h3>Detalles Institucion</h3>
+    <hr />
+    <div class="ContornoDetalles">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.NombreUnidadDeServicio.NombreUnidadDeServicio1)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NombreUnidadDeServicio.NombreUnidadDeServicio1)
+            </dd>
+        </dl>
+    </div>
+</div>
+<br />
+<br />
+<table class="table" id="TablaDetallesUnidadAlumnos">
+    <thead>
+        <tr>
+            <th>
+               Rut
+            </th>
+            <th>
+               Dv
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+               Apellido Paterno
+            </th>
+            <th>
+                Apellido Materno
+            </th>
+            <th>
+                Curso Nivel
+            </th>
+
+            <th>
+               Centro Formador
+            </th>
+            <th>
+               Inmunización
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CampoClinicoAlumno)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alumno.Persona.Rut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alumno.Persona.Dv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alumno.Persona.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alumno.Persona.ApPaterno)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alumno.Persona.ApMaterno)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alumno.CursoNivel)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alumno.CentroFormador.Carrera.NombreCarrera)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alumno.Inmunizacion.NombreInmunizacion)
+                </td>
+
+                <td>@Html.ActionLink("Detalles", "Details", "Alumnos", new { id = item.Id }, null) </td>
+
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<p>
+
+    @Html.ActionLink("Volver", "Index")
+</p>
+<script>
+    $(document).ready(function () {
+
+        $('#TablaDetallesUnidadAlumnos').DataTable(
+         {
+            "bFilter": false,
+
+            "oLanguage": {
+                "sLengthMenu": "Mostrar _MENU_ registros por página",
+                "sZeroRecords": "No se encontraron resultados.",
+                "sInfo": "Mostrando _START_ al _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 al 0 de 0 registros",
+                "sInfoFiltered": "(filtrado(s) de _MAX_ registro(s))",
+                "oPaginate": {
+                    "sFirst": "Inicio",
+                    "sLast": "Final",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                }
+            },
+            "sDom": '<"top"Blip>rt<p"clear">',
+            buttons: ['excel']
+         });
+    });
+</script>
+
+<script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/jszip.min.js "></script>
+<script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
+
+
+

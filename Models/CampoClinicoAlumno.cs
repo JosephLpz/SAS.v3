@@ -22,17 +22,24 @@ namespace SAS.v1.Models
     
         public int Id { get; set; }
         public int AlumnoAlumnoId { get; set; }
-        public int ProfesionalDocenteGuiaProfesionalDocenteGuiaId { get; set; }
         public int ProfesionalSupervidorProfesionalSupervisorId { get; set; }
         public int UnidadDeServicioUnidadDeServicioId { get; set; }
         public int PeriodoPeriodoId { get; set; }
+        public int AsignaturaId { get; set; }
+        public int SemestreId { get; set; }
+        public int AnioId { get; set; }
+        public int CampoClinicoId { get; set; }
+        public int ProfesionalDocenteGuiaProfesionalDocenteGuiaId { get; set; }
     
         public virtual Alumno Alumno { get; set; }
-        public virtual ProfesionalDocenteGuia ProfesionalDocenteGuia { get; set; }
         public virtual ProfesionalSupervisor ProfesionalSupervidor { get; set; }
-        public virtual UnidadDeServicio UnidadDeServicio { get; set; }
         public virtual Periodo Periodo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CampoClinicoAlumnoDias> CampoClinicoAlumnoDias { get; set; }
+        public virtual Asignatura Asignatura { get; set; }
+        public virtual Semestre Semestre { get; set; }
+        public virtual Anio Anio { get; set; }
+        public virtual CampoClinico CampoClinico { get; set; }
+        public virtual ProfesionalDocenteGuia ProfesionalDocenteGuia { get; set; }
     }
 }

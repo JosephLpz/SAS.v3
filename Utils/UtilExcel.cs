@@ -98,6 +98,11 @@ namespace WebPedigree.Utiles
             return value;
         }
 
+        internal string getCellValue(string v, int fila)
+        {
+            throw new NotImplementedException();
+        }
+
         public void close()
         {
             document = null;

@@ -11,7 +11,8 @@ namespace SAS.v1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Periodo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,5 +29,30 @@ namespace SAS.v1.Models
         public virtual NombreJornada NombreJornada { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CampoClinicoAlumno> CampoClinicoAlumno { get; set; }
+
+        [DisplayName("Fecha Inicio")]
+        public virtual string FInicio
+        {
+            get
+            {
+                return string.Format("{0}", this.FechaInicio.ToShortDateString());
+            }
+        }
+        [DisplayName("Fecha Termino")]
+        public virtual string FTermino
+        {
+            get
+            {
+                return string.Format("{0}", this.FechaTermino.ToShortDateString());
+            }
+        }
+        [DisplayName("Desde-Hasta")]
+        public virtual string DesdeHasta
+        {
+            get
+            {
+                return string.Format("{0}/{1}", this.FechaInicio.ToShortDateString(), this.FechaTermino.ToShortDateString());
+            }
+        }
     }
 }

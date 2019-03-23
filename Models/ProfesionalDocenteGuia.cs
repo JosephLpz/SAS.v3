@@ -22,10 +22,11 @@ namespace SAS.v1.Models
     
         public int ProfesionalDocenteGuiaId { get; set; }
         public string Profesion { get; set; }
-        public int NumeroSuperintendencia { get; set; }
+        public long NumeroSuperintendencia { get; set; }
         public long Telefono { get; set; }
         public string Correo { get; set; }
-        public int ValorDocente { get; set; }
+        public string CumpleDatos { get; set; }
+        public long ValorDocente { get; set; }
         public int PersonaPersonaId { get; set; }
         public int DocenciaHospitalariaDocenciaHospitalariaId { get; set; }
         public int InmunizacionInmunizacionId { get; set; }

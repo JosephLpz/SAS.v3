@@ -15,16 +15,19 @@
     <EntitySet Name="NombreJornadas" EntityType="Modelo.Store.NombreJornadas" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Dias" EntityType="Modelo.Store.Dias" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Periodos" EntityType="Modelo.Store.Periodos" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UnidadDeServicios" EntityType="Modelo.Store.UnidadDeServicios" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CampoClinicoAlumnoDiasSet" EntityType="Modelo.Store.CampoClinicoAlumnoDiasSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="NombreUnidadDeServicios" EntityType="Modelo.Store.NombreUnidadDeServicios" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="NombreCampoClinicoSet" EntityType="Modelo.Store.NombreCampoClinicoSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CampoClinicos" EntityType="Modelo.Store.CampoClinicos" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Institucions" EntityType="Modelo.Store.Institucions" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CampoClinicoAlumnos" EntityType="Modelo.Store.CampoClinicoAlumnos" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Alumnos" EntityType="Modelo.Store.Alumnos" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ProfesionalDocenteGuias" EntityType="Modelo.Store.ProfesionalDocenteGuias" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProfesionalSupervisorSet" EntityType="Modelo.Store.ProfesionalSupervisorSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Asignaturas" EntityType="Modelo.Store.Asignaturas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Semestres" EntityType="Modelo.Store.Semestres" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Anios" EntityType="Modelo.Store.Anios" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProfesionalDocenteGuias" EntityType="Modelo.Store.ProfesionalDocenteGuias" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PerfilUsuarios" EntityType="Modelo.Store.PerfilUsuarios" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Usuarios" EntityType="Modelo.Store.Usuarios" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CentroFormadorCarrera" Association="Modelo.Store.CentroFormadorCarrera">
       <End Role="CentroFormador" EntitySet="CentroFormadors" />
       <End Role="Carrera" EntitySet="Carreras" />
@@ -41,17 +44,9 @@
       <End Role="CampoClinicoAlumnoDias" EntitySet="CampoClinicoAlumnoDiasSet" />
       <End Role="Dias" EntitySet="Dias" />
     </AssociationSet>
-    <AssociationSet Name="UnidadDeServicioNombreUnidadDeServicio" Association="Modelo.Store.UnidadDeServicioNombreUnidadDeServicio">
-      <End Role="UnidadDeServicio" EntitySet="UnidadDeServicios" />
-      <End Role="NombreUnidadDeServicio" EntitySet="NombreUnidadDeServicios" />
-    </AssociationSet>
     <AssociationSet Name="CampoClinicoNombreCampoClinico" Association="Modelo.Store.CampoClinicoNombreCampoClinico">
       <End Role="CampoClinico" EntitySet="CampoClinicos" />
       <End Role="NombreCampoClinico" EntitySet="NombreCampoClinicoSet" />
-    </AssociationSet>
-    <AssociationSet Name="UnidadDeServicioCampoClinico" Association="Modelo.Store.UnidadDeServicioCampoClinico">
-      <End Role="UnidadDeServicio" EntitySet="UnidadDeServicios" />
-      <End Role="CampoClinico" EntitySet="CampoClinicos" />
     </AssociationSet>
     <AssociationSet Name="InstitucionCampoClinico" Association="Modelo.Store.InstitucionCampoClinico">
       <End Role="Institucion" EntitySet="Institucions" />
@@ -69,6 +64,42 @@
       <End Role="Alumno" EntitySet="Alumnos" />
       <End Role="CentroFormador" EntitySet="CentroFormadors" />
     </AssociationSet>
+    <AssociationSet Name="ProfesionalSupervidorPersona" Association="Modelo.Store.ProfesionalSupervidorPersona">
+      <End Role="ProfesionalSupervidor" EntitySet="ProfesionalSupervisorSet" />
+      <End Role="Persona" EntitySet="Personas" />
+    </AssociationSet>
+    <AssociationSet Name="CampoClinicoAlumnoAlumno" Association="Modelo.Store.CampoClinicoAlumnoAlumno">
+      <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+      <End Role="Alumno" EntitySet="Alumnos" />
+    </AssociationSet>
+    <AssociationSet Name="CampoClinicoAlumnoProfesionalSupervidor" Association="Modelo.Store.CampoClinicoAlumnoProfesionalSupervidor">
+      <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+      <End Role="ProfesionalSupervidor" EntitySet="ProfesionalSupervisorSet" />
+    </AssociationSet>
+    <AssociationSet Name="CampoClinicoAlumnoPeriodo" Association="Modelo.Store.CampoClinicoAlumnoPeriodo">
+      <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+      <End Role="Periodo" EntitySet="Periodos" />
+    </AssociationSet>
+    <AssociationSet Name="CampoClinicoAlumnoDiasCampoClinicoAlumno" Association="Modelo.Store.CampoClinicoAlumnoDiasCampoClinicoAlumno">
+      <End Role="CampoClinicoAlumnoDias" EntitySet="CampoClinicoAlumnoDiasSet" />
+      <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+    </AssociationSet>
+    <AssociationSet Name="CampoClinicoAlumnoAsignatura" Association="Modelo.Store.CampoClinicoAlumnoAsignatura">
+      <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+      <End Role="Asignatura" EntitySet="Asignaturas" />
+    </AssociationSet>
+    <AssociationSet Name="CampoClinicoAlumnoSemestre" Association="Modelo.Store.CampoClinicoAlumnoSemestre">
+      <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+      <End Role="Semestre" EntitySet="Semestres" />
+    </AssociationSet>
+    <AssociationSet Name="CampoClinicoAlumnoAnio" Association="Modelo.Store.CampoClinicoAlumnoAnio">
+      <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+      <End Role="Anio" EntitySet="Anios" />
+    </AssociationSet>
+    <AssociationSet Name="CampoClinicoAlumnoCampoClinico" Association="Modelo.Store.CampoClinicoAlumnoCampoClinico">
+      <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+      <End Role="CampoClinico" EntitySet="CampoClinicos" />
+    </AssociationSet>
     <AssociationSet Name="ProfesionalDocenteGuiaPersona" Association="Modelo.Store.ProfesionalDocenteGuiaPersona">
       <End Role="ProfesionalDocenteGuia" EntitySet="ProfesionalDocenteGuias" />
       <End Role="Persona" EntitySet="Personas" />
@@ -81,33 +112,17 @@
       <End Role="ProfesionalDocenteGuia" EntitySet="ProfesionalDocenteGuias" />
       <End Role="Inmunizacion" EntitySet="Inmunizacions" />
     </AssociationSet>
-    <AssociationSet Name="ProfesionalSupervidorPersona" Association="Modelo.Store.ProfesionalSupervidorPersona">
-      <End Role="ProfesionalSupervidor" EntitySet="ProfesionalSupervisorSet" />
-      <End Role="Persona" EntitySet="Personas" />
-    </AssociationSet>
-    <AssociationSet Name="CampoClinicoAlumnoAlumno" Association="Modelo.Store.CampoClinicoAlumnoAlumno">
-      <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
-      <End Role="Alumno" EntitySet="Alumnos" />
-    </AssociationSet>
-    <AssociationSet Name="CampoClinicoAlumnoProfesionalDocenteGuia" Association="Modelo.Store.CampoClinicoAlumnoProfesionalDocenteGuia">
-      <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+    <AssociationSet Name="ProfesionalDocenteGuiaCampoClinicoAlumno" Association="Modelo.Store.ProfesionalDocenteGuiaCampoClinicoAlumno">
       <End Role="ProfesionalDocenteGuia" EntitySet="ProfesionalDocenteGuias" />
-    </AssociationSet>
-    <AssociationSet Name="CampoClinicoAlumnoProfesionalSupervidor" Association="Modelo.Store.CampoClinicoAlumnoProfesionalSupervidor">
       <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
-      <End Role="ProfesionalSupervidor" EntitySet="ProfesionalSupervisorSet" />
     </AssociationSet>
-    <AssociationSet Name="CampoClinicoAlumnoUnidadDeServicio" Association="Modelo.Store.CampoClinicoAlumnoUnidadDeServicio">
-      <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
-      <End Role="UnidadDeServicio" EntitySet="UnidadDeServicios" />
+    <AssociationSet Name="UsuarioPerfilUsuario" Association="Modelo.Store.UsuarioPerfilUsuario">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="PerfilUsuario" EntitySet="PerfilUsuarios" />
     </AssociationSet>
-    <AssociationSet Name="CampoClinicoAlumnoPeriodo" Association="Modelo.Store.CampoClinicoAlumnoPeriodo">
-      <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
-      <End Role="Periodo" EntitySet="Periodos" />
-    </AssociationSet>
-    <AssociationSet Name="CampoClinicoAlumnoDiasCampoClinicoAlumno" Association="Modelo.Store.CampoClinicoAlumnoDiasCampoClinicoAlumno">
-      <End Role="CampoClinicoAlumnoDias" EntitySet="CampoClinicoAlumnoDiasSet" />
-      <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+    <AssociationSet Name="UsuarioPersona" Association="Modelo.Store.UsuarioPersona">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="Persona" EntitySet="Personas" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Personas">
@@ -180,14 +195,6 @@
     <Property Name="FechaTermino" Type="datetime" Nullable="false" />
     <Property Name="NombreJornadaNombreJornadaId" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="UnidadDeServicios">
-    <Key>
-      <PropertyRef Name="UnidadDeServicioId" />
-    </Key>
-    <Property Name="UnidadDeServicioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NombreUnidadDeServicioId" Type="int" Nullable="false" />
-    <Property Name="CampoClinicoId" Type="int" Nullable="false" />
-  </EntityType>
   <EntityType Name="CampoClinicoAlumnoDiasSet">
     <Key>
       <PropertyRef Name="Id" />
@@ -195,13 +202,6 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DiasDiasId" Type="int" Nullable="false" />
     <Property Name="CampoClinicoAlumnoId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="NombreUnidadDeServicios">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NombreUnidadDeServicio1" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="NombreCampoClinicoSet">
     <Key>
@@ -231,10 +231,14 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AlumnoAlumnoId" Type="int" Nullable="false" />
-    <Property Name="ProfesionalDocenteGuiaProfesionalDocenteGuiaId" Type="int" Nullable="false" />
     <Property Name="ProfesionalSupervidorProfesionalSupervisorId" Type="int" Nullable="false" />
     <Property Name="UnidadDeServicioUnidadDeServicioId" Type="int" Nullable="false" />
     <Property Name="PeriodoPeriodoId" Type="int" Nullable="false" />
+    <Property Name="AsignaturaId" Type="int" Nullable="false" />
+    <Property Name="SemestreId" Type="int" Nullable="false" />
+    <Property Name="AnioId" Type="int" Nullable="false" />
+    <Property Name="CampoClinicoId" Type="int" Nullable="false" />
+    <Property Name="ProfesionalDocenteGuiaProfesionalDocenteGuiaId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Alumnos">
     <Key>
@@ -247,20 +251,6 @@
     <Property Name="InmunizacionInmunizacionId" Type="int" Nullable="false" />
     <Property Name="CentroFormadorCentroFormadorId" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="ProfesionalDocenteGuias">
-    <Key>
-      <PropertyRef Name="ProfesionalDocenteGuiaId" />
-    </Key>
-    <Property Name="ProfesionalDocenteGuiaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Profesion" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="NumeroSuperintendencia" Type="int" Nullable="false" />
-    <Property Name="Telefono" Type="bigint" Nullable="false" />
-    <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ValorDocente" Type="int" Nullable="false" />
-    <Property Name="PersonaPersonaId" Type="int" Nullable="false" />
-    <Property Name="DocenciaHospitalariaDocenciaHospitalariaId" Type="int" Nullable="false" />
-    <Property Name="InmunizacionInmunizacionId" Type="int" Nullable="false" />
-  </EntityType>
   <EntityType Name="ProfesionalSupervisorSet">
     <Key>
       <PropertyRef Name="ProfesionalSupervisorId" />
@@ -268,6 +258,62 @@
     <Property Name="ProfesionalSupervisorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ValorSupervisor" Type="int" Nullable="false" />
     <Property Name="Observaciones" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PersonaPersonaId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Asignaturas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreAsignatura" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Semestres">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreSemestre" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Anios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ano" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProfesionalDocenteGuias">
+    <Key>
+      <PropertyRef Name="ProfesionalDocenteGuiaId" />
+    </Key>
+    <Property Name="ProfesionalDocenteGuiaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Profesion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NumeroSuperintendencia" Type="bigint" Nullable="false" />
+    <Property Name="Telefono" Type="bigint" Nullable="false" />
+    <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CumpleDatos" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ValorDocente" Type="bigint" Nullable="false" />
+    <Property Name="PersonaPersonaId" Type="int" Nullable="false" />
+    <Property Name="DocenciaHospitalariaDocenciaHospitalariaId" Type="int" Nullable="false" />
+    <Property Name="InmunizacionInmunizacionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PerfilUsuarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Perfil" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UsuarioId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cuenta" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PersonaPersonaId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="CentroFormadorCarrera">
@@ -318,18 +364,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="UnidadDeServicioNombreUnidadDeServicio">
-    <End Role="UnidadDeServicio" Type="Modelo.Store.UnidadDeServicios" Multiplicity="*" />
-    <End Role="NombreUnidadDeServicio" Type="Modelo.Store.NombreUnidadDeServicios" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="NombreUnidadDeServicio">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UnidadDeServicio">
-        <PropertyRef Name="NombreUnidadDeServicioId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="CampoClinicoNombreCampoClinico">
     <End Role="CampoClinico" Type="Modelo.Store.CampoClinicos" Multiplicity="*" />
     <End Role="NombreCampoClinico" Type="Modelo.Store.NombreCampoClinicoSet" Multiplicity="1" />
@@ -339,18 +373,6 @@
       </Principal>
       <Dependent Role="CampoClinico">
         <PropertyRef Name="NombreCampoClinicoId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="UnidadDeServicioCampoClinico">
-    <End Role="UnidadDeServicio" Type="Modelo.Store.UnidadDeServicios" Multiplicity="*" />
-    <End Role="CampoClinico" Type="Modelo.Store.CampoClinicos" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="CampoClinico">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UnidadDeServicio">
-        <PropertyRef Name="CampoClinicoId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -402,6 +424,114 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="ProfesionalSupervidorPersona">
+    <End Role="ProfesionalSupervidor" Type="Modelo.Store.ProfesionalSupervisorSet" Multiplicity="*" />
+    <End Role="Persona" Type="Modelo.Store.Personas" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Persona">
+        <PropertyRef Name="PersonaId" />
+      </Principal>
+      <Dependent Role="ProfesionalSupervidor">
+        <PropertyRef Name="PersonaPersonaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CampoClinicoAlumnoAlumno">
+    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="*" />
+    <End Role="Alumno" Type="Modelo.Store.Alumnos" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Alumno">
+        <PropertyRef Name="AlumnoId" />
+      </Principal>
+      <Dependent Role="CampoClinicoAlumno">
+        <PropertyRef Name="AlumnoAlumnoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CampoClinicoAlumnoProfesionalSupervidor">
+    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="*" />
+    <End Role="ProfesionalSupervidor" Type="Modelo.Store.ProfesionalSupervisorSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="ProfesionalSupervidor">
+        <PropertyRef Name="ProfesionalSupervisorId" />
+      </Principal>
+      <Dependent Role="CampoClinicoAlumno">
+        <PropertyRef Name="ProfesionalSupervidorProfesionalSupervisorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CampoClinicoAlumnoPeriodo">
+    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="*" />
+    <End Role="Periodo" Type="Modelo.Store.Periodos" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Periodo">
+        <PropertyRef Name="PeriodoId" />
+      </Principal>
+      <Dependent Role="CampoClinicoAlumno">
+        <PropertyRef Name="PeriodoPeriodoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CampoClinicoAlumnoDiasCampoClinicoAlumno">
+    <End Role="CampoClinicoAlumnoDias" Type="Modelo.Store.CampoClinicoAlumnoDiasSet" Multiplicity="*" />
+    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="CampoClinicoAlumno">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CampoClinicoAlumnoDias">
+        <PropertyRef Name="CampoClinicoAlumnoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CampoClinicoAlumnoAsignatura">
+    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="*" />
+    <End Role="Asignatura" Type="Modelo.Store.Asignaturas" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Asignatura">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CampoClinicoAlumno">
+        <PropertyRef Name="AsignaturaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CampoClinicoAlumnoSemestre">
+    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="*" />
+    <End Role="Semestre" Type="Modelo.Store.Semestres" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Semestre">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CampoClinicoAlumno">
+        <PropertyRef Name="SemestreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CampoClinicoAlumnoAnio">
+    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="*" />
+    <End Role="Anio" Type="Modelo.Store.Anios" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Anio">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CampoClinicoAlumno">
+        <PropertyRef Name="AnioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CampoClinicoAlumnoCampoClinico">
+    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="*" />
+    <End Role="CampoClinico" Type="Modelo.Store.CampoClinicos" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="CampoClinico">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CampoClinicoAlumno">
+        <PropertyRef Name="CampoClinicoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="ProfesionalDocenteGuiaPersona">
     <End Role="ProfesionalDocenteGuia" Type="Modelo.Store.ProfesionalDocenteGuias" Multiplicity="*" />
     <End Role="Persona" Type="Modelo.Store.Personas" Multiplicity="1" />
@@ -438,33 +568,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="ProfesionalSupervidorPersona">
-    <End Role="ProfesionalSupervidor" Type="Modelo.Store.ProfesionalSupervisorSet" Multiplicity="*" />
-    <End Role="Persona" Type="Modelo.Store.Personas" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Persona">
-        <PropertyRef Name="PersonaId" />
-      </Principal>
-      <Dependent Role="ProfesionalSupervidor">
-        <PropertyRef Name="PersonaPersonaId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CampoClinicoAlumnoAlumno">
-    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="*" />
-    <End Role="Alumno" Type="Modelo.Store.Alumnos" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Alumno">
-        <PropertyRef Name="AlumnoId" />
-      </Principal>
-      <Dependent Role="CampoClinicoAlumno">
-        <PropertyRef Name="AlumnoAlumnoId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CampoClinicoAlumnoProfesionalDocenteGuia">
-    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="*" />
+  <Association Name="ProfesionalDocenteGuiaCampoClinicoAlumno">
     <End Role="ProfesionalDocenteGuia" Type="Modelo.Store.ProfesionalDocenteGuias" Multiplicity="1" />
+    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ProfesionalDocenteGuia">
         <PropertyRef Name="ProfesionalDocenteGuiaId" />
@@ -474,51 +580,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="CampoClinicoAlumnoProfesionalSupervidor">
-    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="*" />
-    <End Role="ProfesionalSupervidor" Type="Modelo.Store.ProfesionalSupervisorSet" Multiplicity="1" />
+  <Association Name="UsuarioPerfilUsuario">
+    <End Role="Usuario" Type="Modelo.Store.Usuarios" Multiplicity="1" />
+    <End Role="PerfilUsuario" Type="Modelo.Store.PerfilUsuarios" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="ProfesionalSupervidor">
-        <PropertyRef Name="ProfesionalSupervisorId" />
-      </Principal>
-      <Dependent Role="CampoClinicoAlumno">
-        <PropertyRef Name="ProfesionalSupervidorProfesionalSupervisorId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CampoClinicoAlumnoUnidadDeServicio">
-    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="*" />
-    <End Role="UnidadDeServicio" Type="Modelo.Store.UnidadDeServicios" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="UnidadDeServicio">
-        <PropertyRef Name="UnidadDeServicioId" />
-      </Principal>
-      <Dependent Role="CampoClinicoAlumno">
-        <PropertyRef Name="UnidadDeServicioUnidadDeServicioId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CampoClinicoAlumnoPeriodo">
-    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="*" />
-    <End Role="Periodo" Type="Modelo.Store.Periodos" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Periodo">
-        <PropertyRef Name="PeriodoId" />
-      </Principal>
-      <Dependent Role="CampoClinicoAlumno">
-        <PropertyRef Name="PeriodoPeriodoId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CampoClinicoAlumnoDiasCampoClinicoAlumno">
-    <End Role="CampoClinicoAlumnoDias" Type="Modelo.Store.CampoClinicoAlumnoDiasSet" Multiplicity="*" />
-    <End Role="CampoClinicoAlumno" Type="Modelo.Store.CampoClinicoAlumnos" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="CampoClinicoAlumno">
+      <Principal Role="Usuario">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="CampoClinicoAlumnoDias">
-        <PropertyRef Name="CampoClinicoAlumnoId" />
+      <Dependent Role="PerfilUsuario">
+        <PropertyRef Name="UsuarioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsuarioPersona">
+    <End Role="Usuario" Type="Modelo.Store.Usuarios" Multiplicity="*" />
+    <End Role="Persona" Type="Modelo.Store.Personas" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Persona">
+        <PropertyRef Name="PersonaId" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="PersonaPersonaId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -536,7 +618,6 @@
           <EntitySet Name="NombreJornadas" EntityType="Modelo.NombreJornada" />
           <EntitySet Name="Dias" EntityType="Modelo.Dias" />
           <EntitySet Name="Periodos" EntityType="Modelo.Periodo" />
-          <EntitySet Name="UnidadDeServicios" EntityType="Modelo.UnidadDeServicio" />
           <AssociationSet Name="CentroFormadorCarrera" Association="Modelo.CentroFormadorCarrera">
             <End Role="CentroFormador" EntitySet="CentroFormadors" />
             <End Role="Carrera" EntitySet="Carreras" />
@@ -554,20 +635,11 @@
             <End Role="CampoClinicoAlumnoDias" EntitySet="CampoClinicoAlumnoDiasSet" />
             <End Role="Dias" EntitySet="Dias" />
           </AssociationSet>
-          <EntitySet Name="NombreUnidadDeServicios" EntityType="Modelo.NombreUnidadDeServicio" />
-          <AssociationSet Name="UnidadDeServicioNombreUnidadDeServicio" Association="Modelo.UnidadDeServicioNombreUnidadDeServicio">
-            <End Role="UnidadDeServicio" EntitySet="UnidadDeServicios" />
-            <End Role="NombreUnidadDeServicio" EntitySet="NombreUnidadDeServicios" />
-          </AssociationSet>
           <EntitySet Name="NombreCampoClinicoSet" EntityType="Modelo.NombreCampoClinico" />
           <EntitySet Name="CampoClinicos" EntityType="Modelo.CampoClinico" />
           <AssociationSet Name="CampoClinicoNombreCampoClinico" Association="Modelo.CampoClinicoNombreCampoClinico">
             <End Role="CampoClinico" EntitySet="CampoClinicos" />
             <End Role="NombreCampoClinico" EntitySet="NombreCampoClinicoSet" />
-          </AssociationSet>
-          <AssociationSet Name="UnidadDeServicioCampoClinico" Association="Modelo.UnidadDeServicioCampoClinico">
-            <End Role="UnidadDeServicio" EntitySet="UnidadDeServicios" />
-            <End Role="CampoClinico" EntitySet="CampoClinicos" />
           </AssociationSet>
           <EntitySet Name="Institucions" EntityType="Modelo.Institucion" />
           <AssociationSet Name="InstitucionCampoClinico" Association="Modelo.InstitucionCampoClinico">
@@ -588,6 +660,46 @@
             <End Role="Alumno" EntitySet="Alumnos" />
             <End Role="CentroFormador" EntitySet="CentroFormadors" />
           </AssociationSet>
+          <EntitySet Name="ProfesionalSupervisorSet" EntityType="Modelo.ProfesionalSupervisor" />
+          <AssociationSet Name="ProfesionalSupervidorPersona" Association="Modelo.ProfesionalSupervidorPersona">
+            <End Role="ProfesionalSupervidor" EntitySet="ProfesionalSupervisorSet" />
+            <End Role="Persona" EntitySet="Personas" />
+          </AssociationSet>
+          <AssociationSet Name="CampoClinicoAlumnoAlumno" Association="Modelo.CampoClinicoAlumnoAlumno">
+            <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+            <End Role="Alumno" EntitySet="Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="CampoClinicoAlumnoProfesionalSupervidor" Association="Modelo.CampoClinicoAlumnoProfesionalSupervidor">
+            <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+            <End Role="ProfesionalSupervidor" EntitySet="ProfesionalSupervisorSet" />
+          </AssociationSet>
+          <AssociationSet Name="CampoClinicoAlumnoPeriodo" Association="Modelo.CampoClinicoAlumnoPeriodo">
+            <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+            <End Role="Periodo" EntitySet="Periodos" />
+          </AssociationSet>
+          <AssociationSet Name="CampoClinicoAlumnoDiasCampoClinicoAlumno" Association="Modelo.CampoClinicoAlumnoDiasCampoClinicoAlumno">
+            <End Role="CampoClinicoAlumnoDias" EntitySet="CampoClinicoAlumnoDiasSet" />
+            <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+          </AssociationSet>
+          <EntitySet Name="Asignaturas" EntityType="Modelo.Asignatura" />
+          <EntitySet Name="Semestres" EntityType="Modelo.Semestre" />
+          <AssociationSet Name="CampoClinicoAlumnoAsignatura" Association="Modelo.CampoClinicoAlumnoAsignatura">
+            <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+            <End Role="Asignatura" EntitySet="Asignaturas" />
+          </AssociationSet>
+          <AssociationSet Name="CampoClinicoAlumnoSemestre" Association="Modelo.CampoClinicoAlumnoSemestre">
+            <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+            <End Role="Semestre" EntitySet="Semestres" />
+          </AssociationSet>
+          <EntitySet Name="Anios" EntityType="Modelo.Anio" />
+          <AssociationSet Name="CampoClinicoAlumnoAnio" Association="Modelo.CampoClinicoAlumnoAnio">
+            <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+            <End Role="Anio" EntitySet="Anios" />
+          </AssociationSet>
+          <AssociationSet Name="CampoClinicoAlumnoCampoClinico" Association="Modelo.CampoClinicoAlumnoCampoClinico">
+            <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+            <End Role="CampoClinico" EntitySet="CampoClinicos" />
+          </AssociationSet>
           <EntitySet Name="ProfesionalDocenteGuias" EntityType="Modelo.ProfesionalDocenteGuia" />
           <AssociationSet Name="ProfesionalDocenteGuiaPersona" Association="Modelo.ProfesionalDocenteGuiaPersona">
             <End Role="ProfesionalDocenteGuia" EntitySet="ProfesionalDocenteGuias" />
@@ -601,34 +713,19 @@
             <End Role="ProfesionalDocenteGuia" EntitySet="ProfesionalDocenteGuias" />
             <End Role="Inmunizacion" EntitySet="Inmunizacions" />
           </AssociationSet>
-          <EntitySet Name="ProfesionalSupervisorSet" EntityType="Modelo.ProfesionalSupervisor" />
-          <AssociationSet Name="ProfesionalSupervidorPersona" Association="Modelo.ProfesionalSupervidorPersona">
-            <End Role="ProfesionalSupervidor" EntitySet="ProfesionalSupervisorSet" />
-            <End Role="Persona" EntitySet="Personas" />
-          </AssociationSet>
-          <AssociationSet Name="CampoClinicoAlumnoAlumno" Association="Modelo.CampoClinicoAlumnoAlumno">
-            <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
-            <End Role="Alumno" EntitySet="Alumnos" />
-          </AssociationSet>
-          <AssociationSet Name="CampoClinicoAlumnoProfesionalDocenteGuia" Association="Modelo.CampoClinicoAlumnoProfesionalDocenteGuia">
-            <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+          <AssociationSet Name="ProfesionalDocenteGuiaCampoClinicoAlumno" Association="Modelo.ProfesionalDocenteGuiaCampoClinicoAlumno">
             <End Role="ProfesionalDocenteGuia" EntitySet="ProfesionalDocenteGuias" />
-          </AssociationSet>
-          <AssociationSet Name="CampoClinicoAlumnoProfesionalSupervidor" Association="Modelo.CampoClinicoAlumnoProfesionalSupervidor">
             <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
-            <End Role="ProfesionalSupervidor" EntitySet="ProfesionalSupervisorSet" />
           </AssociationSet>
-          <AssociationSet Name="CampoClinicoAlumnoUnidadDeServicio" Association="Modelo.CampoClinicoAlumnoUnidadDeServicio">
-            <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
-            <End Role="UnidadDeServicio" EntitySet="UnidadDeServicios" />
+          <EntitySet Name="PerfilUsuarios" EntityType="Modelo.PerfilUsuario" />
+          <EntitySet Name="Usuarios" EntityType="Modelo.Usuario" />
+          <AssociationSet Name="UsuarioPerfilUsuario" Association="Modelo.UsuarioPerfilUsuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="PerfilUsuario" EntitySet="PerfilUsuarios" />
           </AssociationSet>
-          <AssociationSet Name="CampoClinicoAlumnoPeriodo" Association="Modelo.CampoClinicoAlumnoPeriodo">
-            <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
-            <End Role="Periodo" EntitySet="Periodos" />
-          </AssociationSet>
-          <AssociationSet Name="CampoClinicoAlumnoDiasCampoClinicoAlumno" Association="Modelo.CampoClinicoAlumnoDiasCampoClinicoAlumno">
-            <End Role="CampoClinicoAlumnoDias" EntitySet="CampoClinicoAlumnoDiasSet" />
-            <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
+          <AssociationSet Name="UsuarioPersona" Association="Modelo.UsuarioPersona">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Persona" EntitySet="Personas" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Persona">
@@ -642,8 +739,9 @@
           <Property Name="ApPaterno" Type="String" Nullable="false" />
           <Property Name="ApMaterno" Type="String" Nullable="false" />
           <NavigationProperty Name="Alumno" Relationship="Modelo.AlumnoPersona" FromRole="Persona" ToRole="Alumno" />
-          <NavigationProperty Name="ProfesionalDocenteGuia" Relationship="Modelo.ProfesionalDocenteGuiaPersona" FromRole="Persona" ToRole="ProfesionalDocenteGuia" />
           <NavigationProperty Name="ProfesionalSupervidor" Relationship="Modelo.ProfesionalSupervidorPersona" FromRole="Persona" ToRole="ProfesionalSupervidor" />
+          <NavigationProperty Name="ProfesionalDocenteGuia" Relationship="Modelo.ProfesionalDocenteGuiaPersona" FromRole="Persona" ToRole="ProfesionalDocenteGuia" />
+          <NavigationProperty Name="Usuario" Relationship="Modelo.UsuarioPersona" FromRole="Persona" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="DocenciaHospitalaria">
           <Key>
@@ -716,17 +814,6 @@
           <Property Name="NombreJornadaNombreJornadaId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoPeriodo" FromRole="Periodo" ToRole="CampoClinicoAlumno" />
         </EntityType>
-        <EntityType Name="UnidadDeServicio">
-          <Key>
-            <PropertyRef Name="UnidadDeServicioId" />
-          </Key>
-          <Property Name="UnidadDeServicioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="NombreUnidadDeServicio" Relationship="Modelo.UnidadDeServicioNombreUnidadDeServicio" FromRole="UnidadDeServicio" ToRole="NombreUnidadDeServicio" />
-          <Property Name="NombreUnidadDeServicioId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CampoClinico" Relationship="Modelo.UnidadDeServicioCampoClinico" FromRole="UnidadDeServicio" ToRole="CampoClinico" />
-          <Property Name="CampoClinicoId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoUnidadDeServicio" FromRole="UnidadDeServicio" ToRole="CampoClinicoAlumno" />
-        </EntityType>
         <Association Name="CentroFormadorCarrera">
           <End Type="Modelo.CentroFormador" Role="CentroFormador" Multiplicity="*" />
           <End Type="Modelo.Carrera" Role="Carrera" Multiplicity="1" />
@@ -785,26 +872,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="NombreUnidadDeServicio">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NombreUnidadDeServicio1" Type="String" Nullable="false" />
-          <NavigationProperty Name="UnidadDeServicio" Relationship="Modelo.UnidadDeServicioNombreUnidadDeServicio" FromRole="NombreUnidadDeServicio" ToRole="UnidadDeServicio" />
-        </EntityType>
-        <Association Name="UnidadDeServicioNombreUnidadDeServicio">
-          <End Type="Modelo.UnidadDeServicio" Role="UnidadDeServicio" Multiplicity="*" />
-          <End Type="Modelo.NombreUnidadDeServicio" Role="NombreUnidadDeServicio" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="NombreUnidadDeServicio">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UnidadDeServicio">
-              <PropertyRef Name="NombreUnidadDeServicioId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="NombreCampoClinico">
           <Key>
             <PropertyRef Name="Id" />
@@ -820,9 +887,9 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="NombreCampoClinico" Relationship="Modelo.CampoClinicoNombreCampoClinico" FromRole="CampoClinico" ToRole="NombreCampoClinico" />
           <Property Name="NombreCampoClinicoId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="UnidadDeServicio" Relationship="Modelo.UnidadDeServicioCampoClinico" FromRole="CampoClinico" ToRole="UnidadDeServicio" />
           <NavigationProperty Name="Institucion" Relationship="Modelo.InstitucionCampoClinico" FromRole="CampoClinico" ToRole="Institucion" />
           <Property Name="InstitucionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoCampoClinico" FromRole="CampoClinico" ToRole="CampoClinicoAlumno" />
         </EntityType>
         <Association Name="CampoClinicoNombreCampoClinico">
           <End Type="Modelo.CampoClinico" Role="CampoClinico" Multiplicity="*" />
@@ -833,18 +900,6 @@
             </Principal>
             <Dependent Role="CampoClinico">
               <PropertyRef Name="NombreCampoClinicoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="UnidadDeServicioCampoClinico">
-          <End Type="Modelo.UnidadDeServicio" Role="UnidadDeServicio" Multiplicity="*" />
-          <End Type="Modelo.CampoClinico" Role="CampoClinico" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="CampoClinico">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UnidadDeServicio">
-              <PropertyRef Name="CampoClinicoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -875,15 +930,22 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Alumno" Relationship="Modelo.CampoClinicoAlumnoAlumno" FromRole="CampoClinicoAlumno" ToRole="Alumno" />
           <Property Name="AlumnoAlumnoId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ProfesionalDocenteGuia" Relationship="Modelo.CampoClinicoAlumnoProfesionalDocenteGuia" FromRole="CampoClinicoAlumno" ToRole="ProfesionalDocenteGuia" />
-          <Property Name="ProfesionalDocenteGuiaProfesionalDocenteGuiaId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ProfesionalSupervidor" Relationship="Modelo.CampoClinicoAlumnoProfesionalSupervidor" FromRole="CampoClinicoAlumno" ToRole="ProfesionalSupervidor" />
           <Property Name="ProfesionalSupervidorProfesionalSupervisorId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="UnidadDeServicio" Relationship="Modelo.CampoClinicoAlumnoUnidadDeServicio" FromRole="CampoClinicoAlumno" ToRole="UnidadDeServicio" />
           <Property Name="UnidadDeServicioUnidadDeServicioId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Periodo" Relationship="Modelo.CampoClinicoAlumnoPeriodo" FromRole="CampoClinicoAlumno" ToRole="Periodo" />
           <Property Name="PeriodoPeriodoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CampoClinicoAlumnoDias" Relationship="Modelo.CampoClinicoAlumnoDiasCampoClinicoAlumno" FromRole="CampoClinicoAlumno" ToRole="CampoClinicoAlumnoDias" />
+          <NavigationProperty Name="Asignatura" Relationship="Modelo.CampoClinicoAlumnoAsignatura" FromRole="CampoClinicoAlumno" ToRole="Asignatura" />
+          <Property Name="AsignaturaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Semestre" Relationship="Modelo.CampoClinicoAlumnoSemestre" FromRole="CampoClinicoAlumno" ToRole="Semestre" />
+          <Property Name="SemestreId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Anio" Relationship="Modelo.CampoClinicoAlumnoAnio" FromRole="CampoClinicoAlumno" ToRole="Anio" />
+          <Property Name="AnioId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CampoClinico" Relationship="Modelo.CampoClinicoAlumnoCampoClinico" FromRole="CampoClinicoAlumno" ToRole="CampoClinico" />
+          <Property Name="CampoClinicoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProfesionalDocenteGuia" Relationship="Modelo.ProfesionalDocenteGuiaCampoClinicoAlumno" FromRole="CampoClinicoAlumno" ToRole="ProfesionalDocenteGuia" />
+          <Property Name="ProfesionalDocenteGuiaProfesionalDocenteGuiaId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Alumno">
           <Key>
@@ -936,23 +998,167 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ProfesionalSupervisor">
+          <Key>
+            <PropertyRef Name="ProfesionalSupervisorId" />
+          </Key>
+          <Property Name="ProfesionalSupervisorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ValorSupervisor" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" Nullable="false" />
+          <NavigationProperty Name="Persona" Relationship="Modelo.ProfesionalSupervidorPersona" FromRole="ProfesionalSupervidor" ToRole="Persona" />
+          <Property Name="PersonaPersonaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoProfesionalSupervidor" FromRole="ProfesionalSupervidor" ToRole="CampoClinicoAlumno" />
+        </EntityType>
+        <Association Name="ProfesionalSupervidorPersona">
+          <End Type="Modelo.ProfesionalSupervisor" Role="ProfesionalSupervidor" Multiplicity="*" />
+          <End Type="Modelo.Persona" Role="Persona" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="ProfesionalSupervidor">
+              <PropertyRef Name="PersonaPersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CampoClinicoAlumnoAlumno">
+          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
+          <End Type="Modelo.Alumno" Role="Alumno" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="AlumnoId" />
+            </Principal>
+            <Dependent Role="CampoClinicoAlumno">
+              <PropertyRef Name="AlumnoAlumnoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CampoClinicoAlumnoProfesionalSupervidor">
+          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
+          <End Type="Modelo.ProfesionalSupervisor" Role="ProfesionalSupervidor" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="ProfesionalSupervidor">
+              <PropertyRef Name="ProfesionalSupervisorId" />
+            </Principal>
+            <Dependent Role="CampoClinicoAlumno">
+              <PropertyRef Name="ProfesionalSupervidorProfesionalSupervisorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CampoClinicoAlumnoPeriodo">
+          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
+          <End Type="Modelo.Periodo" Role="Periodo" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Periodo">
+              <PropertyRef Name="PeriodoId" />
+            </Principal>
+            <Dependent Role="CampoClinicoAlumno">
+              <PropertyRef Name="PeriodoPeriodoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CampoClinicoAlumnoDiasCampoClinicoAlumno">
+          <End Type="Modelo.CampoClinicoAlumnoDias" Role="CampoClinicoAlumnoDias" Multiplicity="*" />
+          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="CampoClinicoAlumno">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampoClinicoAlumnoDias">
+              <PropertyRef Name="CampoClinicoAlumnoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Asignatura">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreAsignatura" Type="String" Nullable="false" />
+          <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoAsignatura" FromRole="Asignatura" ToRole="CampoClinicoAlumno" />
+        </EntityType>
+        <EntityType Name="Semestre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreSemestre" Type="String" Nullable="false" />
+          <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoSemestre" FromRole="Semestre" ToRole="CampoClinicoAlumno" />
+        </EntityType>
+        <Association Name="CampoClinicoAlumnoAsignatura">
+          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
+          <End Type="Modelo.Asignatura" Role="Asignatura" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampoClinicoAlumno">
+              <PropertyRef Name="AsignaturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CampoClinicoAlumnoSemestre">
+          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
+          <End Type="Modelo.Semestre" Role="Semestre" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Semestre">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampoClinicoAlumno">
+              <PropertyRef Name="SemestreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Anio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ano" Type="String" Nullable="false" />
+          <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoAnio" FromRole="Anio" ToRole="CampoClinicoAlumno" />
+        </EntityType>
+        <Association Name="CampoClinicoAlumnoAnio">
+          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
+          <End Type="Modelo.Anio" Role="Anio" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Anio">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampoClinicoAlumno">
+              <PropertyRef Name="AnioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CampoClinicoAlumnoCampoClinico">
+          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
+          <End Type="Modelo.CampoClinico" Role="CampoClinico" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="CampoClinico">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampoClinicoAlumno">
+              <PropertyRef Name="CampoClinicoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="ProfesionalDocenteGuia">
           <Key>
             <PropertyRef Name="ProfesionalDocenteGuiaId" />
           </Key>
           <Property Name="ProfesionalDocenteGuiaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Profesion" Type="String" Nullable="false" />
-          <Property Name="NumeroSuperintendencia" Type="Int32" Nullable="false" />
+          <Property Name="NumeroSuperintendencia" Type="Int64" Nullable="false" />
           <Property Name="Telefono" Type="Int64" Nullable="false" />
           <Property Name="Correo" Type="String" Nullable="false" />
-          <Property Name="ValorDocente" Type="Int32" Nullable="false" />
+          <Property Name="CumpleDatos" Type="String" Nullable="false" />
+          <Property Name="ValorDocente" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Persona" Relationship="Modelo.ProfesionalDocenteGuiaPersona" FromRole="ProfesionalDocenteGuia" ToRole="Persona" />
           <Property Name="PersonaPersonaId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="DocenciaHospitalaria" Relationship="Modelo.ProfesionalDocenteGuiaDocenciaHospitalaria" FromRole="ProfesionalDocenteGuia" ToRole="DocenciaHospitalaria" />
           <Property Name="DocenciaHospitalariaDocenciaHospitalariaId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Inmunizacion" Relationship="Modelo.ProfesionalDocenteGuiaInmunizacion" FromRole="ProfesionalDocenteGuia" ToRole="Inmunizacion" />
           <Property Name="InmunizacionInmunizacionId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoProfesionalDocenteGuia" FromRole="ProfesionalDocenteGuia" ToRole="CampoClinicoAlumno" />
+          <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.ProfesionalDocenteGuiaCampoClinicoAlumno" FromRole="ProfesionalDocenteGuia" ToRole="CampoClinicoAlumno" />
         </EntityType>
         <Association Name="ProfesionalDocenteGuiaPersona">
           <End Type="Modelo.ProfesionalDocenteGuia" Role="ProfesionalDocenteGuia" Multiplicity="*" />
@@ -990,44 +1196,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ProfesionalSupervisor">
-          <Key>
-            <PropertyRef Name="ProfesionalSupervisorId" />
-          </Key>
-          <Property Name="ProfesionalSupervisorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ValorSupervisor" Type="Int32" Nullable="false" />
-          <Property Name="Observaciones" Type="String" Nullable="false" />
-          <NavigationProperty Name="Persona" Relationship="Modelo.ProfesionalSupervidorPersona" FromRole="ProfesionalSupervidor" ToRole="Persona" />
-          <Property Name="PersonaPersonaId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoProfesionalSupervidor" FromRole="ProfesionalSupervidor" ToRole="CampoClinicoAlumno" />
-        </EntityType>
-        <Association Name="ProfesionalSupervidorPersona">
-          <End Type="Modelo.ProfesionalSupervisor" Role="ProfesionalSupervidor" Multiplicity="*" />
-          <End Type="Modelo.Persona" Role="Persona" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="PersonaId" />
-            </Principal>
-            <Dependent Role="ProfesionalSupervidor">
-              <PropertyRef Name="PersonaPersonaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="CampoClinicoAlumnoAlumno">
-          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
-          <End Type="Modelo.Alumno" Role="Alumno" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="Alumno">
-              <PropertyRef Name="AlumnoId" />
-            </Principal>
-            <Dependent Role="CampoClinicoAlumno">
-              <PropertyRef Name="AlumnoAlumnoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="CampoClinicoAlumnoProfesionalDocenteGuia">
-          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
+        <Association Name="ProfesionalDocenteGuiaCampoClinicoAlumno">
           <End Type="Modelo.ProfesionalDocenteGuia" Role="ProfesionalDocenteGuia" Multiplicity="1" />
+          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProfesionalDocenteGuia">
               <PropertyRef Name="ProfesionalDocenteGuiaId" />
@@ -1037,51 +1208,50 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="CampoClinicoAlumnoProfesionalSupervidor">
-          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
-          <End Type="Modelo.ProfesionalSupervisor" Role="ProfesionalSupervidor" Multiplicity="1" />
+        <EntityType Name="PerfilUsuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Perfil" Type="String" Nullable="false" />
+          <Property Name="Estado" Type="String" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Modelo.UsuarioPerfilUsuario" FromRole="PerfilUsuario" ToRole="Usuario" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cuenta" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <Property Name="Correo" Type="String" Nullable="false" />
+          <Property Name="Estado" Type="String" Nullable="false" />
+          <NavigationProperty Name="PerfilUsuario" Relationship="Modelo.UsuarioPerfilUsuario" FromRole="Usuario" ToRole="PerfilUsuario" />
+          <NavigationProperty Name="Persona" Relationship="Modelo.UsuarioPersona" FromRole="Usuario" ToRole="Persona" />
+          <Property Name="PersonaPersonaId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="UsuarioPerfilUsuario">
+          <End Type="Modelo.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="Modelo.PerfilUsuario" Role="PerfilUsuario" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProfesionalSupervidor">
-              <PropertyRef Name="ProfesionalSupervisorId" />
-            </Principal>
-            <Dependent Role="CampoClinicoAlumno">
-              <PropertyRef Name="ProfesionalSupervidorProfesionalSupervisorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="CampoClinicoAlumnoUnidadDeServicio">
-          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
-          <End Type="Modelo.UnidadDeServicio" Role="UnidadDeServicio" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="UnidadDeServicio">
-              <PropertyRef Name="UnidadDeServicioId" />
-            </Principal>
-            <Dependent Role="CampoClinicoAlumno">
-              <PropertyRef Name="UnidadDeServicioUnidadDeServicioId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="CampoClinicoAlumnoPeriodo">
-          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
-          <End Type="Modelo.Periodo" Role="Periodo" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="Periodo">
-              <PropertyRef Name="PeriodoId" />
-            </Principal>
-            <Dependent Role="CampoClinicoAlumno">
-              <PropertyRef Name="PeriodoPeriodoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="CampoClinicoAlumnoDiasCampoClinicoAlumno">
-          <End Type="Modelo.CampoClinicoAlumnoDias" Role="CampoClinicoAlumnoDias" Multiplicity="*" />
-          <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="CampoClinicoAlumno">
+            <Principal Role="Usuario">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CampoClinicoAlumnoDias">
-              <PropertyRef Name="CampoClinicoAlumnoId" />
+            <Dependent Role="PerfilUsuario">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsuarioPersona">
+          <End Type="Modelo.Usuario" Role="Usuario" Multiplicity="*" />
+          <End Type="Modelo.Persona" Role="Persona" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="PersonaPersonaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1170,29 +1340,12 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="UnidadDeServicios">
-      <EntityTypeMapping TypeName="IsTypeOf(Modelo.UnidadDeServicio)">
-        <MappingFragment StoreEntitySet="UnidadDeServicios">
-          <ScalarProperty Name="UnidadDeServicioId" ColumnName="UnidadDeServicioId" />
-          <ScalarProperty Name="NombreUnidadDeServicioId" ColumnName="NombreUnidadDeServicioId" />
-          <ScalarProperty Name="CampoClinicoId" ColumnName="CampoClinicoId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="CampoClinicoAlumnoDiasSet">
       <EntityTypeMapping TypeName="IsTypeOf(Modelo.CampoClinicoAlumnoDias)">
         <MappingFragment StoreEntitySet="CampoClinicoAlumnoDiasSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DiasDiasId" ColumnName="DiasDiasId" />
           <ScalarProperty Name="CampoClinicoAlumnoId" ColumnName="CampoClinicoAlumnoId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="NombreUnidadDeServicios">
-      <EntityTypeMapping TypeName="IsTypeOf(Modelo.NombreUnidadDeServicio)">
-        <MappingFragment StoreEntitySet="NombreUnidadDeServicios">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="NombreUnidadDeServicio1" ColumnName="NombreUnidadDeServicio1" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1226,10 +1379,14 @@
         <MappingFragment StoreEntitySet="CampoClinicoAlumnos">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="AlumnoAlumnoId" ColumnName="AlumnoAlumnoId" />
-          <ScalarProperty Name="ProfesionalDocenteGuiaProfesionalDocenteGuiaId" ColumnName="ProfesionalDocenteGuiaProfesionalDocenteGuiaId" />
           <ScalarProperty Name="ProfesionalSupervidorProfesionalSupervisorId" ColumnName="ProfesionalSupervidorProfesionalSupervisorId" />
           <ScalarProperty Name="UnidadDeServicioUnidadDeServicioId" ColumnName="UnidadDeServicioUnidadDeServicioId" />
           <ScalarProperty Name="PeriodoPeriodoId" ColumnName="PeriodoPeriodoId" />
+          <ScalarProperty Name="AsignaturaId" ColumnName="AsignaturaId" />
+          <ScalarProperty Name="SemestreId" ColumnName="SemestreId" />
+          <ScalarProperty Name="AnioId" ColumnName="AnioId" />
+          <ScalarProperty Name="CampoClinicoId" ColumnName="CampoClinicoId" />
+          <ScalarProperty Name="ProfesionalDocenteGuiaProfesionalDocenteGuiaId" ColumnName="ProfesionalDocenteGuiaProfesionalDocenteGuiaId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1245,6 +1402,40 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ProfesionalSupervisorSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.ProfesionalSupervisor)">
+        <MappingFragment StoreEntitySet="ProfesionalSupervisorSet">
+          <ScalarProperty Name="ProfesionalSupervisorId" ColumnName="ProfesionalSupervisorId" />
+          <ScalarProperty Name="ValorSupervisor" ColumnName="ValorSupervisor" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+          <ScalarProperty Name="PersonaPersonaId" ColumnName="PersonaPersonaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Asignaturas">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Asignatura)">
+        <MappingFragment StoreEntitySet="Asignaturas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NombreAsignatura" ColumnName="NombreAsignatura" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Semestres">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Semestre)">
+        <MappingFragment StoreEntitySet="Semestres">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NombreSemestre" ColumnName="NombreSemestre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Anios">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Anio)">
+        <MappingFragment StoreEntitySet="Anios">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Ano" ColumnName="Ano" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ProfesionalDocenteGuias">
       <EntityTypeMapping TypeName="IsTypeOf(Modelo.ProfesionalDocenteGuia)">
         <MappingFragment StoreEntitySet="ProfesionalDocenteGuias">
@@ -1253,6 +1444,7 @@
           <ScalarProperty Name="NumeroSuperintendencia" ColumnName="NumeroSuperintendencia" />
           <ScalarProperty Name="Telefono" ColumnName="Telefono" />
           <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="CumpleDatos" ColumnName="CumpleDatos" />
           <ScalarProperty Name="ValorDocente" ColumnName="ValorDocente" />
           <ScalarProperty Name="PersonaPersonaId" ColumnName="PersonaPersonaId" />
           <ScalarProperty Name="DocenciaHospitalariaDocenciaHospitalariaId" ColumnName="DocenciaHospitalariaDocenciaHospitalariaId" />
@@ -1260,12 +1452,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ProfesionalSupervisorSet">
-      <EntityTypeMapping TypeName="IsTypeOf(Modelo.ProfesionalSupervisor)">
-        <MappingFragment StoreEntitySet="ProfesionalSupervisorSet">
-          <ScalarProperty Name="ProfesionalSupervisorId" ColumnName="ProfesionalSupervisorId" />
-          <ScalarProperty Name="ValorSupervisor" ColumnName="ValorSupervisor" />
-          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+    <EntitySetMapping Name="PerfilUsuarios">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.PerfilUsuario)">
+        <MappingFragment StoreEntitySet="PerfilUsuarios">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Perfil" ColumnName="Perfil" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Usuario)">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Cuenta" ColumnName="Cuenta" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="PersonaPersonaId" ColumnName="PersonaPersonaId" />
         </MappingFragment>
       </EntityTypeMapping>

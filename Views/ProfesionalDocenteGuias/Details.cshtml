@@ -1,4 +1,4 @@
-﻿@model SAS.v1.ClasesNP.DocenteGuiaCamposClinicos
+﻿@model SAS.v1.Models.ProfesionalDocenteGuia
 @{
     ViewBag.Title = "Detalles Docente Guia";
 }
@@ -6,92 +6,96 @@
 
 
 <div>
-    <h4>ProfesionalDocenteGuia</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.profesional.Persona.Rut)
-        </dt>
+    <h3>ProfesionalDocenteGuia</h3>
+    <div class="ContornoDetalles">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Persona.Rut)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.profesional.Persona.Rut)-@Html.DisplayFor(model => model.profesional.Persona.Dv)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.profesional.Persona.Nombre)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.profesional.Persona.Nombre)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.profesional.Persona.ApPaterno)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.profesional.Persona.ApPaterno)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.profesional.Persona.ApMaterno)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.profesional.Persona.ApMaterno)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.profesional.Profesion)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Persona.Rut)-@Html.DisplayFor(model => model.Persona.Dv)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Persona.Nombre)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Persona.Nombre)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Persona.ApPaterno)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Persona.ApPaterno)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Persona.ApMaterno)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Persona.ApMaterno)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Profesion)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.profesional.Profesion)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Profesion)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.profesional.NumeroSuperintendencia)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.NumeroSuperintendencia)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.profesional.NumeroSuperintendencia)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.NumeroSuperintendencia)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.profesional.Telefono)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.profesional.Telefono)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Telefono)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.profesional.Correo)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Correo)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.profesional.Correo)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Correo)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.profesional.ValorDocente)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ValorDocente)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.profesional.ValorDocente)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ValorDocente)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.profesional.DocenciaHospitalaria.NombreDocenciaHospitalaria)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.DocenciaHospitalaria.NombreDocenciaHospitalaria)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.profesional.DocenciaHospitalaria.NombreDocenciaHospitalaria)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.DocenciaHospitalaria.NombreDocenciaHospitalaria)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.profesional.Inmunizacion.NombreInmunizacion)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Inmunizacion.NombreInmunizacion)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.profesional.Inmunizacion.NombreInmunizacion)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Inmunizacion.NombreInmunizacion)
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
 </div>
+<br />
+<br />
+
 <table class="table" id="tablaDetalleCampos">
     <thead>
         <tr>
@@ -111,15 +115,24 @@
             <th>
                 Carrera
             </th>
+            <th>
+                Institución
+            </th>
+            <th>
+                Campo Clinico
+            </th>
+            @*<th>
+                Unidad de Servicio
+            </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.listaCamposClinicos)
+        @foreach (var item in Model.CampoClinicoAlumno)
             {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Alumno.Persona.Rut)
+                    @Html.DisplayFor(modelItem => item.Alumno.Persona.Rut)-@Html.DisplayFor(modelItem => item.Alumno.Persona.Dv)
                 </td>
 
                 <td>
@@ -134,7 +147,15 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Alumno.CentroFormador.Carrera.NombreCarrera)
                 </td>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.CampoClinico.Institucion.NombreInstitucion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CampoClinico.NombreCampoClinico.NombreCampo)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.UnidadDeServicio.NombreUnidadDeServicio.NombreUnidadDeServicio1)
+                </td>*@
                 <td>
 
                                 @Html.ActionLink("Detalles", "Details","Alumnos", new { id = item.Id },null)
@@ -150,31 +171,33 @@
     @Html.ActionLink("Back to List", "Index")
 </p>
 
-<script type="text/javascript" charset="utf-8">
-        $(document).ready(function () {
-            $('#tablaDetalleCampos').DataTable({
-                "sDom": '<"top"ip>rt<"clear">',
-                "bLengthChange": false,
-                "iDisplayLength": 10,
-                "bFilter": false,
-                "aaSorting": [[0, "asc"]],
-                "bAutoWidth": false,
-                "sPaginationType": "full_numbers",
-                "oLanguage": {
-                    "sLengthMenu": "Mostrar _MENU_ registros por página",
-                    "sZeroRecords": "No se encontraron resultados.",
-                    "sInfo": "Mostrando _START_ al _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 al 0 de 0 registros",
-                    "sInfoFiltered": "(filtrado(s) de _MAX_ registro(s))",
-                    "oPaginate": {
-                        "sFirst": "Inicio",
-                        "sLast": "Final",
-                        "sNext": "Siguiente",
-                        "sPrevious": "Anterior"
-                    }
-                },
-                "aoColumnDefs": []
-            });
-        });
+<script>
+    $(document).ready(function () {
+
+        $('#tablaDetalleCampos').DataTable(
+         {
+            "bFilter": false,
+
+            "oLanguage": {
+                "sLengthMenu": "Mostrar _MENU_ registros por página",
+                "sZeroRecords": "No se encontraron resultados.",
+                "sInfo": "Mostrando _START_ al _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 al 0 de 0 registros",
+                "sInfoFiltered": "(filtrado(s) de _MAX_ registro(s))",
+                "oPaginate": {
+                    "sFirst": "Inicio",
+                    "sLast": "Final",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                }
+            },
+            "sDom": '<"top"Blip>rt<p"clear">',
+            buttons: ['excel']
+         });
+    });
 </script>
+
+<script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/jszip.min.js "></script>
+<script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
 

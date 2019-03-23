@@ -1,0 +1,85 @@
+﻿@model SAS.v1.ClasesNP.InstitucionNP
+
+@{
+    ViewBag.Title = "Detalles Institucion";
+}
+
+
+
+    <div>
+    <h3>Detalles Institucion</h3>
+    <hr />
+
+        <div class="ContornoDetalles">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Institucion.NombreInstitucion)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Institucion.NombreInstitucion)
+                </dd>
+            </dl>
+        </div>
+</div>
+<br />
+<br />
+        <table class="table" id="TablaDetallesInstitucion">
+            <thead>
+                <tr>
+                    <th>
+                        Campo Clinico
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+                <tbody>
+                    @foreach (var item in Model.CampoClinicos)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreCampoClinico.NombreCampo)
+                            </td>
+                            <td>@Html.ActionLink("Detalles", "DetallesUnidadServicio", new { id = item.Id }) </td>
+                        </tr>
+                    }
+                        
+                </tbody>
+        </table>
+   
+    <p>
+        
+        @Html.ActionLink("Volver", "Index")
+    </p>
+   <script>
+    $(document).ready(function () {
+
+        $('#TablaDetallesInstitucion').DataTable(
+         {
+            "bFilter": false,
+
+            "oLanguage": {
+                "sLengthMenu": "Mostrar _MENU_ registros por página",
+                "sZeroRecords": "No se encontraron resultados.",
+                "sInfo": "Mostrando _START_ al _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 al 0 de 0 registros",
+                "sInfoFiltered": "(filtrado(s) de _MAX_ registro(s))",
+                "oPaginate": {
+                    "sFirst": "Inicio",
+                    "sLast": "Final",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                }
+            },
+            "sDom": '<"top"Blip>rt<p"clear">',
+            buttons: ['excel']
+         });
+    });
+</script>
+
+<script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/jszip.min.js "></script>
+<script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
+
+
+

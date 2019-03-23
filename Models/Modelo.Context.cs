@@ -34,15 +34,18 @@ namespace SAS.v1.Models
         public virtual DbSet<NombreJornada> NombreJornadas { get; set; }
         public virtual DbSet<Dias> Dias { get; set; }
         public virtual DbSet<Periodo> Periodos { get; set; }
-        public virtual DbSet<UnidadDeServicio> UnidadDeServicios { get; set; }
         public virtual DbSet<CampoClinicoAlumnoDias> CampoClinicoAlumnoDiasSet { get; set; }
-        public virtual DbSet<NombreUnidadDeServicio> NombreUnidadDeServicios { get; set; }
         public virtual DbSet<NombreCampoClinico> NombreCampoClinicoSet { get; set; }
         public virtual DbSet<CampoClinico> CampoClinicos { get; set; }
         public virtual DbSet<Institucion> Institucions { get; set; }
         public virtual DbSet<CampoClinicoAlumno> CampoClinicoAlumnos { get; set; }
         public virtual DbSet<Alumno> Alumnos { get; set; }
-        public virtual DbSet<ProfesionalDocenteGuia> ProfesionalDocenteGuias { get; set; }
         public virtual DbSet<ProfesionalSupervisor> ProfesionalSupervisorSet { get; set; }
+        public virtual DbSet<Asignatura> Asignaturas { get; set; }
+        public virtual DbSet<Semestre> Semestres { get; set; }
+        public virtual DbSet<Anio> Anios { get; set; }
+        public virtual DbSet<ProfesionalDocenteGuia> ProfesionalDocenteGuias { get; set; }
+        public virtual DbSet<PerfilUsuario> PerfilUsuarios { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
     }
 }

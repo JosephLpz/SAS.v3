@@ -5,10 +5,10 @@
     
 }
 
-<h2>Docentes Guías</h2>
+<h1>Docentes Guías</h1>
 
 <form class="form-inline" method="POST">
-    <div class="form-group"><input type="text" class="form-control" id="Filtro" placeholder="Ingrese rut" name="Filtro"></div>
+    <div class="form-group"><input type="text" class="form-control" id="Filtro" placeholder="Ingrese Filtro" name="Filtro"></div>
     <button type="submit" class="btn btn-primary">Buscar</button>
 </form>
 <table class="table" id="TablaDocenteGuia">
@@ -82,31 +82,33 @@
         }
     </tbody>
 </table>
-<script type="text/javascript" charset="utf-8">
-        $(document).ready(function () {
-            $('#TablaDocenteGuia').DataTable({
-                "sDom": '<"top"ip>rt<"clear">',
-                "bLengthChange": false,
-                "iDisplayLength": 10,
-                "bFilter": false,
-                "aaSorting": [[0, "asc"]],
-                "bAutoWidth": false,
-                "sPaginationType": "full_numbers",
-                "oLanguage": {
-                    "sLengthMenu": "Mostrar _MENU_ registros por página",
-                    "sZeroRecords": "No se encontraron resultados.",
-                    "sInfo": "Mostrando _START_ al _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 al 0 de 0 registros",
-                    "sInfoFiltered": "(filtrado(s) de _MAX_ registro(s))",
-                    "oPaginate": {
-                        "sFirst": "Inicio",
-                        "sLast": "Final",
-                        "sNext": "Siguiente",
-                        "sPrevious": "Anterior"
-                    }
-                },
-                "aoColumnDefs": []
-            });
-        });
+<script>
+    $(document).ready(function () {
+
+        $('#TablaDocenteGuia').DataTable(
+         {
+            "bFilter": false,
+
+            "oLanguage": {
+                "sLengthMenu": "Mostrar _MENU_ registros por página",
+                "sZeroRecords": "No se encontraron resultados.",
+                "sInfo": "Mostrando _START_ al _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 al 0 de 0 registros",
+                "sInfoFiltered": "(filtrado(s) de _MAX_ registro(s))",
+                "oPaginate": {
+                    "sFirst": "Inicio",
+                    "sLast": "Final",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                }
+            },
+            "sDom": '<"top"Blip>rt<p"clear">',
+            buttons: ['excel']
+         });
+    });
 </script>
+
+<script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/jszip.min.js "></script>
+<script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
 

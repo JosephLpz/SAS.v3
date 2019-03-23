@@ -1,0 +1,65 @@
+﻿@model IEnumerable<SAS.v1.Models.Persona>
+
+@{
+    ViewBag.Title = "Personas";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Rut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApPaterno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApMaterno)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApPaterno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApMaterno)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.PersonaId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.PersonaId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.PersonaId })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

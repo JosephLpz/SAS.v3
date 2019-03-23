@@ -8,6 +8,13 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+
+    @if(ViewBag.showSuccessAlert)
+    {
+    <script>
+            alert('No se ha seleccionado ningún archivo');
+    </script>
+    }
 </head>
 <body>
     <div>

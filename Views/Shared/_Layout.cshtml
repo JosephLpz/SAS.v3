@@ -8,6 +8,7 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/UVM_Styles")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/CustomJqueryBundle", "~/bundles/CustomJqueryDataTable_Scripts")
     @Styles.Render("~/bundles/CustomJqueryDataTable_Styles")
@@ -15,19 +16,47 @@
     
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div id="NavBar-Principal" class="navbar navbar-default navbar-fixed-top">
         <div class="container">
+
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+           
             <div class="navbar-collapse collapse">
+                
                 <ul class="nav navbar-nav">
+                    <li><a class="navbar-brand">@Html.ActionLink("Sitema gestión escuela salud", "Index", "Inicio")</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Mantenedores<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item">@Html.ActionLink("Alumnos", "Create", "Alumnos")</a></li>
+                            <li><a class="dropdown-item">@Html.ActionLink("Profesional Guia", "Create", "ProfesionalDocenteGuias")</a></li>
+                            <li><a class="dropdown-item">@Html.ActionLink("Profesional Supervisor", "Create", "ProfesionalSupervisors")</a></li>
+                            <li><a class="dropdown-item">@Html.ActionLink("Instituciones", "Create", "Institucions")</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        Consultas<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown">
+                           <li><a class="dropdown-item">@Html.ActionLink("Alumnos", "Index", "Alumnos")</a></li> 
+                            <li><a class="dropdown-item">@Html.ActionLink("Profesional Docente", "Index", "ProfesionalDocenteGuias")</a></li>
+                            <li><a class="dropdown-item">@Html.ActionLink("Instituciones", "Index", "Institucions")</a></li>
+                            <li><a class="dropdown-item">@Html.ActionLink("Profesional Supervisor", "Index", "ProfesionalSupervisors")</a></li>
+                            <li><a class="dropdown-item">@Html.ActionLink("Campos Clinicos", "Index", "CampoClinicoAlumnos")</a></li>
+                        </ul>
+                    </li>
+
                 </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
@@ -35,8 +64,8 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <footer class="container-fluid bg-rojo">
+            <p>&copy; @DateTime.Now.Year - Universidad Viña del Mar</p>
         </footer>
     </div>
 

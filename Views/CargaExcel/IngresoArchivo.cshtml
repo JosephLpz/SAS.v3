@@ -9,22 +9,57 @@
 <head>
     <meta name="viewport" content="width-device-width"/>
     <title>Ingreso archivo</title>
+    <link  rel="stylesheet" type="text/css" href="~/Content/AnimateStyle.css">
+
+    @if (ViewBag.showSuccessAlert)
+    {
+        <script>
+            alert('No se ha seleccionado ningún archivo');
+        </script>
+    }
 </head>
 
 <body>
     <h2>IngresoArchivo</h2>
     <div>
-        @using (Html.BeginForm("CargarArchivo","CargaExcel",FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("IngresoArchivo", "CargaExcel",FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div>
-                <input type="file" name="archivo"/><br />
+                <p style="display:inline-block">Semestre:</p>
+                <select id="selectValue" name="selectValue" class="form-control" style="display:inline-block">
+                    <option value="1º Semeste">1º Semeste</option> 
+                    <option value="2º Semeste">2º Semeste</option> 
+                   
+                </select>
+                <br />
+                <br />
+                <p style="display:inline-block">Acción:</p>
+                <select id="selectValueAccion" name="selectValueAccion" class="form-control" style="display:inline-block">
+                    <option value="1">Actualizar</option>
+                    <option value="0">Agregar</option>
+                </select>
+                <br />
+                <br />
+                <input type="file" name="archivo" class="form-control-file" /><br />
                 @ViewBag.Message
-                <input type="submit" name="submit" value="Cargar Archivo" />
+                <input id="bottonSubmit" type="submit" name="submit" value="Cargar Archivo" class="btn btn-primary" onclick="Cargar()"/>
             </div>
+
+
         }
+        <div style="width:500px; height:450px"><div id="AnimacionCarga" style="visibility:hidden" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+
+       
+
     </div>
     
 </body>
 </html>
+<script>
+    function Cargar(){
+        document.getElementById("AnimacionCarga").style.visibility = "visible";
+    }
+   
+</script>
 
 

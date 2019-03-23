@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        <div class="jumbotron">
+        <h1 class="display-4" style="text-align:center">
+            Sistema de Gestión 
+        </h1>
+            
+            <h1 class="display-4" style="text-align:center">
+               para la escuela de ciencias de la salud
+            </h1>
+            <hr class="my-4">
+        
+            @Html.ActionLink("Cargar Excel", "IngresoArchivo", "CargaExcel")
+            
+        </div>
+    </div>
+</body>
+</html>

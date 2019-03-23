@@ -8,6 +8,10 @@ using System.Web.Optimization;
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new StyleBundle("~/Content/UVM_Styles").Include(
+               "~/Content/uvm.css",
+               "~/Content/SES.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/CustomJqueryBundle").Include(
 
                            "~/Scripts/jquery-{version}.js",
@@ -40,6 +44,10 @@ using System.Web.Optimization;
                   "~/Scripts/bootstrap.js",
                   "~/Scripts/respond.js"));
 
+             bundles.Add(new StyleBundle("~/Content/css").Include(
+                      
+                      "~/Content/bootstrap.css",
+                      "~/Content/site.css"));
              }
 
         }
