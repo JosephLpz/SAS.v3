@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using log4net;
 using SAS.v1.Models;
+using System.Security.Cryptography;
+using System.Web.Security;
 
 namespace SAS.v1.Services
 {
@@ -773,7 +775,28 @@ namespace SAS.v1.Services
         }
         #endregion
 
+        #region Usuario
+        public Usuario CrearUsuario(Usuario usuario, Persona persona)
+        {
+            Usuario usuarios = BuscarUsuario(usuario);
+            if (usuarios == null)
+            {
+                usuarios = new Usuario();
+                usuarios.Correo = usuario.Correo;
+                usuarios.Cuenta = usuario.Cuenta;
+                usuarios.Estado = "Inactivo";
+                usuarios.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(usuario.Password,"MD5");
+                usuarios.PersonaPersonaId = persona.PersonaId;
+                usuarios.PerfilUsuario=
 
+            }
+        }
+        public Usuario BuscarUsuario(Usuario usuario)
+        {
+            Usuario usuarios = db.Usuarios.Where(u => u.Cuenta == usuario.Cuenta && u.Correo == usuario.Correo).FirstOrDefault();
+            return usuarios;
+        }
+        #endregion
 
         #region anio
         public Anio CrearAnio(Anio Ano)

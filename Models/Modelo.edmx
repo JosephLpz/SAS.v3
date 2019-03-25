@@ -719,13 +719,13 @@
           </AssociationSet>
           <EntitySet Name="PerfilUsuarios" EntityType="Modelo.PerfilUsuario" />
           <EntitySet Name="Usuarios" EntityType="Modelo.Usuario" />
-          <AssociationSet Name="UsuarioPerfilUsuario" Association="Modelo.UsuarioPerfilUsuario">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="PerfilUsuario" EntitySet="PerfilUsuarios" />
-          </AssociationSet>
           <AssociationSet Name="UsuarioPersona" Association="Modelo.UsuarioPersona">
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="Persona" EntitySet="Personas" />
+          </AssociationSet>
+          <AssociationSet Name="UsuarioPerfilUsuario" Association="Modelo.UsuarioPerfilUsuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="PerfilUsuario" EntitySet="PerfilUsuarios" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Persona">
@@ -1216,7 +1216,6 @@
           <Property Name="Perfil" Type="String" Nullable="false" />
           <Property Name="Estado" Type="String" Nullable="false" />
           <NavigationProperty Name="Usuario" Relationship="Modelo.UsuarioPerfilUsuario" FromRole="PerfilUsuario" ToRole="Usuario" />
-          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -1227,22 +1226,11 @@
           <Property Name="Password" Type="String" Nullable="false" />
           <Property Name="Correo" Type="String" Nullable="false" />
           <Property Name="Estado" Type="String" Nullable="false" />
-          <NavigationProperty Name="PerfilUsuario" Relationship="Modelo.UsuarioPerfilUsuario" FromRole="Usuario" ToRole="PerfilUsuario" />
           <NavigationProperty Name="Persona" Relationship="Modelo.UsuarioPersona" FromRole="Usuario" ToRole="Persona" />
           <Property Name="PersonaPersonaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PerfilUsuario" Relationship="Modelo.UsuarioPerfilUsuario" FromRole="Usuario" ToRole="PerfilUsuario" />
+          <Property Name="PerfilUsuarioId" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="UsuarioPerfilUsuario">
-          <End Type="Modelo.Usuario" Role="Usuario" Multiplicity="1" />
-          <End Type="Modelo.PerfilUsuario" Role="PerfilUsuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PerfilUsuario">
-              <PropertyRef Name="UsuarioId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="UsuarioPersona">
           <End Type="Modelo.Usuario" Role="Usuario" Multiplicity="*" />
           <End Type="Modelo.Persona" Role="Persona" Multiplicity="1" />
@@ -1252,6 +1240,18 @@
             </Principal>
             <Dependent Role="Usuario">
               <PropertyRef Name="PersonaPersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsuarioPerfilUsuario">
+          <End Type="Modelo.Usuario" Role="Usuario" Multiplicity="*" />
+          <End Type="Modelo.PerfilUsuario" Role="PerfilUsuario" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="PerfilUsuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="PerfilUsuarioId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1458,7 +1458,6 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Perfil" ColumnName="Perfil" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

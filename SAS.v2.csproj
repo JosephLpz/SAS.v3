@@ -505,6 +505,7 @@
     <Compile Include="Controllers\CargaExcelController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\InstitucionsController.cs" />
+    <Compile Include="Controllers\PerfilUsuariosController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\ProfesionalDocenteGuiasController.cs" />
     <Compile Include="Controllers\ProfesionalSupervisorsController.cs" />
@@ -713,6 +714,16 @@
     <Content Include="Views\Personas\Details.cshtml" />
     <Content Include="Views\Personas\Edit.cshtml" />
     <Content Include="Views\Personas\Index.cshtml" />
+    <Content Include="Views\PerfilUsuarios\Create.cshtml" />
+    <Content Include="Views\PerfilUsuarios\Delete.cshtml" />
+    <Content Include="Views\PerfilUsuarios\Details.cshtml" />
+    <Content Include="Views\PerfilUsuarios\Edit.cshtml" />
+    <Content Include="Views\PerfilUsuarios\Index.cshtml" />
+    <Content Include="Views\Usuarios\Create.cshtml" />
+    <Content Include="Views\Usuarios\Delete.cshtml" />
+    <Content Include="Views\Usuarios\Details.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -722,7 +733,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Usuarios\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201809191913070_CreateAgain.resx">

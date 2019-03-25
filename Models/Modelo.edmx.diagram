@@ -49,8 +49,8 @@
         <AssociationConnector Association="Modelo.ProfesionalDocenteGuiaCampoClinicoAlumno" />
         <EntityTypeShape EntityType="Modelo.PerfilUsuario" Width="1.5" PointX="10.75" PointY="1.5" />
         <EntityTypeShape EntityType="Modelo.Usuario" Width="1.5" PointX="13.375" PointY="1.75" />
-        <AssociationConnector Association="Modelo.UsuarioPerfilUsuario" />
         <AssociationConnector Association="Modelo.UsuarioPersona" />
+        <AssociationConnector Association="Modelo.UsuarioPerfilUsuario" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
