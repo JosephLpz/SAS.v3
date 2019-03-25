@@ -11,7 +11,8 @@ namespace SAS.v1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class ProfesionalSupervisor
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,6 +22,7 @@ namespace SAS.v1.Models
         }
     
         public int ProfesionalSupervisorId { get; set; }
+        [DisplayName("Valor Supervisor")]
         public int ValorSupervisor { get; set; }
         public string Observaciones { get; set; }
         public int PersonaPersonaId { get; set; }

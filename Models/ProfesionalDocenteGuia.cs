@@ -11,7 +11,8 @@ namespace SAS.v1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class ProfesionalDocenteGuia
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,11 +22,15 @@ namespace SAS.v1.Models
         }
     
         public int ProfesionalDocenteGuiaId { get; set; }
+        [DisplayName("Profesión")]
         public string Profesion { get; set; }
+        [DisplayName("N° Superintendencia")]
         public long NumeroSuperintendencia { get; set; }
         public long Telefono { get; set; }
         public string Correo { get; set; }
+        [DisplayName("Cumple datos")]
         public string CumpleDatos { get; set; }
+        [DisplayName("Valor Docente")]
         public long ValorDocente { get; set; }
         public int PersonaPersonaId { get; set; }
         public int DocenciaHospitalariaDocenciaHospitalariaId { get; set; }
