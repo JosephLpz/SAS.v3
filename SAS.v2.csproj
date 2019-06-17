@@ -126,6 +126,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="UVM.PDS.SGTCtrlUsr">
+      <HintPath>C:\Users\lopin\OneDrive\UVM\Proyecto Escuela de la salud\PDS\SRCP-190417\SRCP\ctrlUsr\SGTCtrlUsr\SGTCtrlUsr\bin\UVM.PDS.SGTCtrlUsr.dll</HintPath>
+    </Reference>
     <Reference Include="WebActivator, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\WebActivator.1.5.1\lib\net40\WebActivator.dll</HintPath>
       <Private>True</Private>
@@ -496,10 +499,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="ClasesNP\AlumnoNP.cs" />
     <Compile Include="ClasesNP\DocenteGuiaCamposClinicos.cs" />
+    <Compile Include="ClasesNP\Estado.cs" />
     <Compile Include="ClasesNP\InstitucionNP.cs" />
     <Compile Include="ClasesNP\UnidadDeServicioAlumnosNP.cs" />
     <Compile Include="ClasesNP\UnidadServicioNP.cs" />
-    <Compile Include="Controllers\AcountController.cs" />
     <Compile Include="Controllers\AlumnosController.cs" />
     <Compile Include="Controllers\CampoClinicoAlumnosController.cs" />
     <Compile Include="Controllers\CargaExcelController.cs" />
@@ -509,7 +512,6 @@
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\ProfesionalDocenteGuiasController.cs" />
     <Compile Include="Controllers\ProfesionalSupervisorsController.cs" />
-    <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -596,6 +598,9 @@
     <Compile Include="Models\DocenciaHospitalaria.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EstadoRegistro.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Inmunizacion.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -624,6 +629,9 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NombreJornada.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Perfil.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PerfilUsuario.cs">
@@ -656,6 +664,7 @@
     <Compile Include="Services\TruncateServices.cs" />
     <Compile Include="Services\UnidadDeServicioServices.cs" />
     <Compile Include="Services\ValidacionCorreo.cs" />
+    <Compile Include="Services\CargaExcelPSeguimiento.cs" />
     <Compile Include="Utils\UtilExcel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -708,7 +717,6 @@
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Acount\Create.cshtml" />
     <Content Include="Views\Personas\Create.cshtml" />
     <Content Include="Views\Personas\Delete.cshtml" />
     <Content Include="Views\Personas\Details.cshtml" />
@@ -719,11 +727,6 @@
     <Content Include="Views\PerfilUsuarios\Details.cshtml" />
     <Content Include="Views\PerfilUsuarios\Edit.cshtml" />
     <Content Include="Views\PerfilUsuarios\Index.cshtml" />
-    <Content Include="Views\Usuarios\Create.cshtml" />
-    <Content Include="Views\Usuarios\Delete.cshtml" />
-    <Content Include="Views\Usuarios\Details.cshtml" />
-    <Content Include="Views\Usuarios\Edit.cshtml" />
-    <Content Include="Views\Usuarios\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

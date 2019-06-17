@@ -116,13 +116,13 @@
       <End Role="ProfesionalDocenteGuia" EntitySet="ProfesionalDocenteGuias" />
       <End Role="CampoClinicoAlumno" EntitySet="CampoClinicoAlumnos" />
     </AssociationSet>
-    <AssociationSet Name="UsuarioPerfilUsuario" Association="Modelo.Store.UsuarioPerfilUsuario">
-      <End Role="Usuario" EntitySet="Usuarios" />
-      <End Role="PerfilUsuario" EntitySet="PerfilUsuarios" />
-    </AssociationSet>
     <AssociationSet Name="UsuarioPersona" Association="Modelo.Store.UsuarioPersona">
       <End Role="Usuario" EntitySet="Usuarios" />
       <End Role="Persona" EntitySet="Personas" />
+    </AssociationSet>
+    <AssociationSet Name="PerfilUsuarioUsuario" Association="Modelo.Store.PerfilUsuarioUsuario">
+      <End Role="PerfilUsuario" EntitySet="PerfilUsuarios" />
+      <End Role="Usuario" EntitySet="Usuarios" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Personas">
@@ -135,6 +135,7 @@
     <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ApPaterno" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ApMaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="tinyint" Nullable="false" />
   </EntityType>
   <EntityType Name="DocenciaHospitalarias">
     <Key>
@@ -301,8 +302,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Perfil" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Perfil" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="tinyint" Nullable="false" />
     <Property Name="UsuarioId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Usuarios">
@@ -313,7 +314,7 @@
     <Property Name="Cuenta" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="tinyint" Nullable="false" />
     <Property Name="PersonaPersonaId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="CentroFormadorCarrera">
@@ -580,18 +581,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="UsuarioPerfilUsuario">
-    <End Role="Usuario" Type="Modelo.Store.Usuarios" Multiplicity="1" />
-    <End Role="PerfilUsuario" Type="Modelo.Store.PerfilUsuarios" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Usuario">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PerfilUsuario">
-        <PropertyRef Name="UsuarioId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="UsuarioPersona">
     <End Role="Usuario" Type="Modelo.Store.Usuarios" Multiplicity="*" />
     <End Role="Persona" Type="Modelo.Store.Personas" Multiplicity="1" />
@@ -601,6 +590,18 @@
       </Principal>
       <Dependent Role="Usuario">
         <PropertyRef Name="PersonaPersonaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PerfilUsuarioUsuario">
+    <End Role="PerfilUsuario" Type="Modelo.Store.PerfilUsuarios" Multiplicity="*" />
+    <End Role="Usuario" Type="Modelo.Store.Usuarios" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PerfilUsuario">
+        <PropertyRef Name="UsuarioId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -723,9 +724,9 @@
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="Persona" EntitySet="Personas" />
           </AssociationSet>
-          <AssociationSet Name="UsuarioPerfilUsuario" Association="Modelo.UsuarioPerfilUsuario">
-            <End Role="Usuario" EntitySet="Usuarios" />
+          <AssociationSet Name="PerfilUsuarioUsuario" Association="Modelo.PerfilUsuarioUsuario">
             <End Role="PerfilUsuario" EntitySet="PerfilUsuarios" />
+            <End Role="Usuario" EntitySet="Usuarios" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Persona">
@@ -742,6 +743,7 @@
           <NavigationProperty Name="ProfesionalSupervidor" Relationship="Modelo.ProfesionalSupervidorPersona" FromRole="Persona" ToRole="ProfesionalSupervidor" />
           <NavigationProperty Name="ProfesionalDocenteGuia" Relationship="Modelo.ProfesionalDocenteGuiaPersona" FromRole="Persona" ToRole="ProfesionalDocenteGuia" />
           <NavigationProperty Name="Usuario" Relationship="Modelo.UsuarioPersona" FromRole="Persona" ToRole="Usuario" />
+          <Property Name="Estado" Type="Modelo.EstadoRegistro" Nullable="false" />
         </EntityType>
         <EntityType Name="DocenciaHospitalaria">
           <Key>
@@ -1213,9 +1215,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Perfil" Type="String" Nullable="false" />
-          <Property Name="Estado" Type="String" Nullable="false" />
-          <NavigationProperty Name="Usuario" Relationship="Modelo.UsuarioPerfilUsuario" FromRole="PerfilUsuario" ToRole="Usuario" />
+          <Property Name="Perfil" Type="Modelo.Perfil" Nullable="false" />
+          <Property Name="Estado" Type="Modelo.EstadoRegistro" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Modelo.PerfilUsuarioUsuario" FromRole="PerfilUsuario" ToRole="Usuario" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -1225,11 +1228,10 @@
           <Property Name="Cuenta" Type="String" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" />
           <Property Name="Correo" Type="String" Nullable="false" />
-          <Property Name="Estado" Type="String" Nullable="false" />
+          <Property Name="Estado" Type="Modelo.EstadoRegistro" Nullable="false" />
           <NavigationProperty Name="Persona" Relationship="Modelo.UsuarioPersona" FromRole="Usuario" ToRole="Persona" />
           <Property Name="PersonaPersonaId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PerfilUsuario" Relationship="Modelo.UsuarioPerfilUsuario" FromRole="Usuario" ToRole="PerfilUsuario" />
-          <Property Name="PerfilUsuarioId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PerfilUsuario" Relationship="Modelo.PerfilUsuarioUsuario" FromRole="Usuario" ToRole="PerfilUsuario" />
         </EntityType>
         <Association Name="UsuarioPersona">
           <End Type="Modelo.Usuario" Role="Usuario" Multiplicity="*" />
@@ -1243,18 +1245,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="UsuarioPerfilUsuario">
-          <End Type="Modelo.Usuario" Role="Usuario" Multiplicity="*" />
-          <End Type="Modelo.PerfilUsuario" Role="PerfilUsuario" Multiplicity="1" />
+        <Association Name="PerfilUsuarioUsuario">
+          <End Type="Modelo.PerfilUsuario" Role="PerfilUsuario" Multiplicity="*" />
+          <End Type="Modelo.Usuario" Role="Usuario" Multiplicity="1" />
           <ReferentialConstraint>
-            <Principal Role="PerfilUsuario">
+            <Principal Role="Usuario">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Usuario">
-              <PropertyRef Name="PerfilUsuarioId" />
+            <Dependent Role="PerfilUsuario">
+              <PropertyRef Name="UsuarioId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EnumType Name="EstadoRegistro" UnderlyingType="Byte">
+          <Member Name="Activo" Value="1" />
+          <Member Name="Inactivo" Value="0" />
+          <Member Name="Pendiente" Value="2" />
+        </EnumType>
+        <EnumType Name="Perfil">
+          <Member Name="Administrador" Value="1" />
+          <Member Name="JefeDeCarrera" Value="2" />
+        </EnumType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1270,6 +1281,7 @@
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
           <ScalarProperty Name="ApPaterno" ColumnName="ApPaterno" />
           <ScalarProperty Name="ApMaterno" ColumnName="ApMaterno" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1458,6 +1470,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Perfil" ColumnName="Perfil" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

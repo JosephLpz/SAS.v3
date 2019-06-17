@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/10/2019 18:41:32
--- Generated from EDMX file: D:\Proyecto area Salud\SES\SAS.v3\SAS.v3\Models\Modelo.edmx
+-- Date Created: 06/11/2019 18:03:00
+-- Generated from EDMX file: D:\Proyecto_escuela_de_la_salud\SES\SAS.v3\SAS.v3\Models\Modelo.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -83,6 +83,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ProfesionalDocenteGuiaCampoClinicoAlumno]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CampoClinicoAlumnos] DROP CONSTRAINT [FK_ProfesionalDocenteGuiaCampoClinicoAlumno];
 GO
+IF OBJECT_ID(N'[dbo].[FK_UsuarioPersona]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Usuarios] DROP CONSTRAINT [FK_UsuarioPersona];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UsuarioPerfilUsuario]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Usuarios] DROP CONSTRAINT [FK_UsuarioPerfilUsuario];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -148,6 +154,12 @@ GO
 IF OBJECT_ID(N'[dbo].[ProfesionalDocenteGuias]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProfesionalDocenteGuias];
 GO
+IF OBJECT_ID(N'[dbo].[PerfilUsuarios]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PerfilUsuarios];
+GO
+IF OBJECT_ID(N'[dbo].[Usuarios]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Usuarios];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -160,7 +172,8 @@ CREATE TABLE [dbo].[Personas] (
     [Dv] nvarchar(max)  NOT NULL,
     [Nombre] nvarchar(max)  NOT NULL,
     [ApPaterno] nvarchar(max)  NOT NULL,
-    [ApMaterno] nvarchar(max)  NOT NULL
+    [ApMaterno] nvarchar(max)  NOT NULL,
+    [Estado] tinyint  NOT NULL
 );
 GO
 
@@ -327,8 +340,8 @@ GO
 -- Creating table 'PerfilUsuarios'
 CREATE TABLE [dbo].[PerfilUsuarios] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Perfil] nvarchar(max)  NOT NULL,
-    [Estado] nvarchar(max)  NOT NULL,
+    [Perfil] int  NOT NULL,
+    [Estado] tinyint  NOT NULL,
     [UsuarioId] int  NOT NULL
 );
 GO
@@ -339,7 +352,7 @@ CREATE TABLE [dbo].[Usuarios] (
     [Cuenta] nvarchar(max)  NOT NULL,
     [Password] nvarchar(max)  NOT NULL,
     [Correo] nvarchar(max)  NOT NULL,
-    [Estado] nvarchar(max)  NOT NULL,
+    [Estado] tinyint  NOT NULL,
     [PersonaPersonaId] int  NOT NULL
 );
 GO
@@ -814,21 +827,6 @@ ON [dbo].[CampoClinicoAlumnos]
     ([ProfesionalDocenteGuiaProfesionalDocenteGuiaId]);
 GO
 
--- Creating foreign key on [UsuarioId] in table 'PerfilUsuarios'
-ALTER TABLE [dbo].[PerfilUsuarios]
-ADD CONSTRAINT [FK_UsuarioPerfilUsuario]
-    FOREIGN KEY ([UsuarioId])
-    REFERENCES [dbo].[Usuarios]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UsuarioPerfilUsuario'
-CREATE INDEX [IX_FK_UsuarioPerfilUsuario]
-ON [dbo].[PerfilUsuarios]
-    ([UsuarioId]);
-GO
-
 -- Creating foreign key on [PersonaPersonaId] in table 'Usuarios'
 ALTER TABLE [dbo].[Usuarios]
 ADD CONSTRAINT [FK_UsuarioPersona]
@@ -842,6 +840,21 @@ GO
 CREATE INDEX [IX_FK_UsuarioPersona]
 ON [dbo].[Usuarios]
     ([PersonaPersonaId]);
+GO
+
+-- Creating foreign key on [UsuarioId] in table 'PerfilUsuarios'
+ALTER TABLE [dbo].[PerfilUsuarios]
+ADD CONSTRAINT [FK_PerfilUsuarioUsuario]
+    FOREIGN KEY ([UsuarioId])
+    REFERENCES [dbo].[Usuarios]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PerfilUsuarioUsuario'
+CREATE INDEX [IX_FK_PerfilUsuarioUsuario]
+ON [dbo].[PerfilUsuarios]
+    ([UsuarioId]);
 GO
 
 -- --------------------------------------------------

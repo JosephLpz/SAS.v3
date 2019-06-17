@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SAS.v1.Models;
+using SAS.v1.Services;
 
 namespace SAS.v1.Controllers
 {
@@ -48,13 +49,25 @@ namespace SAS.v1.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Cuenta,Password,Correo,Rut,Dv,Nombre,ApPaterno,ApMaterno")] Usuario usuario,Persona persona)
+        public ActionResult Create([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,Cuenta,Password,Correo")] Persona persona,Usuario usuario)
         {
+            IngresoServices ingresoDatos = new IngresoServices();
             if (ModelState.IsValid)
             {
-                db.Usuarios.Add(usuario);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+                persona = ingresoDatos.CrearPersona(persona, 1);
+                bool sesion = ingresoDatos.CrearUsuario(usuario, persona);
+
+                if (sesion == true)
+                {
+            return RedirectToAction("Inicio/Index");
+                }
+                else
+                {
+                    ViewBag.ErrorSesion = "El usuario ingresado ya se encuentra registrado";
+                    
+                }
+                
             }
 
             ViewBag.PersonaPersonaId = new SelectList(db.Personas, "PersonaId", "Rut", usuario.PersonaPersonaId);

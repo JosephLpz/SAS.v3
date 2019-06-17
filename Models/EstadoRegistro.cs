@@ -10,15 +10,11 @@
 namespace SAS.v1.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class PerfilUsuario
+    public enum EstadoRegistro : byte
     {
-        public int Id { get; set; }
-        public Perfil Perfil { get; set; }
-        public EstadoRegistro Estado { get; set; }
-        public int UsuarioId { get; set; }
-    
-        public virtual Usuario Usuario { get; set; }
+        Activo = 1,
+        Inactivo = 0,
+        Pendiente = 2
     }
 }

@@ -48,7 +48,7 @@ namespace SAS.v1.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Perfil,Estado,UsuarioId")] PerfilUsuario perfilUsuario)
+        public ActionResult Create([Bind(Include = "Perfil,Estado")] PerfilUsuario perfilUsuario)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace SAS.v1.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Cuenta", perfilUsuario.UsuarioId);
+           // ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Cuenta", perfilUsuario.UsuarioId);
             return View(perfilUsuario);
         }
 
@@ -73,7 +73,7 @@ namespace SAS.v1.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Cuenta", perfilUsuario.UsuarioId);
+            //ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Cuenta", perfilUsuario.UsuarioId);
             return View(perfilUsuario);
         }
 
@@ -90,7 +90,7 @@ namespace SAS.v1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Cuenta", perfilUsuario.UsuarioId);
+            //ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Cuenta", perfilUsuario.UsuarioId);
             return View(perfilUsuario);
         }
 

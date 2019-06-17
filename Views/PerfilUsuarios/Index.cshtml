@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SAS.v1.Models.PerfilUsuario>
 
 @{
-    Layout = null;
+    ViewBag.Title = "Perfiles de Usuario";
 }
 
 <!DOCTYPE html>
@@ -23,9 +23,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Estado)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Usuario.Cuenta)
-            </th>
+          
             <th></th>
         </tr>
     
@@ -37,9 +35,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario.Cuenta)
-            </td>
+            
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id=item.Id }) |

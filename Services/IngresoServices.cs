@@ -6,6 +6,8 @@ using log4net;
 using SAS.v1.Models;
 using System.Security.Cryptography;
 using System.Web.Security;
+using SAS.v1.ClasesNP;
+using SAS.v1.Utils;
 
 namespace SAS.v1.Services
 {
@@ -57,6 +59,7 @@ namespace SAS.v1.Services
                 person.Nombre= person.Nombre.Replace(person.Nombre, Datos.Nombre);
                 person.ApPaterno= person.ApPaterno.Replace(person.ApPaterno, Datos.ApPaterno);
                 person.ApMaterno= person.ApMaterno.Replace(person.ApMaterno, Datos.ApMaterno);
+                person.Estado = EstadoRegistro.Activo;
                 db.SaveChanges();
 
 
@@ -69,6 +72,7 @@ namespace SAS.v1.Services
                 person.Nombre = Datos.Nombre;
                 person.ApPaterno = Datos.ApPaterno;
                 person.ApMaterno = Datos.ApMaterno;
+                person.Estado = EstadoRegistro.Activo;
                 db.Personas.Add(person);
                 db.SaveChanges();
                 // person = null;
@@ -776,20 +780,27 @@ namespace SAS.v1.Services
         #endregion
 
         #region Usuario
-        public Usuario CrearUsuario(Usuario usuario, Persona persona)
+        public Boolean CrearUsuario(Usuario usuario, Persona persona)
         {
             Usuario usuarios = BuscarUsuario(usuario);
+            Estado estado = new Estado();
             if (usuarios == null)
             {
                 usuarios = new Usuario();
                 usuarios.Correo = usuario.Correo;
                 usuarios.Cuenta = usuario.Cuenta;
-                usuarios.Estado = "Inactivo";
+                // usuarios.Estado = estado.Desactivar;
                 usuarios.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(usuario.Password,"MD5");
-                usuarios.PersonaPersonaId = persona.PersonaId;
-                usuarios.PerfilUsuario=
+                usuarios.PersonaPersonaId = 1;
+               // usuarios.PerfilUsuarioId = 1;
+                db.Usuarios.Add(usuarios);
+                db.SaveChanges();
 
+            }else
+            {
+                return false;
             }
+            return true;
         }
         public Usuario BuscarUsuario(Usuario usuario)
         {

@@ -14,15 +14,21 @@ namespace SAS.v1.Models
     
     public partial class Usuario
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Usuario()
+        {
+            this.PerfilUsuario = new HashSet<PerfilUsuario>();
+        }
+    
         public int Id { get; set; }
         public string Cuenta { get; set; }
         public string Password { get; set; }
         public string Correo { get; set; }
-        public string Estado { get; set; }
+        public EstadoRegistro Estado { get; set; }
         public int PersonaPersonaId { get; set; }
-        public int PerfilUsuarioId { get; set; }
     
         public virtual Persona Persona { get; set; }
-        public virtual PerfilUsuario PerfilUsuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PerfilUsuario> PerfilUsuario { get; set; }
     }
 }

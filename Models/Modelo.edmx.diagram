@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5fb56f988a334b8e91956ed942764359" Name="Diagram1" ZoomLevel="69" >
+      <Diagram DiagramId="5fb56f988a334b8e91956ed942764359" Name="Diagram1" ZoomLevel="88" >
         <EntityTypeShape EntityType="Modelo.Persona" Width="1.5" PointX="11" PointY="3.875" />
         <EntityTypeShape EntityType="Modelo.DocenciaHospitalaria" Width="2.5" PointX="13.25" PointY="5.125" />
         <EntityTypeShape EntityType="Modelo.Inmunizacion" Width="3.375" PointX="16.25" PointY="4" />
@@ -47,10 +47,10 @@
         <AssociationConnector Association="Modelo.ProfesionalDocenteGuiaDocenciaHospitalaria" />
         <AssociationConnector Association="Modelo.ProfesionalDocenteGuiaInmunizacion" />
         <AssociationConnector Association="Modelo.ProfesionalDocenteGuiaCampoClinicoAlumno" />
-        <EntityTypeShape EntityType="Modelo.PerfilUsuario" Width="1.5" PointX="10.75" PointY="1.5" />
-        <EntityTypeShape EntityType="Modelo.Usuario" Width="1.5" PointX="13.375" PointY="1.75" />
+        <EntityTypeShape EntityType="Modelo.PerfilUsuario" Width="1.5" PointX="10.375" PointY="1.25" />
+        <EntityTypeShape EntityType="Modelo.Usuario" Width="2.125" PointX="13.375" PointY="1.75" />
         <AssociationConnector Association="Modelo.UsuarioPersona" />
-        <AssociationConnector Association="Modelo.UsuarioPerfilUsuario" />
+        <AssociationConnector Association="Modelo.PerfilUsuarioUsuario" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
