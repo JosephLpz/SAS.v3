@@ -1,0 +1,127 @@
+﻿@model IEnumerable<SAS.v1.Models.PerfilUsuario>
+
+    @{
+        ViewBag.Title = "Perfiles";
+        SAS.v1.Models.Usuario usuario = ViewBag.usuario;
+    }
+
+    <h2>@ViewBag.Title</h2>
+
+    <div>
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+            <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
+            <li class="active">@ViewBag.Title</li>
+            <li class="opcion">@Html.ActionLink("Volver", "Index", "Usuarios")</li>
+            <li class="opcion">@Html.ActionLink("Agregar", "Create", new { id = usuario.Id })</li>
+        </ul>
+    </div>
+
+    <!-- Usuario -->
+    <fieldset>
+        <legend>Usuario</legend>
+        <dl class="dl-horizontal">
+            <dt>
+                Cuenta
+            </dt>
+
+            <dd>
+                @usuario.Cuenta
+            </dd>
+
+            @*<dt>
+                Nombre
+            </dt>
+
+            <dd>
+                @usuario.nombre
+            </dd>*@
+
+            <dt>
+                Correo Electrónico
+            </dt>
+
+            <dd>
+                @usuario.Correo
+            </dd>
+
+            <dt>
+                Estado
+            </dt>
+
+            <dd>
+                @usuario.Estado
+            </dd>
+
+            <dt>
+                Persona
+            </dt>
+
+            <dd>
+                @usuario.Persona.Nombre
+            </dd>
+        </dl>
+    </fieldset>
+
+    <!--<table class="table">-->
+    <table id="tabla" class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Perfil)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Perfil)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Estado)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+                        @Html.ActionLink("Ver", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+                      <!-- -->
+                      <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#tabla').DataTable({
+                "sDom": '<"top"ip>rt<"clear">',
+                "bLengthChange": false,
+                "iDisplayLength": 10,
+                "bFilter": false,
+                "aaSorting": [[0, "asc"]],
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "oLanguage": {
+                    "sLengthMenu": "Mostrar _MENU_ registros por página",
+                    "sZeroRecords": "No se encontraron resultados.",
+                    "sInfo": "Mostrando _START_ al _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 al 0 de 0 registros",
+                    "sInfoFiltered": "(filtrado(s) de _MAX_ registro(s))",
+                    "oPaginate": {
+                        "sFirst": "Inicio",
+                        "sLast": "Final",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    }
+                },
+                "aoColumnDefs": []
+            });
+        });
+                      </script>
+                      <!-- -->

@@ -1,0 +1,93 @@
+﻿@model SAS.v1.Models.PerfilUsuario
+
+@{
+     ViewBag.Title = "Agregar Perfil";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <ul class="breadcrumb">
+        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+        <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
+        <li>@Html.ActionLink("Perfiles Usuario: " + Model.Usuario.Cuenta, "Index", "PerfilesUsuario", new { id = Model.Usuario.Id }, "")</li>
+        <li class="active">@ViewBag.Title</li>
+        <li class="opcion">@Html.ActionLink("Volver", "Index", "PerfilesUsuario", new { id = Model.Usuario.Id }, "")</li>
+        <li class="opcion">@Html.ActionLink("Agregar", "Create")</li>
+    </ul>
+</div>
+
+<!-- Usuario -->
+<fieldset>
+    <legend>Usuario</legend>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.Cuenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Cuenta)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Usuario.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.nombre)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.Correo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Correo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.Persona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Persona.Nombre)
+        </dd>
+    </dl>
+</fieldset>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.UsuarioId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Perfil, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Perfil, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Perfil, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Agregar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

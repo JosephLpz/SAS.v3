@@ -11,8 +11,7 @@ namespace SAS.v1.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class DocenciaHospitalaria
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,7 +21,6 @@ namespace SAS.v1.Models
         }
     
         public int DocenciaHospitalariaId { get; set; }
-        [DisplayName("Docencia Hospitalaria")]
         public string NombreDocenciaHospitalaria { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

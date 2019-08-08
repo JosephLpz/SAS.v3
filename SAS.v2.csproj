@@ -83,6 +83,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="MvcBundleConfig, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MvcBundleConfig.2.2.0\lib\net45\MvcBundleConfig.dll</HintPath>
       <Private>True</Private>
@@ -322,6 +325,7 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\pds.css" />
     <Content Include="Content\SES.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\AnimateStyle.css" />
@@ -722,11 +726,18 @@
     <Content Include="Views\Personas\Details.cshtml" />
     <Content Include="Views\Personas\Edit.cshtml" />
     <Content Include="Views\Personas\Index.cshtml" />
-    <Content Include="Views\PerfilUsuarios\Create.cshtml" />
-    <Content Include="Views\PerfilUsuarios\Delete.cshtml" />
-    <Content Include="Views\PerfilUsuarios\Details.cshtml" />
-    <Content Include="Views\PerfilUsuarios\Edit.cshtml" />
-    <Content Include="Views\PerfilUsuarios\Index.cshtml" />
+    <Content Include="Views\Usuarios\Activate.cshtml" />
+    <Content Include="Views\Usuarios\Create.cshtml" />
+    <Content Include="Views\Usuarios\Deactivate.cshtml" />
+    <Content Include="Views\Usuarios\Delete.cshtml" />
+    <Content Include="Views\Usuarios\Details.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\PerfilesUsuario\Create.cshtml" />
+    <Content Include="Views\PerfilesUsuario\Delete.cshtml" />
+    <Content Include="Views\PerfilesUsuario\Details.cshtml" />
+    <Content Include="Views\PerfilesUsuario\Edit.cshtml" />
+    <Content Include="Views\PerfilesUsuario\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

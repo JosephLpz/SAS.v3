@@ -6,7 +6,14 @@
 @{
     ViewBag.Title = "Detalle Campos Clinicos";
 }
-
+<div>
+    <ul class="breadcrumb">
+        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+        <li>@Html.ActionLink("Alumnos", "Index")</li>
+        <li class="active">@ViewBag.Title</li>
+        <li class="opcion">@Html.ActionLink("Volver", "Index")</li>
+    </ul>
+</div>
 <h3>Detalle Campos Clinicos</h3>
     <div class="ContornoDetalles">
             <dl class="dl-horizontal">

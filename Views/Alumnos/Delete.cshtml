@@ -3,7 +3,14 @@
 @{
     ViewBag.Title = "Delete";
 }
-
+<div>
+    <ul class="breadcrumb">
+        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+        <li>@Html.ActionLink("Alumnos", "Index")</li>
+        <li class="active">@ViewBag.Title</li>
+        <li class="opcion">@Html.ActionLink("Volver", "Index")</li>
+    </ul>
+</div>
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>

@@ -600,7 +600,7 @@ ol li:before {
 	font-size: 90%;
 }
 .breadcrumb > .active {
-    color: #fff;
+    color: #FF0000;
 }
 .breadcrumb li a {
     color: #ccc;

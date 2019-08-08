@@ -30,8 +30,12 @@
             <div class="navbar-collapse collapse">
                 
                 <ul class="nav navbar-nav">
-                    <li><a class="navbar-brand">@Html.ActionLink("Sitema gestión escuela salud", "Index", "Inicio")</a></li>
+              
+                    <li><a class="navbar-brand">@Html.ActionLink("Sistema gestión escuela salud", "Index", "Inicio")</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
                     <li class="dropdown">
+                   
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             Mantenedores<span class="caret"></span>
                         </a>
@@ -54,8 +58,24 @@
                             <li><a class="dropdown-item">@Html.ActionLink("Campos Clinicos", "Index", "CampoClinicoAlumnos")</a></li>
                         </ul>
                     </li>
-
+                   
+                       if (User.IsInRole("Administrador"))
+                       {
+                    <li class="dropdown">
+                 
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Usuarios<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown">
+                        
+                            <li><a class="dropdown-item">@Html.ActionLink("Usuarios", "Create", "Usuarios")</a></li>        
+                                       
+                        </ul>
+                    </li>
+                       }
+                   }                 
                 </ul>
+               
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

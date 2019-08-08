@@ -1,0 +1,48 @@
+﻿@model SAS.v1.Models.PerfilUsuario
+
+@{
+    ViewBag.Title = "Ver Perfil";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <ul class="breadcrumb">
+        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+        <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
+        <li>@Html.ActionLink("Perfiles Usuario: " + Model.Usuario.Cuenta, "Index", "PerfilesUsuario", new { id = Model.Usuario.Id }, "")</li>
+        <li class="active">@ViewBag.Title</li>
+        <li class="opcion">@Html.ActionLink("Volver", "Index", "PerfilesUsuario", new { id = Model.Usuario.Id }, "")</li>
+        <li class="opcion">@Html.ActionLink("Agregar", "Create")</li>
+    </ul>
+</div>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Perfil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Perfil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.Cuenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Cuenta)
+        </dd>
+
+    </dl>
+</div>

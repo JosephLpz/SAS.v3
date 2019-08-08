@@ -5,7 +5,14 @@
     ViewBag.Title = "Index";
     
 }
-
+<div>
+    <ul class="breadcrumb">
+        <li>@Html.ActionLink("Inicio", "Index", "Inicio")</li>
+        <li>@Html.ActionLink("Alumnos", "Index")</li>
+        <li class="active">@ViewBag.Title</li>
+        <li class="opcion">@Html.ActionLink("Volver", "Index")</li>
+    </ul>
+</div>
 <h1>Alumnos</h1>
 <br />
 @*<p>

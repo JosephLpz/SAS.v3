@@ -1,0 +1,57 @@
+﻿@model UVM.PDS.SGT.Models.PerfilUsuario
+
+@{
+    ViewBag.Title = "Eliminar Perfil";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <ul class="breadcrumb">
+        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+        <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
+        <li>@Html.ActionLink("Perfiles Usuario: " + Model.Usuario.cuenta, "Index", "PerfilesUsuario", new { id = Model.Usuario.Id }, "")</li>
+        <li class="active">@ViewBag.Title</li>
+        <li class="opcion">@Html.ActionLink("Volver", "Index", "PerfilesUsuario", new { id = Model.Usuario.Id }, "")</li>
+        <li class="opcion">@Html.ActionLink("Agregar", "Create")</li>
+    </ul>
+</div>
+
+<h3>¿Está seguro de eliminar este perfil?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.perfil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.perfil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.cuenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.cuenta)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" />
+        </div>
+    }
+</div>

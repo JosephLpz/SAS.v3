@@ -1,7 +1,7 @@
 ﻿@model SAS.v1.Models.Usuario
 
 @{
-    ViewBag.Title = "Eliminar Usuario";
+    ViewBag.Title = "Activar Usuario";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -14,7 +14,7 @@
         <li class="opcion">@Html.ActionLink("Volver", "Index")</li>
     </ul>
 </div>
-<h3>¿Está seguro que desea eliminar este registro?</h3>
+<h3>¿Está seguro que desea activar este registro?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -82,7 +82,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Eliminar" class="btn btn-default" />
+            <input type="submit" value="Activar" class="btn btn-default" />
         </div>
     }
 </div>

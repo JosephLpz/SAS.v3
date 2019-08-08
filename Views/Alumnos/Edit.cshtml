@@ -3,7 +3,14 @@
 @{
     ViewBag.Title = "Edit";
 }
-
+<div>
+    <ul class="breadcrumb">
+        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+        <li>@Html.ActionLink("Alumnos", "Index")</li>
+        <li class="active">@ViewBag.Title</li>
+        <li class="opcion">@Html.ActionLink("Volver", "Index")</li>
+    </ul>
+</div>
 <h2>Edit</h2>
 
 @using (Html.BeginForm())
