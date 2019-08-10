@@ -1,4 +1,4 @@
-﻿@model UVM.PDS.SGT.Models.Usuario
+﻿@model SAS.v1.Models.Usuario
 
 @{
     ViewBag.Title = "Desactivar Usuario";
@@ -19,43 +19,43 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.cuenta)
+            @Html.DisplayNameFor(model => model.Cuenta)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.cuenta)
+            @Html.DisplayFor(model => model.Cuenta)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.nombre)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.nombre)
-        </dd>
+        </dd>*@
 
-        <dt>
-            @Html.DisplayNameFor(model => model.password)
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Password)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.password)
-        </dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>*@
 
         <dt>
-            @Html.DisplayNameFor(model => model.eMail)
+            @Html.DisplayNameFor(model => model.Correo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.eMail)
+            @Html.DisplayFor(model => model.Correo)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.estado)
+            @Html.DisplayNameFor(model => model.Estado)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.estado)
+            @Html.DisplayFor(model => model.Estado)
         </dd>
 
         <dt>
@@ -67,13 +67,13 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Perfiles)
+            @Html.DisplayNameFor(model => model.PerfilUsuario)
         </dt>
 
         <dd>
-            @foreach (var p in Model.Perfiles)
+            @foreach (var p in Model.PerfilUsuario)
             {
-                @Html.DisplayFor(model => p.perfil) <br />
+                @Html.DisplayFor(model => p.Perfil) <br />
             }
         </dd>
     </dl>
