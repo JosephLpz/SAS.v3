@@ -14,11 +14,12 @@
         <li class="opcion">@Html.ActionLink("Volver", "Index", "PerfilesUsuario", new { id = Model.Usuario.Id }, "")</li>
         <li class="opcion">@Html.ActionLink("Agregar", "Create")</li>
     </ul>
-</div>
+</div>  
 
 <h3>¿Está seguro de eliminar este perfil?</h3>
 <div>
     <hr />
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Perfil)
