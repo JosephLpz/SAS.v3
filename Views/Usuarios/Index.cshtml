@@ -56,7 +56,11 @@
                     <td>
                         @foreach (var p in item.PerfilUsuario)
                         {
+                            if (p.Estado==SAS.v1.Models.EstadoRegistro.Activo)
+                            {
                             @Html.DisplayFor(model => p.Perfil) <br />
+                            }
+
                         }
                     </td>
                     <td>

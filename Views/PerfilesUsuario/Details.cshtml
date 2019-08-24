@@ -45,4 +45,16 @@
         </dd>
 
     </dl>
+    @if (Model.Estado == SAS.v1.Models.EstadoRegistro.Inactivo)
+    {
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Activar" class="btn btn-default" />
+            </div>
+        }
+    }
+   
 </div>
