@@ -45,18 +45,18 @@ namespace SAS.v1.Models
 
             get
             {
-                int curso = 100;
+                int curso = -1;
                 int NCurso;
                 foreach(var item in CursoAlumno)
                 {
                    NCurso = Int32.Parse(item.CursoNivel.NombreCurso.Substring(0, 1));
 
-                    if (curso > NCurso)
+                    if (curso < NCurso)
                     {
                         curso = NCurso;
                     }
                 }
-                return curso + "Año";
+                return curso +" "+"Año";
             }
         }
     }

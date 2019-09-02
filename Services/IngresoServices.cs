@@ -88,7 +88,8 @@ namespace SAS.v1.Services
         //Buscar Persona 
         public Persona BuscarPersona(Persona Datos)
         {
-            Persona person = (from p in db.Personas where p.Rut == Datos.Rut && p.Dv == Datos.Dv select p).FirstOrDefault();
+            Persona person = (from p in db.Personas where p.Rut == Datos.Rut && p.Dv == Datos.Dv && p.Nombre.ToUpper()==Datos.Nombre.ToUpper()&&p.ApPaterno.ToUpper()==
+                              Datos.ApPaterno.ToUpper() select p).FirstOrDefault();
             return person;
         }
         #endregion
@@ -979,7 +980,7 @@ namespace SAS.v1.Services
             {
                 cursoAlumno = new CursoAlumno();
                 cursoAlumno.AlumnoAlumnoId = alumno.AlumnoId;
-                cursoAlumno.CursoNivelId = curso.Id;
+                cursoAlumno.CursoNivelId = curso.CursoNivelId;
                 db.CursoAlumnos.Add(cursoAlumno);
                 db.SaveChanges();
                 // inmune = null;
@@ -994,7 +995,7 @@ namespace SAS.v1.Services
         public CursoAlumno BuscarCursoAlumno(Alumno alumno, CursoNivel curso)
         {
             CursoAlumno cursoAlumno = (from i in db.CursoAlumnos
-                                where i.AlumnoAlumnoId == alumno.AlumnoId && i.CursoNivelId==curso.Id
+                                where i.AlumnoAlumnoId == alumno.AlumnoId && i.CursoNivelId==curso.CursoNivelId
                                 select i).FirstOrDefault();
             return cursoAlumno;
         }

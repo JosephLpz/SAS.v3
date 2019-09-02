@@ -90,7 +90,7 @@ namespace SAS.v1.Controllers
         {
             ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
             ViewBag.NombreCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
-            ViewBag.CursoNivel = new SelectList(db.CursosNiveles, "Id", "NombreCurso");
+            ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "CursoNivelId", "NombreCurso");
             return View();
         }
 
@@ -99,7 +99,7 @@ namespace SAS.v1.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,Id,Observaciones,CarreraId,NombreCentroFormadorId")] Persona persona,CursoNivel curso,Alumno alumno,Carrera carrera, NombreCentroFormador nombreCentroFormador)
+        public ActionResult Create([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,CursoNivelId,Observaciones,CarreraId,NombreCentroFormadorId")] Persona persona,CursoNivel curso,Alumno alumno,Carrera carrera, NombreCentroFormador nombreCentroFormador)
         {
             IngresoServices ingresoDatos = new IngresoServices();
             CursoAlumno cursoAlumno = new CursoAlumno();
@@ -123,8 +123,7 @@ namespace SAS.v1.Controllers
             ViewBag.InmunizacionInmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
             ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
             ViewBag.CentroFormadorCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
-            ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "Id", "NombreCurso");
-
+            ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "CursoNivelId", "NombreCurso");
             return View(alumno);
         }
 
@@ -143,8 +142,7 @@ namespace SAS.v1.Controllers
             ViewBag.InmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
             ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
             ViewBag.NombreCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
-            ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "Id", "NombreCurso");
-
+            ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "CursoNivelId", "NombreCurso");
             return View(alumno);
         }
 
@@ -175,8 +173,7 @@ namespace SAS.v1.Controllers
             ViewBag.InmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
             ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
             ViewBag.NombreCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
-            ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "Id", "NombreCurso");
-
+            ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "CursoNivelId", "NombreCurso");
             return View(alumno);
         }
 
