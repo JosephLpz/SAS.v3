@@ -44,14 +44,14 @@
                 @Html.DisplayNameFor(model => model.Persona.ApMaterno)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CursoNivel)
+                @Html.DisplayNameFor(model => model.cursoNivel)
             </th>
 
             <th>
                 @Html.DisplayNameFor(model => model.CentroFormador.Carrera.NombreCarrera)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Inmunizacion)
+                Imnunización
             </th>
             <th></th>
             <th></th>
@@ -82,14 +82,17 @@
                     @Html.DisplayFor(modelItem => item.Persona.ApMaterno)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CursoNivel)
+                    @Html.DisplayFor(modelItem => item.cursoNivel)
                 </td>
 
                 <td>
                     @Html.DisplayFor(modelItem => item.CentroFormador.Carrera.NombreCarrera)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Inmunizacion.NombreInmunizacion)
+                    @foreach (var inmu in item.ImunizacionAlumno)
+                    {
+                     @Html.DisplayFor(modelItem => inmu.Inmunizacion.NombreInmunizacion)
+                    }
                 </td>
                 <td>
                     @Html.ActionLink("Detalles", "DetalleCamposClinicos", new { id = item.AlumnoId }) 
@@ -104,9 +107,6 @@
         }
     </tbody>
 </table>
-<script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
-<script src="~/Scripts/jszip.min.js "></script>
-<script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
 <script>
     $(document).ready(function () {
 
@@ -128,10 +128,11 @@
                 }
             },
             "sDom": '<"top"Blip>rt<p"clear">',
-            "dom": 'Bfrtip',
-            "buttons": ['excel']
+            buttons: ['excel']
          });
     });
 </script>
-
+<script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/jszip.min.js "></script>
+<script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
 

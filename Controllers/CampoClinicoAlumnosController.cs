@@ -32,13 +32,13 @@ namespace SAS.v1.Controllers
             }else if (semestre == "" && filtro != "")
             {
                 campoClinicoAlumnos = db.CampoClinicoAlumnos.Include(c => c.Alumno).Include(c => c.ProfesionalSupervidor).Include(c => c.Periodo).Include(c => c.Asignatura).Include(c => c.Semestre).Include(c => c.Anio).Include(c => c.CampoClinico).Include(c => c.ProfesionalDocenteGuia).Where(c => c.Alumno.Persona.Nombre.Contains(filtro)
-                ||c.Alumno.Persona.Rut.Contains(filtro)||c.Alumno.Persona.ApPaterno.Contains(filtro)||c.Alumno.CursoNivel.Contains(filtro)||c.Asignatura.NombreAsignatura.Contains(filtro)||c.Alumno.CentroFormador.Carrera.NombreCarrera.Contains(filtro)||c.CampoClinico.NombreCampoClinico.NombreCampo.Contains(filtro)||
+                ||c.Alumno.Persona.Rut.Contains(filtro)||c.Alumno.Persona.ApPaterno.Contains(filtro)||c.Asignatura.NombreAsignatura.Contains(filtro)||c.Alumno.CentroFormador.Carrera.NombreCarrera.Contains(filtro)||c.CampoClinico.NombreCampoClinico.NombreCampo.Contains(filtro)||
                 c.CampoClinico.Institucion.NombreInstitucion.Contains(filtro)||c.Anio.Ano.Contains(filtro)).ToList();
 
             }else
             {
                 campoClinicoAlumnos = db.CampoClinicoAlumnos.Include(c => c.Alumno).Include(c => c.ProfesionalSupervidor).Include(c => c.Periodo).Include(c => c.Asignatura).Include(c => c.Semestre).Include(c => c.Anio).Include(c => c.CampoClinico).Include(c => c.ProfesionalDocenteGuia).Where(c => c.Alumno.Persona.Nombre.Contains(filtro)
-                || c.Alumno.Persona.Rut.Contains(filtro) || c.Alumno.Persona.ApPaterno.Contains(filtro) || c.Alumno.CursoNivel.Contains(filtro) || c.Asignatura.NombreAsignatura.Contains(filtro) || c.Alumno.CentroFormador.Carrera.NombreCarrera.Contains(filtro) || c.CampoClinico.NombreCampoClinico.NombreCampo.Contains(filtro) ||
+                || c.Alumno.Persona.Rut.Contains(filtro) || c.Alumno.Persona.ApPaterno.Contains(filtro) ||c.Asignatura.NombreAsignatura.Contains(filtro) || c.Alumno.CentroFormador.Carrera.NombreCarrera.Contains(filtro) || c.CampoClinico.NombreCampoClinico.NombreCampo.Contains(filtro) ||
                 c.CampoClinico.Institucion.NombreInstitucion.Contains(filtro)&&c.Semestre.NombreSemestre==semestre).ToList();
             }
             // var campoClinicoAlumnos = db.CampoClinicoAlumnos.Include(c => c.Alumno).Include(c => c.ProfesionalSupervidor).Include(c => c.Periodo).Include(c => c.Asignatura).Include(c => c.Semestre).Include(c => c.Anio).Include(c => c.CampoClinico).Include(c => c.ProfesionalDocenteGuia);

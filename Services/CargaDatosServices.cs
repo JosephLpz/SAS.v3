@@ -50,8 +50,9 @@ namespace SAS.v1.Services
                         Asignatura Asignaturas = new Asignatura();
                         Semestre Semestres = new Semestre();
                         Anio Ano = new Anio();
-
-
+                        InmunizacionAlumno inmunizacionAl = new InmunizacionAlumno();
+                        CursoNivel curso = new CursoNivel();
+                        CursoAlumno cursoAlumno = new CursoAlumno();
 
                         string CentroFormador = utlXls.getCellValue(string.Format("B{0}", fila));
                         if (CentroFormador != null && !CentroFormador.Equals(string.Empty))
@@ -60,7 +61,7 @@ namespace SAS.v1.Services
                             string Asignatura = utlXls.getCellValue(string.Format("A{0}", fila));
                             //capturando Carrera
                             string Carrera = utlXls.getCellValue(string.Format("C{0}", fila));
-
+                            
                             //Institucion
                             string Institucion = utlXls.getCellValue(string.Format("D{0}", fila));
 
@@ -217,8 +218,8 @@ namespace SAS.v1.Services
                             personaAlumno.Nombre = NombreAlumno;
                             personaAlumno.ApPaterno = ApellidoPaAlumno;
                             personaAlumno.ApMaterno = ApellidoMaAlumno;
-                            Alumn.CursoNivel = CursoNivel;
-                        Alumn.Observaciones = ObservacionAlumno;
+                            //Alumn.CursoNivel = CursoNivel;
+                            Alumn.Observaciones = ObservacionAlumno;
                         if (ObservacionAlumno == "")
                         {
                             Alumn.Observaciones = " ";
@@ -226,15 +227,24 @@ namespace SAS.v1.Services
                             // personAlumno=ingreso.CrearPersona(personAlumno);
                             personaAlumno = ingreso.CrearPersona(personaAlumno,Estado);
                             
-                            Alumn = ingreso.CrearAlumno(personaAlumno, Alumn, inmun, CentroF, Estado);
-                            #endregion
+                            Alumn = ingreso.CrearAlumno(personaAlumno, Alumn, CentroF, Estado);
+                        #endregion
 
+                        #region CursoNivel
+                        curso = ingreso.CrearCursoNivel(CursoNivel);
+                        cursoAlumno = ingreso.CrearCursoAlumno(Alumn, curso);
 
-                            #region Jornada
-                            //Jornada
+                        #endregion
 
-                            //Periodo 
-                            Per.FechaInicio = FechaInicio;
+                        #region inmunizacion
+                        // Creando inmunizacion Alumno
+                        inmunizacionAl = ingreso.CrearInmunizacionAlumno(Alumn,inmun);
+                        #endregion
+                        #region Jornada
+                        //Jornada
+
+                        //Periodo 
+                        Per.FechaInicio = FechaInicio;
                             Per.FechaTermino = FechaTermino;
 
 
@@ -326,22 +336,8 @@ namespace SAS.v1.Services
 
                             #endregion
 
-                            //if (DocenteGuia == null)
-                            //{
-                            //    DocenteGuia = new ProfesionalDocenteGuia();
-                            //    DocenteGuia.Rut = RutDocenteGuia;
-                            //    DocenteGuia.Dv = DvProfesionalDocenteGuia;
-                            //    DocenteGuia.Nombre = NombreProfesionalDocenteGuia;
-                            //    DocenteGuia.ApPaterno = ApPaternoDocenteGuia;
-                            //    DocenteGuia.ApMaterno = ApMaternoDocenteGuia;
-                            //    //Capturar datos profesional docnete guia
-                            //    DocenteGuia.Profesion = ProfesionDocenteGuia;
-                            //    DocenteGuia.NumeroSuperintendencia = Int32.Parse(Nregistro);
-                            //    DocenteGuia.Telefono = Int32.Parse(TelefonoDocenteGuia);
-                            //    DocenteGuia.Correo = CorreoDocenteGuia;
-                            //    DocenteGuia.ValorDocente = "";
-                            //    DocenteGuia = ingreso.CrearProfesionalDocenteGuia(DocenteGuia, inmun, DocHospitalaria);
-                            //}
+                          
+                        
 
                             #region ProfesionalSupervisor
                             personaSupervisor.Rut = RutProfesionalSupervisor;
@@ -373,19 +369,7 @@ namespace SAS.v1.Services
                             Supervisor = ingreso.crearProfesionalSupervisor(personaSupervisor, Supervisor, Estado);
                             #endregion
 
-                            //if (Supervisor == null)
-                            //{
-                            //    Supervisor = new ProfesionalSupervisor();
-                            //    Supervisor.Rut = RutProfesionalSupervisor;
-                            //    Supervisor.Dv = DvProfesionalSupervisor;
-                            //    Supervisor.Nombre = NombreProfesionalSupervisor;
-                            //    Supervisor.ApPaterno = ApPaternoProfesionalSupervisor;
-                            //    Supervisor.ApMaterno = ApMaternoProfesionalSupervisor;
-                            //    Supervisor.ValorSupervisor = Int32.Parse(ValorProfesionalSupervisor);
-                            //    Supervisor.Observaciones = "";
-
-                            //    Supervisor = ingreso.crearProfesionalSupervisor(Supervisor);
-                            //}
+                           
 
                             #region institución
                             //institucion.NombreInstitucion = Institucion;
@@ -399,13 +383,7 @@ namespace SAS.v1.Services
                             Campo = ingreso.CrearCampoClinico(NCampo, institucion, Estado);
                             #endregion
 
-                            //#region NombreUnidadDeServicio
-                            //NUnidadDeServicio = ingreso.CrearNombreUnidadDeServicio(UnidadServicio);
-                            //#endregion
-
-                            //#region UnidadDeServicio
-                            //UServicio = ingreso.CrearUnidadDeServicio(NUnidadDeServicio, Campo);
-                            //#endregion
+                           
 
                             #region Asignatura 
                             Asignaturas.NombreAsignatura = Asignatura;

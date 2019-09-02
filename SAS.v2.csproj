@@ -48,6 +48,10 @@
       <HintPath>packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DataStreams, Version=5.24.0.0, Culture=neutral, PublicKeyToken=9c9b03c227e1bea6, processorArchitecture=MSIL">
+      <HintPath>packages\DataStreams.1.0.0\lib\net45\DataStreams.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DataTables.AspNet.Core, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\DataTables.AspNet.Core.2.0.2\lib\net45\DataTables.AspNet.Core.dll</HintPath>
       <Private>True</Private>
@@ -56,8 +60,8 @@
       <HintPath>packages\DataTables.AspNet.Mvc5.2.0.2\lib\net45\DataTables.AspNet.Mvc5.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.8.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
-      <HintPath>..\packages\DocumentFormat.OpenXml.2.8.1\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.10.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>packages\DocumentFormat.OpenXml.2.10.0-beta0002\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -83,6 +87,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -92,6 +101,22 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spire.Common, Version=2.8.10.6040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>packages\Spire.XLS.9.8.11\lib\net40\Spire.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spire.License, Version=1.3.7.40, Culture=neutral, PublicKeyToken=b1144360237c8b3f, processorArchitecture=MSIL">
+      <HintPath>packages\Spire.XLS.9.8.11\lib\net40\Spire.License.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spire.Pdf, Version=5.8.8.18040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>packages\Spire.XLS.9.8.11\lib\net40\Spire.Pdf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spire.XLS, Version=9.8.11.6040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>packages\Spire.XLS.9.8.11\lib\net40\Spire.XLS.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http" />
@@ -502,14 +527,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="ClasesNP\AlumnoNP.cs" />
+    <Compile Include="ClasesNP\ColoresNP.cs" />
     <Compile Include="ClasesNP\DocenteGuiaCamposClinicos.cs" />
     <Compile Include="ClasesNP\Estado.cs" />
     <Compile Include="ClasesNP\InstitucionNP.cs" />
     <Compile Include="ClasesNP\UnidadDeServicioAlumnosNP.cs" />
     <Compile Include="ClasesNP\UnidadServicioNP.cs" />
     <Compile Include="Controllers\AlumnosController.cs" />
+    <Compile Include="Controllers\AsignaturaAlumnosController.cs" />
     <Compile Include="Controllers\CampoClinicoAlumnosController.cs" />
     <Compile Include="Controllers\CargaExcelController.cs" />
+    <Compile Include="Controllers\CargarAsignaturasController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\InstitucionsController.cs" />
     <Compile Include="Controllers\PerfilUsuariosController.cs" />
@@ -581,6 +609,9 @@
     <Compile Include="Models\Asignatura.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AsignaturaAlumno.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CampoClinico.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -596,16 +627,28 @@
     <Compile Include="Models\CentroFormador.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CursoAlumno.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CursoNivel.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Dias.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DocenciaHospitalaria.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EstadoAsignatura.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EstadoRegistro.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Inmunizacion.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InmunizacionAlumno.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Institucion.cs">
@@ -647,6 +690,9 @@
     <Compile Include="Models\Persona.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PorcentajeDeExigencia.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ProfesionalDocenteGuia.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -662,6 +708,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AlumnosServices.cs" />
     <Compile Include="Services\CargaDatosServices.cs" />
+    <Compile Include="Services\CargarAsignaturas.cs" />
+    <Compile Include="Services\CountColumns.cs" />
     <Compile Include="Services\DocenteGuiaServices.cs" />
     <Compile Include="Services\IngresoServices.cs" />
     <Compile Include="Services\InstitucionServices.cs" />
@@ -670,6 +718,7 @@
     <Compile Include="Services\ValidacionCorreo.cs" />
     <Compile Include="Services\CargaExcelPSeguimiento.cs" />
     <Compile Include="Utils\UtilExcel.cs" />
+    <Compile Include="Utils\UtilExcelGetColor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -738,6 +787,12 @@
     <Content Include="Views\PerfilesUsuario\Details.cshtml" />
     <Content Include="Views\PerfilesUsuario\Edit.cshtml" />
     <Content Include="Views\PerfilesUsuario\Index.cshtml" />
+    <Content Include="Views\CargarAsignaturas\Index.cshtml" />
+    <Content Include="Views\AsignaturaAlumnos\Create.cshtml" />
+    <Content Include="Views\AsignaturaAlumnos\Delete.cshtml" />
+    <Content Include="Views\AsignaturaAlumnos\Details.cshtml" />
+    <Content Include="Views\AsignaturaAlumnos\Edit.cshtml" />
+    <Content Include="Views\AsignaturaAlumnos\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -747,6 +802,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\AsignaturasAlumnos\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201809191913070_CreateAgain.resx">

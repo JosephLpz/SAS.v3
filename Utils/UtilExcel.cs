@@ -2,6 +2,9 @@
 using DocumentFormat.OpenXml.Spreadsheet;
 using System;
 using System.Linq;
+using Excel = Microsoft.Office.Interop.Excel;
+using DataStreams.Common;
+using DocumentFormat.OpenXml;
 
 namespace WebPedigree.Utiles
 {
@@ -33,18 +36,20 @@ namespace WebPedigree.Utiles
 
         // Retrieve the value of a cell, given a file name, sheet name, 
         // and address name.
+        
         public string getCellValue(string addressName)
         {
             // Retrieve a reference to the worksheet part.
             WorksheetPart wsPart = (WorksheetPart)(wbPart.GetPartById(theSheet.Id));
-
+           
             string value = null;
 
             // Use its Worksheet property to get a reference to the cell 
             // whose address matches the address you supplied.
             Cell theCell = wsPart.Worksheet.Descendants<Cell>().
                 Where(c => c.CellReference == addressName).FirstOrDefault();
-
+            
+            
             // If the cell does not exist, return an empty string.
             if (theCell != null)
             {
@@ -103,11 +108,13 @@ namespace WebPedigree.Utiles
             throw new NotImplementedException();
         }
 
+       
         public void close()
         {
             document = null;
             wbPart = null;
             theSheet = null;
         }
+
     }
 }

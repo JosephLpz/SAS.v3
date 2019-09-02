@@ -88,9 +88,9 @@ namespace SAS.v1.Controllers
         // GET: MantenedorAlumnos/Create
         public ActionResult Create()
         {
-            ViewBag.InmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
             ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
             ViewBag.NombreCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
+            ViewBag.CursoNivel = new SelectList(db.CursosNiveles, "Id", "NombreCurso");
             return View();
         }
 
@@ -99,9 +99,10 @@ namespace SAS.v1.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,CursoNivel,Observaciones,InmunizacionId,CarreraId,NombreCentroFormadorId")] Persona persona,Alumno alumno,Inmunizacion inmunizacion,Carrera carrera, NombreCentroFormador nombreCentroFormador)
+        public ActionResult Create([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,Id,Observaciones,CarreraId,NombreCentroFormadorId")] Persona persona,CursoNivel curso,Alumno alumno,Carrera carrera, NombreCentroFormador nombreCentroFormador)
         {
             IngresoServices ingresoDatos = new IngresoServices();
+            CursoAlumno cursoAlumno = new CursoAlumno();
             if (ModelState.IsValid)
             {
                  persona = ingresoDatos.CrearPersona(persona,1);
@@ -112,8 +113,8 @@ namespace SAS.v1.Controllers
                     alumno.Observaciones = "";
                 }
                     
-                alumno = ingresoDatos.CrearAlumno(persona, alumno, inmunizacion, centroFormador,1);
-
+                alumno = ingresoDatos.CrearAlumno(persona, alumno, centroFormador,1);
+                cursoAlumno = ingresoDatos.CrearCursoAlumno(alumno, curso);
                 
                 return RedirectToAction("Create");
             }
@@ -122,6 +123,8 @@ namespace SAS.v1.Controllers
             ViewBag.InmunizacionInmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
             ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
             ViewBag.CentroFormadorCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
+            ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "Id", "NombreCurso");
+
             return View(alumno);
         }
 
@@ -140,6 +143,8 @@ namespace SAS.v1.Controllers
             ViewBag.InmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
             ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
             ViewBag.NombreCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
+            ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "Id", "NombreCurso");
+
             return View(alumno);
         }
 
@@ -148,9 +153,10 @@ namespace SAS.v1.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,CursoNivel,Observaciones,InmunizacionId,CarreraId,NombreCentroFormadorId")] Persona persona, Alumno alumno, Inmunizacion inmunizacion, Carrera carrera, NombreCentroFormador nombreCentroFormador)
+        public ActionResult Edit([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,CursoNivelId,Observaciones,CarreraId,NombreCentroFormadorId")] Persona persona,CursoNivel curso, Alumno alumno, Carrera carrera, NombreCentroFormador nombreCentroFormador)
         {
             IngresoServices ingreso = new IngresoServices();
+            CursoAlumno cursoAlumno = new CursoAlumno();
 
             // obtengo el centro formador
             CentroFormador centroFormador = new CentroFormador();
@@ -162,13 +168,15 @@ namespace SAS.v1.Controllers
                 //llamo al metodo crear persona para modificar los datos de persona con el estado 1 de modificar y utilizo el mismo objeto para enviarselo a al metodo de alumno
                 persona = ingreso.CrearPersona(persona,1);
                 //objeto ingreso el cual se comunica con la clase Ingreso services para modificar los datos
-                ingreso.CrearAlumno(persona, alumno, inmunizacion, centroFormador, 1);
-               
+                alumno=ingreso.CrearAlumno(persona, alumno, centroFormador, 1);
+                ingreso.CrearCursoAlumno(alumno, curso);
                 return RedirectToAction("Index");
             }
             ViewBag.InmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
             ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
             ViewBag.NombreCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
+            ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "Id", "NombreCurso");
+
             return View(alumno);
         }
 

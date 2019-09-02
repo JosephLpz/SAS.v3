@@ -17,16 +17,16 @@ namespace SAS.v1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Inmunizacion()
         {
-            this.Alumno = new HashSet<Alumno>();
             this.ProfesionalDocenteGuia = new HashSet<ProfesionalDocenteGuia>();
+            this.ImunizacionAlumno = new HashSet<InmunizacionAlumno>();
         }
     
         public int InmunizacionId { get; set; }
         public string NombreInmunizacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Alumno> Alumno { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProfesionalDocenteGuia> ProfesionalDocenteGuia { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InmunizacionAlumno> ImunizacionAlumno { get; set; }
     }
 }

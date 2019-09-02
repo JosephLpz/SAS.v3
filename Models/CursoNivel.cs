@@ -12,21 +12,18 @@ namespace SAS.v1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Asignatura
+    public partial class CursoNivel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Asignatura()
+        public CursoNivel()
         {
-            this.CampoClinicoAlumno = new HashSet<CampoClinicoAlumno>();
-            this.AsignaturaAlumno = new HashSet<AsignaturaAlumno>();
+            this.CursoAlumno = new HashSet<CursoAlumno>();
         }
     
-        public int Id { get; set; }
-        public string NombreAsignatura { get; set; }
+        public int CursoNivelId { get; set; }
+        public string NombreCurso { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CampoClinicoAlumno> CampoClinicoAlumno { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AsignaturaAlumno> AsignaturaAlumno { get; set; }
+        public virtual ICollection<CursoAlumno> CursoAlumno { get; set; }
     }
 }

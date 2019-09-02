@@ -93,7 +93,7 @@ namespace SAS.v1.Services
         }
         #endregion
         #region Alumno
-        public Alumno CrearAlumno(Persona person,Alumno AlumnoDatos, Inmunizacion Inmunizacion, CentroFormador CentroFormador, int Estado)
+        public Alumno CrearAlumno(Persona person,Alumno AlumnoDatos, CentroFormador CentroFormador, int Estado)
         {
             Alumno Alumn = null;
             Alumn = BuscarAlumno(person,CentroFormador);
@@ -101,7 +101,7 @@ namespace SAS.v1.Services
             {
               
                
-                Alumn.CursoNivel = Alumn.CursoNivel.Replace(Alumn.CursoNivel,AlumnoDatos.CursoNivel);
+                //Alumn.CursoNivel = Alumn.CursoNivel.Replace(Alumn.CursoNivel,AlumnoDatos.CursoNivel);
                 Alumn.Observaciones = AlumnoDatos.Observaciones;               
                 db.SaveChanges();
             }
@@ -110,23 +110,18 @@ namespace SAS.v1.Services
             {
 
                 Alumn = new Alumno();
-                //person = new Persona();
-                //Alumn.Rut = AlumnoDatos.Rut;
-                //Alumn.Dv = AlumnoDatos.Dv;
-                //Alumn.Nombre = AlumnoDatos.Nombre;
-                //Alumn.ApPaterno = AlumnoDatos.ApPaterno;
-                //Alumn.ApMaterno = AlumnoDatos.ApMaterno;
+                
                 Alumn.PersonaPersonaId = person.PersonaId;
-                Alumn.InmunizacionInmunizacionId = Inmunizacion.InmunizacionId;
+                //Alumn.InmunizacionInmunizacionId = Inmunizacion.InmunizacionId;
                 Alumn.CentroFormadorCentroFormadorId = CentroFormador.CentroFormadorId;
-                Alumn.CursoNivel = AlumnoDatos.CursoNivel;
+                //Alumn.CursoNivel = AlumnoDatos.CursoNivel;
                 Alumn.Observaciones = AlumnoDatos.Observaciones;
-                // Alumn.PeriodosId = Periodos.PeriodosId;
+             
                 db.Alumnos.Add(Alumn);
                 db.SaveChanges();
 
                 Alumn = BuscarAlumno(person, CentroFormador);
-                // Alumn = null;
+              
             }
             else
             {
@@ -747,7 +742,7 @@ namespace SAS.v1.Services
 
         public Asignatura BuscarAsignatura(Asignatura nombreAsignatura)
         {
-            Asignatura asignatura = db.Asignaturas.Where(a => a.NombreAsignatura ==nombreAsignatura.NombreAsignatura).FirstOrDefault();
+            Asignatura asignatura = db.Asignaturas.Where(a => a.NombreAsignatura.ToUpper() ==nombreAsignatura.NombreAsignatura.ToUpper()).FirstOrDefault();
             return asignatura;
         }
         #endregion
@@ -790,7 +785,7 @@ namespace SAS.v1.Services
                 usuarios.Correo = usuario.Correo;
                 usuarios.Cuenta = usuario.Cuenta;
                 // usuarios.Estado = estado.Desactivar;
-                usuarios.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(usuario.Password,"MD5");
+                //usuarios.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(usuario.Password,"MD5");
                 usuarios.PersonaPersonaId = 1;
                // usuarios.PerfilUsuarioId = 1;
                 db.Usuarios.Add(usuarios);
@@ -832,5 +827,179 @@ namespace SAS.v1.Services
             return anio;
         }
         #endregion
+
+        #region AsignaturasAlumnos
+
+        public AsignaturaAlumno CrearAsignaturaAlumnos(AsignaturaAlumno AsAlumno, int Estado)
+        {
+            AsignaturaAlumno asignaturaAlumno = BuscarAsignaturaAlumno(AsAlumno);
+            if (asignaturaAlumno != null && Estado == 1)
+            {
+                asignaturaAlumno.AlumnoAlumnoId = AsAlumno.AlumnoAlumnoId;
+                asignaturaAlumno.AsignaturaId = AsAlumno.AsignaturaId;
+                asignaturaAlumno.CarreraCarreraId = AsAlumno.CarreraCarreraId;
+                asignaturaAlumno.EstadoAsignatura = AsAlumno.EstadoAsignatura;
+                asignaturaAlumno.SemestreId = AsAlumno.SemestreId;
+                asignaturaAlumno.AnioId = AsAlumno.AnioId;
+                asignaturaAlumno.PorcentajeDeExigenciaId = AsAlumno.PorcentajeDeExigenciaId;
+                db.SaveChanges();
+            }
+            if (asignaturaAlumno == null && Estado == 1 || asignaturaAlumno == null && Estado == 0)
+            {
+                asignaturaAlumno = new AsignaturaAlumno();
+                asignaturaAlumno.Alumno = AsAlumno.Alumno;
+                asignaturaAlumno.Anio = AsAlumno.Anio;
+                asignaturaAlumno.Semestre = AsAlumno.Semestre;
+                asignaturaAlumno.Asignatura = AsAlumno.Asignatura;
+                asignaturaAlumno.Carrera = AsAlumno.Carrera;
+                asignaturaAlumno.PorcentajeDeExigencia = AsAlumno.PorcentajeDeExigencia;
+
+                asignaturaAlumno.AlumnoAlumnoId = AsAlumno.AlumnoAlumnoId;
+                asignaturaAlumno.AsignaturaId = AsAlumno.AsignaturaId;
+                asignaturaAlumno.CarreraCarreraId = AsAlumno.CarreraCarreraId;
+                asignaturaAlumno.EstadoAsignatura = AsAlumno.EstadoAsignatura;
+                asignaturaAlumno.SemestreId = AsAlumno.SemestreId;
+                asignaturaAlumno.AnioId = AsAlumno.AnioId;
+                asignaturaAlumno.AsignaturaPreRequisito = "";
+                asignaturaAlumno.PorcentajeDeExigenciaId = AsAlumno.PorcentajeDeExigenciaId;
+                db.AsignaturasAlumnos.Add(asignaturaAlumno);
+                db.SaveChanges();
+            }
+            else
+            {
+                return asignaturaAlumno;
+            }
+            return asignaturaAlumno;
+
+        }
+
+        public AsignaturaAlumno BuscarAsignaturaAlumno(AsignaturaAlumno AsAlumno)
+        {
+            AsignaturaAlumno asignaturaAlumno = db.AsignaturasAlumnos.Where(a => a.AsignaturaId == AsAlumno.AsignaturaId&&a.AlumnoAlumnoId==AsAlumno.AlumnoAlumnoId
+            ).FirstOrDefault();
+            return asignaturaAlumno;
+        }
+
+        #endregion
+
+        #region porcentaje exigencia
+        public PorcentajeDeExigencia CrearPorcentajeDeExigencia(PorcentajeDeExigencia Porcentaje, int Estado)
+        {
+            PorcentajeDeExigencia porcentaje = BuscarPorcentaje(Porcentaje);
+            if (porcentaje != null && Estado == 1)
+            {
+                porcentaje.Porcentaje = Porcentaje.Porcentaje;
+                db.SaveChanges();
+            }
+            if (porcentaje == null && Estado == 1 || porcentaje == null && Estado == 0)
+            {
+                porcentaje = new PorcentajeDeExigencia();
+                porcentaje.Porcentaje = Porcentaje.Porcentaje;
+                db.PorcentajesDeExigencias.Add(porcentaje);
+                db.SaveChanges();
+            }
+            else
+            {
+                return porcentaje;
+            }
+            return porcentaje;
+
+        }
+
+        public PorcentajeDeExigencia BuscarPorcentaje(PorcentajeDeExigencia porcentaje)
+        {
+            PorcentajeDeExigencia Porcentaje = db.PorcentajesDeExigencias.Where(a => a.Id == porcentaje.Id ).FirstOrDefault();
+            return Porcentaje;
+        }
+        #endregion
+
+
+        #region Inmunizacion Alumno
+        public InmunizacionAlumno CrearInmunizacionAlumno(Alumno alumno, Inmunizacion inmunizacion)
+        {
+            InmunizacionAlumno AlumnoInmune = BuscarInmunizacionAlumno(alumno,inmunizacion);
+            if (AlumnoInmune == null)
+            {
+                AlumnoInmune = new InmunizacionAlumno();
+                AlumnoInmune.InmunizacionInmunizacionId = inmunizacion.InmunizacionId;
+                AlumnoInmune.AlumnoAlumnoId = alumno.AlumnoId;
+                db.ImunizacionesAlumnos.Add(AlumnoInmune);
+                db.SaveChanges();
+                // inmune = null;
+            }
+            else
+            {
+                return AlumnoInmune;
+            }
+
+            return AlumnoInmune;
+        }
+        public InmunizacionAlumno BuscarInmunizacionAlumno(Alumno alumno, Inmunizacion inmunizacion)
+        {
+            InmunizacionAlumno inmune = (from i in db.ImunizacionesAlumnos where i.AlumnoAlumnoId == alumno.AlumnoId &&i.InmunizacionInmunizacionId== 
+                                         inmunizacion.InmunizacionId select i).FirstOrDefault();
+            return inmune;
+        }
+
+
+        #endregion
+
+        #region CursoNivel
+        public CursoNivel CrearCursoNivel(string Curso)
+        {
+            CursoNivel cursoNivel = BuscarCursoNivel(Curso);
+            if (cursoNivel == null)
+            {
+                cursoNivel = new CursoNivel();
+                cursoNivel.NombreCurso = Curso;
+                db.CursosNiveles.Add(cursoNivel);
+                db.SaveChanges();
+                // inmune = null;
+            }
+            else
+            {
+                return cursoNivel;
+            }
+
+            return cursoNivel;
+        }
+        public CursoNivel BuscarCursoNivel(string Curso)
+        {
+            CursoNivel curso = (from i in db.CursosNiveles
+                                         where i.NombreCurso.ToUpper() == Curso.ToUpper() select i).FirstOrDefault();
+            return curso;
+        }
+        #endregion
+
+        #region CursoAlumno
+        public CursoAlumno CrearCursoAlumno(Alumno alumno, CursoNivel curso)
+        {
+            CursoAlumno cursoAlumno = BuscarCursoAlumno(alumno,curso);
+            if (cursoAlumno == null)
+            {
+                cursoAlumno = new CursoAlumno();
+                cursoAlumno.AlumnoAlumnoId = alumno.AlumnoId;
+                cursoAlumno.CursoNivelId = curso.Id;
+                db.CursoAlumnos.Add(cursoAlumno);
+                db.SaveChanges();
+                // inmune = null;
+            }
+            else
+            {
+                return cursoAlumno;
+            }
+
+            return cursoAlumno;
+        }
+        public CursoAlumno BuscarCursoAlumno(Alumno alumno, CursoNivel curso)
+        {
+            CursoAlumno cursoAlumno = (from i in db.CursoAlumnos
+                                where i.AlumnoAlumnoId == alumno.AlumnoId && i.CursoNivelId==curso.Id
+                                select i).FirstOrDefault();
+            return cursoAlumno;
+        }
+        #endregion
+
+
     }
 }

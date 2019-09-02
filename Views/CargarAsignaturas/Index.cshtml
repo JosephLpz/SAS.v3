@@ -1,0 +1,28 @@
+﻿@model IEnumerable<SAS.v1.Models.Carrera>
+@{
+    ViewBag.Title = "CargaAsignaturas";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+@using (Html.BeginForm("Index", "CargarAsignaturas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+        <p>Nombre Hoja Excel:</p>
+        <input type="text" name="NombreHoja" />
+        <p>Carrera:</p>
+        <input type="text" name="carrera" />
+
+        <input type="file" name="archivo" class="form-control-file" /><br />
+        @ViewBag.Message
+        <input id="bottonSubmit" type="submit" name="submit" value="Cargar Archivo" class="btn btn-primary" onclick="Cargar()" />
+}
+    </div>
+</body>
+</html>
