@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAS.v2", "SAS.v2.csproj", "{C78BCEEE-7C04-4B9D-828B-9D3EE62627F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGTCtrlUsr", "C:\Users\lopin\OneDrive\UVM\Proyecto Escuela de la salud\PDS\SRCP-190417\SRCP\ctrlUsr\SGTCtrlUsr\SGTCtrlUsr\SGTCtrlUsr.csproj", "{16A8C7F4-4287-48EA-B7CD-21F100B27184}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGTCtrlUsr", "..\ctrlUsr\SGTCtrlUsr\SGTCtrlUsr\SGTCtrlUsr.csproj", "{16A8C7F4-4287-48EA-B7CD-21F100B27184}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -387,7 +387,7 @@ namespace SAS.v1.Services
 
                             #region Asignatura 
                             Asignaturas.NombreAsignatura = Asignatura;
-                            Asignaturas = ingreso.CrearAsignatura(Asignaturas, Estado);
+                            Asignaturas = ingreso.BuscarAsignatura(Asignaturas);
                             #endregion
 
                             #region Semestre 

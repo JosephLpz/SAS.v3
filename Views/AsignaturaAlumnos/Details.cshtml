@@ -1,7 +1,7 @@
 ﻿@model SAS.v1.Models.AsignaturaAlumno
 
 @{
-    Layout = null;
+    ViewBag.Title = "Detalle Asignatura Alumno";
 }
 
 <!DOCTYPE html>
@@ -19,7 +19,7 @@
             <dt>
                 @Html.DisplayNameFor(model => model.EstadoAsignatura)
             </dt>
-    
+            
             <dd>
                 @Html.DisplayFor(model => model.EstadoAsignatura)
             </dd>
@@ -33,11 +33,11 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Alumno.CursoNivel)
+                @Html.DisplayNameFor(model => model.Alumno.cursoNivel)
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.Alumno.CursoNivel)
+                @Html.DisplayFor(model => model.Alumno.cursoNivel)
             </dd>
     
             <dt>
@@ -65,7 +65,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.PorcentajeDeExigencia.Id)
+                @Html.DisplayNameFor(model => model.PorcentajeDeExigencia.Porcentaje)
             </dt>
     
             <dd>

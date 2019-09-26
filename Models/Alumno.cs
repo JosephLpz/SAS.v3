@@ -14,31 +14,31 @@ namespace SAS.v1.Models
     
     public partial class Alumno
     {
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Alumno()
         {
             this.CampoClinicoAlumno = new HashSet<CampoClinicoAlumno>();
-            this.AsignaturaAlumno = new HashSet<AsignaturaAlumno>();
             this.ImunizacionAlumno = new HashSet<InmunizacionAlumno>();
             this.CursoAlumno = new HashSet<CursoAlumno>();
+            this.PlanEstudioAlumno = new HashSet<PlanEstudioAlumno>();
         }
-    
+
         public int AlumnoId { get; set; }
         public string Observaciones { get; set; }
         public int PersonaPersonaId { get; set; }
         public int CentroFormadorCentroFormadorId { get; set; }
-    
+
         public virtual Persona Persona { get; set; }
         public virtual CentroFormador CentroFormador { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CampoClinicoAlumno> CampoClinicoAlumno { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AsignaturaAlumno> AsignaturaAlumno { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InmunizacionAlumno> ImunizacionAlumno { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CursoAlumno> CursoAlumno { get; set; }
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlanEstudioAlumno> PlanEstudioAlumno { get; set; }
 
         public virtual string cursoNivel
         {

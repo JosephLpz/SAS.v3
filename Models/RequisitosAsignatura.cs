@@ -12,18 +12,23 @@ namespace SAS.v1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PorcentajeDeExigencia
+    public partial class RequisitosAsignatura
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PorcentajeDeExigencia()
+        public RequisitosAsignatura()
         {
-            this.AsignaturaAlumno = new HashSet<AsignaturaAlumno>();
+            this.PlanDeEstudio = new HashSet<PlanDeEstudio>();
         }
     
         public int Id { get; set; }
-        public int Porcentaje { get; set; }
+        public int AsignaturaId { get; set; }
+        public string PorcentajeReprobacion { get; set; }
+        public string AsignaturaPreRequisito { get; set; }
+        public int SemestreId { get; set; }
     
+        public virtual Asignatura Asignatura { get; set; }
+        public virtual Semestre Semestre { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AsignaturaAlumno> AsignaturaAlumno { get; set; }
+        public virtual ICollection<PlanDeEstudio> PlanDeEstudio { get; set; }
     }
 }

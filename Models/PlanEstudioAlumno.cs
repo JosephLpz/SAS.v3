@@ -12,23 +12,14 @@ namespace SAS.v1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AsignaturaAlumno
+    public partial class PlanEstudioAlumno
     {
         public int Id { get; set; }
+        public int PlanDeEstudioId { get; set; }
         public int AlumnoAlumnoId { get; set; }
-        public int AsignaturaId { get; set; }
-        public int AnioId { get; set; }
-        public int SemestreId { get; set; }
         public EstadoAsignatura EstadoAsignatura { get; set; }
-        public string AsignaturaPreRequisito { get; set; }
-        public int PorcentajeDeExigenciaId { get; set; }
-        public int CarreraCarreraId { get; set; }
     
+        public virtual PlanDeEstudio PlanDeEstudio { get; set; }
         public virtual Alumno Alumno { get; set; }
-        public virtual Asignatura Asignatura { get; set; }
-        public virtual Anio Anio { get; set; }
-        public virtual Semestre Semestre { get; set; }
-        public virtual PorcentajeDeExigencia PorcentajeDeExigencia { get; set; }
-        public virtual Carrera Carrera { get; set; }
     }
 }

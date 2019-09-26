@@ -74,7 +74,11 @@
         <dd>
             @foreach (var p in Model.PerfilUsuario)
             {
-                @Html.DisplayFor(model => p.Perfil) <br />
+
+                if (p.Estado == SAS.v1.Models.EstadoRegistro.Activo)
+                {
+                    @Html.DisplayFor(model => p.Perfil) <br />
+                }
             }
         </dd>
     </dl>

@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/01/2019 19:24:24
--- Generated from EDMX file: D:\Proyecto_escuela_de_la_salud\SES\SAS.v3\SAS.v3\Models\Modelo.edmx
+-- Date Created: 09/24/2019 15:45:58
+-- Generated from EDMX file: D:\Proyecto_escuela_de_la_salud\SES Nuevo modelo\SES\SAS.v3\SAS.v3\Models\Modelo.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -86,29 +86,38 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_PerfilUsuarioUsuario]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PerfilUsuarios] DROP CONSTRAINT [FK_PerfilUsuarioUsuario];
 GO
-IF OBJECT_ID(N'[dbo].[FK_AsignaturaAlumnoAlumno]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[AsignaturasAlumnos] DROP CONSTRAINT [FK_AsignaturaAlumnoAlumno];
-GO
-IF OBJECT_ID(N'[dbo].[FK_AsignaturaAlumnoAsignatura]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[AsignaturasAlumnos] DROP CONSTRAINT [FK_AsignaturaAlumnoAsignatura];
-GO
-IF OBJECT_ID(N'[dbo].[FK_AsignaturaAlumnoAnio]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[AsignaturasAlumnos] DROP CONSTRAINT [FK_AsignaturaAlumnoAnio];
-GO
-IF OBJECT_ID(N'[dbo].[FK_AsignaturaAlumnoSemestre]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[AsignaturasAlumnos] DROP CONSTRAINT [FK_AsignaturaAlumnoSemestre];
-GO
-IF OBJECT_ID(N'[dbo].[FK_AsignaturaAlumnoPorcentajeDeExigencia]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[AsignaturasAlumnos] DROP CONSTRAINT [FK_AsignaturaAlumnoPorcentajeDeExigencia];
-GO
-IF OBJECT_ID(N'[dbo].[FK_CarreraAsignaturaAlumno]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[AsignaturasAlumnos] DROP CONSTRAINT [FK_CarreraAsignaturaAlumno];
-GO
 IF OBJECT_ID(N'[dbo].[FK_ImunizacionAlumnoAlumno]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ImunizacionesAlumnos] DROP CONSTRAINT [FK_ImunizacionAlumnoAlumno];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ImunizacionAlumnoInmunizacion]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ImunizacionesAlumnos] DROP CONSTRAINT [FK_ImunizacionAlumnoInmunizacion];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CursoAlumnoAlumno]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CursoAlumnos] DROP CONSTRAINT [FK_CursoAlumnoAlumno];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CursoAlumnoCursoNivel]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CursoAlumnos] DROP CONSTRAINT [FK_CursoAlumnoCursoNivel];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RequisitosAsignaturaAsignatura]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RequisitosAsignaturas] DROP CONSTRAINT [FK_RequisitosAsignaturaAsignatura];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RequisitosAsignaturaSemestre]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RequisitosAsignaturas] DROP CONSTRAINT [FK_RequisitosAsignaturaSemestre];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PlanDeEstudioRequisitosAsignatura]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PlanDeEstudios] DROP CONSTRAINT [FK_PlanDeEstudioRequisitosAsignatura];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PlanDeEstudioCarrera]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PlanDeEstudios] DROP CONSTRAINT [FK_PlanDeEstudioCarrera];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PlanDeEstudioAnio]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PlanDeEstudios] DROP CONSTRAINT [FK_PlanDeEstudioAnio];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PlanEstudioAlumnoPlanDeEstudio]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PlanEstudioAlumnos] DROP CONSTRAINT [FK_PlanEstudioAlumnoPlanDeEstudio];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PlanEstudioAlumnoAlumno]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PlanEstudioAlumnos] DROP CONSTRAINT [FK_PlanEstudioAlumnoAlumno];
 GO
 
 -- --------------------------------------------------
@@ -181,14 +190,23 @@ GO
 IF OBJECT_ID(N'[dbo].[Usuarios]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Usuarios];
 GO
-IF OBJECT_ID(N'[dbo].[AsignaturasAlumnos]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[AsignaturasAlumnos];
-GO
-IF OBJECT_ID(N'[dbo].[PorcentajesDeExigencias]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[PorcentajesDeExigencias];
-GO
 IF OBJECT_ID(N'[dbo].[ImunizacionesAlumnos]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ImunizacionesAlumnos];
+GO
+IF OBJECT_ID(N'[dbo].[CursosNiveles]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CursosNiveles];
+GO
+IF OBJECT_ID(N'[dbo].[CursoAlumnos]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CursoAlumnos];
+GO
+IF OBJECT_ID(N'[dbo].[PlanDeEstudios]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PlanDeEstudios];
+GO
+IF OBJECT_ID(N'[dbo].[RequisitosAsignaturas]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[RequisitosAsignaturas];
+GO
+IF OBJECT_ID(N'[dbo].[PlanEstudioAlumnos]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PlanEstudioAlumnos];
 GO
 
 -- --------------------------------------------------
@@ -332,7 +350,8 @@ GO
 -- Creating table 'Asignaturas'
 CREATE TABLE [dbo].[Asignaturas] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [NombreAsignatura] nvarchar(max)  NOT NULL
+    [NombreAsignatura] nvarchar(max)  NOT NULL,
+    [CodigoAsignatura] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -385,27 +404,6 @@ CREATE TABLE [dbo].[Usuarios] (
 );
 GO
 
--- Creating table 'AsignaturasAlumnos'
-CREATE TABLE [dbo].[AsignaturasAlumnos] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [AlumnoAlumnoId] int  NOT NULL,
-    [AsignaturaId] int  NOT NULL,
-    [AnioId] int  NOT NULL,
-    [SemestreId] int  NOT NULL,
-    [EstadoAsignatura] int  NOT NULL,
-    [AsignaturaPreRequisito] nvarchar(max)  NOT NULL,
-    [PorcentajeDeExigenciaId] int  NOT NULL,
-    [CarreraCarreraId] int  NOT NULL
-);
-GO
-
--- Creating table 'PorcentajesDeExigencias'
-CREATE TABLE [dbo].[PorcentajesDeExigencias] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Porcentaje] int  NOT NULL
-);
-GO
-
 -- Creating table 'ImunizacionesAlumnos'
 CREATE TABLE [dbo].[ImunizacionesAlumnos] (
     [Id] int IDENTITY(1,1) NOT NULL,
@@ -416,7 +414,7 @@ GO
 
 -- Creating table 'CursosNiveles'
 CREATE TABLE [dbo].[CursosNiveles] (
-    [Id] int IDENTITY(1,1) NOT NULL,
+    [CursoNivelId] int IDENTITY(1,1) NOT NULL,
     [NombreCurso] nvarchar(max)  NOT NULL
 );
 GO
@@ -426,6 +424,42 @@ CREATE TABLE [dbo].[CursoAlumnos] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [AlumnoAlumnoId] int  NOT NULL,
     [CursoNivelId] int  NOT NULL
+);
+GO
+
+-- Creating table 'PlanDeEstudios'
+CREATE TABLE [dbo].[PlanDeEstudios] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [RequisitosAsignaturaId] int  NOT NULL,
+    [CarreraCarreraId] int  NOT NULL,
+    [AnioId] int  NOT NULL,
+    [UD] nvarchar(max)  NOT NULL,
+    [Catedra] nvarchar(max)  NOT NULL,
+    [Taller] nvarchar(max)  NOT NULL,
+    [LAB] nvarchar(max)  NOT NULL,
+    [PC] nvarchar(max)  NOT NULL,
+    [SCT] nvarchar(max)  NOT NULL,
+    [Materia] nvarchar(max)  NOT NULL,
+    [Curso] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'RequisitosAsignaturas'
+CREATE TABLE [dbo].[RequisitosAsignaturas] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [AsignaturaId] int  NOT NULL,
+    [PorcentajeReprobacion] nvarchar(max)  NOT NULL,
+    [AsignaturaPreRequisito] nvarchar(max)  NOT NULL,
+    [SemestreId] int  NOT NULL
+);
+GO
+
+-- Creating table 'PlanEstudioAlumnos'
+CREATE TABLE [dbo].[PlanEstudioAlumnos] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [PlanDeEstudioId] int  NOT NULL,
+    [AlumnoAlumnoId] int  NOT NULL,
+    [EstadoAsignatura] int  NOT NULL
 );
 GO
 
@@ -565,33 +599,39 @@ ADD CONSTRAINT [PK_Usuarios]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'AsignaturasAlumnos'
-ALTER TABLE [dbo].[AsignaturasAlumnos]
-ADD CONSTRAINT [PK_AsignaturasAlumnos]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'PorcentajesDeExigencias'
-ALTER TABLE [dbo].[PorcentajesDeExigencias]
-ADD CONSTRAINT [PK_PorcentajesDeExigencias]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
 -- Creating primary key on [Id] in table 'ImunizacionesAlumnos'
 ALTER TABLE [dbo].[ImunizacionesAlumnos]
 ADD CONSTRAINT [PK_ImunizacionesAlumnos]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'CursosNiveles'
+-- Creating primary key on [CursoNivelId] in table 'CursosNiveles'
 ALTER TABLE [dbo].[CursosNiveles]
 ADD CONSTRAINT [PK_CursosNiveles]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    PRIMARY KEY CLUSTERED ([CursoNivelId] ASC);
 GO
 
 -- Creating primary key on [Id] in table 'CursoAlumnos'
 ALTER TABLE [dbo].[CursoAlumnos]
 ADD CONSTRAINT [PK_CursoAlumnos]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'PlanDeEstudios'
+ALTER TABLE [dbo].[PlanDeEstudios]
+ADD CONSTRAINT [PK_PlanDeEstudios]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'RequisitosAsignaturas'
+ALTER TABLE [dbo].[RequisitosAsignaturas]
+ADD CONSTRAINT [PK_RequisitosAsignaturas]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'PlanEstudioAlumnos'
+ALTER TABLE [dbo].[PlanEstudioAlumnos]
+ADD CONSTRAINT [PK_PlanEstudioAlumnos]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -944,96 +984,6 @@ ON [dbo].[PerfilUsuarios]
     ([UsuarioId]);
 GO
 
--- Creating foreign key on [AlumnoAlumnoId] in table 'AsignaturasAlumnos'
-ALTER TABLE [dbo].[AsignaturasAlumnos]
-ADD CONSTRAINT [FK_AsignaturaAlumnoAlumno]
-    FOREIGN KEY ([AlumnoAlumnoId])
-    REFERENCES [dbo].[Alumnos]
-        ([AlumnoId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_AsignaturaAlumnoAlumno'
-CREATE INDEX [IX_FK_AsignaturaAlumnoAlumno]
-ON [dbo].[AsignaturasAlumnos]
-    ([AlumnoAlumnoId]);
-GO
-
--- Creating foreign key on [AsignaturaId] in table 'AsignaturasAlumnos'
-ALTER TABLE [dbo].[AsignaturasAlumnos]
-ADD CONSTRAINT [FK_AsignaturaAlumnoAsignatura]
-    FOREIGN KEY ([AsignaturaId])
-    REFERENCES [dbo].[Asignaturas]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_AsignaturaAlumnoAsignatura'
-CREATE INDEX [IX_FK_AsignaturaAlumnoAsignatura]
-ON [dbo].[AsignaturasAlumnos]
-    ([AsignaturaId]);
-GO
-
--- Creating foreign key on [AnioId] in table 'AsignaturasAlumnos'
-ALTER TABLE [dbo].[AsignaturasAlumnos]
-ADD CONSTRAINT [FK_AsignaturaAlumnoAnio]
-    FOREIGN KEY ([AnioId])
-    REFERENCES [dbo].[Anios]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_AsignaturaAlumnoAnio'
-CREATE INDEX [IX_FK_AsignaturaAlumnoAnio]
-ON [dbo].[AsignaturasAlumnos]
-    ([AnioId]);
-GO
-
--- Creating foreign key on [SemestreId] in table 'AsignaturasAlumnos'
-ALTER TABLE [dbo].[AsignaturasAlumnos]
-ADD CONSTRAINT [FK_AsignaturaAlumnoSemestre]
-    FOREIGN KEY ([SemestreId])
-    REFERENCES [dbo].[Semestres]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_AsignaturaAlumnoSemestre'
-CREATE INDEX [IX_FK_AsignaturaAlumnoSemestre]
-ON [dbo].[AsignaturasAlumnos]
-    ([SemestreId]);
-GO
-
--- Creating foreign key on [PorcentajeDeExigenciaId] in table 'AsignaturasAlumnos'
-ALTER TABLE [dbo].[AsignaturasAlumnos]
-ADD CONSTRAINT [FK_AsignaturaAlumnoPorcentajeDeExigencia]
-    FOREIGN KEY ([PorcentajeDeExigenciaId])
-    REFERENCES [dbo].[PorcentajesDeExigencias]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_AsignaturaAlumnoPorcentajeDeExigencia'
-CREATE INDEX [IX_FK_AsignaturaAlumnoPorcentajeDeExigencia]
-ON [dbo].[AsignaturasAlumnos]
-    ([PorcentajeDeExigenciaId]);
-GO
-
--- Creating foreign key on [CarreraCarreraId] in table 'AsignaturasAlumnos'
-ALTER TABLE [dbo].[AsignaturasAlumnos]
-ADD CONSTRAINT [FK_CarreraAsignaturaAlumno]
-    FOREIGN KEY ([CarreraCarreraId])
-    REFERENCES [dbo].[Carreras]
-        ([CarreraId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_CarreraAsignaturaAlumno'
-CREATE INDEX [IX_FK_CarreraAsignaturaAlumno]
-ON [dbo].[AsignaturasAlumnos]
-    ([CarreraCarreraId]);
-GO
-
 -- Creating foreign key on [AlumnoAlumnoId] in table 'ImunizacionesAlumnos'
 ALTER TABLE [dbo].[ImunizacionesAlumnos]
 ADD CONSTRAINT [FK_ImunizacionAlumnoAlumno]
@@ -1084,7 +1034,7 @@ ALTER TABLE [dbo].[CursoAlumnos]
 ADD CONSTRAINT [FK_CursoAlumnoCursoNivel]
     FOREIGN KEY ([CursoNivelId])
     REFERENCES [dbo].[CursosNiveles]
-        ([Id])
+        ([CursoNivelId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
@@ -1092,6 +1042,111 @@ GO
 CREATE INDEX [IX_FK_CursoAlumnoCursoNivel]
 ON [dbo].[CursoAlumnos]
     ([CursoNivelId]);
+GO
+
+-- Creating foreign key on [AsignaturaId] in table 'RequisitosAsignaturas'
+ALTER TABLE [dbo].[RequisitosAsignaturas]
+ADD CONSTRAINT [FK_RequisitosAsignaturaAsignatura]
+    FOREIGN KEY ([AsignaturaId])
+    REFERENCES [dbo].[Asignaturas]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RequisitosAsignaturaAsignatura'
+CREATE INDEX [IX_FK_RequisitosAsignaturaAsignatura]
+ON [dbo].[RequisitosAsignaturas]
+    ([AsignaturaId]);
+GO
+
+-- Creating foreign key on [SemestreId] in table 'RequisitosAsignaturas'
+ALTER TABLE [dbo].[RequisitosAsignaturas]
+ADD CONSTRAINT [FK_RequisitosAsignaturaSemestre]
+    FOREIGN KEY ([SemestreId])
+    REFERENCES [dbo].[Semestres]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RequisitosAsignaturaSemestre'
+CREATE INDEX [IX_FK_RequisitosAsignaturaSemestre]
+ON [dbo].[RequisitosAsignaturas]
+    ([SemestreId]);
+GO
+
+-- Creating foreign key on [RequisitosAsignaturaId] in table 'PlanDeEstudios'
+ALTER TABLE [dbo].[PlanDeEstudios]
+ADD CONSTRAINT [FK_PlanDeEstudioRequisitosAsignatura]
+    FOREIGN KEY ([RequisitosAsignaturaId])
+    REFERENCES [dbo].[RequisitosAsignaturas]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PlanDeEstudioRequisitosAsignatura'
+CREATE INDEX [IX_FK_PlanDeEstudioRequisitosAsignatura]
+ON [dbo].[PlanDeEstudios]
+    ([RequisitosAsignaturaId]);
+GO
+
+-- Creating foreign key on [CarreraCarreraId] in table 'PlanDeEstudios'
+ALTER TABLE [dbo].[PlanDeEstudios]
+ADD CONSTRAINT [FK_PlanDeEstudioCarrera]
+    FOREIGN KEY ([CarreraCarreraId])
+    REFERENCES [dbo].[Carreras]
+        ([CarreraId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PlanDeEstudioCarrera'
+CREATE INDEX [IX_FK_PlanDeEstudioCarrera]
+ON [dbo].[PlanDeEstudios]
+    ([CarreraCarreraId]);
+GO
+
+-- Creating foreign key on [AnioId] in table 'PlanDeEstudios'
+ALTER TABLE [dbo].[PlanDeEstudios]
+ADD CONSTRAINT [FK_PlanDeEstudioAnio]
+    FOREIGN KEY ([AnioId])
+    REFERENCES [dbo].[Anios]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PlanDeEstudioAnio'
+CREATE INDEX [IX_FK_PlanDeEstudioAnio]
+ON [dbo].[PlanDeEstudios]
+    ([AnioId]);
+GO
+
+-- Creating foreign key on [PlanDeEstudioId] in table 'PlanEstudioAlumnos'
+ALTER TABLE [dbo].[PlanEstudioAlumnos]
+ADD CONSTRAINT [FK_PlanEstudioAlumnoPlanDeEstudio]
+    FOREIGN KEY ([PlanDeEstudioId])
+    REFERENCES [dbo].[PlanDeEstudios]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PlanEstudioAlumnoPlanDeEstudio'
+CREATE INDEX [IX_FK_PlanEstudioAlumnoPlanDeEstudio]
+ON [dbo].[PlanEstudioAlumnos]
+    ([PlanDeEstudioId]);
+GO
+
+-- Creating foreign key on [AlumnoAlumnoId] in table 'PlanEstudioAlumnos'
+ALTER TABLE [dbo].[PlanEstudioAlumnos]
+ADD CONSTRAINT [FK_PlanEstudioAlumnoAlumno]
+    FOREIGN KEY ([AlumnoAlumnoId])
+    REFERENCES [dbo].[Alumnos]
+        ([AlumnoId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PlanEstudioAlumnoAlumno'
+CREATE INDEX [IX_FK_PlanEstudioAlumnoAlumno]
+ON [dbo].[PlanEstudioAlumnos]
+    ([AlumnoAlumnoId]);
 GO
 
 -- --------------------------------------------------

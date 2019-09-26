@@ -538,10 +538,12 @@
     <Compile Include="Controllers\CampoClinicoAlumnosController.cs" />
     <Compile Include="Controllers\CargaExcelController.cs" />
     <Compile Include="Controllers\CargarAsignaturasController.cs" />
+    <Compile Include="Controllers\CargarPlanEstudiosController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\InstitucionsController.cs" />
     <Compile Include="Controllers\PerfilUsuariosController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
+    <Compile Include="Controllers\PlanDeEstudiosController.cs" />
     <Compile Include="Controllers\ProfesionalDocenteGuiasController.cs" />
     <Compile Include="Controllers\ProfesionalSupervisorsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -607,9 +609,6 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Asignatura.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AsignaturaAlumno.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CampoClinico.cs">
@@ -690,13 +689,19 @@
     <Compile Include="Models\Persona.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PorcentajeDeExigencia.cs">
+    <Compile Include="Models\PlanDeEstudio.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlanEstudioAlumno.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProfesionalDocenteGuia.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProfesionalSupervisor.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequisitosAsignatura.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Semestre.cs">
@@ -709,6 +714,7 @@
     <Compile Include="Services\AlumnosServices.cs" />
     <Compile Include="Services\CargaDatosServices.cs" />
     <Compile Include="Services\CargarAsignaturas.cs" />
+    <Compile Include="Services\CargarPlanEstudio.cs" />
     <Compile Include="Services\CountColumns.cs" />
     <Compile Include="Services\DocenteGuiaServices.cs" />
     <Compile Include="Services\IngresoServices.cs" />
@@ -793,6 +799,13 @@
     <Content Include="Views\AsignaturaAlumnos\Details.cshtml" />
     <Content Include="Views\AsignaturaAlumnos\Edit.cshtml" />
     <Content Include="Views\AsignaturaAlumnos\Index.cshtml" />
+    <Content Include="Views\CargarPlanEstudios\CargarPlanEstudios.cshtml" />
+    <Content Include="Views\CargarPlanEstudios\Index.cshtml" />
+    <Content Include="Views\PlanDeEstudios\Create.cshtml" />
+    <Content Include="Views\PlanDeEstudios\Delete.cshtml" />
+    <Content Include="Views\PlanDeEstudios\Details.cshtml" />
+    <Content Include="Views\PlanDeEstudios\Edit.cshtml" />
+    <Content Include="Views\PlanDeEstudios\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

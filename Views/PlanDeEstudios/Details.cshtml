@@ -1,0 +1,114 @@
+﻿@model SAS.v1.Models.PlanDeEstudio
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>PlanDeEstudio</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UD)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UD)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Catedra)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Catedra)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Taller)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Taller)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.LAB)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.LAB)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PC)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PC)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.SCT)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.SCT)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Materia)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Materia)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Curso)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Curso)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.RequisitosAsignatura.PorcentajeReprobacion)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.RequisitosAsignatura.PorcentajeReprobacion)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Carrera.NombreCarrera)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Carrera.NombreCarrera)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Anio.Ano)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Anio.Ano)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

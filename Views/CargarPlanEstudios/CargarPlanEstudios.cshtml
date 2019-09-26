@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Carga Plan estudios";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CargarPlanEstudios</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("CargarArchivo", "CargarPlanEstudios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            
+            <p>Carrera:</p>
+            <input type="text" name="carrera" />
+            <p>Año:</p>
+            <input type="text" name="Anio" />
+            <p>Nombre Hoja:</p>
+            <input type="text" name="NombreHoja" />
+            <input type="file" name="archivo" class="form-control-file" /><br />
+            @ViewBag.Message
+            <input id="bottonSubmit" type="submit" name="submit" value="Cargar Archivo" class="btn btn-primary" onclick="Cargar()" />
+        }
+
+    </div>
+</body>
+</html>

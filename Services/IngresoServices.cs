@@ -725,12 +725,14 @@ namespace SAS.v1.Services
             if (asignatura != null && Estado == 1)
             {
                 asignatura.NombreAsignatura = asignatura.NombreAsignatura.Replace(asignatura.NombreAsignatura, NombreAsignatura.NombreAsignatura);
+                asignatura.CodigoAsignatura = asignatura.CodigoAsignatura.Replace(asignatura.CodigoAsignatura, NombreAsignatura.CodigoAsignatura);
                 db.SaveChanges();
             }
                 if (asignatura == null && Estado == 1 || asignatura == null && Estado == 0)
             {
                 asignatura = new Asignatura();
                 asignatura.NombreAsignatura = NombreAsignatura.NombreAsignatura;
+                asignatura.CodigoAsignatura = NombreAsignatura.CodigoAsignatura;
                 db.Asignaturas.Add(asignatura);
                 db.SaveChanges();
             }else
@@ -743,7 +745,8 @@ namespace SAS.v1.Services
 
         public Asignatura BuscarAsignatura(Asignatura nombreAsignatura)
         {
-            Asignatura asignatura = db.Asignaturas.Where(a => a.NombreAsignatura.ToUpper() ==nombreAsignatura.NombreAsignatura.ToUpper()).FirstOrDefault();
+            Asignatura asignatura = db.Asignaturas.Where(a => a.NombreAsignatura.ToUpper() ==nombreAsignatura.NombreAsignatura.ToUpper() ||
+            a.CodigoAsignatura.ToUpper()==nombreAsignatura.CodigoAsignatura).FirstOrDefault();
             return asignatura;
         }
         #endregion
@@ -831,87 +834,87 @@ namespace SAS.v1.Services
 
         #region AsignaturasAlumnos
 
-        public AsignaturaAlumno CrearAsignaturaAlumnos(AsignaturaAlumno AsAlumno, int Estado)
-        {
-            AsignaturaAlumno asignaturaAlumno = BuscarAsignaturaAlumno(AsAlumno);
-            if (asignaturaAlumno != null && Estado == 1)
-            {
-                asignaturaAlumno.AlumnoAlumnoId = AsAlumno.AlumnoAlumnoId;
-                asignaturaAlumno.AsignaturaId = AsAlumno.AsignaturaId;
-                asignaturaAlumno.CarreraCarreraId = AsAlumno.CarreraCarreraId;
-                asignaturaAlumno.EstadoAsignatura = AsAlumno.EstadoAsignatura;
-                asignaturaAlumno.SemestreId = AsAlumno.SemestreId;
-                asignaturaAlumno.AnioId = AsAlumno.AnioId;
-                asignaturaAlumno.PorcentajeDeExigenciaId = AsAlumno.PorcentajeDeExigenciaId;
-                db.SaveChanges();
-            }
-            if (asignaturaAlumno == null && Estado == 1 || asignaturaAlumno == null && Estado == 0)
-            {
-                asignaturaAlumno = new AsignaturaAlumno();
-                asignaturaAlumno.Alumno = AsAlumno.Alumno;
-                asignaturaAlumno.Anio = AsAlumno.Anio;
-                asignaturaAlumno.Semestre = AsAlumno.Semestre;
-                asignaturaAlumno.Asignatura = AsAlumno.Asignatura;
-                asignaturaAlumno.Carrera = AsAlumno.Carrera;
-                asignaturaAlumno.PorcentajeDeExigencia = AsAlumno.PorcentajeDeExigencia;
+        //public AsignaturaAlumno CrearAsignaturaAlumnos(AsignaturaAlumno AsAlumno, int Estado)
+        //{
+        //    AsignaturaAlumno asignaturaAlumno = BuscarAsignaturaAlumno(AsAlumno);
+        //    if (asignaturaAlumno != null && Estado == 1)
+        //    {
+        //        asignaturaAlumno.AlumnoAlumnoId = AsAlumno.AlumnoAlumnoId;
+        //        asignaturaAlumno.AsignaturaId = AsAlumno.AsignaturaId;
+        //        asignaturaAlumno.CarreraCarreraId = AsAlumno.CarreraCarreraId;
+        //        asignaturaAlumno.EstadoAsignatura = AsAlumno.EstadoAsignatura;
+        //        asignaturaAlumno.SemestreId = AsAlumno.SemestreId;
+        //        asignaturaAlumno.AnioId = AsAlumno.AnioId;
+        //        asignaturaAlumno.PorcentajeDeExigenciaId = AsAlumno.PorcentajeDeExigenciaId;
+        //        db.SaveChanges();
+        //    }
+        //    if (asignaturaAlumno == null && Estado == 1 || asignaturaAlumno == null && Estado == 0)
+        //    {
+        //        asignaturaAlumno = new AsignaturaAlumno();
+        //       asignaturaAlumno.Alumno = AsAlumno.Alumno;
+        //       asignaturaAlumno.Anio = AsAlumno.Anio;
+        //       asignaturaAlumno.Semestre = AsAlumno.Semestre;
+        //       asignaturaAlumno.Asignatura = AsAlumno.Asignatura;
+        //       asignaturaAlumno.Carrera = AsAlumno.Carrera;
+        //       asignaturaAlumno.PorcentajeDeExigencia = AsAlumno.PorcentajeDeExigencia;
 
-                asignaturaAlumno.AlumnoAlumnoId = AsAlumno.AlumnoAlumnoId;
-                asignaturaAlumno.AsignaturaId = AsAlumno.AsignaturaId;
-                asignaturaAlumno.CarreraCarreraId = AsAlumno.CarreraCarreraId;
-                asignaturaAlumno.EstadoAsignatura = AsAlumno.EstadoAsignatura;
-                asignaturaAlumno.SemestreId = AsAlumno.SemestreId;
-                asignaturaAlumno.AnioId = AsAlumno.AnioId;
-                asignaturaAlumno.AsignaturaPreRequisito = "";
-                asignaturaAlumno.PorcentajeDeExigenciaId = AsAlumno.PorcentajeDeExigenciaId;
-                db.AsignaturasAlumnos.Add(asignaturaAlumno);
-                db.SaveChanges();
-            }
-            else
-            {
-                return asignaturaAlumno;
-            }
-            return asignaturaAlumno;
+        //        asignaturaAlumno.AlumnoAlumnoId = AsAlumno.AlumnoAlumnoId;
+        //        asignaturaAlumno.AsignaturaId = AsAlumno.AsignaturaId;
+        //        asignaturaAlumno.CarreraCarreraId = AsAlumno.CarreraCarreraId;
+        //        asignaturaAlumno.EstadoAsignatura = AsAlumno.EstadoAsignatura;
+        //        asignaturaAlumno.SemestreId = AsAlumno.SemestreId;
+        //        asignaturaAlumno.AnioId = AsAlumno.AnioId;
+        //        asignaturaAlumno.AsignaturaPreRequisito = "";
+        //        asignaturaAlumno.PorcentajeDeExigenciaId = AsAlumno.PorcentajeDeExigenciaId;
+        //        db.AsignaturasAlumnos.Add(asignaturaAlumno);
+        //        db.SaveChanges();
+        //    }
+        //    else
+        //    {
+        //        return asignaturaAlumno;
+        //    }
+        //    return asignaturaAlumno;
 
-        }
+        //}
 
-        public AsignaturaAlumno BuscarAsignaturaAlumno(AsignaturaAlumno AsAlumno)
-        {
-            AsignaturaAlumno asignaturaAlumno = db.AsignaturasAlumnos.Where(a => a.AsignaturaId == AsAlumno.AsignaturaId&&a.AlumnoAlumnoId==AsAlumno.AlumnoAlumnoId
-            ).FirstOrDefault();
-            return asignaturaAlumno;
-        }
+        //public AsignaturaAlumno BuscarAsignaturaAlumno(AsignaturaAlumno AsAlumno)
+        //{
+        //    AsignaturaAlumno asignaturaAlumno = db.AsignaturasAlumnos.Where(a => a.AsignaturaId == AsAlumno.AsignaturaId&&a.AlumnoAlumnoId==AsAlumno.AlumnoAlumnoId
+        //    ).FirstOrDefault();
+        //    return asignaturaAlumno;
+        //}
 
         #endregion
 
         #region porcentaje exigencia
-        public PorcentajeDeExigencia CrearPorcentajeDeExigencia(PorcentajeDeExigencia Porcentaje, int Estado)
-        {
-            PorcentajeDeExigencia porcentaje = BuscarPorcentaje(Porcentaje);
-            if (porcentaje != null && Estado == 1)
-            {
-                porcentaje.Porcentaje = Porcentaje.Porcentaje;
-                db.SaveChanges();
-            }
-            if (porcentaje == null && Estado == 1 || porcentaje == null && Estado == 0)
-            {
-                porcentaje = new PorcentajeDeExigencia();
-                porcentaje.Porcentaje = Porcentaje.Porcentaje;
-                db.PorcentajesDeExigencias.Add(porcentaje);
-                db.SaveChanges();
-            }
-            else
-            {
-                return porcentaje;
-            }
-            return porcentaje;
+        //public PorcentajeDeExigencia CrearPorcentajeDeExigencia(PorcentajeDeExigencia Porcentaje, int Estado)
+        //{
+        //    PorcentajeDeExigencia porcentaje = BuscarPorcentaje(Porcentaje);
+        //    if (porcentaje != null && Estado == 1)
+        //    {
+        //        porcentaje.Porcentaje = Porcentaje.Porcentaje;
+        //        db.SaveChanges();
+        //    }
+        //    if (porcentaje == null && Estado == 1 || porcentaje == null && Estado == 0)
+        //    {
+        //        porcentaje = new PorcentajeDeExigencia();
+        //        porcentaje.Porcentaje = Porcentaje.Porcentaje;
+        //        db.PorcentajesDeExigencias.Add(porcentaje);
+        //        db.SaveChanges();
+        //    }
+        //    else
+        //    {
+        //        return porcentaje;
+        //    }
+        //    return porcentaje;
 
-        }
+        //}
 
-        public PorcentajeDeExigencia BuscarPorcentaje(PorcentajeDeExigencia porcentaje)
-        {
-            PorcentajeDeExigencia Porcentaje = db.PorcentajesDeExigencias.Where(a => a.Id == porcentaje.Id ).FirstOrDefault();
-            return Porcentaje;
-        }
+        //public PorcentajeDeExigencia BuscarPorcentaje(PorcentajeDeExigencia porcentaje)
+        //{
+        //    PorcentajeDeExigencia Porcentaje = db.PorcentajesDeExigencias.Where(a => a.Id == porcentaje.Id ).FirstOrDefault();
+        //    return Porcentaje;
+        //}
         #endregion
 
 
@@ -1001,6 +1004,112 @@ namespace SAS.v1.Services
         }
         #endregion
 
+
+        #region planEstiudios
+        public PlanDeEstudio CrearPlanEstudio(PlanDeEstudio planEstudio)
+        {
+            PlanDeEstudio plan = BuscarPlanEstudio(planEstudio);
+            if (plan == null)
+            {
+                plan = new PlanDeEstudio();
+                plan.CarreraCarreraId = planEstudio.CarreraCarreraId;
+                plan.AnioId = planEstudio.AnioId;
+                plan.RequisitosAsignaturaId = planEstudio.RequisitosAsignaturaId;
+                plan.UD = planEstudio.UD;
+                plan.Catedra = planEstudio.Catedra;
+                plan.Taller = planEstudio.Taller;
+                plan.LAB = planEstudio.LAB;
+                plan.PC = planEstudio.PC;
+                plan.SCT = planEstudio.SCT;
+                plan.Materia = planEstudio.Materia;
+                plan.Curso = planEstudio.Curso;
+
+                db.PlanDeEstudios.Add(plan);
+                db.SaveChanges();
+                
+            }
+            else
+            {
+                return plan;
+            }
+
+            return plan;
+        }
+        public PlanDeEstudio BuscarPlanEstudio(PlanDeEstudio planEstudio)
+        {
+            PlanDeEstudio plan = (from i in db.PlanDeEstudios
+                                where i.CarreraCarreraId ==planEstudio.CarreraCarreraId&&
+                                i.RequisitosAsignaturaId==planEstudio.RequisitosAsignaturaId
+                                  select i).FirstOrDefault();
+            return plan;
+        }
+        #endregion
+
+
+        #region Requisitos asignatura
+        public RequisitosAsignatura CrearReqAsignatura(RequisitosAsignatura requisitos)
+        {
+            RequisitosAsignatura reqAsignatura = BuscarReqAsignatura(requisitos);
+            if (reqAsignatura == null)
+            {
+                reqAsignatura = new RequisitosAsignatura();
+                reqAsignatura.AsignaturaId = requisitos.AsignaturaId;
+                reqAsignatura.PorcentajeReprobacion = requisitos.PorcentajeReprobacion;
+                reqAsignatura.AsignaturaPreRequisito = requisitos.AsignaturaPreRequisito;
+                reqAsignatura.SemestreId = requisitos.SemestreId;
+
+                db.RequisitosAsignaturas.Add(reqAsignatura);
+                db.SaveChanges();
+
+            }
+            else
+            {
+                return reqAsignatura;
+            }
+
+            return reqAsignatura;
+        }
+        public RequisitosAsignatura BuscarReqAsignatura(RequisitosAsignatura requisitos)
+        {
+            RequisitosAsignatura req = (from i in db.RequisitosAsignaturas
+                                where i.AsignaturaId==requisitos.AsignaturaId && i.SemestreId==requisitos.SemestreId
+                                        select i).FirstOrDefault();
+            return req;
+        }
+        #endregion
+
+
+        #region PlanEstudioAlumno
+        public PlanEstudioAlumno CrearPlanEstudioAlumno(PlanEstudioAlumno planAlumno)
+        {
+            PlanEstudioAlumno planAlumnos = BuscarPlanEstudioAlumno(planAlumno);
+            if (planAlumnos == null)
+            {
+                planAlumnos = new PlanEstudioAlumno();
+                planAlumnos.PlanDeEstudioId = planAlumno.PlanDeEstudioId;
+                planAlumnos.AlumnoAlumnoId = planAlumno.AlumnoAlumnoId;
+                planAlumnos.EstadoAsignatura = planAlumno.EstadoAsignatura;
+                db.PlanEstudioAlumnos.Add(planAlumnos);
+                db.SaveChanges();
+                // inmune = null;
+            }
+            else
+            {
+                return planAlumno;
+            }
+
+            return planAlumno;
+        }
+        public PlanEstudioAlumno BuscarPlanEstudioAlumno(PlanEstudioAlumno planAlumno)
+        {
+           PlanEstudioAlumno planAlumnos = (from i in db.PlanEstudioAlumnos
+                                where i.PlanDeEstudioId== planAlumno.PlanDeEstudioId&&
+                                i.AlumnoAlumnoId==planAlumno.AlumnoAlumnoId&&
+                                i.EstadoAsignatura==planAlumno.EstadoAsignatura
+                                select i).FirstOrDefault();
+            return planAlumnos;
+        }
+        #endregion
 
     }
 }
