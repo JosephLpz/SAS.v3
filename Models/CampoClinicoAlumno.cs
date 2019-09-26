@@ -41,5 +41,20 @@ namespace SAS.v1.Models
         public virtual Anio Anio { get; set; }
         public virtual CampoClinico CampoClinico { get; set; }
         public virtual ProfesionalDocenteGuia ProfesionalDocenteGuia { get; set; }
+
+
+        public virtual string Dias
+        {
+            get
+            {
+                string dia = "";
+                foreach (var item in CampoClinicoAlumnoDias)
+                {
+                    dia = (dia + string.Format("{0}", item.Dias.Dia) + "-");
+                }
+                dia = dia.TrimEnd('-');
+                return dia;
+            }
+        }
     }
 }
