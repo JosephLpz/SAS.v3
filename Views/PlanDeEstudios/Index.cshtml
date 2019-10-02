@@ -12,25 +12,30 @@
     <title>Index</title>
 </head>
 <body>
+    <form class="form-inline" method="POST">
+        <div class="form-group"><input type="text" class="form-control" id="Filtro" placeholder="Ingrese Filtro" name="Filtro"></div>
+        @Html.DropDownList("Id", (SelectList)ViewBag.AnioId, htmlAttributes: new { @class = "form-control" })
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+    
+  
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
-    <table class="table">
+    <table class="table" id="TablaPlanDeEstudios">
         <thead>
             <tr>
 
                 <th>
-                    @Html.DisplayNameFor(model => model.RequisitosAsignatura.Semestre.NombreSemestre)
+                    @Html.DisplayNameFor(model => model.Semestre.NombreSemestre)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.RequisitosAsignatura.Asignatura.CodigoAsignatura)
+                    @Html.DisplayNameFor(model => model.Asignatura.CodigoAsignatura)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.RequisitosAsignatura.Asignatura.NombreAsignatura)
+                    @Html.DisplayNameFor(model => model.Asignatura.NombreAsignatura)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UD)
-                </th>
+                
                 <th>
                     @Html.DisplayNameFor(model => model.Catedra)
                 </th>
@@ -40,89 +45,107 @@
                 <th>
                     @Html.DisplayNameFor(model => model.LAB)
                 </th>
+             @if (ViewBag.Ano > 2009)
+             {
                 <th>
                     @Html.DisplayNameFor(model => model.PC)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.SCT)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.Materia)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Curso)
+                </th>*@
+             }
+                <th>
+                    @Html.DisplayNameFor(model => model.UD)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.RequisitosAsignatura.PorcentajeReprobacion)
+                    @Html.DisplayNameFor(model => model.AsignaturaPreRequisito)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Carrera.NombreCarrera)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Anio.Ano)
-                </th>
+                @*<th>
+        @Html.DisplayNameFor(model => model.RequisitosAsignatura.PorcentajeReprobacion)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.Carrera.NombreCarrera)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.Anio.Ano)
+    </th>*@
                 <th></th>
 
             </tr>
         </thead>
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequisitosAsignatura.Semestre.NombreSemestre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequisitosAsignatura.Asignatura.CodigoAsignatura)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequisitosAsignatura.Asignatura.NombreAsignatura)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UD)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Catedra)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Taller)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LAB)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PC)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SCT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Materia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Curso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequisitosAsignatura.PorcentajeReprobacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Carrera.NombreCarrera)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Anio.Ano)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            </td>
-        </tr>
-    }
-    
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Semestre.NombreSemestre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Asignatura.CodigoAsignatura)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Asignatura.NombreAsignatura)
+                    </td>
+                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Catedra)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Taller)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LAB)
+                    </td>
+                   @if (ViewBag.Ano > 2009)
+                   {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SCT)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.Materia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Curso)
+                    </td>*@
+                   }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UD)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AsignaturaPreRequisito)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.RequisitosAsignatura.PorcentajeReprobacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Carrera.NombreCarrera)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Anio.Ano)
+                    </td>*@
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
 
     <script>
     $(document).ready(function () {
 
-        $('#tablaAlumnos').DataTable(
+        $('#TablaPlanDeEstudios').DataTable(
          {
             "bFilter": false,
 

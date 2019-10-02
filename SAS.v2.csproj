@@ -544,6 +544,7 @@
     <Compile Include="Controllers\PerfilUsuariosController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\PlanDeEstudiosController.cs" />
+    <Compile Include="Controllers\PlanEstudioAlumnosController.cs" />
     <Compile Include="Controllers\ProfesionalDocenteGuiasController.cs" />
     <Compile Include="Controllers\ProfesionalSupervisorsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -701,9 +702,6 @@
     <Compile Include="Models\ProfesionalSupervisor.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\RequisitosAsignatura.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Semestre.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -719,12 +717,14 @@
     <Compile Include="Services\DocenteGuiaServices.cs" />
     <Compile Include="Services\IngresoServices.cs" />
     <Compile Include="Services\InstitucionServices.cs" />
+    <Compile Include="Services\ProyeccionesServices.cs" />
     <Compile Include="Services\TruncateServices.cs" />
     <Compile Include="Services\UnidadDeServicioServices.cs" />
     <Compile Include="Services\ValidacionCorreo.cs" />
     <Compile Include="Services\CargaExcelPSeguimiento.cs" />
     <Compile Include="Utils\UtilExcel.cs" />
     <Compile Include="Utils\UtilExcelGetColor.cs" />
+    <Compile Include="Utils\UtilNumber.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -806,6 +806,11 @@
     <Content Include="Views\PlanDeEstudios\Details.cshtml" />
     <Content Include="Views\PlanDeEstudios\Edit.cshtml" />
     <Content Include="Views\PlanDeEstudios\Index.cshtml" />
+    <Content Include="Views\PlanEstudioAlumnos\Create.cshtml" />
+    <Content Include="Views\PlanEstudioAlumnos\Delete.cshtml" />
+    <Content Include="Views\PlanEstudioAlumnos\Details.cshtml" />
+    <Content Include="Views\PlanEstudioAlumnos\Edit.cshtml" />
+    <Content Include="Views\PlanEstudioAlumnos\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

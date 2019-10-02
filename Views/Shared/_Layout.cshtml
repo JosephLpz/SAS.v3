@@ -1,4 +1,7 @@
 ﻿@using System.Web.Optimization
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +29,6 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-           
             <div class="navbar-collapse collapse">
                 
                 <ul class="nav navbar-nav">
@@ -44,18 +46,19 @@
                             <li><a class="dropdown-item">@Html.ActionLink("Profesional Guia", "Create", "ProfesionalDocenteGuias")</a></li>
                             <li><a class="dropdown-item">@Html.ActionLink("Profesional Supervisor", "Create", "ProfesionalSupervisors")</a></li>
                             <li><a class="dropdown-item">@Html.ActionLink("Instituciones", "Create", "Institucions")</a></li>
-
+                                                   
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         Consultas<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown">
-                           <li><a class="dropdown-item">@Html.ActionLink("Alumnos", "Index", "Alumnos")</a></li> 
+                           <li><a class="dropdown-item">@Html.ActionLink("Alumnos", "Index", "Alumnos",new { id = 0 },null)</a></li> 
                             <li><a class="dropdown-item">@Html.ActionLink("Profesional Docente", "Index", "ProfesionalDocenteGuias")</a></li>
                             <li><a class="dropdown-item">@Html.ActionLink("Instituciones", "Index", "Institucions")</a></li>
                             <li><a class="dropdown-item">@Html.ActionLink("Profesional Supervisor", "Index", "ProfesionalSupervisors")</a></li>
                             <li><a class="dropdown-item">@Html.ActionLink("Campos Clinicos", "Index", "CampoClinicoAlumnos")</a></li>
+                            <li><a class="dropdown-item">@Html.ActionLink("Seguimiento Alumnos", "Index", "Alumnos", new { id = 1 },null)</a></li>    
                         </ul>
                     </li>
                    

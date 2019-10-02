@@ -725,14 +725,32 @@ namespace SAS.v1.Services
             if (asignatura != null && Estado == 1)
             {
                 asignatura.NombreAsignatura = asignatura.NombreAsignatura.Replace(asignatura.NombreAsignatura, NombreAsignatura.NombreAsignatura);
+                if (asignatura.CodigoAsignatura == null || asignatura.CodigoAsignatura == "")
+                {
+                    asignatura.CodigoAsignatura = " ";
+
+                }
+                else
+                {
                 asignatura.CodigoAsignatura = asignatura.CodigoAsignatura.Replace(asignatura.CodigoAsignatura, NombreAsignatura.CodigoAsignatura);
+
+
+                }
                 db.SaveChanges();
             }
                 if (asignatura == null && Estado == 1 || asignatura == null && Estado == 0)
             {
                 asignatura = new Asignatura();
                 asignatura.NombreAsignatura = NombreAsignatura.NombreAsignatura;
+                if(asignatura.CodigoAsignatura==null)
+                {
+                    asignatura.CodigoAsignatura = "";
+
+                }else
+                {
                 asignatura.CodigoAsignatura = NombreAsignatura.CodigoAsignatura;
+
+                }
                 db.Asignaturas.Add(asignatura);
                 db.SaveChanges();
             }else
@@ -745,8 +763,7 @@ namespace SAS.v1.Services
 
         public Asignatura BuscarAsignatura(Asignatura nombreAsignatura)
         {
-            Asignatura asignatura = db.Asignaturas.Where(a => a.NombreAsignatura.ToUpper() ==nombreAsignatura.NombreAsignatura.ToUpper() ||
-            a.CodigoAsignatura.ToUpper()==nombreAsignatura.CodigoAsignatura).FirstOrDefault();
+            Asignatura asignatura = db.Asignaturas.Where(a => a.NombreAsignatura.ToUpper().Equals(nombreAsignatura.NombreAsignatura.ToUpper() )).FirstOrDefault();
             return asignatura;
         }
         #endregion
@@ -1014,7 +1031,11 @@ namespace SAS.v1.Services
                 plan = new PlanDeEstudio();
                 plan.CarreraCarreraId = planEstudio.CarreraCarreraId;
                 plan.AnioId = planEstudio.AnioId;
-                plan.RequisitosAsignaturaId = planEstudio.RequisitosAsignaturaId;
+                plan.AsignaturaId = planEstudio.AsignaturaId;
+                plan.PorcentajeReprobacion = planEstudio.PorcentajeReprobacion;
+                plan.AsignaturaPreRequisito = planEstudio.AsignaturaPreRequisito;
+                plan.SemestreId = planEstudio.SemestreId;
+               // plan.RequisitosAsignaturaId = planEstudio.RequisitosAsignaturaId;
                 plan.UD = planEstudio.UD;
                 plan.Catedra = planEstudio.Catedra;
                 plan.Taller = planEstudio.Taller;
@@ -1039,51 +1060,61 @@ namespace SAS.v1.Services
         {
             PlanDeEstudio plan = (from i in db.PlanDeEstudios
                                 where i.CarreraCarreraId ==planEstudio.CarreraCarreraId&&
-                                i.RequisitosAsignaturaId==planEstudio.RequisitosAsignaturaId
+                                i.AnioId==planEstudio.AnioId&&i.AsignaturaId==planEstudio.AsignaturaId
                                   select i).FirstOrDefault();
             return plan;
         }
         #endregion
 
 
-        #region Requisitos asignatura
-        public RequisitosAsignatura CrearReqAsignatura(RequisitosAsignatura requisitos)
-        {
-            RequisitosAsignatura reqAsignatura = BuscarReqAsignatura(requisitos);
-            if (reqAsignatura == null)
-            {
-                reqAsignatura = new RequisitosAsignatura();
-                reqAsignatura.AsignaturaId = requisitos.AsignaturaId;
-                reqAsignatura.PorcentajeReprobacion = requisitos.PorcentajeReprobacion;
-                reqAsignatura.AsignaturaPreRequisito = requisitos.AsignaturaPreRequisito;
-                reqAsignatura.SemestreId = requisitos.SemestreId;
+        //#region Requisitos asignatura
+        //public RequisitosAsignatura CrearReqAsignatura(RequisitosAsignatura requisitos)
+        //{
+        //    RequisitosAsignatura reqAsignatura = BuscarReqAsignatura(requisitos);
+        //    if (reqAsignatura == null)
+        //    {
+        //        reqAsignatura = new RequisitosAsignatura();
+        //        reqAsignatura.AsignaturaId = requisitos.AsignaturaId;
+        //        reqAsignatura.PorcentajeReprobacion = requisitos.PorcentajeReprobacion;
+        //        reqAsignatura.AsignaturaPreRequisito = requisitos.AsignaturaPreRequisito;
+        //        reqAsignatura.SemestreId = requisitos.SemestreId;
 
-                db.RequisitosAsignaturas.Add(reqAsignatura);
-                db.SaveChanges();
+        //        db.RequisitosAsignaturas.Add(reqAsignatura);
+        //        db.SaveChanges();
 
-            }
-            else
-            {
-                return reqAsignatura;
-            }
+        //    }
+        //    else
+        //    {
+        //        return reqAsignatura;
+        //    }
 
-            return reqAsignatura;
-        }
-        public RequisitosAsignatura BuscarReqAsignatura(RequisitosAsignatura requisitos)
-        {
-            RequisitosAsignatura req = (from i in db.RequisitosAsignaturas
-                                where i.AsignaturaId==requisitos.AsignaturaId && i.SemestreId==requisitos.SemestreId
-                                        select i).FirstOrDefault();
-            return req;
-        }
-        #endregion
+        //    return reqAsignatura;
+        //}
+        //public RequisitosAsignatura BuscarReqAsignatura(RequisitosAsignatura requisitos)
+        //{
+        //    RequisitosAsignatura req = (from i in db.RequisitosAsignaturas
+        //                        where i.AsignaturaId==requisitos.AsignaturaId && i.SemestreId==requisitos.SemestreId
+        //                                select i).FirstOrDefault();
+        //    return req;
+        //}
+        //#endregion
 
+          
 
-        #region PlanEstudioAlumno
-        public PlanEstudioAlumno CrearPlanEstudioAlumno(PlanEstudioAlumno planAlumno)
+#region PlanEstudioAlumno
+public PlanEstudioAlumno CrearPlanEstudioAlumno(PlanEstudioAlumno planAlumno, int Estado)
         {
             PlanEstudioAlumno planAlumnos = BuscarPlanEstudioAlumno(planAlumno);
-            if (planAlumnos == null)
+            
+            if(planAlumnos!=null && Estado == 1)
+            {
+         
+            planAlumnos.EstadoAsignatura = planAlumno.EstadoAsignatura;
+           
+            db.SaveChanges();
+             }
+
+            if (planAlumnos == null&&Estado==1 || planAlumnos==null&&Estado==0)
             {
                 planAlumnos = new PlanEstudioAlumno();
                 planAlumnos.PlanDeEstudioId = planAlumno.PlanDeEstudioId;
@@ -1104,8 +1135,7 @@ namespace SAS.v1.Services
         {
            PlanEstudioAlumno planAlumnos = (from i in db.PlanEstudioAlumnos
                                 where i.PlanDeEstudioId== planAlumno.PlanDeEstudioId&&
-                                i.AlumnoAlumnoId==planAlumno.AlumnoAlumnoId&&
-                                i.EstadoAsignatura==planAlumno.EstadoAsignatura
+                                i.AlumnoAlumnoId==planAlumno.AlumnoAlumnoId
                                 select i).FirstOrDefault();
             return planAlumnos;
         }

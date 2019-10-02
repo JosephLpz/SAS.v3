@@ -32,7 +32,6 @@
     <EntitySet Name="CursosNiveles" EntityType="Modelo.Store.CursosNiveles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CursoAlumnos" EntityType="Modelo.Store.CursoAlumnos" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PlanDeEstudios" EntityType="Modelo.Store.PlanDeEstudios" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="RequisitosAsignaturas" EntityType="Modelo.Store.RequisitosAsignaturas" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PlanEstudioAlumnos" EntityType="Modelo.Store.PlanEstudioAlumnos" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CentroFormadorCarrera" Association="Modelo.Store.CentroFormadorCarrera">
       <End Role="CentroFormador" EntitySet="CentroFormadors" />
@@ -142,18 +141,6 @@
       <End Role="CursoAlumno" EntitySet="CursoAlumnos" />
       <End Role="CursoNivel" EntitySet="CursosNiveles" />
     </AssociationSet>
-    <AssociationSet Name="RequisitosAsignaturaAsignatura" Association="Modelo.Store.RequisitosAsignaturaAsignatura">
-      <End Role="RequisitosAsignatura" EntitySet="RequisitosAsignaturas" />
-      <End Role="Asignatura" EntitySet="Asignaturas" />
-    </AssociationSet>
-    <AssociationSet Name="RequisitosAsignaturaSemestre" Association="Modelo.Store.RequisitosAsignaturaSemestre">
-      <End Role="RequisitosAsignatura" EntitySet="RequisitosAsignaturas" />
-      <End Role="Semestre" EntitySet="Semestres" />
-    </AssociationSet>
-    <AssociationSet Name="PlanDeEstudioRequisitosAsignatura" Association="Modelo.Store.PlanDeEstudioRequisitosAsignatura">
-      <End Role="PlanDeEstudio" EntitySet="PlanDeEstudios" />
-      <End Role="RequisitosAsignatura" EntitySet="RequisitosAsignaturas" />
-    </AssociationSet>
     <AssociationSet Name="PlanDeEstudioCarrera" Association="Modelo.Store.PlanDeEstudioCarrera">
       <End Role="PlanDeEstudio" EntitySet="PlanDeEstudios" />
       <End Role="Carrera" EntitySet="Carreras" />
@@ -169,6 +156,14 @@
     <AssociationSet Name="PlanEstudioAlumnoAlumno" Association="Modelo.Store.PlanEstudioAlumnoAlumno">
       <End Role="PlanEstudioAlumno" EntitySet="PlanEstudioAlumnos" />
       <End Role="Alumno" EntitySet="Alumnos" />
+    </AssociationSet>
+    <AssociationSet Name="PlanDeEstudioAsignatura" Association="Modelo.Store.PlanDeEstudioAsignatura">
+      <End Role="PlanDeEstudio" EntitySet="PlanDeEstudios" />
+      <End Role="Asignatura" EntitySet="Asignaturas" />
+    </AssociationSet>
+    <AssociationSet Name="PlanDeEstudioSemestre" Association="Modelo.Store.PlanDeEstudioSemestre">
+      <End Role="PlanDeEstudio" EntitySet="PlanDeEstudios" />
+      <End Role="Semestre" EntitySet="Semestres" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Personas">
@@ -390,7 +385,6 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RequisitosAsignaturaId" Type="int" Nullable="false" />
     <Property Name="CarreraCarreraId" Type="int" Nullable="false" />
     <Property Name="AnioId" Type="int" Nullable="false" />
     <Property Name="UD" Type="nvarchar(max)" Nullable="false" />
@@ -401,16 +395,10 @@
     <Property Name="SCT" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Materia" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Curso" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="RequisitosAsignaturas">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AsignaturaId" Type="int" Nullable="false" />
+    <Property Name="SemestreId" Type="int" Nullable="false" />
     <Property Name="PorcentajeReprobacion" Type="nvarchar(max)" Nullable="false" />
     <Property Name="AsignaturaPreRequisito" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="SemestreId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="PlanEstudioAlumnos">
     <Key>
@@ -745,42 +733,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="RequisitosAsignaturaAsignatura">
-    <End Role="RequisitosAsignatura" Type="Modelo.Store.RequisitosAsignaturas" Multiplicity="*" />
-    <End Role="Asignatura" Type="Modelo.Store.Asignaturas" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Asignatura">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="RequisitosAsignatura">
-        <PropertyRef Name="AsignaturaId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="RequisitosAsignaturaSemestre">
-    <End Role="RequisitosAsignatura" Type="Modelo.Store.RequisitosAsignaturas" Multiplicity="*" />
-    <End Role="Semestre" Type="Modelo.Store.Semestres" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Semestre">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="RequisitosAsignatura">
-        <PropertyRef Name="SemestreId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="PlanDeEstudioRequisitosAsignatura">
-    <End Role="PlanDeEstudio" Type="Modelo.Store.PlanDeEstudios" Multiplicity="*" />
-    <End Role="RequisitosAsignatura" Type="Modelo.Store.RequisitosAsignaturas" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="RequisitosAsignatura">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PlanDeEstudio">
-        <PropertyRef Name="RequisitosAsignaturaId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="PlanDeEstudioCarrera">
     <End Role="PlanDeEstudio" Type="Modelo.Store.PlanDeEstudios" Multiplicity="*" />
     <End Role="Carrera" Type="Modelo.Store.Carreras" Multiplicity="1" />
@@ -826,6 +778,30 @@
       </Principal>
       <Dependent Role="PlanEstudioAlumno">
         <PropertyRef Name="AlumnoAlumnoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PlanDeEstudioAsignatura">
+    <End Role="PlanDeEstudio" Type="Modelo.Store.PlanDeEstudios" Multiplicity="*" />
+    <End Role="Asignatura" Type="Modelo.Store.Asignaturas" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Asignatura">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PlanDeEstudio">
+        <PropertyRef Name="AsignaturaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PlanDeEstudioSemestre">
+    <End Role="PlanDeEstudio" Type="Modelo.Store.PlanDeEstudios" Multiplicity="*" />
+    <End Role="Semestre" Type="Modelo.Store.Semestres" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Semestre">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PlanDeEstudio">
+        <PropertyRef Name="SemestreId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -968,19 +944,6 @@
             <End Role="CursoNivel" EntitySet="CursosNiveles" />
           </AssociationSet>
           <EntitySet Name="PlanDeEstudios" EntityType="Modelo.PlanDeEstudio" />
-          <EntitySet Name="RequisitosAsignaturas" EntityType="Modelo.RequisitosAsignatura" />
-          <AssociationSet Name="RequisitosAsignaturaAsignatura" Association="Modelo.RequisitosAsignaturaAsignatura">
-            <End Role="RequisitosAsignatura" EntitySet="RequisitosAsignaturas" />
-            <End Role="Asignatura" EntitySet="Asignaturas" />
-          </AssociationSet>
-          <AssociationSet Name="RequisitosAsignaturaSemestre" Association="Modelo.RequisitosAsignaturaSemestre">
-            <End Role="RequisitosAsignatura" EntitySet="RequisitosAsignaturas" />
-            <End Role="Semestre" EntitySet="Semestres" />
-          </AssociationSet>
-          <AssociationSet Name="PlanDeEstudioRequisitosAsignatura" Association="Modelo.PlanDeEstudioRequisitosAsignatura">
-            <End Role="PlanDeEstudio" EntitySet="PlanDeEstudios" />
-            <End Role="RequisitosAsignatura" EntitySet="RequisitosAsignaturas" />
-          </AssociationSet>
           <AssociationSet Name="PlanDeEstudioCarrera" Association="Modelo.PlanDeEstudioCarrera">
             <End Role="PlanDeEstudio" EntitySet="PlanDeEstudios" />
             <End Role="Carrera" EntitySet="Carreras" />
@@ -997,6 +960,14 @@
           <AssociationSet Name="PlanEstudioAlumnoAlumno" Association="Modelo.PlanEstudioAlumnoAlumno">
             <End Role="PlanEstudioAlumno" EntitySet="PlanEstudioAlumnos" />
             <End Role="Alumno" EntitySet="Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="PlanDeEstudioAsignatura" Association="Modelo.PlanDeEstudioAsignatura">
+            <End Role="PlanDeEstudio" EntitySet="PlanDeEstudios" />
+            <End Role="Asignatura" EntitySet="Asignaturas" />
+          </AssociationSet>
+          <AssociationSet Name="PlanDeEstudioSemestre" Association="Modelo.PlanDeEstudioSemestre">
+            <End Role="PlanDeEstudio" EntitySet="PlanDeEstudios" />
+            <End Role="Semestre" EntitySet="Semestres" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Persona">
@@ -1337,8 +1308,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NombreAsignatura" Type="String" Nullable="false" />
           <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoAsignatura" FromRole="Asignatura" ToRole="CampoClinicoAlumno" />
-          <NavigationProperty Name="RequisitosAsignatura" Relationship="Modelo.RequisitosAsignaturaAsignatura" FromRole="Asignatura" ToRole="RequisitosAsignatura" />
           <Property Name="CodigoAsignatura" Type="String" Nullable="false" />
+          <NavigationProperty Name="PlanDeEstudio" Relationship="Modelo.PlanDeEstudioAsignatura" FromRole="Asignatura" ToRole="PlanDeEstudio" />
         </EntityType>
         <EntityType Name="Semestre">
           <Key>
@@ -1347,7 +1318,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NombreSemestre" Type="String" Nullable="false" />
           <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoSemestre" FromRole="Semestre" ToRole="CampoClinicoAlumno" />
-          <NavigationProperty Name="RequisitosAsignatura" Relationship="Modelo.RequisitosAsignaturaSemestre" FromRole="Semestre" ToRole="RequisitosAsignatura" />
+          <NavigationProperty Name="PlanDeEstudio" Relationship="Modelo.PlanDeEstudioSemestre" FromRole="Semestre" ToRole="PlanDeEstudio" />
         </EntityType>
         <Association Name="CampoClinicoAlumnoAsignatura">
           <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
@@ -1624,8 +1595,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="RequisitosAsignatura" Relationship="Modelo.PlanDeEstudioRequisitosAsignatura" FromRole="PlanDeEstudio" ToRole="RequisitosAsignatura" />
-          <Property Name="RequisitosAsignaturaId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Carrera" Relationship="Modelo.PlanDeEstudioCarrera" FromRole="PlanDeEstudio" ToRole="Carrera" />
           <Property Name="CarreraCarreraId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Anio" Relationship="Modelo.PlanDeEstudioAnio" FromRole="PlanDeEstudio" ToRole="Anio" />
@@ -1639,56 +1608,13 @@
           <Property Name="SCT" Type="String" Nullable="false" />
           <Property Name="Materia" Type="String" Nullable="false" />
           <Property Name="Curso" Type="String" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RequisitosAsignatura">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Asignatura" Relationship="Modelo.RequisitosAsignaturaAsignatura" FromRole="RequisitosAsignatura" ToRole="Asignatura" />
+          <NavigationProperty Name="Asignatura" Relationship="Modelo.PlanDeEstudioAsignatura" FromRole="PlanDeEstudio" ToRole="Asignatura" />
           <Property Name="AsignaturaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Semestre" Relationship="Modelo.PlanDeEstudioSemestre" FromRole="PlanDeEstudio" ToRole="Semestre" />
+          <Property Name="SemestreId" Type="Int32" Nullable="false" />
           <Property Name="PorcentajeReprobacion" Type="String" Nullable="false" />
           <Property Name="AsignaturaPreRequisito" Type="String" Nullable="false" />
-          <NavigationProperty Name="Semestre" Relationship="Modelo.RequisitosAsignaturaSemestre" FromRole="RequisitosAsignatura" ToRole="Semestre" />
-          <Property Name="SemestreId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PlanDeEstudio" Relationship="Modelo.PlanDeEstudioRequisitosAsignatura" FromRole="RequisitosAsignatura" ToRole="PlanDeEstudio" />
         </EntityType>
-        <Association Name="RequisitosAsignaturaAsignatura">
-          <End Type="Modelo.RequisitosAsignatura" Role="RequisitosAsignatura" Multiplicity="*" />
-          <End Type="Modelo.Asignatura" Role="Asignatura" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="Asignatura">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RequisitosAsignatura">
-              <PropertyRef Name="AsignaturaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="RequisitosAsignaturaSemestre">
-          <End Type="Modelo.RequisitosAsignatura" Role="RequisitosAsignatura" Multiplicity="*" />
-          <End Type="Modelo.Semestre" Role="Semestre" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="Semestre">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RequisitosAsignatura">
-              <PropertyRef Name="SemestreId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PlanDeEstudioRequisitosAsignatura">
-          <End Type="Modelo.PlanDeEstudio" Role="PlanDeEstudio" Multiplicity="*" />
-          <End Type="Modelo.RequisitosAsignatura" Role="RequisitosAsignatura" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="RequisitosAsignatura">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PlanDeEstudio">
-              <PropertyRef Name="RequisitosAsignaturaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="PlanDeEstudioCarrera">
           <End Type="Modelo.PlanDeEstudio" Role="PlanDeEstudio" Multiplicity="*" />
           <End Type="Modelo.Carrera" Role="Carrera" Multiplicity="1" />
@@ -1745,6 +1671,30 @@
             </Principal>
             <Dependent Role="PlanEstudioAlumno">
               <PropertyRef Name="AlumnoAlumnoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PlanDeEstudioAsignatura">
+          <End Type="Modelo.PlanDeEstudio" Role="PlanDeEstudio" Multiplicity="*" />
+          <End Type="Modelo.Asignatura" Role="Asignatura" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlanDeEstudio">
+              <PropertyRef Name="AsignaturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PlanDeEstudioSemestre">
+          <End Type="Modelo.PlanDeEstudio" Role="PlanDeEstudio" Multiplicity="*" />
+          <End Type="Modelo.Semestre" Role="Semestre" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Semestre">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlanDeEstudio">
+              <PropertyRef Name="SemestreId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1997,7 +1947,6 @@
       <EntityTypeMapping TypeName="IsTypeOf(Modelo.PlanDeEstudio)">
         <MappingFragment StoreEntitySet="PlanDeEstudios">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="RequisitosAsignaturaId" ColumnName="RequisitosAsignaturaId" />
           <ScalarProperty Name="CarreraCarreraId" ColumnName="CarreraCarreraId" />
           <ScalarProperty Name="AnioId" ColumnName="AnioId" />
           <ScalarProperty Name="UD" ColumnName="UD" />
@@ -2008,17 +1957,10 @@
           <ScalarProperty Name="SCT" ColumnName="SCT" />
           <ScalarProperty Name="Materia" ColumnName="Materia" />
           <ScalarProperty Name="Curso" ColumnName="Curso" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="RequisitosAsignaturas">
-      <EntityTypeMapping TypeName="IsTypeOf(Modelo.RequisitosAsignatura)">
-        <MappingFragment StoreEntitySet="RequisitosAsignaturas">
-          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="AsignaturaId" ColumnName="AsignaturaId" />
+          <ScalarProperty Name="SemestreId" ColumnName="SemestreId" />
           <ScalarProperty Name="PorcentajeReprobacion" ColumnName="PorcentajeReprobacion" />
           <ScalarProperty Name="AsignaturaPreRequisito" ColumnName="AsignaturaPreRequisito" />
-          <ScalarProperty Name="SemestreId" ColumnName="SemestreId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

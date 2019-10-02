@@ -17,10 +17,30 @@ namespace SAS.v1.Controllers
         // GET: PlanDeEstudios
         public ActionResult Index()
         {
-            var planDeEstudios = db.PlanDeEstudios.Include(p => p.RequisitosAsignatura).Include(p => p.Carrera).Include(p => p.Anio);
+            ViewBag.AnioId = new SelectList(db.Anios, "Id","Ano");
+            var planDeEstudios = db.PlanDeEstudios.Include(p => p.Carrera).Include(p => p.Anio);
             return View(planDeEstudios.ToList());
         }
+        [HttpPost]
+        public ActionResult Index([Bind(Include = "Id")]Anio ano,string Filtro)
+        {
+            ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano");
 
+            Anio anio = (from a in db.Anios where a.Id == ano.Id select a).FirstOrDefault();
+            ViewBag.Ano = Int32.Parse(anio.Ano);
+            List<PlanDeEstudio> planDeEstudios= new List<PlanDeEstudio>();
+            if (Filtro == null || Filtro == "")
+            {
+                 planDeEstudios =(db.PlanDeEstudios.Include(p => p.Carrera).Include(p => p.Anio)).ToList();
+            }
+            else
+            {
+                planDeEstudios = (db.PlanDeEstudios.Where(p => p.Asignatura.NombreAsignatura.Contains(Filtro))
+                    .Where(p => p.Asignatura.NombreAsignatura.Contains(Filtro)).Include(p => p.Carrera).Include(p => p.Anio).Where(p => p.Anio.Ano.Equals(anio.Ano))).ToList();
+
+            }
+            return View(planDeEstudios.ToList());
+        }
         // GET: PlanDeEstudios/Details/5
         public ActionResult Details(int? id)
         {
@@ -39,7 +59,7 @@ namespace SAS.v1.Controllers
         // GET: PlanDeEstudios/Create
         public ActionResult Create()
         {
-            ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion");
+           // ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion");
             ViewBag.CarreraCarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
             ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano");
             return View();
@@ -59,7 +79,7 @@ namespace SAS.v1.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion", planDeEstudio.RequisitosAsignaturaId);
+           // ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion", planDeEstudio.RequisitosAsignaturaId);
             ViewBag.CarreraCarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera", planDeEstudio.CarreraCarreraId);
             ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano", planDeEstudio.AnioId);
             return View(planDeEstudio);
@@ -77,7 +97,7 @@ namespace SAS.v1.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion", planDeEstudio.RequisitosAsignaturaId);
+           // ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion", planDeEstudio.RequisitosAsignaturaId);
             ViewBag.CarreraCarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera", planDeEstudio.CarreraCarreraId);
             ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano", planDeEstudio.AnioId);
             return View(planDeEstudio);
@@ -96,7 +116,7 @@ namespace SAS.v1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion", planDeEstudio.RequisitosAsignaturaId);
+           // ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion", planDeEstudio.RequisitosAsignaturaId);
             ViewBag.CarreraCarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera", planDeEstudio.CarreraCarreraId);
             ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano", planDeEstudio.AnioId);
             return View(planDeEstudio);

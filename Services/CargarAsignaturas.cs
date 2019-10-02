@@ -48,13 +48,20 @@ namespace SAS.v1.Services
                     NombreCentroFormador nombreCentro = new NombreCentroFormador();
                     PlanEstudioAlumno planAlumno = new PlanEstudioAlumno();
                     PlanDeEstudio planEstudio = new PlanDeEstudio();
-                    RequisitosAsignatura requisitosAsignatura = new RequisitosAsignatura();
+                    UtilNumber number = new UtilNumber();
+                    // RequisitosAsignatura requisitosAsignatura = new RequisitosAsignatura();
                     //PorcentajeDeExigencia porcentaje = new PorcentajeDeExigencia();
 
                     List<string> ListaColumnas = ContadorDeColumnas.GetHeadColumn(utlXlsColor.getCountColumn(path));
                     //Ingreso anio
                     anio.Ano = utlXls.getCellValue(string.Concat(ListaColumnas[2],fila));
-                    anio = ingreso.CrearAnio(anio);
+                    if (!number.IsNumeric(anio.Ano))
+                    {
+                        anio.Ano = null;
+                    }
+                    if (anio.Ano != null && !anio.Ano.Equals(string.Empty))
+                    {
+                        anio = ingreso.CrearAnio(anio);
 
                     // Ingreso persona
 
@@ -96,24 +103,16 @@ namespace SAS.v1.Services
                         semestre.NombreSemestre = utlXls.getCellValue(string.Concat(ListaColumnas[i], 7));
                         semestre = ingreso.CrearSemestre(semestre);
 
-                         
-                         
-                        requisitosAsignatura.SemestreId = semestre.Id;
-                        requisitosAsignatura.AsignaturaId = asignatura.Id;
-                        requisitosAsignatura = ingreso.BuscarReqAsignatura(requisitosAsignatura);
-
-                        planEstudio.RequisitosAsignaturaId = requisitosAsignatura.Id;
+                        planEstudio = new PlanDeEstudio();
+                        planEstudio.AsignaturaId = asignatura.Id;
+                        planEstudio.SemestreId = semestre.Id;
                         planEstudio.CarreraCarreraId = carreras.CarreraId;
-
+                        planEstudio.AnioId = anio.Id;
                         planEstudio = ingreso.BuscarPlanEstudio(planEstudio);
 
                          planAlumno.AlumnoAlumnoId = alumno.AlumnoId;
                         planAlumno.PlanDeEstudioId = planEstudio.Id;
-                           
 
-                     
-
-                        
                           if (colores.Amarillo[0] == color[0] && colores.Amarillo[1] == color[1] && colores.Amarillo[2] == color[2] &&
                               colores.Amarillo[3] == color[3] && ValorCelda=="")
                           {
@@ -122,51 +121,61 @@ namespace SAS.v1.Services
                               colores.Amarillo[3] == color[3] && ValorCelda == "2")
                           {
                             planAlumno.EstadoAsignatura = EstadoAsignatura.AprobadoEnSegunda;
-                          }else if (colores.Amarillo == color && ValorCelda == "3")
+                          }else if (colores.Amarillo[0] == color[0] && colores.Amarillo[1] == color[1] && colores.Amarillo[2] == color[2] &&
+                              colores.Amarillo[3] == color[3] && ValorCelda == "3")
                           {
                             planAlumno.EstadoAsignatura = EstadoAsignatura.AprobadoEnTercera;
                           }
-                          else if (colores.Amarillo == color && ValorCelda == "4")
+                          else if (colores.Amarillo[0] == color[0] && colores.Amarillo[1] == color[1] && colores.Amarillo[2] == color[2] &&
+                              colores.Amarillo[3] == color[3] && ValorCelda == "4")
                           {
                             planAlumno.EstadoAsignatura = EstadoAsignatura.AprobadoEnCuarta;
                           }
-                          else if (colores.Azul==color&&ValorCelda==null)
+                          else if (colores.Azul[0] == color[0] && colores.Azul[1] == color[1] && colores.Azul[2] == color[2] &&
+                              colores.Azul[3] == color[3] && ValorCelda=="")
                           {
                             planAlumno.EstadoAsignatura = EstadoAsignatura.Cursando;
                           }
-                          else if (colores.Azul == color && ValorCelda == "2")
+                          else if (colores.Azul[0] == color[0] && colores.Azul[1] == color[1] && colores.Azul[2] == color[2] &&
+                              colores.Azul[3] == color[3] && ValorCelda == "2")
                           {
                             planAlumno.EstadoAsignatura = EstadoAsignatura.CursandoEnSegunda;
                           }
-                          else if (colores.Azul == color && ValorCelda == "3")
+                          else if (colores.Azul[0] == color[0] && colores.Azul[1] == color[1] && colores.Azul[2] == color[2] &&
+                              colores.Azul[3] == color[3] && ValorCelda == "3")
                           {
                             planAlumno.EstadoAsignatura = EstadoAsignatura.CursandoEnTercera;
                           }
-                          else if (colores.Azul == color && ValorCelda == "4")
+                          else if (colores.Azul[0] == color[0] && colores.Azul[1] == color[1] && colores.Azul[2] == color[2] &&
+                              colores.Azul[3] == color[3] && ValorCelda == "4")
                           {
                             planAlumno.EstadoAsignatura = EstadoAsignatura.CursandoEnCuarta;
                           }
-                          else if (colores.Blanco == color && ValorCelda == null)
+                          else if ( colores.Blanco[1] == color[1] && colores.Blanco[2] == color[2] &&
+                              colores.Blanco[3] == color[3] && ValorCelda == "")
                           {
                             planAlumno.EstadoAsignatura = EstadoAsignatura.NoCursado;
                           }
-                          else if (colores.Blanco == color && ValorCelda == "1")
+                          else if (colores.Blanco[1] == color[1] && colores.Blanco[2] == color[2] &&
+                              colores.Blanco[3] == color[3] && ValorCelda == "1")
                           {
                             planAlumno.EstadoAsignatura = EstadoAsignatura.ReprobadoYNoInscrito;
                           }
-                          else if (colores.Blanco == color && ValorCelda == "2")
+                          else if (colores.Blanco[1] == color[1] && colores.Blanco[2] == color[2] &&
+                              colores.Blanco[3] == color[3] && ValorCelda == "2")
                           {
                             planAlumno.EstadoAsignatura = EstadoAsignatura.ReprobadoYNoInscritoSegunda;
                           }
-                          else if (colores.Blanco == color && ValorCelda == "3")
+                          else if (colores.Blanco[1] == color[1] && colores.Blanco[2] == color[2] &&
+                              colores.Blanco[3] == color[3] && ValorCelda == "3")
                           {
                             planAlumno.EstadoAsignatura = EstadoAsignatura.ReprobadoYNoInscritoTercera;
                           }
 
-                        planAlumno = ingreso.CrearPlanEstudioAlumno(planAlumno);
+                        planAlumno = ingreso.CrearPlanEstudioAlumno(planAlumno,1);
                          // AsAlumno = ingreso.CrearAsignaturaAlumnos(AsAlumno,1);
-                      }
-                    
+                            }
+                        }
                     fila++;
                 }
             }

@@ -21,7 +21,6 @@ namespace SAS.v1.Models
         }
     
         public int Id { get; set; }
-        public int RequisitosAsignaturaId { get; set; }
         public int CarreraCarreraId { get; set; }
         public int AnioId { get; set; }
         public string UD { get; set; }
@@ -32,11 +31,16 @@ namespace SAS.v1.Models
         public string SCT { get; set; }
         public string Materia { get; set; }
         public string Curso { get; set; }
+        public int AsignaturaId { get; set; }
+        public int SemestreId { get; set; }
+        public string PorcentajeReprobacion { get; set; }
+        public string AsignaturaPreRequisito { get; set; }
     
-        public virtual RequisitosAsignatura RequisitosAsignatura { get; set; }
         public virtual Carrera Carrera { get; set; }
         public virtual Anio Anio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanEstudioAlumno> PlanEstudioAlumno { get; set; }
+        public virtual Asignatura Asignatura { get; set; }
+        public virtual Semestre Semestre { get; set; }
     }
 }

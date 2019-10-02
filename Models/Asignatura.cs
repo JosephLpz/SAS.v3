@@ -18,7 +18,7 @@ namespace SAS.v1.Models
         public Asignatura()
         {
             this.CampoClinicoAlumno = new HashSet<CampoClinicoAlumno>();
-            this.RequisitosAsignatura = new HashSet<RequisitosAsignatura>();
+            this.PlanDeEstudio = new HashSet<PlanDeEstudio>();
         }
     
         public int Id { get; set; }
@@ -28,6 +28,6 @@ namespace SAS.v1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CampoClinicoAlumno> CampoClinicoAlumno { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RequisitosAsignatura> RequisitosAsignatura { get; set; }
+        public virtual ICollection<PlanDeEstudio> PlanDeEstudio { get; set; }
     }
 }

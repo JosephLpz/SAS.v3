@@ -29,35 +29,62 @@ namespace SAS.v1.Services
             {
                 
              
-                int fila = 6;
+                int fila = 8;
                 bool continuar = true;
                 while (continuar)
                 {
                     Asignatura asignaturas = new Asignatura();
                     Semestre semestres = new Semestre();
                     PlanDeEstudio planEstudios = new PlanDeEstudio();
-                    RequisitosAsignatura reqAsignaturas = new RequisitosAsignatura();
+                    UtilNumber number = new UtilNumber();
+                   // RequisitosAsignatura reqAsignaturas = new RequisitosAsignatura();
                     Carrera carreras = new Carrera();
                     Anio anios = new Anio();
 
-                    string semestre= utlXls.getCellValue(string.Format("C{0}", fila));
+                    string semestre= utlXls.getCellValue(string.Format("B{0}", fila));
+                    if (!number.IsNumeric(semestre))
+                    {
+                        semestre = null;
+                    }
                     if (semestre !=null&&!semestre.Equals(string.Empty))
                     {
-                        string codigoAsignatura= utlXls.getCellValue(string.Format("D{0}", fila));
+                       // string codigoAsignatura= utlXls.getCellValue(string.Format("D{0}", fila));
 
-                        string asignatura = utlXls.getCellValue(string.Format("E{0}", fila));
+                        string asignatura = utlXls.getCellValue(string.Format("C{0}", fila));
 
-                        string catedra = utlXls.getCellValue(string.Format("F{0}", fila));
+                        
 
-                        string aula= utlXls.getCellValue(string.Format("G{0}", fila));
+                        string catedra = utlXls.getCellValue(string.Format("E{0}", fila));
+                        if (catedra == "")
+                        {
+                            catedra = "0";
+                        }
 
-                        string laboratorio= utlXls.getCellValue(string.Format("H{0}", fila));
+                        string taller = utlXls.getCellValue(string.Format("F{0}", fila));
 
-                        string taller = utlXls.getCellValue(string.Format("I{0}", fila));
+                        if (taller == "")
+                        {
+                            taller = "0";
+                        }
+                        string laboratorio= utlXls.getCellValue(string.Format("G{0}", fila));
 
-                        string UD= utlXls.getCellValue(string.Format("J{0}", fila));
+                        if (laboratorio == "")
+                        {
+                            laboratorio = "0";
+                        }
 
-                        string asignaturaRequisito= utlXls.getCellValue(string.Format("K{0}", fila));
+                        string PracticaCurricular= utlXls.getCellValue(string.Format("H{0}", fila));
+
+                        string SCT= utlXls.getCellValue(string.Format("I{0}", fila));
+
+                        string asignaturaRequisito= utlXls.getCellValue(string.Format("J{0}", fila));
+                        
+
+                        string UD =  (Int32.Parse(catedra)+Int32.Parse(taller)+Int32.Parse(laboratorio)).ToString() ;
+
+                        //string aula= utlXls.getCellValue(string.Format("G{0}", fila));
+
+
 
 
                         #region ingreso semestre
@@ -67,19 +94,19 @@ namespace SAS.v1.Services
                         #endregion
 
                         #region ingreso asignatura
-                        asignaturas.CodigoAsignatura = codigoAsignatura;
+                        asignaturas.CodigoAsignatura = "";
                         asignaturas.NombreAsignatura = asignatura;
                         asignaturas = ingreso.CrearAsignatura(asignaturas, 1);
                         #endregion
 
-                        #region ingreso requerisitoss asignatura
-                        reqAsignaturas.AsignaturaId = asignaturas.Id;
-                        reqAsignaturas.PorcentajeReprobacion = "";
-                        reqAsignaturas.AsignaturaPreRequisito = asignaturaRequisito;
-                        reqAsignaturas.SemestreId = semestres.Id;
+                        //#region ingreso requerisitoss asignatura
+                        //reqAsignaturas.AsignaturaId = asignaturas.Id;
+                        //reqAsignaturas.PorcentajeReprobacion = "";
+                        //reqAsignaturas.AsignaturaPreRequisito = asignaturaRequisito;
+                        //reqAsignaturas.SemestreId = semestres.Id;
 
-                        reqAsignaturas = ingreso.CrearReqAsignatura(reqAsignaturas);
-                        #endregion
+                        //reqAsignaturas = ingreso.CrearReqAsignatura(reqAsignaturas);
+                        //#endregion
 
 
                         #region ingreso Carrera
@@ -95,15 +122,19 @@ namespace SAS.v1.Services
 
                         #region ingreso plan de estudios
 
-                        planEstudios.RequisitosAsignaturaId = reqAsignaturas.Id;
+                        //planEstudios.RequisitosAsignaturaId = reqAsignaturas.Id;
+                        planEstudios.AsignaturaId = asignaturas.Id;
+                        planEstudios.PorcentajeReprobacion = "0";
+                        planEstudios.AsignaturaPreRequisito = asignaturaRequisito;
+                        planEstudios.SemestreId = semestres.Id;
                         planEstudios.CarreraCarreraId = carreras.CarreraId;
                         planEstudios.AnioId = anios.Id;
                         planEstudios.UD = UD;
                         planEstudios.Catedra = catedra;
                         planEstudios.Taller = taller;
                         planEstudios.LAB = laboratorio;
-                        planEstudios.PC = "";
-                        planEstudios.SCT = "";
+                        planEstudios.PC = PracticaCurricular;
+                        planEstudios.SCT =SCT;
                         planEstudios.Materia = "";
                         planEstudios.Curso = "";
 

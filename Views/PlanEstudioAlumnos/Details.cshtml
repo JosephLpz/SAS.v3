@@ -1,0 +1,50 @@
+﻿@model SAS.v1.Models.PlanEstudioAlumno
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>PlanEstudioAlumno</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.EstadoAsignatura)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EstadoAsignatura)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PlanDeEstudio.UD)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PlanDeEstudio.UD)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Alumno.Observaciones)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Alumno.Observaciones)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

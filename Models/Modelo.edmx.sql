@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/24/2019 15:45:58
+-- Date Created: 10/01/2019 18:25:36
 -- Generated from EDMX file: D:\Proyecto_escuela_de_la_salud\SES Nuevo modelo\SES\SAS.v3\SAS.v3\Models\Modelo.edmx
 -- --------------------------------------------------
 
@@ -98,15 +98,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CursoAlumnoCursoNivel]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CursoAlumnos] DROP CONSTRAINT [FK_CursoAlumnoCursoNivel];
 GO
-IF OBJECT_ID(N'[dbo].[FK_RequisitosAsignaturaAsignatura]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[RequisitosAsignaturas] DROP CONSTRAINT [FK_RequisitosAsignaturaAsignatura];
-GO
-IF OBJECT_ID(N'[dbo].[FK_RequisitosAsignaturaSemestre]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[RequisitosAsignaturas] DROP CONSTRAINT [FK_RequisitosAsignaturaSemestre];
-GO
-IF OBJECT_ID(N'[dbo].[FK_PlanDeEstudioRequisitosAsignatura]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[PlanDeEstudios] DROP CONSTRAINT [FK_PlanDeEstudioRequisitosAsignatura];
-GO
 IF OBJECT_ID(N'[dbo].[FK_PlanDeEstudioCarrera]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PlanDeEstudios] DROP CONSTRAINT [FK_PlanDeEstudioCarrera];
 GO
@@ -201,9 +192,6 @@ IF OBJECT_ID(N'[dbo].[CursoAlumnos]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[PlanDeEstudios]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PlanDeEstudios];
-GO
-IF OBJECT_ID(N'[dbo].[RequisitosAsignaturas]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[RequisitosAsignaturas];
 GO
 IF OBJECT_ID(N'[dbo].[PlanEstudioAlumnos]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PlanEstudioAlumnos];
@@ -430,7 +418,6 @@ GO
 -- Creating table 'PlanDeEstudios'
 CREATE TABLE [dbo].[PlanDeEstudios] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [RequisitosAsignaturaId] int  NOT NULL,
     [CarreraCarreraId] int  NOT NULL,
     [AnioId] int  NOT NULL,
     [UD] nvarchar(max)  NOT NULL,
@@ -440,17 +427,11 @@ CREATE TABLE [dbo].[PlanDeEstudios] (
     [PC] nvarchar(max)  NOT NULL,
     [SCT] nvarchar(max)  NOT NULL,
     [Materia] nvarchar(max)  NOT NULL,
-    [Curso] nvarchar(max)  NOT NULL
-);
-GO
-
--- Creating table 'RequisitosAsignaturas'
-CREATE TABLE [dbo].[RequisitosAsignaturas] (
-    [Id] int IDENTITY(1,1) NOT NULL,
+    [Curso] nvarchar(max)  NOT NULL,
     [AsignaturaId] int  NOT NULL,
+    [SemestreId] int  NOT NULL,
     [PorcentajeReprobacion] nvarchar(max)  NOT NULL,
-    [AsignaturaPreRequisito] nvarchar(max)  NOT NULL,
-    [SemestreId] int  NOT NULL
+    [AsignaturaPreRequisito] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -620,12 +601,6 @@ GO
 -- Creating primary key on [Id] in table 'PlanDeEstudios'
 ALTER TABLE [dbo].[PlanDeEstudios]
 ADD CONSTRAINT [PK_PlanDeEstudios]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'RequisitosAsignaturas'
-ALTER TABLE [dbo].[RequisitosAsignaturas]
-ADD CONSTRAINT [PK_RequisitosAsignaturas]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -1044,51 +1019,6 @@ ON [dbo].[CursoAlumnos]
     ([CursoNivelId]);
 GO
 
--- Creating foreign key on [AsignaturaId] in table 'RequisitosAsignaturas'
-ALTER TABLE [dbo].[RequisitosAsignaturas]
-ADD CONSTRAINT [FK_RequisitosAsignaturaAsignatura]
-    FOREIGN KEY ([AsignaturaId])
-    REFERENCES [dbo].[Asignaturas]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_RequisitosAsignaturaAsignatura'
-CREATE INDEX [IX_FK_RequisitosAsignaturaAsignatura]
-ON [dbo].[RequisitosAsignaturas]
-    ([AsignaturaId]);
-GO
-
--- Creating foreign key on [SemestreId] in table 'RequisitosAsignaturas'
-ALTER TABLE [dbo].[RequisitosAsignaturas]
-ADD CONSTRAINT [FK_RequisitosAsignaturaSemestre]
-    FOREIGN KEY ([SemestreId])
-    REFERENCES [dbo].[Semestres]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_RequisitosAsignaturaSemestre'
-CREATE INDEX [IX_FK_RequisitosAsignaturaSemestre]
-ON [dbo].[RequisitosAsignaturas]
-    ([SemestreId]);
-GO
-
--- Creating foreign key on [RequisitosAsignaturaId] in table 'PlanDeEstudios'
-ALTER TABLE [dbo].[PlanDeEstudios]
-ADD CONSTRAINT [FK_PlanDeEstudioRequisitosAsignatura]
-    FOREIGN KEY ([RequisitosAsignaturaId])
-    REFERENCES [dbo].[RequisitosAsignaturas]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_PlanDeEstudioRequisitosAsignatura'
-CREATE INDEX [IX_FK_PlanDeEstudioRequisitosAsignatura]
-ON [dbo].[PlanDeEstudios]
-    ([RequisitosAsignaturaId]);
-GO
-
 -- Creating foreign key on [CarreraCarreraId] in table 'PlanDeEstudios'
 ALTER TABLE [dbo].[PlanDeEstudios]
 ADD CONSTRAINT [FK_PlanDeEstudioCarrera]
@@ -1147,6 +1077,36 @@ GO
 CREATE INDEX [IX_FK_PlanEstudioAlumnoAlumno]
 ON [dbo].[PlanEstudioAlumnos]
     ([AlumnoAlumnoId]);
+GO
+
+-- Creating foreign key on [AsignaturaId] in table 'PlanDeEstudios'
+ALTER TABLE [dbo].[PlanDeEstudios]
+ADD CONSTRAINT [FK_PlanDeEstudioAsignatura]
+    FOREIGN KEY ([AsignaturaId])
+    REFERENCES [dbo].[Asignaturas]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PlanDeEstudioAsignatura'
+CREATE INDEX [IX_FK_PlanDeEstudioAsignatura]
+ON [dbo].[PlanDeEstudios]
+    ([AsignaturaId]);
+GO
+
+-- Creating foreign key on [SemestreId] in table 'PlanDeEstudios'
+ALTER TABLE [dbo].[PlanDeEstudios]
+ADD CONSTRAINT [FK_PlanDeEstudioSemestre]
+    FOREIGN KEY ([SemestreId])
+    REFERENCES [dbo].[Semestres]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PlanDeEstudioSemestre'
+CREATE INDEX [IX_FK_PlanDeEstudioSemestre]
+ON [dbo].[PlanDeEstudios]
+    ([SemestreId]);
 GO
 
 -- --------------------------------------------------

@@ -1,0 +1,174 @@
+﻿@*@model IEnumerable<SAS.v1.Models.PlanEstudioAlumno>*@
+@model SAS.v1.Models.Alumno
+@{
+    ViewBag.Title = "Seguimiento Alumnos";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    <form>
+        <fieldset>
+            <legend>Alumno</legend>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Persona.Rut)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Persona.Rut)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Persona.Dv)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Persona.Dv)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Persona.Nombre)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Persona.Nombre)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Persona.ApPaterno)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Persona.ApPaterno)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Persona.ApMaterno)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Persona.ApMaterno)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.cursoNivel)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.cursoNivel)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CentroFormador.NombreCentroFormador.NombreCentroFormador1)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CentroFormador.NombreCentroFormador.NombreCentroFormador1)
+                </dd>
+                @foreach (var item in Model.ImunizacionAlumno)
+                {
+
+                    <dt>
+                        @Html.DisplayNameFor(model => item.Inmunizacion.NombreInmunizacion)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => item.Inmunizacion.NombreInmunizacion)
+                    </dd>
+                }
+                <dt>
+                    @Html.DisplayNameFor(model => model.Observaciones)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Observaciones)
+                </dd>
+            </dl>
+        </fieldset>
+    </form>
+
+    <table class="table" id="TablaPlanDeEstudiosAlumnos">
+        <thead>
+            <tr>
+                
+                <th>
+                   <p>Nombre Asignatura</p>
+                </th>
+                <th>
+                    <p>Estado Asignatura</p>
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.PlanDeEstudio.UD)
+                </th>*@
+                @*<th>
+                    @Html.DisplayNameFor(model => model.Alumno.Observaciones)
+                </th>*@
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PlanEstudioAlumno)
+            {
+                <tr>
+                  
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlanDeEstudio.Asignatura.NombreAsignatura)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstadoAsignatura)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.PlanDeEstudio.UD)
+                    </td>*@
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.Alumno.Observaciones)
+                    </td>*@
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <script>
+    $(document).ready(function () {
+
+        $('#TablaPlanDeEstudiosAlumnos').DataTable(
+         {
+            "bFilter": false,
+
+            "oLanguage": {
+                "sLengthMenu": "Mostrar _MENU_ registros por página",
+                "sZeroRecords": "No se encontraron resultados.",
+                "sInfo": "Mostrando _START_ al _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 al 0 de 0 registros",
+                "sInfoFiltered": "(filtrado(s) de _MAX_ registro(s))",
+                "oPaginate": {
+                    "sFirst": "Inicio",
+                    "sLast": "Final",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                }
+            },
+            "sDom": '<"top"Blip>rt<p"clear">',
+            buttons: ['excel']
+         });
+    });
+    </script>
+    <script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/jszip.min.js "></script>
+    <script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
+</body>
+</html>

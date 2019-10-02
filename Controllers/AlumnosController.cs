@@ -19,10 +19,10 @@ namespace SAS.v1.Controllers
 
         // GET: Alumnos
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(int? id)
        {
            AlumnosServices ListaAlumno = new AlumnosServices();
-
+            ViewBag.Identificador = id;
             //List<AlumnoNP> alumnos = ListaAlumno.ListaAlumnos(null);
             
             var alumnos = db.Alumnos.Include(p => p.Persona);

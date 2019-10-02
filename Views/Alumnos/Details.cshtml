@@ -60,11 +60,11 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Alumno.CursoNivel)
+                    @Html.DisplayNameFor(model => model.Alumno.cursoNivel)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Alumno.CursoNivel)
+                    @Html.DisplayFor(model => model.Alumno.cursoNivel)
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Alumno.CentroFormador.NombreCentroFormador.NombreCentroFormador1)
@@ -72,14 +72,16 @@
                 <dd>
                     @Html.DisplayFor(model => model.Alumno.CentroFormador.NombreCentroFormador.NombreCentroFormador1)
                 </dd>
-
+                @foreach( var item in Model.Alumno.ImunizacionAlumno){
+               
                 <dt>
-                    @Html.DisplayNameFor(model => model.Alumno.Inmunizacion.NombreInmunizacion)
+                    @Html.DisplayNameFor(model => item.Inmunizacion.NombreInmunizacion)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Alumno.Inmunizacion.NombreInmunizacion)
+                    @Html.DisplayFor(model => item.Inmunizacion.NombreInmunizacion)
                 </dd>
+                }
                 <dt>
                     @Html.DisplayNameFor(model => model.Alumno.Observaciones)
                 </dt>
