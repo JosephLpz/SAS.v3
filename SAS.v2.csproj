@@ -547,6 +547,7 @@
     <Compile Include="Controllers\PlanEstudioAlumnosController.cs" />
     <Compile Include="Controllers\ProfesionalDocenteGuiasController.cs" />
     <Compile Include="Controllers\ProfesionalSupervisorsController.cs" />
+    <Compile Include="Controllers\ProyeccionesDeCuposController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -811,6 +812,7 @@
     <Content Include="Views\PlanEstudioAlumnos\Details.cshtml" />
     <Content Include="Views\PlanEstudioAlumnos\Edit.cshtml" />
     <Content Include="Views\PlanEstudioAlumnos\Index.cshtml" />
+    <Content Include="Views\ProyeccionesDeCupos\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

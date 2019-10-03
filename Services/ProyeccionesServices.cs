@@ -10,59 +10,47 @@ namespace SAS.v1.Services
     {
         ModeloContainer db = new ModeloContainer();
         IngresoServices IngresoS = new IngresoServices();
-        public int CalcularProyeccionPorAsignatura(Asignatura asignaturas)
+        public int CalcularProyeccionPorAsignatura(int id)
         {
             int resultado=0;
-            int TotalAlumnosCursantes=0;
-            int AsignaturasAprobadasAlumno = 0;
-            List<PlanEstudioAlumno> planEstudioAlumno = GetPlanesEstudio(asignaturas);
-            List<Alumno> Alumnos = new List<Alumno>();
-            IngresoServices AlumnoService = new IngresoServices();
-            foreach(var item in planEstudioAlumno)
+            List<Alumno> AlumnosCursantes = new List<Alumno>();
+            int CantidadDeAlumnosCursantes=0;
+            //Buscar plan de estudio de asignatura pre requisito
+            PlanDeEstudio plan = BuscarPlanDeEstudioAsPreRequisto(id);
+
+            //cada alumno de el plan de estudio que esta cursando esa asignatura
+            foreach(var item in plan.PlanEstudioAlumno)
             {
-                
-                if (item.EstadoAsignatura==EstadoAsignatura.Cursando)
+                if (item.EstadoAsignatura.Equals(EstadoAsignatura.Cursando))
                 {
-                Alumnos.Add(BuscarAlumno(item.AlumnoAlumnoId));
-                TotalAlumnosCursantes += 1;
+                    AlumnosCursantes.Add(item.Alumno);
+                    CantidadDeAlumnosCursantes += 1;
                 }
-                
+
             }
-            foreach(var item in Alumnos)
+            foreach(var result in AlumnosCursantes)
             {
-                foreach(PlanEstudioAlumno plan in item.PlanEstudioAlumno)
+                foreach(var item in result.PlanEstudioAlumno)
                 {
-                    if (plan.EstadoAsignatura == EstadoAsignatura.Aprobado)
-                    {
-                        AsignaturasAprobadasAlumno += 1;
-                    }
+
                 }
             }
-
-
             return resultado;
         }
-        public List<PlanEstudioAlumno> GetPlanesEstudio(Asignatura asignatura)
+       
+        public PlanDeEstudio BuscarPlanDeEstudioAsPreRequisto(int Id)
         {
-           // RequisitosAsignatura AsignaturaCampo = new RequisitosAsignatura();
-           // AsignaturaCampo = (from r in db.RequisitosAsignaturas where r.AsignaturaId == asignatura.Id select r).FirstOrDefault();
+            //Buscar asignatura de campo clinico
+            PlanDeEstudio plan = (from p in db.PlanDeEstudios where p.AsignaturaId == Id select p).FirstOrDefault();
 
-           // Asignatura asignaturaPreReq = new Asignatura();
 
-           // asignaturaPreReq.NombreAsignatura = AsignaturaCampo.AsignaturaPreRequisito;
+            //Buscar asignatura pre requisito de la anterior
+            plan = (from p in db.PlanDeEstudios where p.Asignatura.NombreAsignatura.ToUpper() == plan.AsignaturaPreRequisito.ToUpper() select p).FirstOrDefault();
 
-           // asignaturaPreReq = IngresoS.BuscarAsignatura(asignaturaPreReq);
+            return plan;
 
-           // RequisitosAsignatura AsignaturaPreRequisitoCampo = new RequisitosAsignatura();
-           // AsignaturaPreRequisitoCampo = (from r in db.RequisitosAsignaturas where r.AsignaturaId == asignaturaPreReq.Id select r).FirstOrDefault();
-
-           //PlanDeEstudio planesDeEstudio = new PlanDeEstudio();
-           // planesDeEstudio=(from p in db.PlanDeEstudios where p.RequisitosAsignaturaId== AsignaturaPreRequisitoCampo.Id select p).FirstOrDefault();
-
-           List<PlanEstudioAlumno> planAlumno = new List<PlanEstudioAlumno>();
-            //planAlumno = (from a in db.PlanEstudioAlumnos where a.PlanDeEstudioId == planesDeEstudio.Id select a).ToList();
-            return planAlumno;
         }
+
         public Alumno BuscarAlumno(int Id)
         {
             Alumno alumno = (from a in db.Alumnos where a.AlumnoId == Id select a).FirstOrDefault();
