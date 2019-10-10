@@ -12,6 +12,12 @@
     <title>Create</title>
 </head>
 <body>
+    @if (ViewBag.Error != null)
+    {
+        <p class="alert alert-danger" role="alert">
+            @ViewBag.Error
+        </p>
+    }
     @using (Html.BeginForm()) 
     {
         @Html.AntiForgeryToken()

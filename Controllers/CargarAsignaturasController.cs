@@ -30,12 +30,10 @@ namespace SAS.v1.Controllers
             {
                 CargarArchivo(archivo,NombreHoja,carrera);
                 ViewBag.showSuccessAlert = false;
-                ViewBag.EstadoDeProceso = false;
             }
             else
             {
                 ViewBag.showSuccessAlert = true;
-                ViewBag.EstadoDeProceso = false;
             }
 
             return View();

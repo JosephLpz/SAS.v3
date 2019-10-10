@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SAS.v1.Models;
 using SAS.v1.Services;
+using SAS.v1.Utils;
 
 namespace SAS.v1.Controllers
 {
@@ -96,24 +97,32 @@ namespace SAS.v1.Controllers
        {
             IngresoServices ingresoDatos = new IngresoServices();
             ValidacionCorreo validar = new ValidacionCorreo();
-           if (ModelState.IsValid)
+            UtilRut ValidacionRut = new UtilRut();
+
+            if (ModelState.IsValid)
            {
-                if (validar.ValidateEmail(profesionalDocenteGuia.Correo))
+                if (ValidacionRut.validarRut((persona.Rut + "-" + persona.Dv)))
                 {
-                persona = ingresoDatos.CrearPersona(persona,1);
-                docenciaHospitalaria = ingresoDatos.CrearDocenciaHospitalaria(docenciaHospitalaria.NombreDocenciaHospitalaria,1);
-                profesionalDocenteGuia = ingresoDatos.CrearProfesionalDocenteGuia(persona, profesionalDocenteGuia, inmunizacion, docenciaHospitalaria, 1);
-                    return RedirectToAction("Index");
+                    if (validar.ValidateEmail(profesionalDocenteGuia.Correo))
+                    {
+                    persona = ingresoDatos.CrearPersona(persona,1);
+                    docenciaHospitalaria = ingresoDatos.CrearDocenciaHospitalaria(docenciaHospitalaria.NombreDocenciaHospitalaria,1);
+                    profesionalDocenteGuia = ingresoDatos.CrearProfesionalDocenteGuia(persona, profesionalDocenteGuia, inmunizacion, docenciaHospitalaria, 1);
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ViewBag.EmailValidation = "Correo inválido";
+                   
+                    }
+
+                    //return View();
                 }
                 else
                 {
-                    ViewBag.EmailValidation = "Correo inválido";
-                   
+                    ViewBag.Error = ("El Rut ingresado no es valido");
                 }
-
-                //return View();
-               
-           }
+            }
             ViewBag.NombreDocenciaHospitalaria = new SelectList(db.DocenciaHospitalarias, "NombreDocenciaHospitalaria", "NombreDocenciaHospitalaria");
             ViewBag.InmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
             return View(profesionalDocenteGuia);

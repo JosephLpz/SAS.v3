@@ -12,6 +12,7 @@
     <title>Create</title>
 </head>
 <body>
+    
     @using (Html.BeginForm()) 
     {
         @Html.AntiForgeryToken()
@@ -19,7 +20,14 @@
         <div class="form-horizontal">
             <h4>ProfesionalSupervisor</h4>
             <hr />
-              
+
+              @if (ViewBag.Error != null)
+              {
+                <p class="alert alert-danger" role="alert">
+                    @ViewBag.Error
+                </p>
+              }
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Persona.Rut, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">

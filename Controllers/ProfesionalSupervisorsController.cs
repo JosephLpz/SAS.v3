@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SAS.v1.Models;
+using SAS.v1.Utils;
+using SAS.v1.Services;
 
 namespace SAS.v1.Controllers
 {
@@ -72,13 +74,26 @@ namespace SAS.v1.Controllers
         [Authorize(Roles = ("Administrador"))]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProfesionalSupervisorId,ValorSupervisor,Observaciones,PersonaPersonaId")] ProfesionalSupervisor profesionalSupervisor)
+        public ActionResult Create([Bind(Include = "Rut, Dv, Nombre, ApPaterno, ApMaterno,ProfesionalSupervisorId,ValorSupervisor,Observaciones")] Persona persona, ProfesionalSupervisor profesionalSupervisor)
         {
+            IngresoServices ingresoDatos = new IngresoServices();
+            UtilRut ValidacionRut = new UtilRut();
+
             if (ModelState.IsValid)
             {
-                db.ProfesionalSupervisorSet.Add(profesionalSupervisor);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ValidacionRut.validarRut((persona.Rut + "-" + persona.Dv)))
+                {
+                    persona = ingresoDatos.CrearPersona(persona, 1);
+                    profesionalSupervisor = ingresoDatos.crearProfesionalSupervisor(persona, profesionalSupervisor, 1);
+
+                    //db.ProfesionalSupervisorSet.Add(profesionalSupervisor);
+                    //db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.Error = ("El Rut ingresado no es valido");
+                }
             }
 
             ViewBag.PersonaPersonaId = new SelectList(db.Personas, "PersonaId", "Rut", profesionalSupervisor.PersonaPersonaId);

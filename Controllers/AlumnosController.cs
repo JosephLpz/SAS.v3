@@ -114,8 +114,10 @@ namespace SAS.v1.Controllers
 
             if (ModelState.IsValid)
             {
+               
                 if (ValidacionRut.validarRut((persona.Rut + "-" + persona.Dv)))
                 {
+                    
                     persona = ingresoDatos.CrearPersona(persona,1);
                 CentroFormador centroFormador = ingresoDatos.CrearCentroFormador(nombreCentroFormador.NombreCentroFormadorId,carrera.CarreraId);
 

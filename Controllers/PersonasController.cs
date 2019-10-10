@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SAS.v1.Models;
+using SAS.v1.Utils;
 
 namespace SAS.v1.Controllers
 {
@@ -51,11 +52,21 @@ namespace SAS.v1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PersonaId,Rut,Dv,Nombre,ApPaterno,ApMaterno")] Persona persona)
         {
+            UtilRut ValidacionRut = new UtilRut();
+
+
             if (ModelState.IsValid)
             {
-                db.Personas.Add(persona);
+                if (ValidacionRut.validarRut((persona.Rut + "-" + persona.Dv)))
+                {
+                    db.Personas.Add(persona);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+             }
+                else
+                {
+                    ViewBag.Error = ("El Rut ingresado no es valido");
+                }
             }
 
             return View(persona);

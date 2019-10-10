@@ -11,7 +11,8 @@ namespace SAS.v1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Persona
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,11 +25,17 @@ namespace SAS.v1.Models
         }
     
         public int PersonaId { get; set; }
+        [Required]
         public string Rut { get; set; }
+        [Required]
         public string Dv { get; set; }
+        [Required]
         public string Nombre { get; set; }
+        [Required]
         public string ApPaterno { get; set; }
+        [Required]
         public string ApMaterno { get; set; }
+
         public EstadoRegistro Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
