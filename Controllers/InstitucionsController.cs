@@ -16,18 +16,23 @@ namespace SAS.v1.Controllers
     {
         private ModeloContainer db = new ModeloContainer();
 
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: Institucions
         [HttpGet]
         public ActionResult Index()
         {
             return View(db.Institucions.ToList());
         }
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         [HttpPost]
         public ActionResult Index(string Filtro)
         {
 
             return View(db.Institucions.Where(i=>i.NombreInstitucion.Contains(Filtro)).ToList());
         }
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: Institucions/Details/5
         public ActionResult Details(int? id)
         {
@@ -43,31 +48,35 @@ namespace SAS.v1.Controllers
             InstitucionServices institucion = new InstitucionServices();
             return View(institucion.BuscarCampoClinico(id));
         }
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         public ActionResult DetallesUnidadServicio(int? id)
         {
             //UnidadDeServicioServices unidadServicio = new UnidadDeServicioServices();
             CampoClinico Campos = db.CampoClinicos.Find(id);
             return View(Campos);
         }
-       //public ActionResult UnidadServicioAlumnos(int id)
-       //{
-       //    //UnidadDeServicioServices UnidadAlumnos = new UnidadDeServicioServices();
-       //    UnidadDeServicio UnidadAlumnos = db.UnidadDeServicios.Find(id);
-       //    return View(UnidadAlumnos);
-       //}
+        //public ActionResult UnidadServicioAlumnos(int id)
+        //{
+        //    //UnidadDeServicioServices UnidadAlumnos = new UnidadDeServicioServices();
+        //    UnidadDeServicio UnidadAlumnos = db.UnidadDeServicios.Find(id);
+        //    return View(UnidadAlumnos);
+        //}
 
 
-
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         //GET: Institucions/Create
-       public ActionResult Create()
+        public ActionResult Create()
        {
            return View();
        }
 
-       // POST: Institucions/Create
-       // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-       // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-       [HttpPost]
+        // POST: Institucions/Create
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        [HttpPost]
        [ValidateAntiForgeryToken]
        public ActionResult Create([Bind(Include = "Id,NombreInstitucion")] Institucion institucion)
        {
@@ -81,8 +90,10 @@ namespace SAS.v1.Controllers
            return View(institucion);
        }
 
-       // GET: Institucions/Edit/5
-       public ActionResult Edit(int? id)
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        // GET: Institucions/Edit/5
+        public ActionResult Edit(int? id)
        {
            if (id == null)
            {
@@ -96,10 +107,11 @@ namespace SAS.v1.Controllers
            return View(institucion);
        }
 
-       // POST: Institucions/Edit/5
-       // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-       // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-       [HttpPost]
+        // POST: Institucions/Edit/5
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        [HttpPost]
        [ValidateAntiForgeryToken]
        public ActionResult Edit([Bind(Include = "Id,NombreInstitucion")] Institucion institucion)
        {
@@ -112,8 +124,9 @@ namespace SAS.v1.Controllers
            return View(institucion);
        }
 
-       // GET: Institucions/Delete/5
-       public ActionResult Delete(int? id)
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        // GET: Institucions/Delete/5
+        public ActionResult Delete(int? id)
        {
            if (id == null)
            {
@@ -126,9 +139,9 @@ namespace SAS.v1.Controllers
            }
            return View(institucion);
        }
-
-       // POST: Institucions/Delete/5
-       [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        // POST: Institucions/Delete/5
+        [HttpPost, ActionName("Delete")]
        [ValidateAntiForgeryToken]
        public ActionResult DeleteConfirmed(int id)
        {

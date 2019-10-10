@@ -16,27 +16,31 @@ namespace SAS.v1.Controllers
         //{
         //    return View();
         //}
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         [HttpGet]
         public ActionResult IngresoArchivo()
         {
             ViewBag.showSuccessAlert = false;
+            ViewBag.EstadoDeProceso = false;
             return View();
         }
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         [HttpPost]
         public ActionResult IngresoArchivo(HttpPostedFileBase archivo, string selectValue, int selectValueAccion)
         {
             if (selectValueAccion==1)
             {
-                TruncateServices truncate = new TruncateServices();
-                truncate.truncatedTablas();
+               
                 if (archivo != null && archivo.ContentLength > 0)
                 {
                     CargarArchivo(archivo, selectValue, selectValueAccion);
                     ViewBag.showSuccessAlert = false;
+                    ViewBag.EstadoDeProceso = false;
                 }
                 else
                 {
                     ViewBag.showSuccessAlert = true;
+                    ViewBag.EstadoDeProceso = false;
                 }
 
             }
@@ -46,24 +50,33 @@ namespace SAS.v1.Controllers
             {
                 CargarArchivo(archivo, selectValue,selectValueAccion);
                 ViewBag.showSuccessAlert = false;
-            }
+                    ViewBag.EstadoDeProceso = false;
+                }
             else
             {
                 ViewBag.showSuccessAlert = true;
-            }
+                ViewBag.EstadoDeProceso = false;
+                }
             }
 
             
             return View();
         }
-        
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         public ActionResult CargarArchivo(HttpPostedFileBase archivo, string selectValue, int selectValueAccion)
         {
              if (archivo != null && archivo.ContentLength > 0)
             {
                 string NombreArchivo = Path.GetFileName(archivo.FileName);
                 CargaDatosServices CargaDatos = new CargaDatosServices();
-                CargaDatos.procesarCargaDatos(NombreArchivo,selectValue, selectValueAccion);
+               if( CargaDatos.procesarCargaDatos(NombreArchivo,selectValue, selectValueAccion))
+                {
+                    ViewBag.EstadoDeProceso = true;
+                }else
+                {
+                    ViewBag.EstadoDeProceso = false;
+                }
+
             }
             
             return View();

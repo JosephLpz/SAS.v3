@@ -1,0 +1,44 @@
+﻿@model SAS.v1.Models.PlanDeEstudio
+@{
+    ViewBag.Title = "Alumnos Cursantes Asignatura";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Alumnos Cursantes Asignatura</title>
+</head>
+<body>
+    <div> 
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PlanDeEstudio.Semestre.NombreSemestre)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PlanDeEstudio.Semestre.NombreSemestre)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model=>model.PlanDeEstudio.Asignatura.NombreAsignatura)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PlanDeEstudio.Asignatura.NombreAsignatura)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PlanDeEstudio.AsignaturaPreRequisito)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PlanDeEstudio.AsignaturaPreRequisito)
+            </dd>
+        </dl>
+
+        <br />
+        <hr />
+        @foreach(var item in Model.)
+        {
+
+        }
+    </div>
+</body>
+</html>

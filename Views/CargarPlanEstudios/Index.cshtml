@@ -9,6 +9,33 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>CargarPlanEstudios</title>
+
+    @if (!ViewBag.EstadoDeProceso)
+    {
+        <script>
+            $('#ProgressBar').modal('hide');
+           
+            alert('El archivo se ha cargado con exito!');
+
+        </script>
+    }
+    @if (!ViewBag.showSuccessAlert)
+    {
+        <script>
+       
+            alert('El archivo se ha cargado con exito!');
+
+        </script>
+    }
+    else if(ViewBag.showErrorAlert)
+    {
+        <script>
+            alert('No se ha seleccionado ningún archivo');
+        </script>
+        
+    }
+
+
 </head>
 <body>
     <div>
@@ -26,6 +53,36 @@
             <input id="bottonSubmit" type="submit" name="submit" value="Cargar Archivo" class="btn btn-primary" onclick="Cargar()" />
         }
 
+
+        <div class="modal js-loading-bar" id="ProgressBar">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="progress progress-popup">
+                            <div class="progress-bar progress-bar-striped active progress-bar-animated" role="progressbar" style="width: 100%">Cargando...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </body>
 </html>
+
+<script>
+    function Cargar() {
+
+        $("#ProgressBar").modal({          
+            clickClose: false
+        })
+        //document.getElementById("ProgressBar").style.visibility = "visible";
+        $('#ProgressBar').modal('show')
+
+      
+        
+
+    }
+
+</script>

@@ -15,7 +15,14 @@
     {
         <script>
             alert('No se ha seleccionado ningún archivo');
+           
         </script>
+    }
+    @if (ViewBag.EstadoDeProceso)
+    {
+       <script>
+           $('#ProgressBar').modal('hide');
+       </script>
     }
 </head>
 
@@ -47,9 +54,26 @@
 
 
         }
-        <div style="width:500px; height:450px"><div id="AnimacionCarga" style="visibility:hidden" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+        <div style="width:500px; height:450px"><div id="AnimacionCarga" style="visibility:hidden" class="lds-roller"></div></div>
 
+
+        @*<div class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="ProgressBar" >         
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">Cargando...</div>      
+                </div>
+            </div>*@
        
+        <div class="modal js-loading-bar" id="ProgressBar">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="progress progress-popup">
+                            <div class="progress-bar progress-bar-striped active progress-bar-animated" role="progressbar" style="width: 100%">Cargando...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
     
@@ -57,7 +81,12 @@
 </html>
 <script>
     function Cargar(){
-        document.getElementById("AnimacionCarga").style.visibility = "visible";
+        //document.getElementById("ProgressBar").style.visibility = "visible";
+        $('#ProgressBar').modal('show')
+
+        $bar = $modal.find('.progress-bar');
+        $bar.addClass('animate');
+
     }
    
 </script>

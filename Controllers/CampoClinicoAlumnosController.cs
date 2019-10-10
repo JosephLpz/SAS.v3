@@ -15,12 +15,14 @@ namespace SAS.v1.Controllers
         private ModeloContainer db = new ModeloContainer();
 
         // GET: CampoClinicoAlumnos
+        [Authorize(Roles =("Administrador,JefeDeCarrera"))]
         [HttpGet]
         public ActionResult Index()
         {
             var campoClinicoAlumnos = db.CampoClinicoAlumnos.Include(c => c.Alumno).Include(c => c.ProfesionalSupervidor).Include(c => c.Periodo).Include(c => c.Asignatura).Include(c => c.Semestre).Include(c => c.Anio).Include(c => c.CampoClinico).Include(c => c.ProfesionalDocenteGuia);
             return View(campoClinicoAlumnos.ToList());
         }
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         [HttpPost]
         public ActionResult Index(string filtro,string semestre)
         {
@@ -44,6 +46,7 @@ namespace SAS.v1.Controllers
             // var campoClinicoAlumnos = db.CampoClinicoAlumnos.Include(c => c.Alumno).Include(c => c.ProfesionalSupervidor).Include(c => c.Periodo).Include(c => c.Asignatura).Include(c => c.Semestre).Include(c => c.Anio).Include(c => c.CampoClinico).Include(c => c.ProfesionalDocenteGuia);
             return View(campoClinicoAlumnos.ToList());
         }
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: CampoClinicoAlumnos/Details/5
         public ActionResult Details(int? id)
         {

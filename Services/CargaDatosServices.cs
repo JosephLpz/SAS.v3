@@ -13,17 +13,18 @@ namespace SAS.v1.Services
         private static readonly ILog Log = LogManager.GetLogger(typeof(IngresoServices));
 
         
-        public void procesarCargaDatos(string archivo,string semestre, int Estado)
+        public bool procesarCargaDatos(string archivo,string semestre, int Estado)
         {
             
                 Log.Info("Inicio proceso archivo[" + archivo + "]");
                 UtilExcel utlXls = new UtilExcel();
                 string path = "C:\\Program Files\\CargaExcel\\" + archivo;
+                bool continuar= false;
                 if (utlXls.init(path, "Pregrado"))
                 {
 
                     int fila = 5;
-                    bool continuar = true;
+                     continuar = true;
                     while (continuar)
                     {
                         //Crear Objetos
@@ -446,8 +447,8 @@ namespace SAS.v1.Services
                         else { continuar = false; }
                     }
                 }
-            
-            
+
+            return continuar;
         }
     }
 }

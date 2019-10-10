@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using SAS.v1.Models;
 using SAS.v1.Services;
 using SAS.v1.ClasesNP;
+using SAS.v1.Utils;
 
 namespace SAS.v1.Controllers
 {
@@ -18,6 +19,7 @@ namespace SAS.v1.Controllers
        private ModeloContainer db = new ModeloContainer();
 
         // GET: Alumnos
+        [Authorize(Roles ="Administrador,JefeDeCarrera")]
         [HttpGet]
         public ActionResult Index(int? id)
        {
@@ -28,6 +30,7 @@ namespace SAS.v1.Controllers
             var alumnos = db.Alumnos.Include(p => p.Persona);
            return View(alumnos);
        }
+        [Authorize(Roles = "Administrador,JefeDeCarrera")]
         [HttpPost]
         public ActionResult Index(string Filtro)
         {
@@ -45,6 +48,7 @@ namespace SAS.v1.Controllers
             
             return View(alumnos);
         }
+        [Authorize(Roles = "Administrador,JefeDeCarrera")]
         // GET: Alumnos/Details/5
         public ActionResult Details(int? id)
        {
@@ -62,8 +66,8 @@ namespace SAS.v1.Controllers
 
            return View(CampoAlumnos);
        }
-
-       public ActionResult DetalleCamposClinicos(int? id)
+        [Authorize(Roles = "Administrador,JefeDeCarrera")]
+        public ActionResult DetalleCamposClinicos(int? id)
         {
             //AlumnosServices CampoAlumnos = new AlumnosServices();
             //List<CampoClinicoAlumno> listaCamposAlumnos = CampoAlumnos.DatosCampoClinicoAlumnos(id);
@@ -72,7 +76,7 @@ namespace SAS.v1.Controllers
             return View(listaCamposAlumnos);
 
         }
-        
+        [Authorize(Roles = "Administrador,JefeDeCarrera")]
         public ActionResult CamposClinicosSemestres(int? id,string selectValue)
         {
             //AlumnosServices CampoAlumnos = new AlumnosServices();
@@ -85,6 +89,7 @@ namespace SAS.v1.Controllers
             return View(CamposAlumnos);
 
         }
+        [Authorize(Roles = "Administrador,JefeDeCarrera")]
         // GET: MantenedorAlumnos/Create
         public ActionResult Create()
         {
@@ -97,15 +102,21 @@ namespace SAS.v1.Controllers
         // POST: MantenedorAlumnos/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Administrador,JefeDeCarrera")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,CursoNivelId,Observaciones,CarreraId,NombreCentroFormadorId")] Persona persona,CursoNivel curso,Alumno alumno,Carrera carrera, NombreCentroFormador nombreCentroFormador)
         {
             IngresoServices ingresoDatos = new IngresoServices();
             CursoAlumno cursoAlumno = new CursoAlumno();
+            UtilRut ValidacionRut = new UtilRut();
+          
+
             if (ModelState.IsValid)
             {
-                 persona = ingresoDatos.CrearPersona(persona,1);
+                if (ValidacionRut.validarRut((persona.Rut + "-" + persona.Dv)))
+                {
+                    persona = ingresoDatos.CrearPersona(persona,1);
                 CentroFormador centroFormador = ingresoDatos.CrearCentroFormador(nombreCentroFormador.NombreCentroFormadorId,carrera.CarreraId);
 
                 if (alumno.Observaciones==null)
@@ -117,17 +128,21 @@ namespace SAS.v1.Controllers
                 cursoAlumno = ingresoDatos.CrearCursoAlumno(alumno, curso);
                 
                 return RedirectToAction("Create");
-            }
+                }else
+                    {
+                    ViewBag.Error = ("El Rut ingresado no es valido");
+                    }
 
-           
+            }
             ViewBag.InmunizacionInmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
             ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
-            ViewBag.CentroFormadorCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
+            ViewBag.NombreCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
             ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "CursoNivelId", "NombreCurso");
             return View(alumno);
         }
 
         // GET: MantenedorAlumnos/Edit/5
+        [Authorize(Roles = "Administrador,JefeDeCarrera")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -149,6 +164,7 @@ namespace SAS.v1.Controllers
         // POST: MantenedorAlumnos/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Administrador,JefeDeCarrera")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,CursoNivelId,Observaciones,CarreraId,NombreCentroFormadorId")] Persona persona,CursoNivel curso, Alumno alumno, Carrera carrera, NombreCentroFormador nombreCentroFormador)
@@ -178,6 +194,7 @@ namespace SAS.v1.Controllers
         }
 
         // GET: MantenedorAlumnos/Delete/5
+        [Authorize(Roles = "Administrador,JefeDeCarrera")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -193,6 +210,7 @@ namespace SAS.v1.Controllers
         }
 
         // POST: MantenedorAlumnos/Delete/5
+        [Authorize(Roles = "Administrador,JefeDeCarrera")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

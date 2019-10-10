@@ -15,12 +15,15 @@ namespace SAS.v1.Controllers
         private ModeloContainer db = new ModeloContainer();
 
         // GET: PerfilUsuarios
+
+        [Authorize(Roles = ("Administrador"))]
         public ActionResult Index()
         {
             var perfilUsuarios = db.PerfilUsuarios.Include(p => p.Usuario);
             return View(perfilUsuarios.ToList());
         }
 
+        [Authorize(Roles = ("Administrador"))]
         // GET: PerfilUsuarios/Details/5
         public ActionResult Details(int? id)
         {
@@ -36,6 +39,7 @@ namespace SAS.v1.Controllers
             return View(perfilUsuario);
         }
 
+        [Authorize(Roles = ("Administrador"))]
         // GET: PerfilUsuarios/Create
         public ActionResult Create()
         {
@@ -46,6 +50,8 @@ namespace SAS.v1.Controllers
         // POST: PerfilUsuarios/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = ("Administrador"))]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Perfil,Estado")] PerfilUsuario perfilUsuario)
@@ -61,6 +67,7 @@ namespace SAS.v1.Controllers
             return View(perfilUsuario);
         }
 
+        [Authorize(Roles = ("Administrador"))]
         // GET: PerfilUsuarios/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -80,6 +87,8 @@ namespace SAS.v1.Controllers
         // POST: PerfilUsuarios/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = ("Administrador"))]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Perfil,Estado,UsuarioId")] PerfilUsuario perfilUsuario)
@@ -94,6 +103,7 @@ namespace SAS.v1.Controllers
             return View(perfilUsuario);
         }
 
+        [Authorize(Roles = ("Administrador"))]
         // GET: PerfilUsuarios/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -109,6 +119,7 @@ namespace SAS.v1.Controllers
             return View(perfilUsuario);
         }
 
+        [Authorize(Roles = ("Administrador"))]
         // POST: PerfilUsuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -52,6 +52,12 @@ namespace SAS.v1.Utils
 
             return value;
         }
+        public int getRows(string FileName)
+        {
+            workbook.LoadFromFile(FileName);
+            int value = workbook.ActiveSheet.Rows.Count();
+            return value;
+        }
         public static WorksheetsCollection GetAllWorksheets(string fileName)
         { 
     //Initialize a new Workboook object

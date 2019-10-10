@@ -14,24 +14,27 @@ namespace SAS.v1.Controllers
     {
         private ModeloContainer db = new ModeloContainer();
 
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: PlanDeEstudios
         public ActionResult Index()
         {
-            ViewBag.AnioId = new SelectList(db.Anios, "Id","Ano");
+            ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano");
             var planDeEstudios = db.PlanDeEstudios.Include(p => p.Carrera).Include(p => p.Anio);
             return View(planDeEstudios.ToList());
         }
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         [HttpPost]
-        public ActionResult Index([Bind(Include = "Id")]Anio ano,string Filtro)
+        public ActionResult Index([Bind(Include = "Id")]Anio ano, string Filtro)
         {
             ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano");
 
             Anio anio = (from a in db.Anios where a.Id == ano.Id select a).FirstOrDefault();
             ViewBag.Ano = Int32.Parse(anio.Ano);
-            List<PlanDeEstudio> planDeEstudios= new List<PlanDeEstudio>();
+            List<PlanDeEstudio> planDeEstudios = new List<PlanDeEstudio>();
             if (Filtro == null || Filtro == "")
             {
-                 planDeEstudios =(db.PlanDeEstudios.Include(p => p.Carrera).Include(p => p.Anio)).ToList();
+                planDeEstudios = (db.PlanDeEstudios.Include(p => p.Carrera).Include(p => p.Anio)).ToList();
             }
             else
             {
@@ -41,6 +44,8 @@ namespace SAS.v1.Controllers
             }
             return View(planDeEstudios.ToList());
         }
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: PlanDeEstudios/Details/5
         public ActionResult Details(int? id)
         {
@@ -56,10 +61,11 @@ namespace SAS.v1.Controllers
             return View(planDeEstudio);
         }
 
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: PlanDeEstudios/Create
         public ActionResult Create()
         {
-           // ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion");
+            // ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion");
             ViewBag.CarreraCarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
             ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano");
             return View();
@@ -68,6 +74,8 @@ namespace SAS.v1.Controllers
         // POST: PlanDeEstudios/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,RequisitosAsignaturaId,CarreraCarreraId,AnioId,UD,Catedra,Taller,LAB,PC,SCT,Materia,Curso")] PlanDeEstudio planDeEstudio)
@@ -79,7 +87,7 @@ namespace SAS.v1.Controllers
                 return RedirectToAction("Index");
             }
 
-           // ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion", planDeEstudio.RequisitosAsignaturaId);
+            // ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion", planDeEstudio.RequisitosAsignaturaId);
             ViewBag.CarreraCarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera", planDeEstudio.CarreraCarreraId);
             ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano", planDeEstudio.AnioId);
             return View(planDeEstudio);
@@ -97,7 +105,7 @@ namespace SAS.v1.Controllers
             {
                 return HttpNotFound();
             }
-           // ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion", planDeEstudio.RequisitosAsignaturaId);
+            // ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion", planDeEstudio.RequisitosAsignaturaId);
             ViewBag.CarreraCarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera", planDeEstudio.CarreraCarreraId);
             ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano", planDeEstudio.AnioId);
             return View(planDeEstudio);
@@ -116,7 +124,7 @@ namespace SAS.v1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-           // ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion", planDeEstudio.RequisitosAsignaturaId);
+            // ViewBag.RequisitosAsignaturaId = new SelectList(db.RequisitosAsignaturas, "Id", "PorcentajeReprobacion", planDeEstudio.RequisitosAsignaturaId);
             ViewBag.CarreraCarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera", planDeEstudio.CarreraCarreraId);
             ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano", planDeEstudio.AnioId);
             return View(planDeEstudio);
@@ -135,6 +143,14 @@ namespace SAS.v1.Controllers
                 return HttpNotFound();
             }
             return View(planDeEstudio);
+        } 
+
+        public ActionResult AlumnosCursantesPlan(int id)
+        {
+        List<PlanEstudioAlumno> planDeEstiudioAlumno = db.PlanEstudioAlumnos.Where(p => p.PlanDeEstudioId == id).Where(p=>p.EstadoAsignatura==EstadoAsignatura.Cursando
+        ||p.EstadoAsignatura==EstadoAsignatura.CursandoEnSegunda || p.EstadoAsignatura == EstadoAsignatura.CursandoEnTercera
+        || p.EstadoAsignatura == EstadoAsignatura.CursandoEnCuarta).Include(p=>p.Alumno).ToList();   
+            return View(planDeEstiudioAlumno);
         }
 
         // POST: PlanDeEstudios/Delete/5

@@ -11,6 +11,7 @@
         <li>@Html.ActionLink("Alumnos", "Index")</li>
         <li class="active">@ViewBag.Title</li>
         <li class="opcion">@Html.ActionLink("Volver", "Index")</li>
+        <li>@Html.ActionLink("Create New", "Create")</li>
     </ul>
 </div>
 <h1>Alumnos</h1>
@@ -24,10 +25,7 @@
 </form>
 <table class="table" id="tablaAlumnos">
     <thead>
-        <tr>
-            @*<th>
-                @Html.DisplayNameFor(model => model.AlumnoId)
-            </th>*@
+        <tr>          
             <th>
                 @Html.DisplayNameFor(model => model.Persona.Rut)
             </th>
@@ -56,17 +54,16 @@
             <th></th>
             <th></th>
             <th></th>
+            @if (ViewBag.Identificador == 1)
+            {
             <th></th>
+            }
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.AlumnoId) 
-                </td>*@
-                        
+            <tr>             
                 <td>
                     @Html.DisplayFor(modelItem => item.Persona.Rut)
                 </td>

@@ -14,12 +14,13 @@ namespace SAS.v1.Controllers
     {
         private ModeloContainer db = new ModeloContainer();
 
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: Personas
         public ActionResult Index()
         {
             return View(db.Personas.ToList());
         }
-
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: Personas/Details/5
         public ActionResult Details(int? id)
         {
@@ -35,6 +36,7 @@ namespace SAS.v1.Controllers
             return View(persona);
         }
 
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: Personas/Create
         public ActionResult Create()
         {
@@ -44,6 +46,7 @@ namespace SAS.v1.Controllers
         // POST: Personas/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PersonaId,Rut,Dv,Nombre,ApPaterno,ApMaterno")] Persona persona)
@@ -58,6 +61,7 @@ namespace SAS.v1.Controllers
             return View(persona);
         }
 
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: Personas/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -76,6 +80,8 @@ namespace SAS.v1.Controllers
         // POST: Personas/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PersonaId,Rut,Dv,Nombre,ApPaterno,ApMaterno")] Persona persona)
@@ -89,6 +95,7 @@ namespace SAS.v1.Controllers
             return View(persona);
         }
 
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: Personas/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -104,6 +111,7 @@ namespace SAS.v1.Controllers
             return View(persona);
         }
 
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // POST: Personas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

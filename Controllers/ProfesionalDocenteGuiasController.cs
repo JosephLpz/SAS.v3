@@ -15,12 +15,15 @@ namespace SAS.v1.Controllers
     {
         private ModeloContainer db = new ModeloContainer();
 
+        [Authorize(Roles = ("Administrador"))]
         // GET: ProfesionalDocenteGuias
         public ActionResult Index()
         {
             var profesionalDocenteGuias = db.ProfesionalDocenteGuias.Include(p => p.Persona).Include(p => p.DocenciaHospitalaria).Include(p => p.Inmunizacion);
             return View(profesionalDocenteGuias.ToList());
         }
+
+        [Authorize(Roles = ("Administrador"))]
         [HttpPost]
         public ActionResult Index(string Filtro)
         {
@@ -29,6 +32,8 @@ namespace SAS.v1.Controllers
             return View(profesionalDocenteGuias.ToList());
         }
         // GET: ProfesionalDocenteGuias/Details/5
+
+        [Authorize(Roles = ("Administrador"))]
         [HttpGet]
         public ActionResult Details(int? id)
         {
@@ -48,6 +53,8 @@ namespace SAS.v1.Controllers
             //
             return View(profesionalDocenteGuia);
         }
+
+        [Authorize(Roles = ("Administrador"))]
         [HttpPost]
         public ActionResult Details(int? id,string Filtro)
         {
@@ -69,18 +76,21 @@ namespace SAS.v1.Controllers
         }
 
 
+        [Authorize(Roles = ("Administrador"))]
         // GET: ProfesionalDocenteGuias/Create
-       public ActionResult Create()
+        public ActionResult Create()
        {
           ViewBag.NombreDocenciaHospitalaria = new SelectList(db.DocenciaHospitalarias, "NombreDocenciaHospitalaria", "NombreDocenciaHospitalaria");
            ViewBag.InmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
            return View();
        }
 
-       // POST: ProfesionalDocenteGuias/Create
-       // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-       // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-       [HttpPost]
+        // POST: ProfesionalDocenteGuias/Create
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = ("Administrador"))]
+        [HttpPost]
        [ValidateAntiForgeryToken]
        public ActionResult Create([Bind(Include = "Rut, Dv, Nombre, ApPaterno, ApMaterno, Profesion,NumeroSuperintendencia,Telefono,Correo,ValorDocente,CumpleDatos,NombreDocenciaHospitalaria,InmunizacionId")] Persona persona, ProfesionalDocenteGuia profesionalDocenteGuia,DocenciaHospitalaria docenciaHospitalaria, Inmunizacion inmunizacion)
        {
@@ -109,8 +119,9 @@ namespace SAS.v1.Controllers
             return View(profesionalDocenteGuia);
        }
 
-       // GET: ProfesionalDocenteGuias/Edit/5
-       public ActionResult Edit(int? id)
+        [Authorize(Roles = ("Administrador"))]
+        // GET: ProfesionalDocenteGuias/Edit/5
+        public ActionResult Edit(int? id)
        {
            if (id == null)
            {
@@ -132,10 +143,12 @@ namespace SAS.v1.Controllers
             return View(profesionalDocenteGuia);
        }
 
-       // POST: ProfesionalDocenteGuias/Edit/5
-       // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-       // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-       [HttpPost]
+        // POST: ProfesionalDocenteGuias/Edit/5
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = ("Administrador"))]
+        [HttpPost]
        [ValidateAntiForgeryToken]
        public ActionResult Edit([Bind(Include = "ProfesionalDocenteGuiaId,Profesion,NumeroSuperintendencia,Telefono,Correo,ValorDocente,PersonaPersonaId,DocenciaHospitalariaDocenciaHospitalariaId,InmunizacionInmunizacionId")] ProfesionalDocenteGuia profesionalDocenteGuia)
        {
@@ -155,8 +168,9 @@ namespace SAS.v1.Controllers
             return View(profesionalDocenteGuia);
        }
 
-       // GET: ProfesionalDocenteGuias/Delete/5
-       public ActionResult Delete(int? id)
+        [Authorize(Roles = ("Administrador"))]
+        // GET: ProfesionalDocenteGuias/Delete/5
+        public ActionResult Delete(int? id)
        {
            if (id == null)
            {
@@ -170,8 +184,9 @@ namespace SAS.v1.Controllers
            return View(profesionalDocenteGuia);
        }
 
-       // POST: ProfesionalDocenteGuias/Delete/5
-       [HttpPost, ActionName("Delete")]
+        // POST: ProfesionalDocenteGuias/Delete/5
+        [Authorize(Roles = ("Administrador"))]
+        [HttpPost, ActionName("Delete")]
        [ValidateAntiForgeryToken]
        public ActionResult DeleteConfirmed(int id)
        {

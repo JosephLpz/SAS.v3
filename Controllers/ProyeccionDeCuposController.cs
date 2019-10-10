@@ -8,29 +8,47 @@ using System.Web.Mvc;
 
 namespace SAS.v1.Controllers
 {
-    public class ProyeccionesDeCuposController : Controller
+    public class ProyeccionDeCuposController : Controller
     {
-        ModeloContainer db = new ModeloContainer();
-        // GET: ProyeccionesDeCupos
+        private ModeloContainer db = new ModeloContainer();
+        // GET: ProyeccionDeCupos
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         public ActionResult Index()
         {
-            
-            return View(db.Asignaturas.ToList());
+            ViewBag.AsignaturaId= new SelectList(db.Asignaturas, "Id", "NombreAsignatura");
+            return View();
         }
 
-        // GET: ProyeccionesDeCupos/Details/5
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        [HttpPost]
+        public ActionResult Index([Bind(Include = "Id")]Asignatura Asignatura)
+        {
+            ViewBag.AsignaturaId = new SelectList(db.Asignaturas, "Id", "NombreAsignatura");
+
+            ProyeccionesServices proyeccion = new ProyeccionesServices();
+            proyeccion.CalcularProyeccionPorAsignatura(Asignatura.Id);
+            return View();
+        }
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        // GET: ProyeccionDeCupos/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: ProyeccionesDeCupos/Create
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        // GET: ProyeccionDeCupos/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ProyeccionesDeCupos/Create
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        // POST: ProyeccionDeCupos/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -46,13 +64,17 @@ namespace SAS.v1.Controllers
             }
         }
 
-        // GET: ProyeccionesDeCupos/Edit/5
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        // GET: ProyeccionDeCupos/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: ProyeccionesDeCupos/Edit/5
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        // POST: ProyeccionDeCupos/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -68,13 +90,17 @@ namespace SAS.v1.Controllers
             }
         }
 
-        // GET: ProyeccionesDeCupos/Delete/5
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        // GET: ProyeccionDeCupos/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: ProyeccionesDeCupos/Delete/5
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        // POST: ProyeccionDeCupos/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -88,15 +114,6 @@ namespace SAS.v1.Controllers
             {
                 return View();
             }
-        }
-
-        public ActionResult ProyectarCuposParaAsignatura(int id)
-        {
-            ProyeccionesServices proyeccion = new ProyeccionesServices();
-
-            proyeccion.CalcularProyeccionPorAsignatura(id);
-
-            return View();
         }
     }
 }

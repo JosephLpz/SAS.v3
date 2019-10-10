@@ -29,9 +29,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Semestre.NombreSemestre)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.Asignatura.CodigoAsignatura)
-                </th>
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Asignatura.NombreAsignatura)
                 </th>
@@ -86,9 +86,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Semestre.NombreSemestre)
                     </td>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.Asignatura.CodigoAsignatura)
-                    </td>
+                    </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.Asignatura.NombreAsignatura)
                     </td>
@@ -135,7 +135,8 @@
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                         @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
+                        @Html.ActionLink("Alumnos", "AlumnosCursantesPlan", new { id = item.Id })
                     </td>
                 </tr>
             }

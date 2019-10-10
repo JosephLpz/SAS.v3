@@ -58,12 +58,23 @@
                             <li><a class="dropdown-item">@Html.ActionLink("Instituciones", "Index", "Institucions")</a></li>
                             <li><a class="dropdown-item">@Html.ActionLink("Profesional Supervisor", "Index", "ProfesionalSupervisors")</a></li>
                             <li><a class="dropdown-item">@Html.ActionLink("Campos Clinicos", "Index", "CampoClinicoAlumnos")</a></li>
+                            <li><a class="dropdown-item">@Html.ActionLink("Plan de Estudios", "Index", "PlanDeEstudios", new { id = 1 }, null)</a></li>    
                             <li><a class="dropdown-item">@Html.ActionLink("Seguimiento Alumnos", "Index", "Alumnos", new { id = 1 },null)</a></li>    
                         </ul>
                     </li>
-                   
-                       if (User.IsInRole("Administrador"))
-                       {
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Carga de Datos<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item">@Html.ActionLink("Cargar Nomina Docente/Alumno", "IngresoArchivo", "CargaExcel")</a></li>
+                            <li><a class="dropdown-item">@Html.ActionLink("Cargar Seguimiento Alumno", "Index", "CargarAsignaturas")</a></li>
+                            <li><a class="dropdown-item">@Html.ActionLink("Cargar Plan de Estudios", "Index", "CargarPlanEstudios")</a></li>
+                        </ul>
+                    </li>
+                        if (User.IsInRole("Administrador"))
+                        {
                     <li class="dropdown">
                  
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

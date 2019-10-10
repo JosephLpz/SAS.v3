@@ -534,7 +534,6 @@
     <Compile Include="ClasesNP\UnidadDeServicioAlumnosNP.cs" />
     <Compile Include="ClasesNP\UnidadServicioNP.cs" />
     <Compile Include="Controllers\AlumnosController.cs" />
-    <Compile Include="Controllers\AsignaturaAlumnosController.cs" />
     <Compile Include="Controllers\CampoClinicoAlumnosController.cs" />
     <Compile Include="Controllers\CargaExcelController.cs" />
     <Compile Include="Controllers\CargarAsignaturasController.cs" />
@@ -547,7 +546,7 @@
     <Compile Include="Controllers\PlanEstudioAlumnosController.cs" />
     <Compile Include="Controllers\ProfesionalDocenteGuiasController.cs" />
     <Compile Include="Controllers\ProfesionalSupervisorsController.cs" />
-    <Compile Include="Controllers\ProyeccionesDeCuposController.cs" />
+    <Compile Include="Controllers\ProyeccionDeCuposController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -719,13 +718,13 @@
     <Compile Include="Services\IngresoServices.cs" />
     <Compile Include="Services\InstitucionServices.cs" />
     <Compile Include="Services\ProyeccionesServices.cs" />
-    <Compile Include="Services\TruncateServices.cs" />
     <Compile Include="Services\UnidadDeServicioServices.cs" />
     <Compile Include="Services\ValidacionCorreo.cs" />
     <Compile Include="Services\CargaExcelPSeguimiento.cs" />
     <Compile Include="Utils\UtilExcel.cs" />
     <Compile Include="Utils\UtilExcelGetColor.cs" />
     <Compile Include="Utils\UtilNumber.cs" />
+    <Compile Include="Utils\UtilRut.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -795,11 +794,6 @@
     <Content Include="Views\PerfilesUsuario\Edit.cshtml" />
     <Content Include="Views\PerfilesUsuario\Index.cshtml" />
     <Content Include="Views\CargarAsignaturas\Index.cshtml" />
-    <Content Include="Views\AsignaturaAlumnos\Create.cshtml" />
-    <Content Include="Views\AsignaturaAlumnos\Delete.cshtml" />
-    <Content Include="Views\AsignaturaAlumnos\Details.cshtml" />
-    <Content Include="Views\AsignaturaAlumnos\Edit.cshtml" />
-    <Content Include="Views\AsignaturaAlumnos\Index.cshtml" />
     <Content Include="Views\CargarPlanEstudios\CargarPlanEstudios.cshtml" />
     <Content Include="Views\CargarPlanEstudios\Index.cshtml" />
     <Content Include="Views\PlanDeEstudios\Create.cshtml" />
@@ -812,7 +806,9 @@
     <Content Include="Views\PlanEstudioAlumnos\Details.cshtml" />
     <Content Include="Views\PlanEstudioAlumnos\Edit.cshtml" />
     <Content Include="Views\PlanEstudioAlumnos\Index.cshtml" />
-    <Content Include="Views\ProyeccionesDeCupos\Index.cshtml" />
+    <Content Include="Views\ProyeccionDeCupos\Index.cshtml" />
+    <Content Include="Views\PlanDeEstudios\AlumnosCursantesPlanEstudio.cshtml" />
+    <Content Include="Views\PlanDeEstudios\AlumnosCursantesPlan.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -822,7 +818,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AsignaturasAlumnos\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201809191913070_CreateAgain.resx">

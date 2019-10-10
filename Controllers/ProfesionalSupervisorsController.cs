@@ -13,6 +13,8 @@ namespace SAS.v1.Controllers
     public class ProfesionalSupervisorsController : Controller
     {
         private ModeloContainer db = new ModeloContainer();
+
+        [Authorize(Roles = ("Administrador"))]
         [HttpGet]
         // GET: ProfesionalSupervisors
         public ActionResult Index()
@@ -20,6 +22,8 @@ namespace SAS.v1.Controllers
             var profesionalSupervisorSet = db.ProfesionalSupervisorSet.Include(p => p.Persona).Where(p=>p.Persona.Rut!="Ninguno"&&p.Persona.Nombre!="Ninguno");
             return View(profesionalSupervisorSet.ToList());
         }
+
+        [Authorize(Roles = ("Administrador"))]
         [HttpPost]
         public ActionResult Index(string Filtro)
         {
@@ -36,6 +40,8 @@ namespace SAS.v1.Controllers
 
             return View(profesionalSupervisorSet.ToList());
         }
+
+        [Authorize(Roles = ("Administrador"))]
         // GET: ProfesionalSupervisors/Details/5
         public ActionResult Details(int? id)
         {
@@ -51,6 +57,7 @@ namespace SAS.v1.Controllers
             return View(profesionalSupervisor);
         }
 
+        [Authorize(Roles = ("Administrador"))]
         // GET: ProfesionalSupervisors/Create
         public ActionResult Create()
         {
@@ -61,6 +68,8 @@ namespace SAS.v1.Controllers
         // POST: ProfesionalSupervisors/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = ("Administrador"))]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProfesionalSupervisorId,ValorSupervisor,Observaciones,PersonaPersonaId")] ProfesionalSupervisor profesionalSupervisor)
@@ -76,6 +85,7 @@ namespace SAS.v1.Controllers
             return View(profesionalSupervisor);
         }
 
+        [Authorize(Roles = ("Administrador"))]
         // GET: ProfesionalSupervisors/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -95,6 +105,8 @@ namespace SAS.v1.Controllers
         // POST: ProfesionalSupervisors/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = ("Administrador"))]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProfesionalSupervisorId,ValorSupervisor,Observaciones,PersonaPersonaId")] ProfesionalSupervisor profesionalSupervisor)
@@ -109,6 +121,7 @@ namespace SAS.v1.Controllers
             return View(profesionalSupervisor);
         }
 
+        [Authorize(Roles = ("Administrador"))]
         // GET: ProfesionalSupervisors/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -125,6 +138,7 @@ namespace SAS.v1.Controllers
         }
 
         // POST: ProfesionalSupervisors/Delete/5
+        [Authorize(Roles = ("Administrador"))]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

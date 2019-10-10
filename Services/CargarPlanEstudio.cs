@@ -15,7 +15,7 @@ namespace SAS.v1.Services
         private static readonly ILog Log = LogManager.GetLogger(typeof(IngresoServices));
 
 
-        public void procesarCargaDatos(string archivo, string carrera,string anio,string NombreHoja)
+        public bool procesarCargaDatos(string archivo, string carrera,string anio,string NombreHoja)
         {
 
             Log.Info("Inicio proceso archivo[" + archivo + "]");
@@ -24,13 +24,13 @@ namespace SAS.v1.Services
             CountColumns ContadorDeColumnas = new CountColumns();
             string path = "C:\\Program Files\\CargaExcel\\" + archivo;
             IngresoServices ingreso = new IngresoServices();
-
+            bool continuar = false;
             if (utlXls.init(path, NombreHoja))
             {
                 
              
                 int fila = 8;
-                bool continuar = true;
+                continuar = true;
                 while (continuar)
                 {
                     Asignatura asignaturas = new Asignatura();
@@ -141,10 +141,16 @@ namespace SAS.v1.Services
                         planEstudios = ingreso.CrearPlanEstudio(planEstudios);
                         #endregion 
 
+                        fila++;
                     }
-                    fila++;
+
+                    else { continuar = false; }
+                   
                 }
+                 
+
             }
+            return continuar;
         }
     }
 }

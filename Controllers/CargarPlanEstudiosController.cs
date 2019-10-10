@@ -13,24 +13,35 @@ namespace SAS.v1.Controllers
     public class CargarPlanEstudiosController : Controller
     {
 
-
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         [HttpGet]
         public ActionResult Index()
         {
-
+            ViewBag.showSuccessAlert = true;
+            ViewBag.showErrorAlert = false;
+            ViewBag.EstadoDeProceso = true;
             return View();
         }
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase archivo, string carrera,string anio,string NombreHoja)
         {
             if (archivo != null && archivo.ContentLength > 0)
             {
                 CargarArchivo(archivo, carrera,anio,NombreHoja);
-                ViewBag.showSuccessAlert = false;
+            }
+            else
+            {
+                ViewBag.showSuccessAlert = true;
+                ViewBag.EstadoDeProceso = true;
+                ViewBag.showErrorAlert =  true;
             }
 
             return View();
         }
+
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         [HttpPost]
         public ActionResult CargarArchivo(HttpPostedFileBase archivo, string carrera,string anio, string NombreHoja)
         {
@@ -39,7 +50,16 @@ namespace SAS.v1.Controllers
                 string NombreArchivo = Path.GetFileName(archivo.FileName);
 
                 CargarPlanEstudio Cargar = new CargarPlanEstudio();
-                Cargar.procesarCargaDatos(NombreArchivo, carrera,anio,NombreHoja);
+                if(Cargar.procesarCargaDatos(NombreArchivo, carrera, anio, NombreHoja))
+                {
+                    ViewBag.EstadoDeProceso = true;
+                    ViewBag.showSuccessAlert = true;
+                }
+                else
+                {
+                    ViewBag.EstadoDeProceso = false;
+                    ViewBag.showSuccessAlert = false;
+                }
             }
 
             return View();

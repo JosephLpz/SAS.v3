@@ -1,0 +1,84 @@
+﻿@model  IEnumerable<SAS.v1.Models.PlanEstudioAlumno>
+@{
+    ViewBag.Title = "Alumnos Cursantes Asignatura";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Alumnos Cursantes Asignatura</title>
+</head>
+<body>
+    <div>
+        <dl class="dl-horizontal">
+           
+        </dl>
+
+        <br />
+        <hr />
+
+        <table class="table" id="TablaAlumnosCursantes">
+            <thead>
+                <tr>
+                    <th>
+                       Rut
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Apellido
+                    </th>
+                    <th>
+                       EstadoAsignatura
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Alumno.Persona.Rut)+@Html.DisplayFor(modelItem => item.Alumno.Persona.Dv)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.Alumno.Persona.Nombre)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.Alumno.Persona.ApPaterno)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.EstadoAsignatura)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+</div>
+
+    <script>
+    $(document).ready(function () {
+
+        $('#TablaAlumnosCursantes').DataTable(
+         {
+            "bFilter": false,
+
+            "oLanguage": {
+                "sLengthMenu": "Mostrar _MENU_ registros por página",
+                "sZeroRecords": "No se encontraron resultados.",
+                "sInfo": "Mostrando _START_ al _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 al 0 de 0 registros",
+                "sInfoFiltered": "(filtrado(s) de _MAX_ registro(s))",
+                "oPaginate": {
+                    "sFirst": "Inicio",
+                    "sLast": "Final",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                }
+            },
+            "sDom": '<"top"Blip>rt<p"clear">',
+            buttons: ['excel']
+         });
+    });
+    </script>
+
+</body>
+</html>
