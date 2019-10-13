@@ -488,6 +488,12 @@ namespace SAS.v1.Services
             Carrera carr = (from c in db.Carreras where c.NombreCarrera.ToUpper().Trim() == NombreCarrera.ToUpper().Trim() select c).FirstOrDefault();
             return carr;
         }
+
+        public Carrera CarreraFindById(int id)
+        {
+            Carrera carr = (from c in db.Carreras where c.CarreraId==id select c).FirstOrDefault();
+            return carr;
+        }
         #endregion
         #region Jornada
         /*   public Jornada CrearJornada(NombreJornada NomJornada, Periodo Periodos, Alumno Alumn)
@@ -764,6 +770,13 @@ namespace SAS.v1.Services
         public Asignatura BuscarAsignatura(Asignatura nombreAsignatura)
         {
             Asignatura asignatura = db.Asignaturas.Where(a => a.NombreAsignatura.ToUpper().Equals(nombreAsignatura.NombreAsignatura.ToUpper() )).FirstOrDefault();
+            return asignatura;
+        }
+
+
+        public Asignatura AsignaturaFindById(int id)
+        {
+            Asignatura asignatura = db.Asignaturas.Where(a => a.Id==id).FirstOrDefault();
             return asignatura;
         }
         #endregion

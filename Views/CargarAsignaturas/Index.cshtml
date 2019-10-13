@@ -34,11 +34,13 @@
 @using (Html.BeginForm("Index", "CargarAsignaturas", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
         <p>Nombre Hoja Excel:</p>
-        <input type="text" name="NombreHoja" />
+        <input class="form-control" type="text" name="NombreHoja" />
         <p>Carrera:</p>
-        <input type="text" name="carrera" />
+        <input class="form-control" type="text" name="carrera" />
 
-        <input type="file" name="archivo" class="form-control-file" /><br />
+        <input  type="file" name="archivo" class="form-control-file" /><br />
+        <br />
+        
         @ViewBag.Message
         <input id="bottonSubmit" type="submit" name="submit" value="Cargar Archivo" class="btn btn-primary" onclick="Cargar()" />
 }

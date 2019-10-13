@@ -1,4 +1,6 @@
-﻿using SAS.v1.Models;
+﻿using SAS.v1.ClasesNP;
+using Newtonsoft.Json;
+using SAS.v1.Models;
 using SAS.v1.Services;
 using System;
 using System.Collections.Generic;
@@ -24,13 +26,24 @@ namespace SAS.v1.Controllers
         [HttpPost]
         public ActionResult Index([Bind(Include = "Id")]Asignatura Asignatura)
         {
+            IngresoServices ingreso = new IngresoServices();
             ViewBag.AsignaturaId = new SelectList(db.Asignaturas, "Id", "NombreAsignatura");
 
             ProyeccionesServices proyeccion = new ProyeccionesServices();
-            proyeccion.CalcularProyeccionPorAsignatura(Asignatura.Id);
-            return View();
+            Asignatura asigantura = ingreso.AsignaturaFindById(Asignatura.Id);
+           //return RedirectToAction("MuestraProyeccion", "NMuestraProyeccion", MuestraProyeccion(proyeccion.CalcularProyeccionPorAsignatura(Asignatura.Id)));
+            return View("MuestraProyeccion", MuestraProyeccion(proyeccion.CalcularProyeccionPorAsignatura(Asignatura.Id),asigantura));
         }
 
+        public ActionResult MuestraProyeccion(List<DataPoint>CantidadDeAlumnos, Asignatura asignatura)
+        {
+           
+            List<DataPoint> dataPoints = CantidadDeAlumnos;
+            ViewBag.Asignatura = asignatura.NombreAsignatura;
+            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+
+            return View();
+        }
         [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: ProyeccionDeCupos/Details/5
         public ActionResult Details(int id)

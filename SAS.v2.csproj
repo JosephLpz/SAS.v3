@@ -422,6 +422,8 @@
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Scripts\canvasjs.min.js" />
+    <Content Include="Scripts\canvasjs.react.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
@@ -509,6 +511,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.canvasjs.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -528,6 +531,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="ClasesNP\AlumnoNP.cs" />
     <Compile Include="ClasesNP\ColoresNP.cs" />
+    <Compile Include="ClasesNP\DataPoint.cs" />
     <Compile Include="ClasesNP\DocenteGuiaCamposClinicos.cs" />
     <Compile Include="ClasesNP\Estado.cs" />
     <Compile Include="ClasesNP\InstitucionNP.cs" />
@@ -809,6 +813,7 @@
     <Content Include="Views\ProyeccionDeCupos\Index.cshtml" />
     <Content Include="Views\PlanDeEstudios\AlumnosCursantesPlanEstudio.cshtml" />
     <Content Include="Views\PlanDeEstudios\AlumnosCursantesPlan.cshtml" />
+    <Content Include="Views\ProyeccionDeCupos\MuestraProyeccion.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
