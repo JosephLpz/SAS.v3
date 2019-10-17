@@ -48,7 +48,14 @@ using System.Web.Optimization;
                       
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content").Include(
+                      
+                      "~/Content/bootstrap-datepicker.css",
+                      "~/Content/bootstrap-datepicker3.css",
+                      "~/Content/bootstrap-datepicker.standalone.css"));
              }
 
-        }
+               
+}
 }

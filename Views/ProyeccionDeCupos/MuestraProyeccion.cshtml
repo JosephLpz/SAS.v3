@@ -23,7 +23,11 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	data: [{
 		type: "bar",
 		indexLabel: "{y}",
-		dataPoints: @Html.Raw(ViewBag.DataPoints)}]
+		dataPoints: @Html.Raw(ViewBag.DataPoints),
+	    click:function(e){
+	        alert(  e.dataSeries.type+ ", dataPoint { x:" + e.dataPoint.label + ", y: "+ e.dataPoint.y + " }" );
+	    }
+	}]
 });
 chart.render();
 

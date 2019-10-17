@@ -33,6 +33,9 @@
     <EntitySet Name="CursoAlumnos" EntityType="Modelo.Store.CursoAlumnos" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PlanDeEstudios" EntityType="Modelo.Store.PlanDeEstudios" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PlanEstudioAlumnos" EntityType="Modelo.Store.PlanEstudioAlumnos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SolicitudDeCupos" EntityType="Modelo.Store.SolicitudDeCupos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Servicios" EntityType="Modelo.Store.Servicios" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Supervicions" EntityType="Modelo.Store.Supervicions" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CentroFormadorCarrera" Association="Modelo.Store.CentroFormadorCarrera">
       <End Role="CentroFormador" EntitySet="CentroFormadors" />
       <End Role="Carrera" EntitySet="Carreras" />
@@ -164,6 +167,30 @@
     <AssociationSet Name="PlanDeEstudioSemestre" Association="Modelo.Store.PlanDeEstudioSemestre">
       <End Role="PlanDeEstudio" EntitySet="PlanDeEstudios" />
       <End Role="Semestre" EntitySet="Semestres" />
+    </AssociationSet>
+    <AssociationSet Name="SolicitudDeCupoCarrera" Association="Modelo.Store.SolicitudDeCupoCarrera">
+      <End Role="SolicitudDeCupo" EntitySet="SolicitudDeCupos" />
+      <End Role="Carrera" EntitySet="Carreras" />
+    </AssociationSet>
+    <AssociationSet Name="SolicitudDeCupoCampoClinico" Association="Modelo.Store.SolicitudDeCupoCampoClinico">
+      <End Role="SolicitudDeCupo" EntitySet="SolicitudDeCupos" />
+      <End Role="CampoClinico" EntitySet="CampoClinicos" />
+    </AssociationSet>
+    <AssociationSet Name="SolicitudDeCupoServicio" Association="Modelo.Store.SolicitudDeCupoServicio">
+      <End Role="SolicitudDeCupo" EntitySet="SolicitudDeCupos" />
+      <End Role="Servicio" EntitySet="Servicios" />
+    </AssociationSet>
+    <AssociationSet Name="SolicitudDeCupoPeriodo" Association="Modelo.Store.SolicitudDeCupoPeriodo">
+      <End Role="SolicitudDeCupo" EntitySet="SolicitudDeCupos" />
+      <End Role="Periodo" EntitySet="Periodos" />
+    </AssociationSet>
+    <AssociationSet Name="SolicitudDeCupoSupervision" Association="Modelo.Store.SolicitudDeCupoSupervision">
+      <End Role="SolicitudDeCupo" EntitySet="SolicitudDeCupos" />
+      <End Role="Supervision" EntitySet="Supervicions" />
+    </AssociationSet>
+    <AssociationSet Name="SolicitudDeCupoAsignatura" Association="Modelo.Store.SolicitudDeCupoAsignatura">
+      <End Role="SolicitudDeCupo" EntitySet="SolicitudDeCupos" />
+      <End Role="Asignatura" EntitySet="Asignaturas" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Personas">
@@ -408,6 +435,35 @@
     <Property Name="PlanDeEstudioId" Type="int" Nullable="false" />
     <Property Name="AlumnoAlumnoId" Type="int" Nullable="false" />
     <Property Name="EstadoAsignatura" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SolicitudDeCupos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarreraCarreraId" Type="int" Nullable="false" />
+    <Property Name="CampoClinicoId" Type="int" Nullable="false" />
+    <Property Name="ServicioId" Type="int" Nullable="false" />
+    <Property Name="CuposAlumnos" Type="int" Nullable="false" />
+    <Property Name="TotalSemanaPorGrupo" Type="int" Nullable="false" />
+    <Property Name="PeriodoPeriodoId" Type="int" Nullable="false" />
+    <Property Name="SupervisionId" Type="int" Nullable="false" />
+    <Property Name="AsignaturaId" Type="int" Nullable="false" />
+    <Property Name="Observacion" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Servicios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreServicio" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Supervicions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreSupervision" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="CentroFormadorCarrera">
     <End Role="CentroFormador" Type="Modelo.Store.CentroFormadors" Multiplicity="*" />
@@ -805,6 +861,78 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="SolicitudDeCupoCarrera">
+    <End Role="SolicitudDeCupo" Type="Modelo.Store.SolicitudDeCupos" Multiplicity="*" />
+    <End Role="Carrera" Type="Modelo.Store.Carreras" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Carrera">
+        <PropertyRef Name="CarreraId" />
+      </Principal>
+      <Dependent Role="SolicitudDeCupo">
+        <PropertyRef Name="CarreraCarreraId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SolicitudDeCupoCampoClinico">
+    <End Role="SolicitudDeCupo" Type="Modelo.Store.SolicitudDeCupos" Multiplicity="*" />
+    <End Role="CampoClinico" Type="Modelo.Store.CampoClinicos" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="CampoClinico">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SolicitudDeCupo">
+        <PropertyRef Name="CampoClinicoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SolicitudDeCupoServicio">
+    <End Role="SolicitudDeCupo" Type="Modelo.Store.SolicitudDeCupos" Multiplicity="*" />
+    <End Role="Servicio" Type="Modelo.Store.Servicios" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Servicio">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SolicitudDeCupo">
+        <PropertyRef Name="ServicioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SolicitudDeCupoPeriodo">
+    <End Role="SolicitudDeCupo" Type="Modelo.Store.SolicitudDeCupos" Multiplicity="*" />
+    <End Role="Periodo" Type="Modelo.Store.Periodos" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Periodo">
+        <PropertyRef Name="PeriodoId" />
+      </Principal>
+      <Dependent Role="SolicitudDeCupo">
+        <PropertyRef Name="PeriodoPeriodoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SolicitudDeCupoSupervision">
+    <End Role="SolicitudDeCupo" Type="Modelo.Store.SolicitudDeCupos" Multiplicity="*" />
+    <End Role="Supervision" Type="Modelo.Store.Supervicions" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Supervision">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SolicitudDeCupo">
+        <PropertyRef Name="SupervisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SolicitudDeCupoAsignatura">
+    <End Role="SolicitudDeCupo" Type="Modelo.Store.SolicitudDeCupos" Multiplicity="*" />
+    <End Role="Asignatura" Type="Modelo.Store.Asignaturas" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Asignatura">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SolicitudDeCupo">
+        <PropertyRef Name="AsignaturaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -969,6 +1097,33 @@
             <End Role="PlanDeEstudio" EntitySet="PlanDeEstudios" />
             <End Role="Semestre" EntitySet="Semestres" />
           </AssociationSet>
+          <EntitySet Name="SolicitudDeCupos" EntityType="Modelo.SolicitudDeCupo" />
+          <AssociationSet Name="SolicitudDeCupoCarrera" Association="Modelo.SolicitudDeCupoCarrera">
+            <End Role="SolicitudDeCupo" EntitySet="SolicitudDeCupos" />
+            <End Role="Carrera" EntitySet="Carreras" />
+          </AssociationSet>
+          <AssociationSet Name="SolicitudDeCupoCampoClinico" Association="Modelo.SolicitudDeCupoCampoClinico">
+            <End Role="SolicitudDeCupo" EntitySet="SolicitudDeCupos" />
+            <End Role="CampoClinico" EntitySet="CampoClinicos" />
+          </AssociationSet>
+          <EntitySet Name="Servicios" EntityType="Modelo.Servicio" />
+          <AssociationSet Name="SolicitudDeCupoServicio" Association="Modelo.SolicitudDeCupoServicio">
+            <End Role="SolicitudDeCupo" EntitySet="SolicitudDeCupos" />
+            <End Role="Servicio" EntitySet="Servicios" />
+          </AssociationSet>
+          <AssociationSet Name="SolicitudDeCupoPeriodo" Association="Modelo.SolicitudDeCupoPeriodo">
+            <End Role="SolicitudDeCupo" EntitySet="SolicitudDeCupos" />
+            <End Role="Periodo" EntitySet="Periodos" />
+          </AssociationSet>
+          <EntitySet Name="Supervicions" EntityType="Modelo.Supervision" />
+          <AssociationSet Name="SolicitudDeCupoSupervision" Association="Modelo.SolicitudDeCupoSupervision">
+            <End Role="SolicitudDeCupo" EntitySet="SolicitudDeCupos" />
+            <End Role="Supervision" EntitySet="Supervicions" />
+          </AssociationSet>
+          <AssociationSet Name="SolicitudDeCupoAsignatura" Association="Modelo.SolicitudDeCupoAsignatura">
+            <End Role="SolicitudDeCupo" EntitySet="SolicitudDeCupos" />
+            <End Role="Asignatura" EntitySet="Asignaturas" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Persona">
           <Key>
@@ -1030,6 +1185,7 @@
           <Property Name="NombreCarrera" Type="String" Nullable="false" />
           <NavigationProperty Name="CentroFormador" Relationship="Modelo.CentroFormadorCarrera" FromRole="Carrera" ToRole="CentroFormador" />
           <NavigationProperty Name="PlanDeEstudio" Relationship="Modelo.PlanDeEstudioCarrera" FromRole="Carrera" ToRole="PlanDeEstudio" />
+          <NavigationProperty Name="SolicitudDeCupo" Relationship="Modelo.SolicitudDeCupoCarrera" FromRole="Carrera" ToRole="SolicitudDeCupo" />
         </EntityType>
         <EntityType Name="NombreJornada">
           <Key>
@@ -1057,6 +1213,7 @@
           <NavigationProperty Name="NombreJornada" Relationship="Modelo.PeriodoNombreJornada" FromRole="Periodo" ToRole="NombreJornada" />
           <Property Name="NombreJornadaNombreJornadaId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoPeriodo" FromRole="Periodo" ToRole="CampoClinicoAlumno" />
+          <NavigationProperty Name="SolicitudDeCupo" Relationship="Modelo.SolicitudDeCupoPeriodo" FromRole="Periodo" ToRole="SolicitudDeCupo" />
         </EntityType>
         <Association Name="CentroFormadorCarrera">
           <End Type="Modelo.CentroFormador" Role="CentroFormador" Multiplicity="*" />
@@ -1134,6 +1291,7 @@
           <NavigationProperty Name="Institucion" Relationship="Modelo.InstitucionCampoClinico" FromRole="CampoClinico" ToRole="Institucion" />
           <Property Name="InstitucionId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoCampoClinico" FromRole="CampoClinico" ToRole="CampoClinicoAlumno" />
+          <NavigationProperty Name="SolicitudDeCupo" Relationship="Modelo.SolicitudDeCupoCampoClinico" FromRole="CampoClinico" ToRole="SolicitudDeCupo" />
         </EntityType>
         <Association Name="CampoClinicoNombreCampoClinico">
           <End Type="Modelo.CampoClinico" Role="CampoClinico" Multiplicity="*" />
@@ -1310,6 +1468,7 @@
           <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoAsignatura" FromRole="Asignatura" ToRole="CampoClinicoAlumno" />
           <Property Name="CodigoAsignatura" Type="String" Nullable="false" />
           <NavigationProperty Name="PlanDeEstudio" Relationship="Modelo.PlanDeEstudioAsignatura" FromRole="Asignatura" ToRole="PlanDeEstudio" />
+          <NavigationProperty Name="SolicitudDeCupo" Relationship="Modelo.SolicitudDeCupoAsignatura" FromRole="Asignatura" ToRole="SolicitudDeCupo" />
         </EntityType>
         <EntityType Name="Semestre">
           <Key>
@@ -1698,6 +1857,115 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SolicitudDeCupo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Carrera" Relationship="Modelo.SolicitudDeCupoCarrera" FromRole="SolicitudDeCupo" ToRole="Carrera" />
+          <Property Name="CarreraCarreraId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CampoClinico" Relationship="Modelo.SolicitudDeCupoCampoClinico" FromRole="SolicitudDeCupo" ToRole="CampoClinico" />
+          <Property Name="CampoClinicoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Servicio" Relationship="Modelo.SolicitudDeCupoServicio" FromRole="SolicitudDeCupo" ToRole="Servicio" />
+          <Property Name="ServicioId" Type="Int32" Nullable="false" />
+          <Property Name="CuposAlumnos" Type="Int32" Nullable="false" />
+          <Property Name="TotalSemanaPorGrupo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Periodo" Relationship="Modelo.SolicitudDeCupoPeriodo" FromRole="SolicitudDeCupo" ToRole="Periodo" />
+          <Property Name="PeriodoPeriodoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Supervision" Relationship="Modelo.SolicitudDeCupoSupervision" FromRole="SolicitudDeCupo" ToRole="Supervision" />
+          <Property Name="SupervisionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Asignatura" Relationship="Modelo.SolicitudDeCupoAsignatura" FromRole="SolicitudDeCupo" ToRole="Asignatura" />
+          <Property Name="AsignaturaId" Type="Int32" Nullable="false" />
+          <Property Name="Observacion" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="SolicitudDeCupoCarrera">
+          <End Type="Modelo.SolicitudDeCupo" Role="SolicitudDeCupo" Multiplicity="*" />
+          <End Type="Modelo.Carrera" Role="Carrera" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Carrera">
+              <PropertyRef Name="CarreraId" />
+            </Principal>
+            <Dependent Role="SolicitudDeCupo">
+              <PropertyRef Name="CarreraCarreraId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SolicitudDeCupoCampoClinico">
+          <End Type="Modelo.SolicitudDeCupo" Role="SolicitudDeCupo" Multiplicity="*" />
+          <End Type="Modelo.CampoClinico" Role="CampoClinico" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="CampoClinico">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SolicitudDeCupo">
+              <PropertyRef Name="CampoClinicoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Servicio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreServicio" Type="String" Nullable="false" />
+          <NavigationProperty Name="SolicitudDeCupo" Relationship="Modelo.SolicitudDeCupoServicio" FromRole="Servicio" ToRole="SolicitudDeCupo" />
+        </EntityType>
+        <Association Name="SolicitudDeCupoServicio">
+          <End Type="Modelo.SolicitudDeCupo" Role="SolicitudDeCupo" Multiplicity="*" />
+          <End Type="Modelo.Servicio" Role="Servicio" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Servicio">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SolicitudDeCupo">
+              <PropertyRef Name="ServicioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SolicitudDeCupoPeriodo">
+          <End Type="Modelo.SolicitudDeCupo" Role="SolicitudDeCupo" Multiplicity="*" />
+          <End Type="Modelo.Periodo" Role="Periodo" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Periodo">
+              <PropertyRef Name="PeriodoId" />
+            </Principal>
+            <Dependent Role="SolicitudDeCupo">
+              <PropertyRef Name="PeriodoPeriodoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Supervision">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreSupervision" Type="String" Nullable="false" />
+          <NavigationProperty Name="SolicitudDeCupo" Relationship="Modelo.SolicitudDeCupoSupervision" FromRole="Supervision" ToRole="SolicitudDeCupo" />
+        </EntityType>
+        <Association Name="SolicitudDeCupoSupervision">
+          <End Type="Modelo.SolicitudDeCupo" Role="SolicitudDeCupo" Multiplicity="*" />
+          <End Type="Modelo.Supervision" Role="Supervision" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Supervision">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SolicitudDeCupo">
+              <PropertyRef Name="SupervisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SolicitudDeCupoAsignatura">
+          <End Type="Modelo.SolicitudDeCupo" Role="SolicitudDeCupo" Multiplicity="*" />
+          <End Type="Modelo.Asignatura" Role="Asignatura" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SolicitudDeCupo">
+              <PropertyRef Name="AsignaturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1971,6 +2239,38 @@
           <ScalarProperty Name="PlanDeEstudioId" ColumnName="PlanDeEstudioId" />
           <ScalarProperty Name="AlumnoAlumnoId" ColumnName="AlumnoAlumnoId" />
           <ScalarProperty Name="EstadoAsignatura" ColumnName="EstadoAsignatura" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SolicitudDeCupos">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.SolicitudDeCupo)">
+        <MappingFragment StoreEntitySet="SolicitudDeCupos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CarreraCarreraId" ColumnName="CarreraCarreraId" />
+          <ScalarProperty Name="CampoClinicoId" ColumnName="CampoClinicoId" />
+          <ScalarProperty Name="ServicioId" ColumnName="ServicioId" />
+          <ScalarProperty Name="CuposAlumnos" ColumnName="CuposAlumnos" />
+          <ScalarProperty Name="TotalSemanaPorGrupo" ColumnName="TotalSemanaPorGrupo" />
+          <ScalarProperty Name="PeriodoPeriodoId" ColumnName="PeriodoPeriodoId" />
+          <ScalarProperty Name="SupervisionId" ColumnName="SupervisionId" />
+          <ScalarProperty Name="AsignaturaId" ColumnName="AsignaturaId" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Servicios">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Servicio)">
+        <MappingFragment StoreEntitySet="Servicios">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NombreServicio" ColumnName="NombreServicio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Supervicions">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Supervision)">
+        <MappingFragment StoreEntitySet="Supervicions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NombreSupervision" ColumnName="NombreSupervision" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

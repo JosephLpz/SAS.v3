@@ -52,5 +52,8 @@ namespace SAS.v1.Models
         public virtual DbSet<CursoAlumno> CursoAlumnos { get; set; }
         public virtual DbSet<PlanDeEstudio> PlanDeEstudios { get; set; }
         public virtual DbSet<PlanEstudioAlumno> PlanEstudioAlumnos { get; set; }
+        public virtual DbSet<SolicitudDeCupo> SolicitudDeCupos { get; set; }
+        public virtual DbSet<Servicio> Servicios { get; set; }
+        public virtual DbSet<Supervision> Supervicions { get; set; }
     }
 }

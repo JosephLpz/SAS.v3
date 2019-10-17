@@ -66,6 +66,15 @@
         <AssociationConnector Association="Modelo.PlanEstudioAlumnoAlumno" />
         <AssociationConnector Association="Modelo.PlanDeEstudioAsignatura" />
         <AssociationConnector Association="Modelo.PlanDeEstudioSemestre" />
+        <EntityTypeShape EntityType="Modelo.SolicitudDeCupo" Width="1.5" PointX="24.125" PointY="16.625" />
+        <AssociationConnector Association="Modelo.SolicitudDeCupoCarrera" />
+        <AssociationConnector Association="Modelo.SolicitudDeCupoCampoClinico" />
+        <EntityTypeShape EntityType="Modelo.Servicio" Width="1.5" PointX="28" PointY="18" />
+        <AssociationConnector Association="Modelo.SolicitudDeCupoServicio" />
+        <AssociationConnector Association="Modelo.SolicitudDeCupoPeriodo" />
+        <EntityTypeShape EntityType="Modelo.Supervision" Width="1.5" PointX="27.125" PointY="16.25" />
+        <AssociationConnector Association="Modelo.SolicitudDeCupoSupervision" />
+        <AssociationConnector Association="Modelo.SolicitudDeCupoAsignatura" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

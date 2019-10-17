@@ -19,6 +19,7 @@ namespace SAS.v1.Models
         public Periodo()
         {
             this.CampoClinicoAlumno = new HashSet<CampoClinicoAlumno>();
+            this.SolicitudDeCupo = new HashSet<SolicitudDeCupo>();
         }
     
         public int PeriodoId { get; set; }
@@ -29,6 +30,8 @@ namespace SAS.v1.Models
         public virtual NombreJornada NombreJornada { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CampoClinicoAlumno> CampoClinicoAlumno { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SolicitudDeCupo> SolicitudDeCupo { get; set; }
 
         [DisplayName("Fecha Inicio")]
         public virtual string FInicio

@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Proyectar cupos po Carrera";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <form class="form-inline" method="POST">
+            @Html.DropDownList("CarreraId", (SelectList)ViewBag.CarreraId, htmlAttributes: new { @class = "form-control" })
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+
+    </div>
+</body>
+</html>

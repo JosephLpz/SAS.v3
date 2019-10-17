@@ -95,6 +95,7 @@ namespace SAS.v1.Services
 
                         #region ingreso asignatura
                         asignaturas.CodigoAsignatura = "";
+                        asignatura = asignatura.Replace("*", "").Replace("(", "").Replace(")", "");
                         asignaturas.NombreAsignatura = asignatura;
                         asignaturas = ingreso.CrearAsignatura(asignaturas, 1);
                         #endregion

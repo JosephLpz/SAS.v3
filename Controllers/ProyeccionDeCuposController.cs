@@ -35,6 +35,25 @@ namespace SAS.v1.Controllers
             return View("MuestraProyeccion", MuestraProyeccion(proyeccion.CalcularProyeccionPorAsignatura(Asignatura.Id),asigantura));
         }
 
+
+        public ActionResult ProyeccionPorCarrera()
+        {
+            ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
+            return View();
+        }
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        [HttpPost]
+        public ActionResult ProyeccionPorCarrera([Bind(Include = "CarreraId")]Carrera carr)
+        {
+            IngresoServices ingreso = new IngresoServices();
+            ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
+
+            ProyeccionesServices proyeccion = new ProyeccionesServices();
+            Carrera carrera = ingreso.CarreraFindById(carr.CarreraId);
+
+
+            return View("MuestraProyeccionPorCarrera", MuestraProyeccionPorCarrera(proyeccion.CalcularProyeccionPorCarrera(carrera.CarreraId)));
+        }
         public ActionResult MuestraProyeccion(List<DataPoint>CantidadDeAlumnos, Asignatura asignatura)
         {
            
@@ -44,6 +63,17 @@ namespace SAS.v1.Controllers
 
             return View();
         }
+
+        public ActionResult MuestraProyeccionPorCarrera(List<DataPoint> CantidadDeAlumnos)
+        {
+
+            List<DataPoint> dataPoints = CantidadDeAlumnos;
+           //ViewBag.Asignatura = asignatura.NombreAsignatura;
+            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+
+            return View();
+        }
+
         [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: ProyeccionDeCupos/Details/5
         public ActionResult Details(int id)

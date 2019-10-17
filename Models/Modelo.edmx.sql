@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/01/2019 18:25:36
+-- Date Created: 10/17/2019 01:12:24
 -- Generated from EDMX file: D:\Proyecto_escuela_de_la_salud\SES Nuevo modelo\SES\SAS.v3\SAS.v3\Models\Modelo.edmx
 -- --------------------------------------------------
 
@@ -109,6 +109,12 @@ IF OBJECT_ID(N'[dbo].[FK_PlanEstudioAlumnoPlanDeEstudio]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_PlanEstudioAlumnoAlumno]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PlanEstudioAlumnos] DROP CONSTRAINT [FK_PlanEstudioAlumnoAlumno];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PlanDeEstudioAsignatura]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PlanDeEstudios] DROP CONSTRAINT [FK_PlanDeEstudioAsignatura];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PlanDeEstudioSemestre]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PlanDeEstudios] DROP CONSTRAINT [FK_PlanDeEstudioSemestre];
 GO
 
 -- --------------------------------------------------
@@ -444,6 +450,35 @@ CREATE TABLE [dbo].[PlanEstudioAlumnos] (
 );
 GO
 
+-- Creating table 'SolicitudDeCupos'
+CREATE TABLE [dbo].[SolicitudDeCupos] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CarreraCarreraId] int  NOT NULL,
+    [CampoClinicoId] int  NOT NULL,
+    [ServicioId] int  NOT NULL,
+    [CuposAlumnos] int  NOT NULL,
+    [TotalSemanaPorGrupo] int  NOT NULL,
+    [PeriodoPeriodoId] int  NOT NULL,
+    [SupervisionId] int  NOT NULL,
+    [AsignaturaId] int  NOT NULL,
+    [Observacion] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'Servicios'
+CREATE TABLE [dbo].[Servicios] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [NombreServicio] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'Supervicions'
+CREATE TABLE [dbo].[Supervicions] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [NombreSupervision] nvarchar(max)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -607,6 +642,24 @@ GO
 -- Creating primary key on [Id] in table 'PlanEstudioAlumnos'
 ALTER TABLE [dbo].[PlanEstudioAlumnos]
 ADD CONSTRAINT [PK_PlanEstudioAlumnos]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SolicitudDeCupos'
+ALTER TABLE [dbo].[SolicitudDeCupos]
+ADD CONSTRAINT [PK_SolicitudDeCupos]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Servicios'
+ALTER TABLE [dbo].[Servicios]
+ADD CONSTRAINT [PK_Servicios]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Supervicions'
+ALTER TABLE [dbo].[Supervicions]
+ADD CONSTRAINT [PK_Supervicions]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -1107,6 +1160,96 @@ GO
 CREATE INDEX [IX_FK_PlanDeEstudioSemestre]
 ON [dbo].[PlanDeEstudios]
     ([SemestreId]);
+GO
+
+-- Creating foreign key on [CarreraCarreraId] in table 'SolicitudDeCupos'
+ALTER TABLE [dbo].[SolicitudDeCupos]
+ADD CONSTRAINT [FK_SolicitudDeCupoCarrera]
+    FOREIGN KEY ([CarreraCarreraId])
+    REFERENCES [dbo].[Carreras]
+        ([CarreraId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SolicitudDeCupoCarrera'
+CREATE INDEX [IX_FK_SolicitudDeCupoCarrera]
+ON [dbo].[SolicitudDeCupos]
+    ([CarreraCarreraId]);
+GO
+
+-- Creating foreign key on [CampoClinicoId] in table 'SolicitudDeCupos'
+ALTER TABLE [dbo].[SolicitudDeCupos]
+ADD CONSTRAINT [FK_SolicitudDeCupoCampoClinico]
+    FOREIGN KEY ([CampoClinicoId])
+    REFERENCES [dbo].[CampoClinicos]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SolicitudDeCupoCampoClinico'
+CREATE INDEX [IX_FK_SolicitudDeCupoCampoClinico]
+ON [dbo].[SolicitudDeCupos]
+    ([CampoClinicoId]);
+GO
+
+-- Creating foreign key on [ServicioId] in table 'SolicitudDeCupos'
+ALTER TABLE [dbo].[SolicitudDeCupos]
+ADD CONSTRAINT [FK_SolicitudDeCupoServicio]
+    FOREIGN KEY ([ServicioId])
+    REFERENCES [dbo].[Servicios]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SolicitudDeCupoServicio'
+CREATE INDEX [IX_FK_SolicitudDeCupoServicio]
+ON [dbo].[SolicitudDeCupos]
+    ([ServicioId]);
+GO
+
+-- Creating foreign key on [PeriodoPeriodoId] in table 'SolicitudDeCupos'
+ALTER TABLE [dbo].[SolicitudDeCupos]
+ADD CONSTRAINT [FK_SolicitudDeCupoPeriodo]
+    FOREIGN KEY ([PeriodoPeriodoId])
+    REFERENCES [dbo].[Periodos]
+        ([PeriodoId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SolicitudDeCupoPeriodo'
+CREATE INDEX [IX_FK_SolicitudDeCupoPeriodo]
+ON [dbo].[SolicitudDeCupos]
+    ([PeriodoPeriodoId]);
+GO
+
+-- Creating foreign key on [SupervisionId] in table 'SolicitudDeCupos'
+ALTER TABLE [dbo].[SolicitudDeCupos]
+ADD CONSTRAINT [FK_SolicitudDeCupoSupervision]
+    FOREIGN KEY ([SupervisionId])
+    REFERENCES [dbo].[Supervicions]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SolicitudDeCupoSupervision'
+CREATE INDEX [IX_FK_SolicitudDeCupoSupervision]
+ON [dbo].[SolicitudDeCupos]
+    ([SupervisionId]);
+GO
+
+-- Creating foreign key on [AsignaturaId] in table 'SolicitudDeCupos'
+ALTER TABLE [dbo].[SolicitudDeCupos]
+ADD CONSTRAINT [FK_SolicitudDeCupoAsignatura]
+    FOREIGN KEY ([AsignaturaId])
+    REFERENCES [dbo].[Asignaturas]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SolicitudDeCupoAsignatura'
+CREATE INDEX [IX_FK_SolicitudDeCupoAsignatura]
+ON [dbo].[SolicitudDeCupos]
+    ([AsignaturaId]);
 GO
 
 -- --------------------------------------------------
