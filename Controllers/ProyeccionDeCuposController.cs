@@ -16,6 +16,7 @@ namespace SAS.v1.Controllers
         // GET: ProyeccionDeCupos
 
         [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
+        [HttpGet]
         public ActionResult Index()
         {
             ViewBag.AsignaturaId= new SelectList(db.Asignaturas, "Id", "NombreAsignatura");
@@ -52,13 +53,14 @@ namespace SAS.v1.Controllers
             Carrera carrera = ingreso.CarreraFindById(carr.CarreraId);
 
 
-            return View("MuestraProyeccionPorCarrera", MuestraProyeccionPorCarrera(proyeccion.CalcularProyeccionPorCarrera(carrera.CarreraId)));
+            return View("MuestraProyeccionPorCarrera", MuestraProyeccionPorCarrera(proyeccion.CalcularProyeccionPorCarrera(carrera)));
         }
-        public ActionResult MuestraProyeccion(List<DataPoint>CantidadDeAlumnos, Asignatura asignatura)
+        public ActionResult MuestraProyeccion(List<DataPoint> CantidadDeAlumnos, Asignatura asignatura)
         {
            
             List<DataPoint> dataPoints = CantidadDeAlumnos;
             ViewBag.Asignatura = asignatura.NombreAsignatura;
+            ViewBag.Cupos = CantidadDeAlumnos[0].Y;
             ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
 
             return View();
@@ -66,8 +68,14 @@ namespace SAS.v1.Controllers
 
         public ActionResult MuestraProyeccionPorCarrera(List<DataPoint> CantidadDeAlumnos)
         {
-
+            int TotalCupos=0;
             List<DataPoint> dataPoints = CantidadDeAlumnos;
+            foreach(var item in CantidadDeAlumnos)
+            {
+                TotalCupos +=(int)item.Y;
+            }
+            ViewBag.TotalCupos = TotalCupos;
+            ViewBag.data = dataPoints;
            //ViewBag.Asignatura = asignatura.NombreAsignatura;
             ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
 

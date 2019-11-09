@@ -10,9 +10,13 @@ namespace SAS.v1.ClasesNP
     public class DataPoint
     {
         //DataContract for Serializing Data - required to serve in JSON format
-        
-       
-            public DataPoint(string label, int y)
+
+
+        public DataPoint()
+        {
+            
+        }
+        public DataPoint(string label, int y)
             {
                 this.Label = label;
                 this.Y = y;

@@ -537,6 +537,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.canvasjs.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -648,9 +650,11 @@
     <Compile Include="ClasesNP\DocenteGuiaCamposClinicos.cs" />
     <Compile Include="ClasesNP\Estado.cs" />
     <Compile Include="ClasesNP\InstitucionNP.cs" />
+    <Compile Include="ClasesNP\SolicitudDeCuposNP.cs" />
     <Compile Include="ClasesNP\UnidadDeServicioAlumnosNP.cs" />
     <Compile Include="ClasesNP\UnidadServicioNP.cs" />
     <Compile Include="Controllers\AlumnosController.cs" />
+    <Compile Include="Controllers\AsignacionAlumnosController.cs" />
     <Compile Include="Controllers\CampoClinicoAlumnosController.cs" />
     <Compile Include="Controllers\CargaExcelController.cs" />
     <Compile Include="Controllers\CargarAsignaturasController.cs" />
@@ -852,6 +856,7 @@
     <Compile Include="Utils\UtilExcelGetColor.cs" />
     <Compile Include="Utils\UtilNumber.cs" />
     <Compile Include="Utils\UtilRut.cs" />
+    <Compile Include="Utils\UtilSolicitudDeCupos.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -936,6 +941,10 @@
     <Content Include="Views\ProyeccionDeCupos\MuestraProyeccion.cshtml" />
     <Content Include="Views\ProyeccionDeCupos\ProyeccionPorCarrera.cshtml" />
     <Content Include="Views\SolicitudDeCupos\Index.cshtml" />
+    <Content Include="Views\ProyeccionDeCupos\MuestraProyeccionPorCarrera.cshtml" />
+    <Content Include="Views\SolicitudDeCupos\Modal.cshtml" />
+    <Content Include="Views\SolicitudDeCupos\IndexPost.cshtml" />
+    <Content Include="Views\AsignacionAlumnos\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,103 @@
+﻿@model SAS.v1.Models.SolicitudDeCupo
+
+@{
+    ViewBag.Title = "Ingresar Solicitud";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Modal</title>
+</head>
+<body>
+    <div> 
+
+        @using (Html.BeginForm("Index", "SolicitudDeCupos", new { index = ViewBag.IndexSelected, DataPoint = Json.Encode(@ViewBag.dataPoint) }, FormMethod.Post))
+        {
+            <div class="form-horizontal">
+
+                <div class="modal-body">
+                  
+
+                    <div class="form-group">
+                        <label for="Carrera-name" class="col-form-label">Carrera:</label>
+                        @Html.DropDownList("CarreraId", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    @*<div class="form-group">
+                            <label for="Año-name" class="col-form-label">Año:</label>
+                            @Html.EditorFor(model => model.A, new { htmlAttributes = new { @class = "form-control", @id = "Carrera-name" } })
+                        </div>*@
+                    <div class="form-group">
+                        <label for="Institucion-name" class="col-form-label">institución:</label>
+                        @Html.DropDownList("InstitucionId",null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label for="Establecimiento-name" class="col-form-label">Establecimiento:</label>
+                        @Html.DropDownList("NombreCampoId", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label for="Servicio-name" class="col-form-label">Servicio:</label>
+                        @Html.EditorFor(model => model.Servicio.NombreServicio, new { htmlAttributes = new { @class = "form-control", @id = "Servicio-name" } })
+                    </div>
+                    <div class="form-group">
+                        <label for="Cupos-name" class="col-form-label">Cupos Alumnos:</label>
+                        @Html.EditorFor(model => model.CuposAlumnos, new { htmlAttributes = new { @class = "form-control", @id = "Cupos-name" } })
+                    </div>
+                    <div class="form-group">
+                        <label for="Semanas-name" class="col-form-label">Total Semenas por grupo:</label>
+                        @Html.EditorFor(model => model.TotalSemanaPorGrupo, new { htmlAttributes = new { @class = "form-control", @id = "Semanas-name" } })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="datepicker" class="col-form-label">Desde:</label>
+                        @Html.EditorFor(model => model.Periodo.FechaInicio, new { htmlAttributes = new { @class = "form-control", @id = "datepicker" } })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="datepicker2" class="col-form-label">Hasta:</label>
+                        @Html.EditorFor(model => model.Periodo.FechaTermino, new { htmlAttributes = new { @class = "form-control", @id = "datepicker2" } })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jornada-name" class="col-form-label">Jornada y Horarios:</label>
+                        @Html.DropDownList("NombreJornadaId", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Supervicion-name" class="col-form-label">Tipo Supervicion:</label>
+                        @Html.EditorFor(model => model.Supervision.NombreSupervision, new { htmlAttributes = new { @class = "form-control", @id = "Supervicion-name" } })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Asignatura-name" class="col-form-label">Asignatura:</label>
+                        @Html.EditorFor(model => model.Asignatura.NombreAsignatura, new { htmlAttributes = new { @class = "form-control", @id = "Asignatura-name" } })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Observacion-name" class="col-form-label">Observaciones:</label>
+                        @Html.EditorFor(model => model.Observacion, new { htmlAttributes = new { @class = "form-control", @id = "Observacion-name" } })
+                    </div>
+                    
+                </div>
+
+                <input type="submit" value="Guardar" class="btn btn-default" />
+              
+                </div>
+                }
+
+            </div>
+
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({ dateFormat: 'dd-mm-yy' });
+        });
+
+        $(function () {
+            $("#datepicker2").datepicker({ dateFormat: 'dd-mm-yy' });
+        });
+
+    </script>
+</body>
+</html>

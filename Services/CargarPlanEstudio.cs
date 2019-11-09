@@ -42,12 +42,9 @@ namespace SAS.v1.Services
                     Anio anios = new Anio();
 
                     string semestre= utlXls.getCellValue(string.Format("B{0}", fila));
-                    if (!number.IsNumeric(semestre))
+                    if (number.IsNumeric(semestre))
                     {
-                        semestre = null;
-                    }
-                    if (semestre !=null&&!semestre.Equals(string.Empty))
-                    {
+                       
                        // string codigoAsignatura= utlXls.getCellValue(string.Format("D{0}", fila));
 
                         string asignatura = utlXls.getCellValue(string.Format("C{0}", fila));
@@ -144,8 +141,15 @@ namespace SAS.v1.Services
 
                         fila++;
                     }
+                    else if(!semestre.Equals(string.Empty))
+                    {
+                        fila++;
 
-                    else { continuar = false; }
+                    }
+                    else
+                    {
+                        continuar = false;
+                    }
                    
                 }
                  

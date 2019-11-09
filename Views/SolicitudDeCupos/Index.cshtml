@@ -1,4 +1,7 @@
-﻿
+﻿@model IEnumerable<SAS.v1.ClasesNP.SolicitudDeCuposNP>
+
+
+
 @{
     ViewBag.Title = "Solicitud de Cupos";
 }
@@ -15,10 +18,10 @@
 </head>
 <body>
     <div> 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
             <span class="fa fa-search">Nueva solicitud</span>
-        </button>
-
+        </button>*@
+        <h1>Solicitud de Cupos - Campos Clinicos</h1>
         <table class="table" id="TablaSolicitudDeCupos">
 
             <thead>
@@ -31,22 +34,139 @@
             <tbody>
                 <tr>
                     <td>
-                        <div class="panel-group" id="accordion">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
+                        @if (ViewBag.DataPoint == null)
+                        {
+                            <script>
+                                alert('@ViewBag.Error');
+                            </script>
+                        }
+                        else if (@ViewBag.Error != null)
+                        {
+                            <script>
+                                alert('@ViewBag.Error');
+                            </script>
+                        }
+
+                        else
+                        {
+
+                            int i = 0;
+                            int x = 0;
+
+                            foreach (var item in Model)
+                            {
+
+
+                        <div class="panel-group" id="accordion_@i">
+                            <div class="panel panel-default" id="panel_@i">
+                                <div class="panel-heading" id="Heading">
                                     <h4 class="panel-title">
-                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                            @ViewBag.Asignatura / Cupos Disponibles:@ViewBag.Ncupos
+                                        <a class="accordion-toggle" data-target="#collapseOne_@i" data-toggle="collapse" href="#collapseOne_@i" >
+                                            @item.Solicitud.Label / Cupos Disponibles:@item.Solicitud.Y 
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="collapseOne" class="panel-collapse collapse in">
+                                <div id="collapseOne_@i" class="panel-collapse collapse" aria-labelledby="Heading" >
                                     <div class="panel-body">
-                                    
-                                    </div>
+                      
+
+                                        <p>@Html.ActionLink("Nueva Solicitud", "Modal", new { index = i, DataPoint = Json.Encode(@ViewBag.DataPoint) }, null)</p>
+                                                                 
+                                            <table>
+
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Carrera
+                                                        </th>
+                                                        <th>
+                                                            Institucion
+                                                        </th>
+                                                        <th>
+                                                            Hospital/Establecimiento
+                                                        </th>
+                                                        <th>
+                                                            Servicio
+                                                        </th>
+                                                        <th>
+                                                            Cupo Alumno
+                                                        </th>
+                                                        <th>
+                                                            Semanas por grupo
+                                                        </th>
+                                                        <th>
+                                                            Desde/Hasta
+                                                        </th>
+                                                        <th>
+                                                            Jornada
+                                                        </th>
+                                                        <th>
+                                                            Tipo de Supervicion
+                                                        </th>
+                                                        <th>
+                                                            Asignatura
+                                                        </th>
+                                                        <th>
+                                                            Observacion
+                                                        </th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var result in item.solicitudes) {
+
+
+                                                    <tr>
+                                                        <td>
+                                                            @result.Carrera.NombreCarrera
+                                                        </td>
+                                                       
+                                                        <td>
+                                                            @result.CampoClinico.Institucion.NombreInstitucion
+                                                        </td>
+                                                        <td>
+                                                           @result.CampoClinico.NombreCampoClinico.NombreCampo
+                                                        </td>
+                                                        <td>
+                                                            @result.Servicio.NombreServicio
+                                                        </td>
+                                                        <td>
+                                                         @result.CuposAlumnos
+                                                        </td>
+                                                        <td>
+                                                            @result.TotalSemanaPorGrupo
+                                                        </td>
+                                                        <td>
+                                                           @result.Periodo.DesdeHasta
+                                                        </td>
+                                                        <td>
+                                                           @result.Periodo.NombreJornada.Nombre
+                                                        </td>
+                                                        <td>
+                                                           @result.Supervision.NombreSupervision
+                                                        </td>
+                                                        <td>
+                                                           @result.Asignatura.NombreAsignatura
+                                                        </td>
+                                                        <td>
+                                                           @result.Observacion
+                                                        </td>
+                                                        <td>@Html.ActionLink("Asignar Alumnos", "Index", "AsignacionAlumnos", new { SolicitudId = result.Id },null)
+                                                        <button class="btn btn-primary" id="AsignarAl">Asignar alumnos</button>
+                                                        </td>
+
+                                                    </tr>
+                                                        x++;
+                                                    }
+                                                </tbody>
+                                            </table>
+</div>
                                 </div>
                             </div>                          
                         </div>
+                                i++;
+                            }
+                        }
                     </td>
                 </tr>
             </tbody>
@@ -54,104 +174,20 @@
 
         </table>
 
-@using (Html.BeginForm())
-{
- 
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Crear una nueva solicitud</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form role="form" action="@Url.Action("Index2", "SolicitudDeCupos")" class="form-horizontal" method="POST">
-                            <div class="form-group">
-                                <label for="Carrera-name" class="col-form-label">Carrera:</label>
-                                <input type="text" class="form-control" id="Carrera-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="Año-name" class="col-form-label">Año:</label>
-                                <input type="text" class="form-control" id="Año-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="Institucion-name" class="col-form-label">institución:</label>
-                                <input type="text" class="form-control" id="Institucion-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="Establecimiento-name" class="col-form-label">Establecimiento:</label>
-                                <input type="text" class="form-control" id="Establecimiento-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="Servicio-name" class="col-form-label">Servicio:</label>
-                                <input type="text" class="form-control" id="Servicio-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="Cupos-name" class="col-form-label">Cupos Alumnos:</label>
-                                <input type="text" class="form-control" id="Cupos-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="Semanas-name" class="col-form-label">Total Semenas por grupo:</label>
-                                <input type="text" class="form-control" id="Semanas-name">
-                            </div>
 
-                            <div class="form-group">
-                                <label for="datepicker" class="col-form-label">Desde:</label>
-                                <input type="text" class="form-control" id="datepicker">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="datepicker2" class="col-form-label">Hasta:</label>
-                                <input type="text" class="form-control" id="datepicker2">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="jornada-name" class="col-form-label">Jornada y Horarios:</label>
-                                <input type="text" class="form-control" id="jornada-name">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Supervicion-name" class="col-form-label">Tipo Supervicion:</label>
-                                <input type="text" class="form-control" id="Supervicion-name">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Asignatura-name" class="col-form-label">Asignatura:</label>
-                                <input type="text" class="form-control" id="Asignatura-name">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Observacion-name" class="col-form-label">Observaciones:</label>
-                                <textarea type="text" class="form-control" id="Observacion-name"></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-   
-        }
 </div>
 
 </body>
 </html>
 <script>
-    $('#exampleModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        //var recipient = button.data('whatever') // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        //modal.find('.modal-title').text('New message to ' + recipient)
-        //modal.find('.modal-body input').val(recipient)
-    })
+   
+    $(function () {
+        $('#NuevaSolicitud').click(function () {
+            var index = $(this).index;
+            alert('el accordion es '+index)
+        })
 
+    });
     $(function () {
         $("#datepicker").datepicker();
     });
@@ -160,6 +196,15 @@
         $("#datepicker2").datepicker();
     });
 
+    @*$('#AsignarAl').click(function () {
 
+        $.ajax({
+            url: '@(Url.Action("Index", "AsignacionAlumnos"))',
+            type: 'POST',
+            data: {
+                Solicitud: 'result'
+            }
+        });
+    });*@
 
 </script>

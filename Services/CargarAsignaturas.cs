@@ -100,6 +100,7 @@ namespace SAS.v1.Services
                             string ValorCelda = utlXls.getCellValue(string.Concat(ListaColumnas[i], fila));
                             asignatura = new Asignatura();
                             asignatura.NombreAsignatura = utlXls.getCellValue(string.Concat(ListaColumnas[i], filaAsignatura));
+                            asignatura.NombreAsignatura = asignatura.NombreAsignatura.Replace("*", "").Replace("(", "").Replace(")", "");
                             asignatura = ingreso.CrearAsignatura(asignatura, 1);
 
                             semestre = new Semestre();

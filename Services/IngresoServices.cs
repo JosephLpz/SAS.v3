@@ -92,6 +92,12 @@ namespace SAS.v1.Services
                               Datos.ApPaterno.ToUpper() select p).FirstOrDefault();
             return person;
         }
+
+        public Persona PersonaFindById(int id)
+        {
+            Persona person = (from p in db.Personas where p.PersonaId==id select p).FirstOrDefault();
+            return person;
+        }
         #endregion
         #region Alumno
         public Alumno CrearAlumno(Persona person,Alumno AlumnoDatos, CentroFormador CentroFormador, int Estado)
@@ -145,9 +151,10 @@ namespace SAS.v1.Services
             if (periodo == null)
             {
                 periodo = new Periodo();
-                periodo.FechaInicio = periodos.FechaInicio;
-                periodo.FechaTermino = periodos.FechaTermino;
-                periodo.NombreJornadaNombreJornadaId = Jornada.NombreJornadaId;
+                periodo.FechaInicio =(DateTime) periodos.FechaInicio;
+                periodo.FechaTermino = (DateTime)periodos.FechaTermino;
+                periodo.NombreJornada = BuscarById(Jornada);
+                periodo.NombreJornadaNombreJornadaId = periodo.NombreJornada.NombreJornadaId;
                 db.Periodos.Add(periodo);
                 db.SaveChanges();
             }
@@ -550,6 +557,12 @@ namespace SAS.v1.Services
         public NombreJornada BuscarNombreJornada(NombreJornada NombreJornada)
         {
             NombreJornada NomJornada = (from j in db.NombreJornadas where j.Nombre.ToUpper().Trim() == NombreJornada.Nombre.ToUpper().Trim() select j).FirstOrDefault();
+            return NomJornada;
+        }
+
+        public NombreJornada BuscarById(NombreJornada NombreJornada)
+        {
+            NombreJornada NomJornada = (from j in db.NombreJornadas where j.NombreJornadaId == NombreJornada.NombreJornadaId select j).FirstOrDefault();
             return NomJornada;
         }
         #endregion
@@ -1154,5 +1167,135 @@ public PlanEstudioAlumno CrearPlanEstudioAlumno(PlanEstudioAlumno planAlumno, in
         }
         #endregion
 
+
+
+        #region SolicitudDeCupos
+        public SolicitudDeCupo CrearSolicitud(SolicitudDeCupo solicitud,int Estado)
+        {
+            SolicitudDeCupo SolicitudCupo = BuscarPlanEstudioAlumno(solicitud);
+
+            if (SolicitudCupo != null && Estado == 1)
+            {
+
+                //SolicitudCupo.CuposAlumnos = solicitud.CuposAlumnos;
+                //if (solicitud.Observacion == null)
+                //{
+                //    solicitud.Observacion = " ";
+                //}
+                //SolicitudCupo.Observacion = SolicitudCupo.Observacion.Replace(SolicitudCupo.Observacion,solicitud.Observacion);
+                //SolicitudCupo.TotalSemanaPorGrupo = solicitud.TotalSemanaPorGrupo;
+
+                //db.SaveChanges();
+            }
+
+            if (SolicitudCupo == null && Estado == 1 || SolicitudCupo == null && Estado == 0)
+            {
+                SolicitudCupo = new SolicitudDeCupo();
+                SolicitudCupo.AsignaturaId = solicitud.AsignaturaId;
+                SolicitudCupo.CampoClinicoId = solicitud.CampoClinicoId;
+                SolicitudCupo.CarreraCarreraId = solicitud.CarreraCarreraId;
+                SolicitudCupo.CuposAlumnos = solicitud.CuposAlumnos;
+                if (solicitud.Observacion == null)
+                {
+                    solicitud.Observacion = "";
+                }
+                SolicitudCupo.Observacion = solicitud.Observacion;
+                SolicitudCupo.PeriodoPeriodoId = solicitud.PeriodoPeriodoId;
+                SolicitudCupo.SupervisionId = solicitud.SupervisionId;
+                SolicitudCupo.ServicioId = solicitud.ServicioId;
+                SolicitudCupo.TotalSemanaPorGrupo = solicitud.TotalSemanaPorGrupo;
+                db.SolicitudDeCupos.Add(SolicitudCupo);
+                db.SaveChanges();
+                // inmune = null;
+            }
+            else
+            {
+                return SolicitudCupo;
+            }
+
+            return SolicitudCupo;
+        }
+        public SolicitudDeCupo BuscarPlanEstudioAlumno(SolicitudDeCupo solicitud)
+        {
+            SolicitudDeCupo SolicitudCupo = (from s in db.SolicitudDeCupos
+                                             where s.AsignaturaId == solicitud.AsignaturaId &&
+                                             s.CampoClinicoId == solicitud.CampoClinicoId && s.CarreraCarreraId == solicitud.CarreraCarreraId&&
+                                             s.PeriodoPeriodoId==solicitud.PeriodoPeriodoId&&s.ServicioId==solicitud.ServicioId&&
+                                             s.SupervisionId==solicitud.SupervisionId&&s.CuposAlumnos==solicitud.CuposAlumnos&&
+                                             s.TotalSemanaPorGrupo==solicitud.TotalSemanaPorGrupo
+                                             select s).FirstOrDefault();
+            return SolicitudCupo;
+        }
+        #endregion
+
+
+
+        #region supervision
+        public Supervision CrearSupervision(Supervision superv, int Estado)
+        {
+            Supervision supervision = BuscarSupervision(superv);
+
+            if (supervision != null && Estado == 1)
+            {
+                supervision.NombreSupervision = supervision.NombreSupervision.Replace(supervision.NombreSupervision, superv.NombreSupervision);
+            }
+
+            if (supervision == null && Estado == 1 || supervision == null && Estado == 0)
+            {
+                supervision = new Supervision();
+                supervision.NombreSupervision = superv.NombreSupervision;
+
+                db.Supervicions.Add(supervision);
+                db.SaveChanges();
+            }
+            else
+            {
+                return supervision;
+            }
+            return supervision;
+        }
+
+        public Supervision BuscarSupervision(Supervision supervision)
+        {
+            Supervision superv = (from s in db.Supervicions where s.NombreSupervision.ToUpper() == supervision.NombreSupervision.ToUpper() select s).FirstOrDefault();
+
+            return superv;
+        }
+        #endregion
+
+
+
+        #region servicio
+        public Servicio CrearServicio(Servicio serv, int Estado)
+        {
+            Servicio servicio = BuscarServicio(serv);
+
+            if (servicio != null && Estado == 1)
+            {
+                servicio.NombreServicio = servicio.NombreServicio.Replace(servicio.NombreServicio, serv.NombreServicio);
+            }
+
+            if (servicio == null && Estado == 1 || servicio == null && Estado == 0)
+            {
+                servicio = new Servicio();
+                servicio.NombreServicio = serv.NombreServicio;
+
+                db.Servicios.Add(servicio);
+                db.SaveChanges();
+            }
+            else
+            {
+                return servicio;
+            }
+            return servicio;
+        }
+
+        public Servicio BuscarServicio(Servicio serv)
+        {
+            Servicio servicio = (from s in db.Servicios where s.NombreServicio.ToUpper() == serv.NombreServicio.ToUpper() select s).FirstOrDefault();
+
+            return servicio;
+        }
+        #endregion
     }
 }
