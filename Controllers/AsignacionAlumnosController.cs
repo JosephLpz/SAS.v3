@@ -75,6 +75,7 @@ namespace SAS.v1.Controllers
         public ActionResult AsignarAlumno(int AlumnoId)
         {
 
+
             //string Alumnos = Request.Form["Alumnos"];
             return View();
 
