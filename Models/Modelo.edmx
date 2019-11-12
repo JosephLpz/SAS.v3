@@ -36,6 +36,8 @@
     <EntitySet Name="SolicitudDeCupos" EntityType="Modelo.Store.SolicitudDeCupos" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Servicios" EntityType="Modelo.Store.Servicios" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Supervicions" EntityType="Modelo.Store.Supervicions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProyeccionDeCupos" EntityType="Modelo.Store.ProyeccionDeCupos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProyeccionAlumnos" EntityType="Modelo.Store.ProyeccionAlumnos" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CentroFormadorCarrera" Association="Modelo.Store.CentroFormadorCarrera">
       <End Role="CentroFormador" EntitySet="CentroFormadors" />
       <End Role="Carrera" EntitySet="Carreras" />
@@ -191,6 +193,26 @@
     <AssociationSet Name="SolicitudDeCupoAsignatura" Association="Modelo.Store.SolicitudDeCupoAsignatura">
       <End Role="SolicitudDeCupo" EntitySet="SolicitudDeCupos" />
       <End Role="Asignatura" EntitySet="Asignaturas" />
+    </AssociationSet>
+    <AssociationSet Name="ProyeccionDeCupoAsignatura" Association="Modelo.Store.ProyeccionDeCupoAsignatura">
+      <End Role="ProyeccionDeCupo" EntitySet="ProyeccionDeCupos" />
+      <End Role="Asignatura" EntitySet="Asignaturas" />
+    </AssociationSet>
+    <AssociationSet Name="ProyeccionDeCupoCarrera" Association="Modelo.Store.ProyeccionDeCupoCarrera">
+      <End Role="ProyeccionDeCupo" EntitySet="ProyeccionDeCupos" />
+      <End Role="Carrera" EntitySet="Carreras" />
+    </AssociationSet>
+    <AssociationSet Name="ProyeccionDeCupoAnio" Association="Modelo.Store.ProyeccionDeCupoAnio">
+      <End Role="ProyeccionDeCupo" EntitySet="ProyeccionDeCupos" />
+      <End Role="Anio" EntitySet="Anios" />
+    </AssociationSet>
+    <AssociationSet Name="ProyeccionAlumnoProyeccionDeCupo" Association="Modelo.Store.ProyeccionAlumnoProyeccionDeCupo">
+      <End Role="ProyeccionAlumno" EntitySet="ProyeccionAlumnos" />
+      <End Role="ProyeccionDeCupo" EntitySet="ProyeccionDeCupos" />
+    </AssociationSet>
+    <AssociationSet Name="ProyeccionAlumnoAlumno" Association="Modelo.Store.ProyeccionAlumnoAlumno">
+      <End Role="ProyeccionAlumno" EntitySet="ProyeccionAlumnos" />
+      <End Role="Alumno" EntitySet="Alumnos" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Personas">
@@ -464,6 +486,25 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NombreSupervision" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProyeccionDeCupos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AsignaturaId" Type="int" Nullable="false" />
+    <Property Name="CarreraCarreraId" Type="int" Nullable="false" />
+    <Property Name="AnioId" Type="int" Nullable="false" />
+    <Property Name="CuposProyectados" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CuposRestantes" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProyeccionAlumnos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProyeccionDeCupoId" Type="int" Nullable="false" />
+    <Property Name="AlumnoAlumnoId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="CentroFormadorCarrera">
     <End Role="CentroFormador" Type="Modelo.Store.CentroFormadors" Multiplicity="*" />
@@ -933,6 +974,66 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="ProyeccionDeCupoAsignatura">
+    <End Role="ProyeccionDeCupo" Type="Modelo.Store.ProyeccionDeCupos" Multiplicity="*" />
+    <End Role="Asignatura" Type="Modelo.Store.Asignaturas" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Asignatura">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProyeccionDeCupo">
+        <PropertyRef Name="AsignaturaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProyeccionDeCupoCarrera">
+    <End Role="ProyeccionDeCupo" Type="Modelo.Store.ProyeccionDeCupos" Multiplicity="*" />
+    <End Role="Carrera" Type="Modelo.Store.Carreras" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Carrera">
+        <PropertyRef Name="CarreraId" />
+      </Principal>
+      <Dependent Role="ProyeccionDeCupo">
+        <PropertyRef Name="CarreraCarreraId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProyeccionDeCupoAnio">
+    <End Role="ProyeccionDeCupo" Type="Modelo.Store.ProyeccionDeCupos" Multiplicity="*" />
+    <End Role="Anio" Type="Modelo.Store.Anios" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Anio">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProyeccionDeCupo">
+        <PropertyRef Name="AnioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProyeccionAlumnoProyeccionDeCupo">
+    <End Role="ProyeccionAlumno" Type="Modelo.Store.ProyeccionAlumnos" Multiplicity="*" />
+    <End Role="ProyeccionDeCupo" Type="Modelo.Store.ProyeccionDeCupos" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="ProyeccionDeCupo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProyeccionAlumno">
+        <PropertyRef Name="ProyeccionDeCupoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProyeccionAlumnoAlumno">
+    <End Role="ProyeccionAlumno" Type="Modelo.Store.ProyeccionAlumnos" Multiplicity="*" />
+    <End Role="Alumno" Type="Modelo.Store.Alumnos" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Alumno">
+        <PropertyRef Name="AlumnoId" />
+      </Principal>
+      <Dependent Role="ProyeccionAlumno">
+        <PropertyRef Name="AlumnoAlumnoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -1124,6 +1225,28 @@
             <End Role="SolicitudDeCupo" EntitySet="SolicitudDeCupos" />
             <End Role="Asignatura" EntitySet="Asignaturas" />
           </AssociationSet>
+          <EntitySet Name="ProyeccionDeCupos" EntityType="Modelo.ProyeccionDeCupo" />
+          <AssociationSet Name="ProyeccionDeCupoAsignatura" Association="Modelo.ProyeccionDeCupoAsignatura">
+            <End Role="ProyeccionDeCupo" EntitySet="ProyeccionDeCupos" />
+            <End Role="Asignatura" EntitySet="Asignaturas" />
+          </AssociationSet>
+          <AssociationSet Name="ProyeccionDeCupoCarrera" Association="Modelo.ProyeccionDeCupoCarrera">
+            <End Role="ProyeccionDeCupo" EntitySet="ProyeccionDeCupos" />
+            <End Role="Carrera" EntitySet="Carreras" />
+          </AssociationSet>
+          <AssociationSet Name="ProyeccionDeCupoAnio" Association="Modelo.ProyeccionDeCupoAnio">
+            <End Role="ProyeccionDeCupo" EntitySet="ProyeccionDeCupos" />
+            <End Role="Anio" EntitySet="Anios" />
+          </AssociationSet>
+          <EntitySet Name="ProyeccionAlumnos" EntityType="Modelo.ProyeccionAlumno" />
+          <AssociationSet Name="ProyeccionAlumnoProyeccionDeCupo" Association="Modelo.ProyeccionAlumnoProyeccionDeCupo">
+            <End Role="ProyeccionAlumno" EntitySet="ProyeccionAlumnos" />
+            <End Role="ProyeccionDeCupo" EntitySet="ProyeccionDeCupos" />
+          </AssociationSet>
+          <AssociationSet Name="ProyeccionAlumnoAlumno" Association="Modelo.ProyeccionAlumnoAlumno">
+            <End Role="ProyeccionAlumno" EntitySet="ProyeccionAlumnos" />
+            <End Role="Alumno" EntitySet="Alumnos" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Persona">
           <Key>
@@ -1186,6 +1309,7 @@
           <NavigationProperty Name="CentroFormador" Relationship="Modelo.CentroFormadorCarrera" FromRole="Carrera" ToRole="CentroFormador" />
           <NavigationProperty Name="PlanDeEstudio" Relationship="Modelo.PlanDeEstudioCarrera" FromRole="Carrera" ToRole="PlanDeEstudio" />
           <NavigationProperty Name="SolicitudDeCupo" Relationship="Modelo.SolicitudDeCupoCarrera" FromRole="Carrera" ToRole="SolicitudDeCupo" />
+          <NavigationProperty Name="ProyeccionDeCupo" Relationship="Modelo.ProyeccionDeCupoCarrera" FromRole="Carrera" ToRole="ProyeccionDeCupo" />
         </EntityType>
         <EntityType Name="NombreJornada">
           <Key>
@@ -1363,6 +1487,7 @@
           <NavigationProperty Name="ImunizacionAlumno" Relationship="Modelo.ImunizacionAlumnoAlumno" FromRole="Alumno" ToRole="ImunizacionAlumno" />
           <NavigationProperty Name="CursoAlumno" Relationship="Modelo.CursoAlumnoAlumno" FromRole="Alumno" ToRole="CursoAlumno" />
           <NavigationProperty Name="PlanEstudioAlumno" Relationship="Modelo.PlanEstudioAlumnoAlumno" FromRole="Alumno" ToRole="PlanEstudioAlumno" />
+          <NavigationProperty Name="ProyeccionAlumno" Relationship="Modelo.ProyeccionAlumnoAlumno" FromRole="Alumno" ToRole="ProyeccionAlumno" />
         </EntityType>
         <Association Name="AlumnoPersona">
           <End Type="Modelo.Alumno" Role="Alumno" Multiplicity="*" />
@@ -1469,6 +1594,7 @@
           <Property Name="CodigoAsignatura" Type="String" Nullable="false" />
           <NavigationProperty Name="PlanDeEstudio" Relationship="Modelo.PlanDeEstudioAsignatura" FromRole="Asignatura" ToRole="PlanDeEstudio" />
           <NavigationProperty Name="SolicitudDeCupo" Relationship="Modelo.SolicitudDeCupoAsignatura" FromRole="Asignatura" ToRole="SolicitudDeCupo" />
+          <NavigationProperty Name="ProyeccionDeCupo" Relationship="Modelo.ProyeccionDeCupoAsignatura" FromRole="Asignatura" ToRole="ProyeccionDeCupo" />
         </EntityType>
         <EntityType Name="Semestre">
           <Key>
@@ -1511,6 +1637,7 @@
           <Property Name="Ano" Type="String" Nullable="false" />
           <NavigationProperty Name="CampoClinicoAlumno" Relationship="Modelo.CampoClinicoAlumnoAnio" FromRole="Anio" ToRole="CampoClinicoAlumno" />
           <NavigationProperty Name="PlanDeEstudio" Relationship="Modelo.PlanDeEstudioAnio" FromRole="Anio" ToRole="PlanDeEstudio" />
+          <NavigationProperty Name="ProyeccionDeCupo" Relationship="Modelo.ProyeccionDeCupoAnio" FromRole="Anio" ToRole="ProyeccionDeCupo" />
         </EntityType>
         <Association Name="CampoClinicoAlumnoAnio">
           <End Type="Modelo.CampoClinicoAlumno" Role="CampoClinicoAlumno" Multiplicity="*" />
@@ -1966,6 +2093,91 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ProyeccionDeCupo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Asignatura" Relationship="Modelo.ProyeccionDeCupoAsignatura" FromRole="ProyeccionDeCupo" ToRole="Asignatura" />
+          <Property Name="AsignaturaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Carrera" Relationship="Modelo.ProyeccionDeCupoCarrera" FromRole="ProyeccionDeCupo" ToRole="Carrera" />
+          <Property Name="CarreraCarreraId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Anio" Relationship="Modelo.ProyeccionDeCupoAnio" FromRole="ProyeccionDeCupo" ToRole="Anio" />
+          <Property Name="AnioId" Type="Int32" Nullable="false" />
+          <Property Name="CuposProyectados" Type="String" Nullable="false" />
+          <Property Name="CuposRestantes" Type="String" Nullable="false" />
+          <NavigationProperty Name="ProyeccionAlumno" Relationship="Modelo.ProyeccionAlumnoProyeccionDeCupo" FromRole="ProyeccionDeCupo" ToRole="ProyeccionAlumno" />
+        </EntityType>
+        <Association Name="ProyeccionDeCupoAsignatura">
+          <End Type="Modelo.ProyeccionDeCupo" Role="ProyeccionDeCupo" Multiplicity="*" />
+          <End Type="Modelo.Asignatura" Role="Asignatura" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProyeccionDeCupo">
+              <PropertyRef Name="AsignaturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProyeccionDeCupoCarrera">
+          <End Type="Modelo.ProyeccionDeCupo" Role="ProyeccionDeCupo" Multiplicity="*" />
+          <End Type="Modelo.Carrera" Role="Carrera" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Carrera">
+              <PropertyRef Name="CarreraId" />
+            </Principal>
+            <Dependent Role="ProyeccionDeCupo">
+              <PropertyRef Name="CarreraCarreraId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProyeccionDeCupoAnio">
+          <End Type="Modelo.ProyeccionDeCupo" Role="ProyeccionDeCupo" Multiplicity="*" />
+          <End Type="Modelo.Anio" Role="Anio" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Anio">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProyeccionDeCupo">
+              <PropertyRef Name="AnioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProyeccionAlumno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ProyeccionDeCupo" Relationship="Modelo.ProyeccionAlumnoProyeccionDeCupo" FromRole="ProyeccionAlumno" ToRole="ProyeccionDeCupo" />
+          <Property Name="ProyeccionDeCupoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Alumno" Relationship="Modelo.ProyeccionAlumnoAlumno" FromRole="ProyeccionAlumno" ToRole="Alumno" />
+          <Property Name="AlumnoAlumnoId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="ProyeccionAlumnoProyeccionDeCupo">
+          <End Type="Modelo.ProyeccionAlumno" Role="ProyeccionAlumno" Multiplicity="*" />
+          <End Type="Modelo.ProyeccionDeCupo" Role="ProyeccionDeCupo" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="ProyeccionDeCupo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProyeccionAlumno">
+              <PropertyRef Name="ProyeccionDeCupoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProyeccionAlumnoAlumno">
+          <End Type="Modelo.ProyeccionAlumno" Role="ProyeccionAlumno" Multiplicity="*" />
+          <End Type="Modelo.Alumno" Role="Alumno" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="AlumnoId" />
+            </Principal>
+            <Dependent Role="ProyeccionAlumno">
+              <PropertyRef Name="AlumnoAlumnoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2271,6 +2483,27 @@
         <MappingFragment StoreEntitySet="Supervicions">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="NombreSupervision" ColumnName="NombreSupervision" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProyeccionDeCupos">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.ProyeccionDeCupo)">
+        <MappingFragment StoreEntitySet="ProyeccionDeCupos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AsignaturaId" ColumnName="AsignaturaId" />
+          <ScalarProperty Name="CarreraCarreraId" ColumnName="CarreraCarreraId" />
+          <ScalarProperty Name="AnioId" ColumnName="AnioId" />
+          <ScalarProperty Name="CuposProyectados" ColumnName="CuposProyectados" />
+          <ScalarProperty Name="CuposRestantes" ColumnName="CuposRestantes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProyeccionAlumnos">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.ProyeccionAlumno)">
+        <MappingFragment StoreEntitySet="ProyeccionAlumnos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProyeccionDeCupoId" ColumnName="ProyeccionDeCupoId" />
+          <ScalarProperty Name="AlumnoAlumnoId" ColumnName="AlumnoAlumnoId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

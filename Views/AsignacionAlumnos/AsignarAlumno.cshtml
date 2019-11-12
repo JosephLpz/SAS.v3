@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "Asignar Alumno";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AsignarAlumno</title>
+</head>
+<body>
+    <div> 
+        @using (Html.BeginForm())
+        {
+
+            <fieldset>
+                <legend>Docente Guía</legend>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Rut
+                    </dt>
+                    <dd>
+                        @ViewBag.Alumno.Persona.Rut-@ViewBag.Alumno.Persona.Dv
+                    </dd>
+                    <dt>
+                        Nombre
+                    </dt>
+                    <dd>
+                        @ViewBag.Alumno.Persona.Nombre
+                    </dd>
+                    <dt>
+                        Apellidos
+                    </dt>
+                    <dd>
+                        @ViewBag.Alumno.Persona.ApPaterno
+                    </dd>
+                    <dt>
+                        Carrera
+                    </dt>
+                    <dd>
+                        @ViewBag.Alumno.CentroFormador.Carrera.NombreCarrera
+                    </dd>
+                    <dt>
+                        Observaciones
+                    </dt>
+                    <dd>
+                        @ViewBag.Alumno.Observaciones
+                    </dd>
+                </dl>
+
+            </fieldset>
+            <div class="form-group">
+                <label for="Carrera-name" class="col-form-label">Profesor Supervisor:</label>
+                @Html.DropDownList("ProfesorSupervisor", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+
+
+            <div class="form-group">
+                <label for="Carrera-name" class="col-form-label">Profesor Guia:</label>
+                @Html.DropDownList("ProfesorGuia", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label for="Carrera-name" class="col-form-label">Semestre:</label>
+                @Html.DropDownList("Semestre", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+
+
+            <div class="form-group">
+                <label for="Carrera-name" class="col-form-label">Año:</label>
+                @Html.DropDownList("Ano", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+
+            <h4>Dias</h4>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="check" id="inlineCheckbox1" value="Lunes">
+                <label class="form-check-label" for="inlineCheckbox1">Lunes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="check" id="inlineCheckbox2" value="Martes">
+                <label class="form-check-label" for="inlineCheckbox2">Martes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="check" id="inlineCheckbox3" value="Miercoles">
+                <label class="form-check-label" for="inlineCheckbox3">Miercoles</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="check" id="inlineCheckbox3" value="Jueves">
+                <label class="form-check-label" for="inlineCheckbox3">Jueves</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="check" id="inlineCheckbox3" value="Viernes">
+                <label class="form-check-label" for="inlineCheckbox3">Viernes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="check" id="inlineCheckbox3" value="Sabado">
+                <label class="form-check-label" for="inlineCheckbox3">Sabado</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="check" id="inlineCheckbox3" value="Domingo">
+                <label class="form-check-label" for="inlineCheckbox3">Domingo</label>
+            </div>
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                Asingar
+            </button>
+
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Alerta</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Estas seguro de Guardar?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <input type="submit" class="btn btn-primary" value="Asignar" />
+                            @*<button type="button" class="btn btn-primary">Asignar</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+</div>
+</body>
+</html>
+
+<script>
+    $('#exampleModalCenter').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('New message to ' + recipient)
+        modal.find('.modal-body input').val(recipient)
+    })
+</script>

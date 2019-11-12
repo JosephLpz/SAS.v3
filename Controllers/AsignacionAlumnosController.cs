@@ -55,30 +55,80 @@ namespace SAS.v1.Controllers
 
             ViewBag.ProfesorSupervisor = ProfSup;
             ViewBag.ProfesorGuia = ProfGuia;
-
+            ViewBag.Solicitud = sol.Id;
             List<Alumno> alumnos = db.Alumnos.Include(p => p.Persona).Where(p => p.CentroFormador.Carrera.CarreraId == sol.CarreraCarreraId).ToList();
 
 
-            //List<AlumnosNP> Alumnos = new List<AlumnosNP>();
-            //foreach (var item in db.Alumnos.Include(p => p.Persona).Where(p=>p.CentroFormador.Carrera.CarreraId==sol.CarreraCarreraId).ToList())
-            //{
-            //    AlumnosNP al = new AlumnosNP();
-            //    al.alumnos = item;
-            //    al.check = false;
-                
-            //    Alumnos.Add(al);
-            //}
+            
             return View(alumnos);
         }
 
      
-        public ActionResult AsignarAlumno(int AlumnoId)
+        public ActionResult AsignarAlumno(int AlumnoId, int Solicitud)
         {
+            Alumno alumno = db.Alumnos.Include(p=>p.Persona).Where(a => a.AlumnoId == AlumnoId).FirstOrDefault();
+            ViewBag.Alumno = alumno;
+            ViewBag.AlumnoId = alumno.AlumnoId;
+            IngresoServices ingreso = new IngresoServices();
 
+            List<SelectListItem> ProfGuia = new List<SelectListItem>();
+            List<SelectListItem> ProfSup = new List<SelectListItem>();
+            Persona person;
+            foreach (var item in db.ProfesionalDocenteGuias)
+            {
+                person = new Persona();
+                person = ingreso.PersonaFindById(item.PersonaPersonaId);
 
-            //string Alumnos = Request.Form["Alumnos"];
+                ProfGuia.Add(new SelectListItem
+                {
+                    Text = person.Nombre.ToString() + person.ApPaterno.ToString(),
+                    Value = item.ProfesionalDocenteGuiaId.ToString()
+                });
+            }
+
+            foreach (var item in db.ProfesionalSupervisorSet)
+            {
+                person = new Persona();
+                person = ingreso.PersonaFindById(item.PersonaPersonaId);
+
+                ProfSup.Add(new SelectListItem
+                {
+                    Text = person.Nombre.ToString() + person.ApPaterno.ToString(),
+                    Value = item.ProfesionalSupervisorId.ToString()
+                });
+            }
+
+            ViewBag.ProfesorSupervisor = ProfSup;
+            ViewBag.ProfesorGuia = ProfGuia;
+            ViewBag.Solicitud = Solicitud;
+
+            ViewBag.Semestre = new SelectList(db.Semestres, "Id", "NombreSemestre");
+            ViewBag.Ano = new SelectList(db.Anios, "Id", "Ano");
             return View();
 
+        }
+        [HttpPost]
+        public ActionResult AsignarAlumno(string[]check, string ProfesorSupervisor, string ProfesorGuia, int Solicitud,int AlumnoId,int Semestre, int Ano)
+        {
+            IngresoServices ingreso = new IngresoServices();
+            int profesorGuiaId = Int32.Parse(ProfesorGuia);
+            int profesorSupervisorId = Int32.Parse(ProfesorSupervisor);
+            ProfesionalDocenteGuia DocenteGuia = db.ProfesionalDocenteGuias.Include(p=>p.Persona).Where(p => p.ProfesionalDocenteGuiaId== profesorGuiaId).FirstOrDefault();
+            ProfesionalSupervisor DocenteSupervisor = db.ProfesionalSupervisorSet.Include(p => p.Persona).Where(p => p.ProfesionalSupervisorId == profesorSupervisorId).FirstOrDefault();
+            SolicitudDeCupo SolicitudCupo = db.SolicitudDeCupos.Where(s => s.Id == Solicitud).FirstOrDefault();
+            Alumno alumno = db.Alumnos.Include(p => p.Persona).Where(a => a.AlumnoId == AlumnoId).FirstOrDefault();
+            Anio anio = db.Anios.Where(a => a.Id == Ano).FirstOrDefault();
+            Semestre semestre = db.Semestres.Where(s => s.Id == Semestre).FirstOrDefault();
+
+           CampoClinicoAlumno campoClinico= ingreso.CrearCampoClinicoAlumno(alumno, DocenteGuia, DocenteSupervisor, SolicitudCupo.Periodo, SolicitudCupo.Asignatura, semestre, anio, SolicitudCupo.CampoClinico);
+           
+                foreach(var result in check)
+                {                  
+                        ingreso.CrearCampoClinicoAlumnosDias(campoClinico,result);               
+                }
+            
+      
+            return Redirect("Index?SolicitudId="+Solicitud);
         }
         // GET: AsignacionAlumnos/Details/5
         public ActionResult Details(int id)

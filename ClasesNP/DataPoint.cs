@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAS.v1.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -20,6 +21,7 @@ namespace SAS.v1.ClasesNP
             {
                 this.Label = label;
                 this.Y = y;
+          
             }
 
             //Explicitly setting the name to be used while serializing to JSON.
@@ -29,6 +31,7 @@ namespace SAS.v1.ClasesNP
             //Explicitly setting the name to be used while serializing to JSON.
             [DataMember(Name = "y")]
             public Nullable<int> Y = null;
-        
+
+          
     }
 }

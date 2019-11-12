@@ -20,6 +20,7 @@ namespace SAS.v1.Models
             this.CentroFormador = new HashSet<CentroFormador>();
             this.PlanDeEstudio = new HashSet<PlanDeEstudio>();
             this.SolicitudDeCupo = new HashSet<SolicitudDeCupo>();
+            this.ProyeccionDeCupo = new HashSet<ProyeccionDeCupo>();
         }
     
         public int CarreraId { get; set; }
@@ -31,5 +32,7 @@ namespace SAS.v1.Models
         public virtual ICollection<PlanDeEstudio> PlanDeEstudio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SolicitudDeCupo> SolicitudDeCupo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProyeccionDeCupo> ProyeccionDeCupo { get; set; }
     }
 }

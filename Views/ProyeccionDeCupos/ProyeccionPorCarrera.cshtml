@@ -14,6 +14,7 @@
     <div>
         <form class="form-inline" method="POST">
             @Html.DropDownList("CarreraId", (SelectList)ViewBag.CarreraId, htmlAttributes: new { @class = "form-control" })
+            @Html.DropDownList("AnioId", null, htmlAttributes: new { @class = "form-control" })
             <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
 

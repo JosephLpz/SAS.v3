@@ -42,7 +42,6 @@ namespace SAS.v1.Models
         public virtual CampoClinico CampoClinico { get; set; }
         public virtual ProfesionalDocenteGuia ProfesionalDocenteGuia { get; set; }
 
-
         public virtual string Dias
         {
             get

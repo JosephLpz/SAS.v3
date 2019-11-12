@@ -12,24 +12,25 @@ namespace SAS.v1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Anio
+    public partial class ProyeccionDeCupo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Anio()
+        public ProyeccionDeCupo()
         {
-            this.CampoClinicoAlumno = new HashSet<CampoClinicoAlumno>();
-            this.PlanDeEstudio = new HashSet<PlanDeEstudio>();
-            this.ProyeccionDeCupo = new HashSet<ProyeccionDeCupo>();
+            this.ProyeccionAlumno = new HashSet<ProyeccionAlumno>();
         }
     
         public int Id { get; set; }
-        public string Ano { get; set; }
+        public int AsignaturaId { get; set; }
+        public int CarreraCarreraId { get; set; }
+        public int AnioId { get; set; }
+        public string CuposProyectados { get; set; }
+        public string CuposRestantes { get; set; }
     
+        public virtual Asignatura Asignatura { get; set; }
+        public virtual Carrera Carrera { get; set; }
+        public virtual Anio Anio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CampoClinicoAlumno> CampoClinicoAlumno { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanDeEstudio> PlanDeEstudio { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProyeccionDeCupo> ProyeccionDeCupo { get; set; }
+        public virtual ICollection<ProyeccionAlumno> ProyeccionAlumno { get; set; }
     }
 }

@@ -42,10 +42,15 @@
         @using (Html.BeginForm("Index", "CargarPlanEstudios", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
 
-            <p>Carrera:</p>
-            <input class="form-control" type="text" name="carrera" />
-            <p>Año:</p>
-            <input class="form-control" type="text" name="Anio" />
+            <div class="form-group">
+                <label for="Carrera-name" class="col-form-label">Carrera:</label>
+                @Html.DropDownList("CarreraId", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label for="Carrera-name" class="col-form-label">Año:</label>
+                @Html.DropDownList("AnioId", null, htmlAttributes: new { @class = "form-control" })
+            </div>
             <p>Nombre Hoja:</p>
             <input class="form-control" type="text" name="NombreHoja" />
             <input type="file" name="archivo" class="form-control-file" /><br />

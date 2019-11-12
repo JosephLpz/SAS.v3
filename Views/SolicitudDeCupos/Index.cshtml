@@ -70,7 +70,7 @@
                                     <div class="panel-body">
                       
 
-                                        <p>@Html.ActionLink("Nueva Solicitud", "Modal", new { index = i, DataPoint = Json.Encode(@ViewBag.DataPoint) }, null)</p>
+                                        <p>@Html.ActionLink("Nueva Solicitud", "Modal", new { index = i, DataPoint = Json.Encode(@ViewBag.DataPoint),CarreraId=ViewBag.CarreraId }, new { @class = "btn btn - default" })</p>
                                                                  
                                             <table>
 
@@ -152,7 +152,6 @@
                                                            @result.Observacion
                                                         </td>
                                                         <td>@Html.ActionLink("Asignar Alumnos", "Index", "AsignacionAlumnos", new { SolicitudId = result.Id },null)
-                                                        <button class="btn btn-primary" id="AsignarAl">Asignar alumnos</button>
                                                         </td>
 
                                                     </tr>

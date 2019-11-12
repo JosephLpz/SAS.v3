@@ -1,4 +1,6 @@
-﻿@{
+﻿
+
+@{
     ViewBag.Title = "Proyeccion por Carrera";
 }
 
@@ -23,7 +25,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	data: [{
 		type: "bar",
 		indexLabel: "{y}",
-		dataPoints: @Html.Raw(ViewBag.DataPoints),
+		dataPoints: @Html.Raw(@ViewBag.DataPoints),
 	    click:onClick}]
 });
 chart.render();
@@ -34,7 +36,11 @@ chart.render();
 <body>
     <h1>Proyeccion de cupos</h1>
     <h2 style="color:#444444"> Total Cupos= @ViewBag.TotalCupos</h2>
-    <H4>@Html.ActionLink("Crear Solicitud", "Index", "SolicitudDeCupos", new { Data= Json.Encode(@ViewBag.data)}, null)</H4>
+    @*<H4>@Html.ActionLink("Crear Solicitud", "Index", "SolicitudDeCupos", new { Data= Json.Encode(@ViewBag.data)}, null)</H4>*@
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        CrearSolicitud
+    </button>
+
     <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 
 
@@ -54,7 +60,7 @@ chart.render();
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                       @Html.ActionLink("Crear Solicitud", "GuardarProyeccion", "ProyeccionDeCupos", new { Data = Json.Encode(@ViewBag.data),AnioId = ViewBag.AnioId,CarreraId = ViewBag.Carrera }, new {@class= "btn btn-primary" })
                     </div>
                 </div>
             </div>

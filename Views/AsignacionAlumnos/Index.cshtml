@@ -18,6 +18,9 @@
 <body>
 @*@using (Html.BeginForm("Index", "AsignacionAlumnos",new { cambio=ViewBag.cambio }, FormMethod.Post,null))
 {*@
+
+
+
     <form class="form-inline" method="POST">
 
         <div>
@@ -26,33 +29,33 @@
                     <tr>
                         
                         <th>
-                            @*@Html.DisplayNameFor(model => model.alumnos.Persona.Rut)*@
-                            Rut
+                            @Html.DisplayNameFor(model => model.Persona.Rut)
+                           
                         </th>
                         <th>
-                            @*@Html.DisplayNameFor(model => model.alumnos.Persona.Dv)*@
-                            DV
+                            @Html.DisplayNameFor(model => model.Persona.Dv)
+                      
                         </th>
                         <th>
-                            @*@Html.DisplayNameFor(model => model.alumnos.Persona.Nombre)*@
-                            Nombre
+                         @Html.DisplayNameFor(model => model.Persona.Nombre)
+                            
                         </th>
                         <th>
-                            @*@Html.DisplayNameFor(model => model.alumnos.Persona.ApPaterno)*@
-                            ApPaterno
+                          @Html.DisplayNameFor(model => model.Persona.ApPaterno)
+                            
                         </th>
                         <th>
-                            @*@Html.DisplayNameFor(model => model.alumnos.Persona.ApMaterno)*@
-                            ApMaterno
+                            @Html.DisplayNameFor(model => model.Persona.ApMaterno)
+                            
                         </th>
                         <th>
-                            @*@Html.DisplayNameFor(model => model.alumnos.cursoNivel)*@
-                            Curso
+                            @Html.DisplayNameFor(model => model.cursoNivel)
+                          
                         </th>
 
                         <th>
-                            @*@Html.DisplayNameFor(model => model.alumnos.CentroFormador.Carrera.NombreCarrera)*@
-                            Carrera
+                            @Html.DisplayNameFor(model => model.CentroFormador.Carrera.NombreCarrera)
+                            
                         </th>
                         <th>
                             Imnunización
@@ -101,91 +104,16 @@
                                 }
                             </td>
                             <td>
-                                @Html.ActionLink("Asignar Alumnos", "AsignarAlumno", "AsignacionAlumnos",new { AlumnoId = item.AlumnoId},new {@class= "btn btn-default" })
+                                @Html.ActionLink("Asignar Alumnos", "AsignarAlumno", "AsignacionAlumnos",new { AlumnoId = item.AlumnoId,Solicitud=@ViewBag.Solicitud },new {@class= "btn btn-default" })
+                                <button type="button" class="btn btn-default" id="btnAsignar" onclick="Asig" >asignar</button>
                             </td>
 
                         </tr>
                     }
                 </tbody>
             </table>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eModal">
-                Asignar Alumnos
-            </button>
 
-            <div class="modal" tabindex="-1" role="dialog" id="eModal">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Asignacion alumnos</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="form-group">
-                                <label for="Carrera-name" class="col-form-label">Profesor Supervisor:</label>
-                                @Html.DropDownList("ProfesorSupervisor", null, htmlAttributes: new { @class = "form-control" })
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="Carrera-name" class="col-form-label">Profesor Guia:</label>
-                                @Html.DropDownList("ProfesorGuia", null, htmlAttributes: new { @class = "form-control" })
-                            </div>
-
-                            <p>Dias</p>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Lunes">
-                                <label class="form-check-label" for="inlineCheckbox1">Lunes</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="Martes">
-                                <label class="form-check-label" for="inlineCheckbox2">Martes</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Miercoles">
-                                <label class="form-check-label" for="inlineCheckbox3">Miercoles</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Jueves">
-                                <label class="form-check-label" for="inlineCheckbox3">Jueves</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Viernes">
-                                <label class="form-check-label" for="inlineCheckbox3">Viernes</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Sabado">
-                                <label class="form-check-label" for="inlineCheckbox3">Sabado</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Domingo">
-                                <label class="form-check-label" for="inlineCheckbox3">Domingo</label>
-                            </div>
-
-
-                        </div>
-                        @*<div>@Html.ActionLink("Asignar", "Asignar", "AsignacionAlumnos", new { model = Model }, null)</div>*@
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Asignar alumnos" class="btn btn-default" id="AsAlumnos" />
-                                    @*<button type="button" value="Asignar alumnos" class="btn btn-default" id="AsAlumnos" onclick="AsignarAl()"></button>*@
-                                </div>
-                            </div>
-                            @*<button type="button" class="btn btn-primary" onclick="AsignarAl()">
-                                    Asignar Alumnos
-                                </button>*@
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
+           
         </div>
         </form>
         @*}*@
@@ -229,10 +157,7 @@
     })
 </script>
 <script>
-    $('AsAlumnos').click(function () {
-        alert("click")
-        @{ 
-            ViewBag.cambio = "Si Cambio";
-        }
-    });
+    function Asig() {
+        alert("click");
+    }
 </script>

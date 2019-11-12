@@ -12,6 +12,8 @@ namespace SAS.v1.Controllers
 {
     public class CargarAsignaturasController : Controller
     {
+        private ModeloContainer db = new ModeloContainer();
+
         // GET: CargarAsignaturas
         [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         [HttpGet]
@@ -19,22 +21,25 @@ namespace SAS.v1.Controllers
         {
             ViewBag.showSuccessAlert = false;
             ViewBag.EstadoDeProceso = false;
+            ViewBag.CarreraId = new SelectList(db.Carreras, "NombreCarrera", "NombreCarrera");
+
             return View();
         }
 
         [HttpPost]
         [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
-        public ActionResult Index(HttpPostedFileBase archivo, string NombreHoja, string carrera)
+        public ActionResult Index(HttpPostedFileBase archivo, string NombreHoja, string CarreraId)
         {
             if (archivo != null && archivo.ContentLength > 0)
             {
-                CargarArchivo(archivo,NombreHoja,carrera);
+                CargarArchivo(archivo,NombreHoja, CarreraId);
                 ViewBag.showSuccessAlert = false;
             }
             else
             {
                 ViewBag.showSuccessAlert = true;
             }
+            ViewBag.CarreraId = new SelectList(db.Carreras, "NombreCarrera", "NombreCarrera");
 
             return View();
         }

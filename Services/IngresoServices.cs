@@ -873,6 +873,12 @@ namespace SAS.v1.Services
 
             return anio;
         }
+        public Anio AnioFindById(Anio Ano)
+        {
+            Anio anio = db.Anios.Where(a => a.Id == Ano.Id).FirstOrDefault();
+
+            return anio;
+        }
         #endregion
 
         #region AsignaturasAlumnos
@@ -1295,6 +1301,77 @@ public PlanEstudioAlumno CrearPlanEstudioAlumno(PlanEstudioAlumno planAlumno, in
             Servicio servicio = (from s in db.Servicios where s.NombreServicio.ToUpper() == serv.NombreServicio.ToUpper() select s).FirstOrDefault();
 
             return servicio;
+        }
+        #endregion
+
+        #region Proyeccion cupo
+
+        public ProyeccionDeCupo CrearProyeccion(ProyeccionDeCupo proyeccionDeCupo,int Estado)
+        {
+            ProyeccionDeCupo proyeccion= BuscarProyeccion(proyeccionDeCupo);
+            if(proyeccion != null && Estado == 1)
+            {
+                proyeccion.CuposProyectados = proyeccionDeCupo.CuposProyectados;
+                proyeccion.CuposRestantes = proyeccionDeCupo.CuposRestantes;
+            }
+            else if(proyeccion==null&&Estado==1 || proyeccion == null && Estado == 0)
+            {
+                proyeccion = new ProyeccionDeCupo();
+                proyeccion.AsignaturaId = proyeccionDeCupo.AsignaturaId;
+                proyeccion.CarreraCarreraId = proyeccionDeCupo.CarreraCarreraId;
+                proyeccion.AnioId = proyeccionDeCupo.AnioId;
+                proyeccion.CuposProyectados = proyeccionDeCupo.CuposProyectados;
+                proyeccion.CuposRestantes = proyeccionDeCupo.CuposRestantes;
+                db.ProyeccionDeCupos.Add(proyeccion);
+                db.SaveChanges();
+            }else
+            {
+
+            return proyeccion;
+
+            }
+            return proyeccion;
+        }
+        public ProyeccionDeCupo BuscarProyeccion(ProyeccionDeCupo proyeccionDeCupo)
+        {
+            ProyeccionDeCupo proyeccion = (from p in db.ProyeccionDeCupos
+                                           where p.AnioId == proyeccionDeCupo.AnioId && p.CarreraCarreraId == proyeccionDeCupo.CarreraCarreraId &&
+                                            p.AsignaturaId == proyeccionDeCupo.AsignaturaId select p).FirstOrDefault();
+
+                return proyeccion;
+        }
+        public ProyeccionDeCupo ProyeccionFindById(int proyeccionId)
+        {
+
+            ProyeccionDeCupo proyeccion = db.ProyeccionDeCupos.Where(p => p.Id == proyeccionId).FirstOrDefault();
+
+            return proyeccion;
+        }
+        #endregion
+
+
+        #region ProyeccionAlumno
+
+        public ProyeccionAlumno CrearProyeccionAlumno(ProyeccionAlumno proyeccion,int Estado)
+        {
+            ProyeccionAlumno proyeccionAlumno = BuscarProyeccionAlumno(proyeccion);
+            if (proyeccionAlumno != null && Estado == 1)
+            {
+                 proyeccionAlumno = new ProyeccionAlumno();
+                proyeccionAlumno.AlumnoAlumnoId = proyeccion.AlumnoAlumnoId;
+                proyeccionAlumno.ProyeccionDeCupoId = proyeccion.ProyeccionDeCupoId;
+                db.ProyeccionAlumnos.Add(proyeccionAlumno);
+                db.SaveChanges();
+            }
+           
+            return proyeccion;
+        }
+
+        public ProyeccionAlumno BuscarProyeccionAlumno(ProyeccionAlumno proyeccion)
+        {
+            ProyeccionAlumno proyeccionAlumno = db.ProyeccionAlumnos.Where(p => p.AlumnoAlumnoId == proyeccion.AlumnoAlumnoId && p.ProyeccionDeCupoId == proyeccion.ProyeccionDeCupoId).FirstOrDefault();
+
+            return proyeccionAlumno;
         }
         #endregion
     }

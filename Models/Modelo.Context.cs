@@ -55,5 +55,7 @@ namespace SAS.v1.Models
         public virtual DbSet<SolicitudDeCupo> SolicitudDeCupos { get; set; }
         public virtual DbSet<Servicio> Servicios { get; set; }
         public virtual DbSet<Supervision> Supervicions { get; set; }
+        public virtual DbSet<ProyeccionDeCupo> ProyeccionDeCupos { get; set; }
+        public virtual DbSet<ProyeccionAlumno> ProyeccionAlumnos { get; set; }
     }
 }

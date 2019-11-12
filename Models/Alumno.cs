@@ -14,7 +14,6 @@ namespace SAS.v1.Models
     
     public partial class Alumno
     {
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Alumno()
         {
@@ -22,13 +21,14 @@ namespace SAS.v1.Models
             this.ImunizacionAlumno = new HashSet<InmunizacionAlumno>();
             this.CursoAlumno = new HashSet<CursoAlumno>();
             this.PlanEstudioAlumno = new HashSet<PlanEstudioAlumno>();
+            this.ProyeccionAlumno = new HashSet<ProyeccionAlumno>();
         }
-
+    
         public int AlumnoId { get; set; }
         public string Observaciones { get; set; }
         public int PersonaPersonaId { get; set; }
         public int CentroFormadorCentroFormadorId { get; set; }
-
+    
         public virtual Persona Persona { get; set; }
         public virtual CentroFormador CentroFormador { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -39,6 +39,8 @@ namespace SAS.v1.Models
         public virtual ICollection<CursoAlumno> CursoAlumno { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanEstudioAlumno> PlanEstudioAlumno { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProyeccionAlumno> ProyeccionAlumno { get; set; }
 
         public virtual string cursoNivel
         {
@@ -47,16 +49,16 @@ namespace SAS.v1.Models
             {
                 int curso = -1;
                 int NCurso;
-                foreach(var item in CursoAlumno)
+                foreach (var item in CursoAlumno)
                 {
-                   NCurso = Int32.Parse(item.CursoNivel.NombreCurso.Substring(0, 1));
+                    NCurso = Int32.Parse(item.CursoNivel.NombreCurso.Substring(0, 1));
 
                     if (curso < NCurso)
                     {
                         curso = NCurso;
                     }
                 }
-                return curso +" "+"Año";
+                return curso + " " + "Año";
             }
         }
     }

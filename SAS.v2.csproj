@@ -647,6 +647,7 @@
     <Compile Include="ClasesNP\AlumnoNP.cs" />
     <Compile Include="ClasesNP\ColoresNP.cs" />
     <Compile Include="ClasesNP\DataPoint.cs" />
+    <Compile Include="ClasesNP\DataPointAlumno.cs" />
     <Compile Include="ClasesNP\DocenteGuiaCamposClinicos.cs" />
     <Compile Include="ClasesNP\Estado.cs" />
     <Compile Include="ClasesNP\InstitucionNP.cs" />
@@ -824,6 +825,12 @@
     <Compile Include="Models\ProfesionalSupervisor.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProyeccionAlumno.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProyeccionDeCupo.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Semestre.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -945,6 +952,7 @@
     <Content Include="Views\SolicitudDeCupos\Modal.cshtml" />
     <Content Include="Views\SolicitudDeCupos\IndexPost.cshtml" />
     <Content Include="Views\AsignacionAlumnos\Index.cshtml" />
+    <Content Include="Views\AsignacionAlumnos\AsignarAlumno.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

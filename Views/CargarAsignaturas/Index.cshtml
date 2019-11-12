@@ -35,8 +35,10 @@
 {
         <p>Nombre Hoja Excel:</p>
         <input class="form-control" type="text" name="NombreHoja" />
-        <p>Carrera:</p>
-        <input class="form-control" type="text" name="carrera" />
+        <div class="form-group">
+            <label for="Carrera-name" class="col-form-label">Carrera:</label>
+            @Html.DropDownList("CarreraId", null, htmlAttributes: new { @class = "form-control" })
+        </div>
 
         <input  type="file" name="archivo" class="form-control-file" /><br />
         <br />
