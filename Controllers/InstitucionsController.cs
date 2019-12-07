@@ -46,6 +46,7 @@ namespace SAS.v1.Controllers
             //    return HttpNotFound();
             //}
             InstitucionServices institucion = new InstitucionServices();
+
             return View(institucion.BuscarCampoClinico(id));
         }
 
@@ -53,7 +54,7 @@ namespace SAS.v1.Controllers
         public ActionResult DetallesUnidadServicio(int? id)
         {
             //UnidadDeServicioServices unidadServicio = new UnidadDeServicioServices();
-            CampoClinico Campos = db.CampoClinicos.Find(id);
+            NombreCampoClinico Campos = db.NombreCampoClinicoSet.Find(id);
             return View(Campos);
         }
         //public ActionResult UnidadServicioAlumnos(int id)

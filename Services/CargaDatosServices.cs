@@ -44,7 +44,7 @@ namespace SAS.v1.Services
                         DocenciaHospitalaria DocHospitalaria = new DocenciaHospitalaria();
                         Institucion institucion = new Institucion();
                         NombreCampoClinico NCampo = new NombreCampoClinico();
-                        CampoClinico Campo = new CampoClinico();
+                   
                         // NombreUnidadDeServicio NUnidadDeServicio = new NombreUnidadDeServicio();
                         CampoClinicoAlumno CampoAlumnos = new CampoClinicoAlumno();
                         IngresoServices ingreso = new IngresoServices();
@@ -208,8 +208,15 @@ namespace SAS.v1.Services
                             //Crear Carrea
                             Carr = ingreso.CrearCarrera(Carrera, Estado);
 
-                            //crear Centro formador
-                            CentroF = ingreso.CrearCentroFormador(NCentroF.NombreCentroFormadorId, Carr.CarreraId);
+
+                        //buscar anio
+                        #region anio
+                        Ano.Ano = anio;
+                        Ano = ingreso.CrearAnio(Ano);
+                        #endregion
+
+                        //crear Centro formador
+                        CentroF = ingreso.CrearCentroFormador(NCentroF.NombreCentroFormadorId, Carr.CarreraId,Ano.Id,1);
 
 
 
@@ -371,17 +378,15 @@ namespace SAS.v1.Services
                             #endregion
 
                            
-
+                            #region CampoClinico
                             #region institución
                             //institucion.NombreInstitucion = Institucion;
                             institucion = ingreso.CrearInstitucion(Institucion, Estado);
                             #endregion
                             #region NombreCampoClinico
-                            NCampo = ingreso.CrearNombreCampoClinico(NombCampoClinico, Estado);
+                            NCampo = ingreso.CrearNombreCampoClinico(NombCampoClinico, Estado,institucion);
                             #endregion
 
-                            #region CampoClinico
-                            Campo = ingreso.CrearCampoClinico(NCampo, institucion, Estado);
                             #endregion
 
                            
@@ -397,13 +402,10 @@ namespace SAS.v1.Services
                             Semestres = ingreso.CrearSemestre(Semestres);
                             #endregion
 
-                            #region anio
-                            Ano.Ano = anio;
-                            Ano = ingreso.CrearAnio(Ano);
-                            #endregion
+                           
 
                             #region CampoClinicosAlumnos
-                            CampoAlumnos = ingreso.CrearCampoClinicoAlumno(Alumn, DocenteGuia, Supervisor, Per, Asignaturas, Semestres, Ano, Campo);
+                            CampoAlumnos = ingreso.CrearCampoClinicoAlumno(Alumn, DocenteGuia, Supervisor, Per, Asignaturas, Semestres, Ano, NCampo);
                             #endregion
 
 

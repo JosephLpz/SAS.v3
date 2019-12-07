@@ -36,7 +36,6 @@ namespace SAS.v1.Models
         public virtual DbSet<Periodo> Periodos { get; set; }
         public virtual DbSet<CampoClinicoAlumnoDias> CampoClinicoAlumnoDiasSet { get; set; }
         public virtual DbSet<NombreCampoClinico> NombreCampoClinicoSet { get; set; }
-        public virtual DbSet<CampoClinico> CampoClinicos { get; set; }
         public virtual DbSet<Institucion> Institucions { get; set; }
         public virtual DbSet<CampoClinicoAlumno> CampoClinicoAlumnos { get; set; }
         public virtual DbSet<Alumno> Alumnos { get; set; }
@@ -57,5 +56,6 @@ namespace SAS.v1.Models
         public virtual DbSet<Supervision> Supervicions { get; set; }
         public virtual DbSet<ProyeccionDeCupo> ProyeccionDeCupos { get; set; }
         public virtual DbSet<ProyeccionAlumno> ProyeccionAlumnos { get; set; }
+        public virtual DbSet<ContadorSituacion> ContadorSituacions { get; set; }
     }
 }

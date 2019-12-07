@@ -46,7 +46,7 @@
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.CentroFormador.Carrera.NombreCarrera)
+               Carrera
             </th>
             <th>
                 Imnunización
@@ -81,11 +81,10 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.cursoNivel)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.CentroFormador.Carrera.NombreCarrera)
-                </td>
+                </td>          
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CentroFormador.Carrera.NombreCarrera)
+                    </td>              
                 <td>
                     @foreach (var inmu in item.ImunizacionAlumno)
                     {

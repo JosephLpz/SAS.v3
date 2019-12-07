@@ -108,17 +108,19 @@ namespace SAS.v1.Controllers
             List<DataPointAlumno> dataPoint = (List<DataPointAlumno>)TempData["CantidadAlumnos"];
             List<ProyeccionDeCupo> Proyecciones = new List<ProyeccionDeCupo>();
 
+            int[] ProyeccionesId = new int[dataPoint.Count()];
+
             //dataPoint = System.Web.Helpers.Json.Decode<List<DataPoint>>(Data);
 
             Carrera carr = ingreso.CarreraFindById(CarreraId);
             Anio ano = new Anio();
             ano.Id = AnioId;
             ano = ingreso.AnioFindById(ano);
-            
+
+            int i = 0;
             foreach (var item in dataPoint)
-            {
-                foreach(var result in item.alumno)
-                {
+            { 
+
                 ProyeccionDeCupo proyeccion = new ProyeccionDeCupo();
                 proyeccion.AnioId = ano.Id;
                 proyeccion.CarreraCarreraId = carr.CarreraId;
@@ -133,22 +135,28 @@ namespace SAS.v1.Controllers
                 
                 proyeccion = ingreso.CrearProyeccion(proyeccion, 1);
 
-                ProyeccionAlumno proyeccionAlumno = new ProyeccionAlumno();
-
+                foreach(var result in item.alumno)
+                {
+                    ProyeccionAlumno proyeccionAlumno = new ProyeccionAlumno();
                 proyeccionAlumno.AlumnoAlumnoId = result.AlumnoId;
                 proyeccionAlumno.ProyeccionDeCupoId = proyeccion.Id;
 
                 proyeccionAlumno = ingreso.CrearProyeccionAlumno(proyeccionAlumno, 1);
 
-                Proyecciones.Add(proyeccion);
+               
                 }
-            
+                ProyeccionesId[i] = proyeccion.Id;
+             Proyecciones.Add(proyeccion);
+                i++;
             }
 
 
-            
+            SolicitudDeCuposController solicitudCupos = new SolicitudDeCuposController();
+            string proyeccionesJson = JsonConvert.SerializeObject(ProyeccionesId);
+            TempData["Proyeccion"] = ProyeccionesId;
 
-            return RedirectToAction("Index","SolicitudDeCupos",new { Proyecciones = Proyecciones, CarreraId=carr.CarreraId });
+            return RedirectToAction("Index","SolicitudDeCupos",new { Proyecciones = proyeccionesJson, CarreraId=carr.CarreraId });
+            //return View("Index", solicitudCupos.Index(ProyeccionesId, carr.CarreraId),);
         }
         [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: ProyeccionDeCupos/Details/5

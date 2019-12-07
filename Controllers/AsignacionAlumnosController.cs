@@ -9,11 +9,14 @@ using System.Web;
 using System.Web.Mvc;
 using SAS.v1.Services;
 using SAS.v1.ClasesNP;
-
+using System.Web.Routing;
+using SAS.v1.Utils;
+using Newtonsoft.Json;
 namespace SAS.v1.Controllers
 {
     public class AsignacionAlumnosController : Controller
     {
+        
 
         private ModeloContainer db = new ModeloContainer();
 
@@ -21,7 +24,14 @@ namespace SAS.v1.Controllers
         public ActionResult Index(int SolicitudId)
         {
 
+            //UtilSolicitudDeCupos util = new UtilSolicitudDeCupos();
+            //int[] proyeccion = (int[])TempData["Proyeccion"];
+            //List<ProyeccionDeCupo> ListaSolicitudes = util.GetProyecciones(proyeccion);
+
+
             SolicitudDeCupo sol = db.SolicitudDeCupos.Where(s => s.Id == SolicitudId).FirstOrDefault();
+            ProyeccionDeCupo proyecciones = db.ProyeccionDeCupos.Where(p => p.Id == sol.ProyeccionDeCupoId).FirstOrDefault();
+           List<ProyeccionAlumno> AlumnosProyectados = db.ProyeccionAlumnos.Where(a => a.ProyeccionDeCupoId == proyecciones.Id).ToList();
             IngresoServices ingreso = new IngresoServices();
 
             List<SelectListItem> ProfGuia = new List<SelectListItem>();
@@ -56,9 +66,12 @@ namespace SAS.v1.Controllers
             ViewBag.ProfesorSupervisor = ProfSup;
             ViewBag.ProfesorGuia = ProfGuia;
             ViewBag.Solicitud = sol.Id;
-            List<Alumno> alumnos = db.Alumnos.Include(p => p.Persona).Where(p => p.CentroFormador.Carrera.CarreraId == sol.CarreraCarreraId).ToList();
+            List<Alumno> alumnos = new List<Alumno>();
 
-
+            foreach(var item in AlumnosProyectados)
+            {
+                alumnos.Add(item.Alumno);
+            }
             
             return View(alumnos);
         }
@@ -120,7 +133,7 @@ namespace SAS.v1.Controllers
             Anio anio = db.Anios.Where(a => a.Id == Ano).FirstOrDefault();
             Semestre semestre = db.Semestres.Where(s => s.Id == Semestre).FirstOrDefault();
 
-           CampoClinicoAlumno campoClinico= ingreso.CrearCampoClinicoAlumno(alumno, DocenteGuia, DocenteSupervisor, SolicitudCupo.Periodo, SolicitudCupo.Asignatura, semestre, anio, SolicitudCupo.CampoClinico);
+           CampoClinicoAlumno campoClinico= ingreso.CrearCampoClinicoAlumno(alumno, DocenteGuia, DocenteSupervisor, SolicitudCupo.Periodo, SolicitudCupo.Asignatura, semestre, anio, SolicitudCupo.NombreCampoClinico);
            
                 foreach(var result in check)
                 {                  

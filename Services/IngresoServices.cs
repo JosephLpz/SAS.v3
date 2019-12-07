@@ -17,16 +17,20 @@ namespace SAS.v1.Services
         ModeloContainer db = new ModeloContainer();
         #region CentroFormador
         //Crear o devolver centro formador
-        public CentroFormador CrearCentroFormador(int NombreCentroFormadorId, int CarreraId)
+        public CentroFormador CrearCentroFormador(int NombreCentroFormadorId, int CarreraId,int anioId,int Estado)
         {
-            CentroFormador CentroF = BuscarCentroFormador(NombreCentroFormadorId, CarreraId);
+            CentroFormador CentroF = BuscarCentroFormador(NombreCentroFormadorId, CarreraId,anioId);
+            if (CentroF != null && Estado == 1)
+            {
 
+            }
             if (CentroF == null)
             {
                 CentroF = new CentroFormador();
                 CentroF.CarreraCarreraId = CarreraId;
-                CentroF.NombreCentroFormadorNombreCentroFormadorId = NombreCentroFormadorId;
-
+                CentroF.NombreCentroFormadorNombreCentroFormadorId = NombreCentroFormadorId;               
+                
+                CentroF.AnioId = anioId;
                 db.CentroFormadors.Add(CentroF);
                 db.SaveChanges();
 
@@ -34,15 +38,16 @@ namespace SAS.v1.Services
             }
             else
             {
-                CentroF = BuscarCentroFormador(NombreCentroFormadorId, CarreraId);
+                CentroF = BuscarCentroFormador(NombreCentroFormadorId, CarreraId,anioId);
             }
 
             return CentroF;
         }
         //buscar centro formador
-        public CentroFormador BuscarCentroFormador(int NombreCentroFormadorId, int CarreraId)
+        public CentroFormador BuscarCentroFormador(int NombreCentroFormadorId, int CarreraId, int anioId)
         {
-            CentroFormador Centro = (from c in db.CentroFormadors where c.NombreCentroFormadorNombreCentroFormadorId == NombreCentroFormadorId && c.Carrera.CarreraId == CarreraId select c).FirstOrDefault();
+            CentroFormador Centro = (from c in db.CentroFormadors where c.NombreCentroFormadorNombreCentroFormadorId == NombreCentroFormadorId && c.Carrera.CarreraId == CarreraId
+                                     &&c.AnioId==anioId select c).FirstOrDefault();
             return Centro;
         }
         #endregion
@@ -106,9 +111,10 @@ namespace SAS.v1.Services
             Alumn = BuscarAlumno(person,CentroFormador);
             if (Alumn != null && Estado == 1)
             {
-              
-               
+
+
                 //Alumn.CursoNivel = Alumn.CursoNivel.Replace(Alumn.CursoNivel,AlumnoDatos.CursoNivel);
+                Alumn.SituacionAlumno = AlumnoDatos.SituacionAlumno;
                 Alumn.Observaciones = AlumnoDatos.Observaciones;               
                 db.SaveChanges();
             }
@@ -120,7 +126,8 @@ namespace SAS.v1.Services
                 
                 Alumn.PersonaPersonaId = person.PersonaId;
                 //Alumn.InmunizacionInmunizacionId = Inmunizacion.InmunizacionId;
-                Alumn.CentroFormadorCentroFormadorId = CentroFormador.CentroFormadorId;
+                Alumn.CentroFormadorId = CentroFormador.CentroFormadorId;
+                Alumn.SituacionAlumno = AlumnoDatos.SituacionAlumno;
                 //Alumn.CursoNivel = AlumnoDatos.CursoNivel;
                 Alumn.Observaciones = AlumnoDatos.Observaciones;
              
@@ -139,7 +146,7 @@ namespace SAS.v1.Services
         }
         public Alumno BuscarAlumno(Persona Datos,CentroFormador Centro)
         {
-           Alumno Alumn = (from p in db.Alumnos where p.PersonaPersonaId == Datos.PersonaId && p.CentroFormadorCentroFormadorId == Centro.CentroFormadorId select p).FirstOrDefault();
+           Alumno Alumn = (from p in db.Alumnos where p.PersonaPersonaId == Datos.PersonaId && p.CentroFormadorId == Centro.CentroFormadorId select p).FirstOrDefault();
             return Alumn;
         }
 
@@ -366,9 +373,9 @@ namespace SAS.v1.Services
         //}
         #endregion
         #region nombreCampoClinico
-        public NombreCampoClinico CrearNombreCampoClinico(string NcampoClinico, int Estado)
+        public NombreCampoClinico CrearNombreCampoClinico(string NcampoClinico, int Estado,Institucion Institucion)
         {
-            NombreCampoClinico NCampo = BuscarNombreCampoClinico(NcampoClinico);
+            NombreCampoClinico NCampo = BuscarNombreCampoClinico(NcampoClinico,Institucion);
             if (NCampo != null && Estado == 1)
             {
                 NCampo.NombreCampo = NCampo.NombreCampo.Replace(NCampo.NombreCampo,NcampoClinico);
@@ -378,6 +385,7 @@ namespace SAS.v1.Services
             {
                 NCampo = new NombreCampoClinico();
                 NCampo.NombreCampo = NcampoClinico;
+                NCampo.InstitucionId = Institucion.Id;
                 db.NombreCampoClinicoSet.Add(NCampo);
                 db.SaveChanges();
             }else
@@ -386,48 +394,48 @@ namespace SAS.v1.Services
             }
             return NCampo;
         }
-        public NombreCampoClinico BuscarNombreCampoClinico(string NcampoClinico)
+        public NombreCampoClinico BuscarNombreCampoClinico(string NcampoClinico, Institucion Institucion)
         {
-            NombreCampoClinico NCampo = (from n in db.NombreCampoClinicoSet where n.NombreCampo.ToUpper().Trim() == NcampoClinico.ToUpper().Trim() select n).FirstOrDefault();
+            NombreCampoClinico NCampo = (from n in db.NombreCampoClinicoSet where n.NombreCampo.ToUpper().Trim() == NcampoClinico.ToUpper().Trim()&&n.InstitucionId==Institucion.Id select n).FirstOrDefault();
             return NCampo;
         }
         #endregion
         #region CampoClinico
-        public CampoClinico CrearCampoClinico(NombreCampoClinico NCampoClinico, Institucion institucion,int Estado)
-        {
-            CampoClinico Campo = BuscarCampoClinico(NCampoClinico, institucion);
-            if (Campo != null && Estado == 1)
-            {
-                Campo.NombreCampoClinicoId = NCampoClinico.Id;
-                Campo.InstitucionId = institucion.Id;
-                db.SaveChanges();
-            }
-                if (Campo == null && Estado == 1 || Campo == null && Estado == 0)
-            {
-                Campo = new CampoClinico();
-                Campo.NombreCampoClinicoId = NCampoClinico.Id;
-                Campo.InstitucionId = institucion.Id;
-                db.CampoClinicos.Add(Campo);
-                db.SaveChanges();
-                // NombreCampo = null;
-            }
-            else
-            {
+        //public CampoClinico CrearCampoClinico(NombreCampoClinico NCampoClinico, Institucion institucion,int Estado)
+        //{
+        //    CampoClinico Campo = BuscarCampoClinico(NCampoClinico, institucion);
+        //    if (Campo != null && Estado == 1)
+        //    {
+        //        Campo.NombreCampoClinicoId = NCampoClinico.Id;
+        //        Campo.InstitucionId = institucion.Id;
+        //        db.SaveChanges();
+        //    }
+        //        if (Campo == null && Estado == 1 || Campo == null && Estado == 0)
+        //    {
+        //        Campo = new CampoClinico();
+        //        Campo.NombreCampoClinicoId = NCampoClinico.Id;
+        //        Campo.InstitucionId = institucion.Id;
+        //        db.CampoClinicos.Add(Campo);
+        //        db.SaveChanges();
+        //        // NombreCampo = null;
+        //    }
+        //    else
+        //    {
 
-                return Campo;
+        //        return Campo;
 
 
-            }
-            return Campo;
+        //    }
+        //    return Campo;
 
-        }
-        public CampoClinico BuscarCampoClinico(NombreCampoClinico NCampoClinico, Institucion institucion)
-        {
-            CampoClinico NombreCampo = (from c in db.CampoClinicos
-                                        where c.NombreCampoClinicoId == NCampoClinico.Id && c.InstitucionId == institucion.Id
-                                        select c).FirstOrDefault();
-            return NombreCampo;
-        }
+        //}
+        //public CampoClinico BuscarCampoClinico(NombreCampoClinico NCampoClinico, Institucion institucion)
+        //{
+        //    CampoClinico NombreCampo = (from c in db.CampoClinicos
+        //                                where c.NombreCampoClinicoId == NCampoClinico.Id && c.InstitucionId == institucion.Id
+        //                                select c).FirstOrDefault();
+        //    return NombreCampo;
+        //}
 
 
 
@@ -635,9 +643,9 @@ namespace SAS.v1.Services
         }
         #endregion
         #region CampoClinicoAlumno
-        public CampoClinicoAlumno CrearCampoClinicoAlumno(Alumno Alumn, ProfesionalDocenteGuia DocenteGuia, ProfesionalSupervisor Supervisor, Periodo Periodo,Asignatura Asignatura, Semestre Semestre,Anio ano,CampoClinico Campo)
+        public CampoClinicoAlumno CrearCampoClinicoAlumno(Alumno Alumn, ProfesionalDocenteGuia DocenteGuia, ProfesionalSupervisor Supervisor, Periodo Periodo,Asignatura Asignatura, Semestre Semestre,Anio ano,NombreCampoClinico CampoClinico)
         {
-            CampoClinicoAlumno CampoAlumno = BuscarCampoClinicoAlumno(Alumn, DocenteGuia, Supervisor, Periodo,Asignatura, Semestre,ano,Campo);
+            CampoClinicoAlumno CampoAlumno = BuscarCampoClinicoAlumno(Alumn, DocenteGuia, Supervisor, Periodo,Asignatura, Semestre,ano,CampoClinico);
             if (CampoAlumno == null)
             {
                 CampoAlumno = new CampoClinicoAlumno();
@@ -645,8 +653,7 @@ namespace SAS.v1.Services
                 CampoAlumno.ProfesionalDocenteGuiaProfesionalDocenteGuiaId= DocenteGuia.ProfesionalDocenteGuiaId;
                 CampoAlumno.ProfesionalSupervidorProfesionalSupervisorId = Supervisor.ProfesionalSupervisorId;
                 CampoAlumno.PeriodoPeriodoId = Periodo.PeriodoId;
-                CampoAlumno.CampoClinicoId = Campo.Id;
-              //  CampoAlumno.UnidadDeServicioUnidadDeServicioId = UnidadServicio.UnidadDeServicioId;
+                CampoAlumno.NombreCampoClinicoId = CampoClinico.Id;    
                 CampoAlumno.AsignaturaId = Asignatura.Id;
                 CampoAlumno.SemestreId = Semestre.Id;
                 CampoAlumno.AnioId = ano.Id;
@@ -660,13 +667,13 @@ namespace SAS.v1.Services
             }
             return CampoAlumno;
         }
-        public CampoClinicoAlumno BuscarCampoClinicoAlumno(Alumno Alumn, ProfesionalDocenteGuia DocenteGuia, ProfesionalSupervisor Supervisor, Periodo Periodo,Asignatura Asignatura, Semestre Semestre, Anio ano, CampoClinico Campo)
+        public CampoClinicoAlumno BuscarCampoClinicoAlumno(Alumno Alumn, ProfesionalDocenteGuia DocenteGuia, ProfesionalSupervisor Supervisor, Periodo Periodo,Asignatura Asignatura, Semestre Semestre, Anio ano, NombreCampoClinico CampoClinico)
         {
             //Puede arrojar error debido a que el profesional supervisor o docente guia pueden ser nulos
             CampoClinicoAlumno CampoAlumno = (from c in db.CampoClinicoAlumnos
                                               where c.AlumnoAlumnoId == Alumn.AlumnoId && c.ProfesionalDocenteGuiaProfesionalDocenteGuiaId == DocenteGuia.ProfesionalDocenteGuiaId &&
                                               c.ProfesionalSupervidorProfesionalSupervisorId == Supervisor.ProfesionalSupervisorId && c.PeriodoPeriodoId == Periodo.PeriodoId && 
-                                              c.AsignaturaId==Asignatura.Id && c.SemestreId== Semestre.Id && c.AnioId==ano.Id&&c.CampoClinicoId==Campo.Id
+                                              c.AsignaturaId==Asignatura.Id && c.SemestreId== Semestre.Id && c.AnioId==ano.Id&&c.NombreCampoClinicoId==CampoClinico.Id
                                               select c).FirstOrDefault();
 
             return CampoAlumno;
@@ -1198,7 +1205,7 @@ public PlanEstudioAlumno CrearPlanEstudioAlumno(PlanEstudioAlumno planAlumno, in
             {
                 SolicitudCupo = new SolicitudDeCupo();
                 SolicitudCupo.AsignaturaId = solicitud.AsignaturaId;
-                SolicitudCupo.CampoClinicoId = solicitud.CampoClinicoId;
+                SolicitudCupo.NombreCampoClinicoId = solicitud.NombreCampoClinicoId;
                 SolicitudCupo.CarreraCarreraId = solicitud.CarreraCarreraId;
                 SolicitudCupo.CuposAlumnos = solicitud.CuposAlumnos;
                 if (solicitud.Observacion == null)
@@ -1210,6 +1217,7 @@ public PlanEstudioAlumno CrearPlanEstudioAlumno(PlanEstudioAlumno planAlumno, in
                 SolicitudCupo.SupervisionId = solicitud.SupervisionId;
                 SolicitudCupo.ServicioId = solicitud.ServicioId;
                 SolicitudCupo.TotalSemanaPorGrupo = solicitud.TotalSemanaPorGrupo;
+                SolicitudCupo.ProyeccionDeCupoId = solicitud.ProyeccionDeCupoId;
                 db.SolicitudDeCupos.Add(SolicitudCupo);
                 db.SaveChanges();
                 // inmune = null;
@@ -1225,12 +1233,19 @@ public PlanEstudioAlumno CrearPlanEstudioAlumno(PlanEstudioAlumno planAlumno, in
         {
             SolicitudDeCupo SolicitudCupo = (from s in db.SolicitudDeCupos
                                              where s.AsignaturaId == solicitud.AsignaturaId &&
-                                             s.CampoClinicoId == solicitud.CampoClinicoId && s.CarreraCarreraId == solicitud.CarreraCarreraId&&
+                                             s.NombreCampoClinicoId == solicitud.NombreCampoClinicoId && s.CarreraCarreraId == solicitud.CarreraCarreraId&&
                                              s.PeriodoPeriodoId==solicitud.PeriodoPeriodoId&&s.ServicioId==solicitud.ServicioId&&
                                              s.SupervisionId==solicitud.SupervisionId&&s.CuposAlumnos==solicitud.CuposAlumnos&&
                                              s.TotalSemanaPorGrupo==solicitud.TotalSemanaPorGrupo
                                              select s).FirstOrDefault();
             return SolicitudCupo;
+        }
+
+        public SolicitudDeCupo SolicitudDeCupoFindById(int Id)
+        {
+            SolicitudDeCupo SolicitudCupo = db.SolicitudDeCupos.Where(s => s.Id == Id).FirstOrDefault();
+
+                return SolicitudCupo;
         }
         #endregion
 
@@ -1311,8 +1326,9 @@ public PlanEstudioAlumno CrearPlanEstudioAlumno(PlanEstudioAlumno planAlumno, in
             ProyeccionDeCupo proyeccion= BuscarProyeccion(proyeccionDeCupo);
             if(proyeccion != null && Estado == 1)
             {
-                proyeccion.CuposProyectados = proyeccionDeCupo.CuposProyectados;
-                proyeccion.CuposRestantes = proyeccionDeCupo.CuposRestantes;
+                proyeccion.CuposProyectados = proyeccion.CuposProyectados.Replace(proyeccion.CuposProyectados, proyeccionDeCupo.CuposProyectados);
+                proyeccion.CuposRestantes = proyeccion.CuposRestantes.Replace(proyeccion.CuposRestantes, proyeccionDeCupo.CuposRestantes);
+                db.SaveChanges();
             }
             else if(proyeccion==null&&Estado==1 || proyeccion == null && Estado == 0)
             {
@@ -1355,7 +1371,7 @@ public PlanEstudioAlumno CrearPlanEstudioAlumno(PlanEstudioAlumno planAlumno, in
         public ProyeccionAlumno CrearProyeccionAlumno(ProyeccionAlumno proyeccion,int Estado)
         {
             ProyeccionAlumno proyeccionAlumno = BuscarProyeccionAlumno(proyeccion);
-            if (proyeccionAlumno != null && Estado == 1)
+            if (proyeccionAlumno == null && Estado == 1)
             {
                  proyeccionAlumno = new ProyeccionAlumno();
                 proyeccionAlumno.AlumnoAlumnoId = proyeccion.AlumnoAlumnoId;
@@ -1364,7 +1380,7 @@ public PlanEstudioAlumno CrearPlanEstudioAlumno(PlanEstudioAlumno planAlumno, in
                 db.SaveChanges();
             }
            
-            return proyeccion;
+            return proyeccionAlumno;
         }
 
         public ProyeccionAlumno BuscarProyeccionAlumno(ProyeccionAlumno proyeccion)

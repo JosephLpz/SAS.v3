@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using SAS.v1.ClasesNP;
 using SAS.v1.Models;
+using SAS.v1.Services;
 
 namespace SAS.v1.Utils
 {
@@ -49,25 +50,30 @@ namespace SAS.v1.Utils
             return solicitudes;
         }
 
-        public List<SolicitudDeCuposNP> GetSolicitudes(List<DataPoint> dataPoint)
+        public List<ProyeccionDeCupo> GetProyecciones(int[] Proyeccion)
         {
-            SolicitudDeCuposNP solicitud = new SolicitudDeCuposNP();
-            List<SolicitudDeCuposNP> solicitudes = new List<SolicitudDeCuposNP>();
-            if (solicitudes.Count == 0)
+           
+            List<ProyeccionDeCupo> Proyecciones = new List<ProyeccionDeCupo>();
+            IngresoServices ingreso = new IngresoServices();
+            foreach(var item in Proyeccion)
             {
-                foreach (var item in dataPoint)
-                {
-                    solicitud = new SolicitudDeCuposNP();
-                    solicitud.Solicitud = new DataPoint();
-                    solicitud.Solicitud.Label = item.Label;
-                    solicitud.Solicitud.Y = item.Y;
-                    solicitud.solicitudes = new List<SolicitudDeCupo>();
-
-                    solicitudes.Add(solicitud);
-                }
-            
+                Proyecciones.Add(ingreso.ProyeccionFindById(item));
             }
-            return solicitudes;
+            //if (solicitudes.Count == 0)
+            //{
+            //    foreach (var item in dataPoint)
+            //    {
+            //        solicitud = new SolicitudDeCuposNP();
+            //        solicitud.Solicitud = new DataPoint();
+            //        solicitud.Solicitud.Label = item.Label;
+            //        solicitud.Solicitud.Y = item.Y;
+            //        solicitud.solicitudes = new List<SolicitudDeCupo>();
+
+            //        solicitudes.Add(solicitud);
+            //    }
+            
+            //}
+            return Proyecciones;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿@model IEnumerable<SAS.v1.ClasesNP.SolicitudDeCuposNP>
-
+﻿@model IEnumerable<SAS.v1.Models.ProyeccionDeCupo>
 
 
 @{
@@ -62,7 +61,7 @@
                                 <div class="panel-heading" id="Heading">
                                     <h4 class="panel-title">
                                         <a class="accordion-toggle" data-target="#collapseOne_@i" data-toggle="collapse" href="#collapseOne_@i" >
-                                            @item.Solicitud.Label / Cupos Disponibles:@item.Solicitud.Y 
+                                            @item.Asignatura.NombreAsignatura / Cupos Disponibles:@item.CuposRestantes
                                         </a>
                                     </h4>
                                 </div>
@@ -70,7 +69,7 @@
                                     <div class="panel-body">
                       
 
-                                        <p>@Html.ActionLink("Nueva Solicitud", "Modal", new { index = i, DataPoint = Json.Encode(@ViewBag.DataPoint),CarreraId=ViewBag.CarreraId }, new { @class = "btn btn - default" })</p>
+                                        <p>@Html.ActionLink("Nueva Solicitud", "Modal", new { index = i, DataPoint = Json.Encode(@ViewBag.DataPoint),CarreraId=ViewBag.CarreraId, AsignaturaId = item.AsignaturaId }, new { @class = "btn btn - default" })</p>
                                                                  
                                             <table>
 
@@ -113,7 +112,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach (var result in item.solicitudes) {
+                                                    @foreach (var result in item.SolicitudDeCupo) {
 
 
                                                     <tr>
@@ -151,7 +150,7 @@
                                                         <td>
                                                            @result.Observacion
                                                         </td>
-                                                        <td>@Html.ActionLink("Asignar Alumnos", "Index", "AsignacionAlumnos", new { SolicitudId = result.Id },null)
+                                                        <td>@Html.ActionLink("Asignar Alumnos", "Index", "AsignacionAlumnos", new { SolicitudId = result.Id }, new { target = "_blank" })
                                                         </td>
 
                                                     </tr>

@@ -8,26 +8,22 @@
         <EntityTypeShape EntityType="Modelo.Persona" Width="1.5" PointX="11" PointY="3.875" />
         <EntityTypeShape EntityType="Modelo.DocenciaHospitalaria" Width="2.5" PointX="13.25" PointY="5.125" />
         <EntityTypeShape EntityType="Modelo.Inmunizacion" Width="3.375" PointX="17.875" PointY="1.25" />
-        <EntityTypeShape EntityType="Modelo.CentroFormador" Width="2.375" PointX="18" PointY="8.375" />
-        <EntityTypeShape EntityType="Modelo.NombreCentroFormador" Width="2.625" PointX="20.125" PointY="5.875" />
-        <EntityTypeShape EntityType="Modelo.Carrera" Width="1.5" PointX="18.375" PointY="6.125" />
+        <EntityTypeShape EntityType="Modelo.CentroFormador" Width="2.375" PointX="19.375" PointY="7.625" />
+        <EntityTypeShape EntityType="Modelo.NombreCentroFormador" Width="2.625" PointX="20.875" PointY="5.75" />
+        <EntityTypeShape EntityType="Modelo.Carrera" Width="1.5" PointX="23.625" PointY="5.75" />
         <EntityTypeShape EntityType="Modelo.NombreJornada" Width="2" PointX="16.5" PointY="16.625" />
         <EntityTypeShape EntityType="Modelo.Dias" Width="2.625" PointX="20.625" PointY="12" />
         <EntityTypeShape EntityType="Modelo.Periodo" Width="1.5" PointX="14" PointY="16.75" />
         <AssociationConnector Association="Modelo.CentroFormadorCarrera" />
         <AssociationConnector Association="Modelo.CentroFormadorNombreCentroFormador" />
         <AssociationConnector Association="Modelo.PeriodoNombreJornada" />
-        <EntityTypeShape EntityType="Modelo.CampoClinicoAlumnoDias" Width="3.125" PointX="16.875" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Modelo.CampoClinicoAlumnoDias" Width="3.125" PointX="17.125" PointY="11.625" IsExpanded="true" />
         <AssociationConnector Association="Modelo.CampoClinicoAlumnoDiasDias" />
-        <EntityTypeShape EntityType="Modelo.NombreCampoClinico" Width="2" PointX="6.25" PointY="14.375" />
-        <EntityTypeShape EntityType="Modelo.CampoClinico" Width="2.125" PointX="11.125" PointY="16" />
-        <AssociationConnector Association="Modelo.CampoClinicoNombreCampoClinico" />
-        <EntityTypeShape EntityType="Modelo.Institucion" Width="1.5" PointX="8.25" PointY="18.25" />
-        <AssociationConnector Association="Modelo.InstitucionCampoClinico" />
+        <EntityTypeShape EntityType="Modelo.NombreCampoClinico" Width="2" PointX="7" PointY="16.5" />
+        <EntityTypeShape EntityType="Modelo.Institucion" Width="1.5" PointX="9.625" PointY="18.125" />
         <EntityTypeShape EntityType="Modelo.CampoClinicoAlumno" Width="2.5" PointX="13.75" PointY="11.625" />
-        <EntityTypeShape EntityType="Modelo.Alumno" Width="2.625" PointX="14.625" PointY="7.75" />
+        <EntityTypeShape EntityType="Modelo.Alumno" Width="3.125" PointX="14.625" PointY="7.75" />
         <AssociationConnector Association="Modelo.AlumnoPersona" />
-        <AssociationConnector Association="Modelo.AlumnoCentroFormador" />
         <EntityTypeShape EntityType="Modelo.ProfesionalSupervisor" Width="2.75" PointX="7.875" PointY="8.25" />
         <AssociationConnector Association="Modelo.ProfesionalSupervidorPersona" />
         <AssociationConnector Association="Modelo.CampoClinicoAlumnoAlumno" />
@@ -38,9 +34,8 @@
         <EntityTypeShape EntityType="Modelo.Semestre" Width="1.5" PointX="24.625" PointY="11.25" />
         <AssociationConnector Association="Modelo.CampoClinicoAlumnoAsignatura" />
         <AssociationConnector Association="Modelo.CampoClinicoAlumnoSemestre" />
-        <EntityTypeShape EntityType="Modelo.Anio" Width="1.5" PointX="18.125" PointY="14.75" />
+        <EntityTypeShape EntityType="Modelo.Anio" Width="1.5" PointX="18.625" PointY="14.5" />
         <AssociationConnector Association="Modelo.CampoClinicoAlumnoAnio" />
-        <AssociationConnector Association="Modelo.CampoClinicoAlumnoCampoClinico" />
         <EntityTypeShape EntityType="Modelo.ProfesionalDocenteGuia" Width="2.25" PointX="11.375" PointY="8.25" />
         <AssociationConnector Association="Modelo.ProfesionalDocenteGuiaPersona" />
         <AssociationConnector Association="Modelo.ProfesionalDocenteGuiaDocenciaHospitalaria" />
@@ -68,7 +63,6 @@
         <AssociationConnector Association="Modelo.PlanDeEstudioSemestre" />
         <EntityTypeShape EntityType="Modelo.SolicitudDeCupo" Width="1.5" PointX="24.125" PointY="16.625" />
         <AssociationConnector Association="Modelo.SolicitudDeCupoCarrera" />
-        <AssociationConnector Association="Modelo.SolicitudDeCupoCampoClinico" />
         <EntityTypeShape EntityType="Modelo.Servicio" Width="1.5" PointX="28" PointY="18" />
         <AssociationConnector Association="Modelo.SolicitudDeCupoServicio" />
         <AssociationConnector Association="Modelo.SolicitudDeCupoPeriodo" />
@@ -82,6 +76,14 @@
         <EntityTypeShape EntityType="Modelo.ProyeccionAlumno" Width="1.5" PointX="17.5" PointY="21.5" />
         <AssociationConnector Association="Modelo.ProyeccionAlumnoProyeccionDeCupo" />
         <AssociationConnector Association="Modelo.ProyeccionAlumnoAlumno" />
+        <AssociationConnector Association="Modelo.ProyeccionDeCupoSolicitudDeCupo" />
+        <AssociationConnector Association="Modelo.InstitucionNombreCampoClinico" />
+        <AssociationConnector Association="Modelo.CentroFormadorAnio" />
+        <EntityTypeShape EntityType="Modelo.ContadorSituacion" Width="1.5" PointX="12.5" PointY="22.25" />
+        <AssociationConnector Association="Modelo.ContadorSituacionAnio" />
+        <AssociationConnector Association="Modelo.NombreCampoClinicoCampoClinicoAlumno" />
+        <AssociationConnector Association="Modelo.NombreCampoClinicoSolicitudDeCupo" />
+        <AssociationConnector Association="Modelo.AlumnoCentroFormador" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -43,7 +43,7 @@ namespace SAS.v1.Controllers
             } else
             {
                 alumnos = db.Alumnos.Include(p => p.Persona).Where(p => p.Persona.Rut.Contains(Filtro) || p.Persona.Nombre.Contains(Filtro) 
-                || p.Persona.ApPaterno.Contains(Filtro) || p.CentroFormador.Carrera.NombreCarrera.Contains(Filtro)).ToList();
+                || p.Persona.ApPaterno.Contains(Filtro)).ToList();
             }
             
             return View(alumnos);
@@ -96,6 +96,7 @@ namespace SAS.v1.Controllers
             ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
             ViewBag.NombreCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
             ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "CursoNivelId", "NombreCurso");
+            ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano");
             return View();
         }
 
@@ -105,7 +106,7 @@ namespace SAS.v1.Controllers
         [Authorize(Roles = "Administrador,JefeDeCarrera")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,CursoNivelId,Observaciones,CarreraId,NombreCentroFormadorId")] Persona persona,CursoNivel curso,Alumno alumno,Carrera carrera, NombreCentroFormador nombreCentroFormador)
+        public ActionResult Create([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,CursoNivelId,Observaciones,CarreraId,NombreCentroFormadorId,AnioId")] Persona persona,CursoNivel curso,Alumno alumno,Carrera carrera, NombreCentroFormador nombreCentroFormador,int AnioId)
         {
             IngresoServices ingresoDatos = new IngresoServices();
             CursoAlumno cursoAlumno = new CursoAlumno();
@@ -119,7 +120,7 @@ namespace SAS.v1.Controllers
                 {
                     
                     persona = ingresoDatos.CrearPersona(persona,1);
-                CentroFormador centroFormador = ingresoDatos.CrearCentroFormador(nombreCentroFormador.NombreCentroFormadorId,carrera.CarreraId);
+                CentroFormador centroFormador = ingresoDatos.CrearCentroFormador(nombreCentroFormador.NombreCentroFormadorId,carrera.CarreraId,AnioId,1);
 
                 if (alumno.Observaciones==null)
                 {
@@ -140,6 +141,7 @@ namespace SAS.v1.Controllers
             ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
             ViewBag.NombreCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
             ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "CursoNivelId", "NombreCurso");
+            ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano");
             return View(alumno);
         }
 
@@ -160,6 +162,7 @@ namespace SAS.v1.Controllers
             ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
             ViewBag.NombreCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
             ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "CursoNivelId", "NombreCurso");
+            ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano");
             return View(alumno);
         }
 
@@ -169,14 +172,14 @@ namespace SAS.v1.Controllers
         [Authorize(Roles = "Administrador,JefeDeCarrera")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,CursoNivelId,Observaciones,CarreraId,NombreCentroFormadorId")] Persona persona,CursoNivel curso, Alumno alumno, Carrera carrera, NombreCentroFormador nombreCentroFormador)
+        public ActionResult Edit([Bind(Include = "Rut,Dv,Nombre,ApPaterno,ApMaterno,CursoNivelId,Observaciones,CarreraId,NombreCentroFormadorId, AnioId")] Persona persona,CursoNivel curso, Alumno alumno, Carrera carrera, NombreCentroFormador nombreCentroFormador,int AnioId)
         {
             IngresoServices ingreso = new IngresoServices();
             CursoAlumno cursoAlumno = new CursoAlumno();
 
             // obtengo el centro formador
             CentroFormador centroFormador = new CentroFormador();
-            centroFormador = ingreso.BuscarCentroFormador(nombreCentroFormador.NombreCentroFormadorId,carrera.CarreraId);
+            centroFormador = ingreso.BuscarCentroFormador(nombreCentroFormador.NombreCentroFormadorId,carrera.CarreraId,AnioId);
 
             // Utilizo metodo de la clase ingresoServices para poder ingresar y modificar los datos con Estado 1 que indica actualizar
             if (ModelState.IsValid)
@@ -192,6 +195,7 @@ namespace SAS.v1.Controllers
             ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
             ViewBag.NombreCentroFormadorId = new SelectList(db.NombreCentroFormadors, "NombreCentroFormadorId", "NombreCentroFormador1");
             ViewBag.CursoNivelId = new SelectList(db.CursosNiveles, "CursoNivelId", "NombreCurso");
+            ViewBag.AnioId = new SelectList(db.Anios, "Id", "Ano");
             return View(alumno);
         }
 

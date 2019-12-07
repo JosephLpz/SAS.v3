@@ -12,18 +12,18 @@ namespace SAS.v1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Institucion
+    public partial class ContadorSituacion
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Institucion()
-        {
-            this.NombreCampoClinico = new HashSet<NombreCampoClinico>();
-        }
-    
         public int Id { get; set; }
-        public string NombreInstitucion { get; set; }
+        public string Vigente { get; set; }
+        public string RetiroTemporal { get; set; }
+        public string RetiroDefinitivo { get; set; }
+        public string EliminadoAcademica { get; set; }
+        public string RetractoMatricula { get; set; }
+        public string EiminadoNoMatricula { get; set; }
+        public string Abandono { get; set; }
+        public int AnioId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NombreCampoClinico> NombreCampoClinico { get; set; }
+        public virtual Anio Anio { get; set; }
     }
 }

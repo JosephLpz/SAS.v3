@@ -21,42 +21,45 @@ namespace SAS.v1.Controllers
         // GET: SolicitudDeCupos
 
         [HttpGet]
-        public ActionResult Index(List<ProyeccionDeCupo> Proyecciones, int CarreraId)
+        public ActionResult Index(string Proyecciones, int CarreraId)
         {
+            int[] proyeccion = (int[])TempData["Proyeccion"];
             UtilSolicitudDeCupos util = new UtilSolicitudDeCupos();
             List<DataPoint> dataPoint= new List<DataPoint>();
-
-            if (Proyecciones.Count==0)
+            int[] proy= System.Web.Helpers.Json.Decode<int[]>(Proyecciones);
+            if (proyeccion.Count()==0)
             {
                ViewBag.Error= "No se ha Realizado ninguna proyeccion de cupos";
             }
             else
             {
             //dataPoint = System.Web.Helpers.Json.Decode<List<DataPoint>>(Data);
-
-            ViewBag.DataPoint = dataPoint;
+                ViewBag.DataPoint = dataPoint;
             }
             ViewBag.Index = 0;
             
 
-            List<SolicitudDeCupo> solicitud = db.SolicitudDeCupos.ToList();
-            List<SolicitudDeCuposNP> ListaSolicitudes = util.GetSolicitudes(dataPoint);
+            //List<SolicitudDeCupo> solicitud = db.SolicitudDeCupos.ToList();
+
+            List<ProyeccionDeCupo> ListaProyecciones = util.GetProyecciones(proyeccion);
 
 
             ViewBag.CarreraId = CarreraId;
             ViewBag.InstitucionId = new SelectList(db.Institucions, "NombreInstitucion", "NombreInstitucion");
             ViewBag.NombreJornadaId = new SelectList(db.NombreJornadas, "NombreJornadaId", "Nombre");
             ViewBag.NombreCampoId = new SelectList(db.NombreCampoClinicoSet, "NombreCampo", "NombreCampo");
+            
+            TempData["Proyeccion"] = proyeccion;
 
-            return View(ListaSolicitudes);
+            return View(ListaProyecciones);
         }
 
         [HttpPost]
         public ActionResult Index(string Solicitudes, string index, string DataPoint,[Bind(Include ="CarreraId,NombreCampoId,NombreServicio,CuposAlumnos,Observacion,TotalSemanaPorGrupo,FechaInicio,FechaTermino,NombreJornadaId,NombreSupervision,NombreAsignatura")]
-      Carrera carrera, Servicio servicio, SolicitudDeCupo solicitudCupo, Periodo periodo, NombreJornada jornada, Supervision supervision, Asignatura asignatura,string InstitucionId,string NombreCampoId,int CarreraId)
+      Carrera carrera, Servicio servicio, SolicitudDeCupo solicitudCupo, Periodo periodo, NombreJornada jornada, Supervision supervision, int AsignaturaId, string InstitucionId,string NombreCampoId,int CarreraId)
         {
             IngresoServices ingreso = new IngresoServices();
-            CampoClinico campo = new CampoClinico();
+            
             Institucion institucion = new Institucion();
             NombreCampoClinico nombreCampo = new NombreCampoClinico();
             Servicio serv = new Servicio();
@@ -64,33 +67,41 @@ namespace SAS.v1.Controllers
             SolicitudDeCuposNP solicitud = new SolicitudDeCuposNP();
             UtilSolicitudDeCupos util = new UtilSolicitudDeCupos();
             Carrera carr = new Carrera();
+            int[] proyeccion = (int[])TempData["Proyeccion"];
+
+            //Obtener proyecciones segun IDs
+            List<ProyeccionDeCupo> ListaSolicitudes = util.GetProyecciones(proyeccion);
 
 
             int i = Int32.Parse(index);
             List<DataPoint> dataPoint = System.Web.Helpers.Json.Decode<List<DataPoint>>(DataPoint);
 
-            if ((dataPoint[i].Y - solicitudCupo.CuposAlumnos) < 0)
+            if ((Int32.Parse(ListaSolicitudes[i].CuposRestantes) - solicitudCupo.CuposAlumnos) < 0)
             {
-                ViewBag.Error = "El numero de estudiantes asignado fue sobrepasado sobrepasado - solo quedan"+" "+dataPoint[i].Y + " "+"Cupos";
+                ViewBag.Error = "El numero de estudiantes asignado fue sobrepasado sobrepasado - solo quedan"+" "+ (Int32.Parse(ListaSolicitudes[i].CuposRestantes) + " "+"Cupos");
             }else
             {
-            dataPoint[i].Y = (dataPoint[i].Y - solicitudCupo.CuposAlumnos);
+            ListaSolicitudes[i].CuposRestantes = ((Int32.Parse(ListaSolicitudes[i].CuposRestantes)) - solicitudCupo.CuposAlumnos).ToString();
+            //Resta los cupos solicitados
+            ingreso.CrearProyeccion(ListaSolicitudes[i],1);
+
+
             serv = ingreso.CrearServicio(servicio, 1);
             superv = ingreso.CrearSupervision(supervision, 1);
-            asignatura = ingreso.CrearAsignatura(asignatura, 1);
+            //asignatura = ingreso.AsignaturaFindById(asignatura.Id);
             carr = ingreso.CarreraFindById(carrera.CarreraId);
             solicitudCupo.CarreraCarreraId = carr.CarreraId;
             solicitudCupo.ServicioId = serv.Id;
             periodo = ingreso.CrearPeriodos(periodo, jornada);
             solicitudCupo.PeriodoPeriodoId = periodo.PeriodoId;
             solicitudCupo.SupervisionId = superv.Id;
-            solicitudCupo.AsignaturaId = asignatura.Id;
+            solicitudCupo.AsignaturaId = AsignaturaId;
             institucion = ingreso.CrearInstitucion(InstitucionId,1);
-            nombreCampo = ingreso.CrearNombreCampoClinico(NombreCampoId,1);
+            nombreCampo = ingreso.CrearNombreCampoClinico(NombreCampoId,1,institucion);
 
-            campo = ingreso.CrearCampoClinico(nombreCampo,institucion,1);
-            solicitudCupo.CampoClinicoId = campo.Id;
-
+            
+            
+            solicitudCupo.ProyeccionDeCupoId = proyeccion[i];
             solicitudCupo = ingreso.CrearSolicitud(solicitudCupo, 1);
 
             }
@@ -98,17 +109,19 @@ namespace SAS.v1.Controllers
             ViewBag.DataPoint = dataPoint;
             ViewBag.CarreraId = CarreraId;
 
-            ViewBag.CarreraId = new SelectList(db.Carreras, "CarreraId", "NombreCarrera");
+           
             ViewBag.InstitucionId = new SelectList(db.Institucions, "NombreInstitucion", "NombreInstitucion");
             ViewBag.NombreJornadaId = new SelectList(db.NombreJornadas, "NombreJornadaId", "Nombre");
             ViewBag.NombreCampoId = new SelectList(db.NombreCampoClinicoSet, "NombreCampo", "NombreCampo");
 
-            List<SolicitudDeCuposNP>ListaSolicitudes = util.GetSolicitudes(i,solicitudes,solicitud,dataPoint,solicitudCupo);
+            
+            TempData["Proyeccion"] = proyeccion;
 
             return View(ListaSolicitudes);
         }
-        public ActionResult Modal(int index, string DataPoint,int CarreraId)
+        public ActionResult Modal(int index, string DataPoint,int CarreraId,int AsignaturaId)
         {
+            int[] proyeccion = (int[])TempData["Proyeccion"];
 
             List<DataPoint> dataPoint = System.Web.Helpers.Json.Decode<List<DataPoint>>(DataPoint);
 
@@ -118,6 +131,10 @@ namespace SAS.v1.Controllers
             ViewBag.InstitucionId = new SelectList(db.Institucions, "NombreInstitucion", "NombreInstitucion");
             ViewBag.NombreJornadaId = new SelectList(db.NombreJornadas, "NombreJornadaId", "Nombre");
             ViewBag.NombreCampoId = new SelectList(db.NombreCampoClinicoSet, "NombreCampo", "NombreCampo");
+            ViewBag.AsignaturaId = new SelectList(db.Asignaturas, "Id", "NombreAsignatura", AsignaturaId);
+            //ViewBag.Asignatura = db.Asignaturas.Where(a => a.Id == AsignaturaId).FirstOrDefault();
+            TempData["Proyeccion"] = proyeccion;
+
             return View();
 
         }

@@ -17,13 +17,18 @@ namespace SAS.v1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NombreCampoClinico()
         {
-            this.CampoClinico = new HashSet<CampoClinico>();
+            this.CampoClinicoAlumno = new HashSet<CampoClinicoAlumno>();
+            this.SolicitudDeCupo = new HashSet<SolicitudDeCupo>();
         }
     
         public int Id { get; set; }
         public string NombreCampo { get; set; }
+        public int InstitucionId { get; set; }
     
+        public virtual Institucion Institucion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CampoClinico> CampoClinico { get; set; }
+        public virtual ICollection<CampoClinicoAlumno> CampoClinicoAlumno { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SolicitudDeCupo> SolicitudDeCupo { get; set; }
     }
 }

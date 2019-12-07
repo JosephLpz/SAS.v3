@@ -18,6 +18,7 @@ namespace SAS.v1.Models
         public ProyeccionDeCupo()
         {
             this.ProyeccionAlumno = new HashSet<ProyeccionAlumno>();
+            this.SolicitudDeCupo = new HashSet<SolicitudDeCupo>();
         }
     
         public int Id { get; set; }
@@ -32,5 +33,7 @@ namespace SAS.v1.Models
         public virtual Anio Anio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProyeccionAlumno> ProyeccionAlumno { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SolicitudDeCupo> SolicitudDeCupo { get; set; }
     }
 }

@@ -28,8 +28,9 @@ namespace SAS.v1.Models
         public int AsignaturaId { get; set; }
         public int SemestreId { get; set; }
         public int AnioId { get; set; }
-        public int CampoClinicoId { get; set; }
         public int ProfesionalDocenteGuiaProfesionalDocenteGuiaId { get; set; }
+        public int InstitucionId { get; set; }
+        public int NombreCampoClinicoId { get; set; }
     
         public virtual Alumno Alumno { get; set; }
         public virtual ProfesionalSupervisor ProfesionalSupervidor { get; set; }
@@ -39,9 +40,8 @@ namespace SAS.v1.Models
         public virtual Asignatura Asignatura { get; set; }
         public virtual Semestre Semestre { get; set; }
         public virtual Anio Anio { get; set; }
-        public virtual CampoClinico CampoClinico { get; set; }
         public virtual ProfesionalDocenteGuia ProfesionalDocenteGuia { get; set; }
-
+        public virtual NombreCampoClinico NombreCampoClinico { get; set; }
         public virtual string Dias
         {
             get

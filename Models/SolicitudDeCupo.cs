@@ -16,7 +16,6 @@ namespace SAS.v1.Models
     {
         public int Id { get; set; }
         public int CarreraCarreraId { get; set; }
-        public int CampoClinicoId { get; set; }
         public int ServicioId { get; set; }
         public int CuposAlumnos { get; set; }
         public int TotalSemanaPorGrupo { get; set; }
@@ -24,12 +23,16 @@ namespace SAS.v1.Models
         public int SupervisionId { get; set; }
         public int AsignaturaId { get; set; }
         public string Observacion { get; set; }
+        public int ProyeccionDeCupoId { get; set; }
+        public int InstitucionId { get; set; }
+        public int NombreCampoClinicoId { get; set; }
     
         public virtual Carrera Carrera { get; set; }
-        public virtual CampoClinico CampoClinico { get; set; }
         public virtual Servicio Servicio { get; set; }
         public virtual Periodo Periodo { get; set; }
         public virtual Supervision Supervision { get; set; }
         public virtual Asignatura Asignatura { get; set; }
+        public virtual ProyeccionDeCupo ProyeccionDeCupo { get; set; }
+        public virtual NombreCampoClinico NombreCampoClinico { get; set; }
     }
 }

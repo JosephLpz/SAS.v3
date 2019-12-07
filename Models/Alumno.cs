@@ -27,10 +27,10 @@ namespace SAS.v1.Models
         public int AlumnoId { get; set; }
         public string Observaciones { get; set; }
         public int PersonaPersonaId { get; set; }
-        public int CentroFormadorCentroFormadorId { get; set; }
+        public int CentroFormadorId { get; set; }
+        public string SituacionAlumno { get; set; }
     
         public virtual Persona Persona { get; set; }
-        public virtual CentroFormador CentroFormador { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CampoClinicoAlumno> CampoClinicoAlumno { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -41,7 +41,7 @@ namespace SAS.v1.Models
         public virtual ICollection<PlanEstudioAlumno> PlanEstudioAlumno { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProyeccionAlumno> ProyeccionAlumno { get; set; }
-
+        public virtual CentroFormador CentroFormador { get; set; }
         public virtual string cursoNivel
         {
 

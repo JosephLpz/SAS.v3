@@ -47,7 +47,10 @@
                             <li><a class="dropdown-item">@Html.ActionLink("Profesional Guia", "Create", "ProfesionalDocenteGuias")</a></li>
                             <li><a class="dropdown-item">@Html.ActionLink("Profesional Supervisor", "Create", "ProfesionalSupervisors")</a></li>
                             <li><a class="dropdown-item">@Html.ActionLink("Instituciones", "Create", "Institucions")</a></li>
-                                                   
+                            <li><a class="dropdown-item">@Html.ActionLink("Proyección por Carrera", "ProyeccionPorCarrera", "ProyeccionDeCupos")</a></li>
+                            <li><a class="dropdown-item">@Html.ActionLink("Carreras", "Create", "Carreras")</a></li>
+                            <li><a class="dropdown-item">@Html.ActionLink("Inmunuizacion", "Create", "Inmunizacions")</a></li>
+           
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -74,6 +77,75 @@
                             <li><a class="dropdown-item">@Html.ActionLink("Cargar Plan de Estudios", "Index", "CargarPlanEstudios")</a></li>
                         </ul>
                     </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Manenedor Global<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown">
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-toggle test">Alumnos<span class="caret"></span></a>
+                                <ul class="dropdown-menu"  aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item">@Html.ActionLink("Ver Alumnos", "Index", "Alumnos", new { id = 0 }, null)</a></li>
+                                    <li><a class="dropdown-item">@Html.ActionLink("Crear Alumnos", "Create", "Alumnos")</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-toggle test">Profesor Guia<span class="caret"></span></a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item">@Html.ActionLink("Crear Profesional Guia", "Create", "ProfesionalDocenteGuias")</a></li>
+                                    <li><a class="dropdown-item">@Html.ActionLink("Ver Profesional Docente", "Index", "ProfesionalDocenteGuias")</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-toggle test">Profesor Supervisor<span class="caret"></span></a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item">@Html.ActionLink("Crear Profesional Supervisor", "Create", "ProfesionalSupervisors")</a></li>
+                                    <li><a class="dropdown-item">@Html.ActionLink("Ver Profesional Supervisor", "Index", "ProfesionalSupervisors")</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-toggle test">Insituciones<span class="caret"></span></a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item">@Html.ActionLink("Crear Instituciones", "Create", "Institucions")</a></li>
+                                    <li><a class="dropdown-item">@Html.ActionLink("Ver Instituciones", "Index", "Institucions")</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-toggle test">Carreras<span class="caret"></span></a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item">@Html.ActionLink("Crear Carreras", "Create", "Carreras")</a></li>
+                                    <li><a class="dropdown-item">@Html.ActionLink("Ver Carreras", "Index", "Carreras")</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-toggle test">Inmunizacion<span class="caret"></span></a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item">@Html.ActionLink("Crear Inmunizacion", "Create", "Inmunizacions")</a></li>
+                                    <li><a class="dropdown-item">@Html.ActionLink("Ver Inmunizacion", "Index", "Inmunizacions")</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-toggle test">Plan de estudios<span class="caret"></span></a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item">@Html.ActionLink("Ver Plan de Estudios", "Index", "PlanDeEstudios", new { id = 1 }, null)</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-toggle test">Seguimiento Alumnos<span class="caret"></span></a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item">@Html.ActionLink("Ver Seguimiento Alumnos", "Index", "Alumnos", new { id = 1 }, null)</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
                         if (User.IsInRole("Administrador"))
                         {
                     <li class="dropdown">
@@ -83,7 +155,7 @@
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown">
 
-                            <li><a class="dropdown-item">@Html.ActionLink("Usuarios", "Index", "Usuarios")</a></li>
+                           <li><a class="dropdown-item">@Html.ActionLink("Profesional Guia", "Create", "ProfesionalDocenteGuias")</a></li>
                             <li><a class="dropdown-item">@Html.ActionLink("Crear Usuarios", "Create", "Usuarios")</a></li>        
                             
 
@@ -111,5 +183,15 @@
     @*<script src="~/Scripts/bootstrap.min.js"></script>*@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+    </script>
 </body>
 </html>

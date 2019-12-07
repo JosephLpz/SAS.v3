@@ -23,9 +23,11 @@ namespace SAS.v1.Models
         public int CentroFormadorId { get; set; }
         public int CarreraCarreraId { get; set; }
         public int NombreCentroFormadorNombreCentroFormadorId { get; set; }
+        public int AnioId { get; set; }
     
         public virtual Carrera Carrera { get; set; }
         public virtual NombreCentroFormador NombreCentroFormador { get; set; }
+        public virtual Anio Anio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Alumno> Alumno { get; set; }
     }

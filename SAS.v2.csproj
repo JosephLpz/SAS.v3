@@ -660,7 +660,9 @@
     <Compile Include="Controllers\CargaExcelController.cs" />
     <Compile Include="Controllers\CargarAsignaturasController.cs" />
     <Compile Include="Controllers\CargarPlanEstudiosController.cs" />
+    <Compile Include="Controllers\CarrerasController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
+    <Compile Include="Controllers\InmunizacionsController.cs" />
     <Compile Include="Controllers\InstitucionsController.cs" />
     <Compile Include="Controllers\PerfilUsuariosController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
@@ -735,9 +737,6 @@
     <Compile Include="Models\Asignatura.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CampoClinico.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CampoClinicoAlumno.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -748,6 +747,9 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CentroFormador.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ContadorSituacion.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CursoAlumno.cs">
@@ -953,6 +955,16 @@
     <Content Include="Views\SolicitudDeCupos\IndexPost.cshtml" />
     <Content Include="Views\AsignacionAlumnos\Index.cshtml" />
     <Content Include="Views\AsignacionAlumnos\AsignarAlumno.cshtml" />
+    <Content Include="Views\Carreras\Create.cshtml" />
+    <Content Include="Views\Carreras\Delete.cshtml" />
+    <Content Include="Views\Carreras\Details.cshtml" />
+    <Content Include="Views\Carreras\Edit.cshtml" />
+    <Content Include="Views\Carreras\Index.cshtml" />
+    <Content Include="Views\Inmunizacions\Create.cshtml" />
+    <Content Include="Views\Inmunizacions\Delete.cshtml" />
+    <Content Include="Views\Inmunizacions\Details.cshtml" />
+    <Content Include="Views\Inmunizacions\Edit.cshtml" />
+    <Content Include="Views\Inmunizacions\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

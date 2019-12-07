@@ -11,7 +11,8 @@ namespace SAS.v1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Periodo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -31,6 +32,7 @@ namespace SAS.v1.Models
         public virtual ICollection<CampoClinicoAlumno> CampoClinicoAlumno { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SolicitudDeCupo> SolicitudDeCupo { get; set; }
+
         [DisplayName("Fecha Inicio")]
         public virtual string FInicio
         {
