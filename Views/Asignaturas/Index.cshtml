@@ -1,7 +1,7 @@
-﻿@model IEnumerable<SAS.v1.Models.Carrera>
+﻿@model IEnumerable<SAS.v1.Models.Asignatura>
 
 @{
-    ViewBag.Title = "Carreras";
+    ViewBag.Title = "Asignaturas";
 }
 
 <!DOCTYPE html>
@@ -15,39 +15,42 @@
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
-    <table class="table" id="TablaCarreras">
+    <table class="table" id="TablaAsignaturas">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.NombreCarrera)
+                    @Html.DisplayNameFor(model => model.NombreAsignatura)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CodigoAsignatura)
                 </th>
                 <th></th>
             </tr>
         </thead>
-
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.NombreCarrera)
+                        @Html.DisplayFor(modelItem => item.NombreAsignatura)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.CarreraId }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.CarreraId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.CarreraId })
+                        @Html.DisplayFor(modelItem => item.CodigoAsignatura)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                     </td>
                 </tr>
             }
         </tbody>
-
-
-    
     </table>
+
     <script>
     $(document).ready(function () {
 
-        $('#TablaCarreras').DataTable(
+        $('#TablaAsignaturas').DataTable(
          {
             "bFilter": false,
 

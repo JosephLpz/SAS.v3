@@ -8,6 +8,8 @@ using System.Security.Cryptography;
 using System.Web.Security;
 using SAS.v1.ClasesNP;
 using SAS.v1.Utils;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SAS.v1.Services
 {
@@ -789,6 +791,9 @@ namespace SAS.v1.Services
 
         public Asignatura BuscarAsignatura(Asignatura nombreAsignatura)
         {
+            nombreAsignatura.NombreAsignatura = nombreAsignatura.NombreAsignatura.Normalize(NormalizationForm.FormD);
+            Regex reg = new Regex("[^a-zA-Z0-9 ]");
+            string asig = reg.Replace(nombreAsignatura.NombreAsignatura, "");
             Asignatura asignatura = db.Asignaturas.Where(a => a.NombreAsignatura.ToUpper().Equals(nombreAsignatura.NombreAsignatura.ToUpper() )).FirstOrDefault();
             return asignatura;
         }

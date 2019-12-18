@@ -81,8 +81,8 @@ namespace SAS.v1.Services
                         string[] NombreCompletoSeparado = NombreCompleto.Split(' ', '/');
                            
                         persona.Nombre =NombreCompletoSeparado[0];
-                        persona.ApPaterno = NombreCompletoSeparado[2];
-                        persona.ApMaterno = NombreCompletoSeparado[3];
+                        persona.ApPaterno = NombreCompletoSeparado[1];
+                        persona.ApMaterno = NombreCompletoSeparado[2];
 
                         //Comento esto dependiendo del formato de excel
                         //persona.Nombre = utlXls.getCellValue(string.Concat(ListaColumnas[6], fila));
@@ -97,10 +97,8 @@ namespace SAS.v1.Services
                         nombreCentro.NombreCentroFormador1 = "Universidad de Viña del Mar";
                         nombreCentro = ingreso.CrearNombreCentroFormador(nombreCentro.NombreCentroFormador1, 1);
                         carreras = ingreso.CrearCarrera(carrera, 1);
-                        alumno = ingreso.CrearAlumno(persona, alumno, centro, 0);
-
                         centro = ingreso.CrearCentroFormador(nombreCentro.NombreCentroFormadorId, carreras.CarreraId,anio.Id,1);
-                        
+                        alumno = ingreso.CrearAlumno(persona, alumno, centro, 0);
                         // porcentaje.Porcentaje = 20;
                         // porcentaje = ingreso.CrearPorcentajeDeExigencia(porcentaje, 1);
 
@@ -111,6 +109,9 @@ namespace SAS.v1.Services
                             string ValorCelda = utlXls.getCellValue(string.Concat(ListaColumnas[i], fila));
                             asignatura = new Asignatura();
                             asignatura.NombreAsignatura = utlXls.getCellValue(string.Concat(ListaColumnas[i], filaAsignatura));
+                            
+                           if(asignatura.NombreAsignatura!=null)
+                                {
                             asignatura.NombreAsignatura = asignatura.NombreAsignatura.Replace("*", "").Replace("(", "").Replace(")", "");
                             asignatura = ingreso.CrearAsignatura(asignatura, 1);
 
@@ -128,51 +129,52 @@ namespace SAS.v1.Services
                             planAlumno.AlumnoAlumnoId = alumno.AlumnoId;
                             planAlumno.PlanDeEstudioId = planEstudio.Id;
 
-                                if (ListaColumnas[i] == "A")
+                                if (utlXls.getCellValue(string.Concat(ListaColumnas[i],fila)) == "A")
                                 {
                                     planAlumno.EstadoAsignatura = EstadoAsignatura.Aprobado;
                                 }
-                                else if (ListaColumnas[i] == "A2")
+                                else if (utlXls.getCellValue(string.Concat(ListaColumnas[i], fila)) == "A2")
                                 {
                                     planAlumno.EstadoAsignatura = EstadoAsignatura.AprobadoEnSegunda;
                                 }
-                                else if (ListaColumnas[i] == "A3")
+                                else if (utlXls.getCellValue(string.Concat(ListaColumnas[i], fila)) == "A3")
                                 {
                                     planAlumno.EstadoAsignatura = EstadoAsignatura.AprobadoEnTercera;
                                 }
-                                else if (ListaColumnas[i] == "A4")
+                                else if (utlXls.getCellValue(string.Concat(ListaColumnas[i], fila)) == "A4")
                                 {
                                     planAlumno.EstadoAsignatura = EstadoAsignatura.AprobadoEnCuarta;
                                 }
-                                else if (ListaColumnas[i] == "C")
+                                else if (utlXls.getCellValue(string.Concat(ListaColumnas[i], fila)) == "C")
                                 {
                                     planAlumno.EstadoAsignatura = EstadoAsignatura.Cursando;
                                 }
-                                else if (ListaColumnas[i] == "C2")
+                                else if (utlXls.getCellValue(string.Concat(ListaColumnas[i], fila)) == "C2")
                                 {
                                     planAlumno.EstadoAsignatura = EstadoAsignatura.CursandoEnSegunda;
                                 }
-                                else if (ListaColumnas[i] == "C3")
+                                else if (utlXls.getCellValue(string.Concat(ListaColumnas[i], fila)) == "C3")
                                 {
                                     planAlumno.EstadoAsignatura = EstadoAsignatura.CursandoEnTercera;
                                 }
-                                else if (ListaColumnas[i] == "C4")
+                                else if (utlXls.getCellValue(string.Concat(ListaColumnas[i], fila)) == "C4")
                                 {
                                     planAlumno.EstadoAsignatura = EstadoAsignatura.CursandoEnCuarta;
                                 }
-                                else if (ListaColumnas[i] == "" || ListaColumnas[i] == " " || ListaColumnas[i] == null)
+                                else if (utlXls.getCellValue(string.Concat(ListaColumnas[i], fila)) == "" || utlXls.getCellValue(string.Concat(ListaColumnas[i], fila)) == " "
+                                    || utlXls.getCellValue(string.Concat(ListaColumnas[i], fila)) == null)
                                 {
                                     planAlumno.EstadoAsignatura = EstadoAsignatura.NoCursado;
                                 }
-                                else if (ListaColumnas[i] == "R")
+                                else if (utlXls.getCellValue(string.Concat(ListaColumnas[i], fila)) == "R")
                                 {
                                     planAlumno.EstadoAsignatura = EstadoAsignatura.ReprobadoYNoInscrito;
                                 }
-                                else if (ListaColumnas[i] == "R2")
+                                else if (utlXls.getCellValue(string.Concat(ListaColumnas[i], fila)) == "R2")
                                 {
                                     planAlumno.EstadoAsignatura = EstadoAsignatura.ReprobadoYNoInscritoSegunda;
                                 }
-                                else if (ListaColumnas[i] == "R3")
+                                else if (utlXls.getCellValue(string.Concat(ListaColumnas[i], fila)) == "R3")
                                 {
                                     planAlumno.EstadoAsignatura = EstadoAsignatura.ReprobadoYNoInscritoTercera;
                                 }
@@ -245,6 +247,7 @@ namespace SAS.v1.Services
                                  }
 
                             }
+                        }
                         fila++;       
                         }
                     else

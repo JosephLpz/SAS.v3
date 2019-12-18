@@ -119,9 +119,16 @@
       <HintPath>packages\Spire.XLS.9.8.11\lib\net40\Spire.XLS.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
@@ -154,6 +161,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="UnicodeInformation, Version=2.4.0.0, Culture=neutral, PublicKeyToken=e54dbbddfea2ed0e, processorArchitecture=MSIL">
+      <HintPath>packages\UnicodeInformation.2.4.0\lib\netstandard1.1\UnicodeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="UVM.PDS.SGTCtrlUsr">
       <HintPath>C:\Users\lopin\OneDrive\UVM\Proyecto Escuela de la salud\PDS\SRCP-190417\SRCP\ctrlUsr\SGTCtrlUsr\SGTCtrlUsr\bin\UVM.PDS.SGTCtrlUsr.dll</HintPath>
     </Reference>
@@ -656,6 +667,7 @@
     <Compile Include="ClasesNP\UnidadServicioNP.cs" />
     <Compile Include="Controllers\AlumnosController.cs" />
     <Compile Include="Controllers\AsignacionAlumnosController.cs" />
+    <Compile Include="Controllers\AsignaturasController.cs" />
     <Compile Include="Controllers\CampoClinicoAlumnosController.cs" />
     <Compile Include="Controllers\CargaExcelController.cs" />
     <Compile Include="Controllers\CargarAsignaturasController.cs" />
@@ -965,6 +977,11 @@
     <Content Include="Views\Inmunizacions\Details.cshtml" />
     <Content Include="Views\Inmunizacions\Edit.cshtml" />
     <Content Include="Views\Inmunizacions\Index.cshtml" />
+    <Content Include="Views\Asignaturas\Create.cshtml" />
+    <Content Include="Views\Asignaturas\Delete.cshtml" />
+    <Content Include="Views\Asignaturas\Details.cshtml" />
+    <Content Include="Views\Asignaturas\Edit.cshtml" />
+    <Content Include="Views\Asignaturas\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

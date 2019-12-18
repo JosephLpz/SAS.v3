@@ -17,7 +17,17 @@
     @Scripts.Render("~/bundles/CustomJqueryBundle", "~/bundles/CustomJqueryDataTable_Scripts")
     @Styles.Render("~/bundles/CustomJqueryDataTable_Styles")
     @*<script src="~/Scripts/modernizr-2.6.2.js"></script>*@
-    
+    <style>
+        .dropdown-submenu {
+            position: relative;
+        }
+
+            .dropdown-submenu .dropdown-menu {
+                top: 0;
+                left: 100%;
+                margin-top: -1px;
+            }
+    </style>
 </head>
 <body>
     <div id="NavBar-Principal" class="navbar navbar-default navbar-fixed-top">
@@ -37,7 +47,7 @@
                     <li><a class="navbar-brand">@Html.ActionLink("Sistema Gestión Campos Clínicos", "Index", "Inicio")</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                    <li class="dropdown">
+                    @*<li class="dropdown">
                    
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             Mantenedores<span class="caret"></span>
@@ -65,7 +75,7 @@
                             <li><a class="dropdown-item">@Html.ActionLink("Plan de Estudios", "Index", "PlanDeEstudios", new { id = 1 }, null)</a></li>    
                             <li><a class="dropdown-item">@Html.ActionLink("Seguimiento Alumnos", "Index", "Alumnos", new { id = 1 },null)</a></li>    
                         </ul>
-                    </li>
+                    </li>*@
 
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -142,6 +152,14 @@
                                 <a class="dropdown-toggle test">Seguimiento Alumnos<span class="caret"></span></a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item">@Html.ActionLink("Ver Seguimiento Alumnos", "Index", "Alumnos", new { id = 1 }, null)</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-toggle test">Asignaturas<span class="caret"></span></a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item">@Html.ActionLink("Crear Asignaturas", "Create", "Asignaturas", new { id = 1 }, null)</a></li>
+                                    <li><a class="dropdown-item">@Html.ActionLink("Ver Asignaturas", "Index", "Asignaturas", new { id = 1 }, null)</a></li>                                   
                                 </ul>
                             </li>
                         </ul>
