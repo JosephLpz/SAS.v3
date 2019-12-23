@@ -51,15 +51,16 @@
                 </dl>
 
             </fieldset>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label for="Carrera-name" class="col-form-label">Profesor Supervisor:</label>
                 @Html.DropDownList("ProfesorSupervisor", null, htmlAttributes: new { @class = "form-control" })
-            </div>
+            </div>*@
 
 
             <div class="form-group">
-                <label for="Carrera-name" class="col-form-label">Profesor Guia:</label>
+                <label for="Carrera-name" class="col-form-label">Profesor:</label>
                 @Html.DropDownList("ProfesorGuia", null, htmlAttributes: new { @class = "form-control" })
+                <a class="dropdown-item">@Html.ActionLink("Crear Docente", "Create", "ProfesionalDocenteGuias")</a>
             </div>
 
             <div class="form-group">

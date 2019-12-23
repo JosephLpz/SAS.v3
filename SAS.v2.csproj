@@ -661,17 +661,23 @@
     <Compile Include="Controllers\CargarAsignaturasController.cs" />
     <Compile Include="Controllers\CargarPlanEstudiosController.cs" />
     <Compile Include="Controllers\CarrerasController.cs" />
+    <Compile Include="Controllers\DocenciaHospitalariasController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\InmunizacionsController.cs" />
     <Compile Include="Controllers\InstitucionsController.cs" />
+    <Compile Include="Controllers\NombreCampoClinicosController.cs" />
+    <Compile Include="Controllers\NombreJornadasController.cs" />
     <Compile Include="Controllers\PerfilUsuariosController.cs" />
+    <Compile Include="Controllers\PeriodosController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\PlanDeEstudiosController.cs" />
     <Compile Include="Controllers\PlanEstudioAlumnosController.cs" />
     <Compile Include="Controllers\ProfesionalDocenteGuiasController.cs" />
     <Compile Include="Controllers\ProfesionalSupervisorsController.cs" />
     <Compile Include="Controllers\ProyeccionDeCuposController.cs" />
+    <Compile Include="Controllers\ServiciosController.cs" />
     <Compile Include="Controllers\SolicitudDeCuposController.cs" />
+    <Compile Include="Controllers\SupervisionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -824,9 +830,6 @@
     <Compile Include="Models\ProfesionalDocenteGuia.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProfesionalSupervisor.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ProyeccionAlumno.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -845,6 +848,9 @@
     <Compile Include="Models\Supervision.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TipoDocente.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -856,6 +862,7 @@
     <Compile Include="Services\CountColumns.cs" />
     <Compile Include="Services\DocenteGuiaServices.cs" />
     <Compile Include="Services\IngresoServices.cs" />
+    <Compile Include="Services\InitServices.cs" />
     <Compile Include="Services\InstitucionServices.cs" />
     <Compile Include="Services\ProyeccionesServices.cs" />
     <Compile Include="Services\UnidadDeServicioServices.cs" />
@@ -965,6 +972,37 @@
     <Content Include="Views\Inmunizacions\Details.cshtml" />
     <Content Include="Views\Inmunizacions\Edit.cshtml" />
     <Content Include="Views\Inmunizacions\Index.cshtml" />
+    <Content Include="Views\NombreCampoClinicos\Create.cshtml" />
+    <Content Include="Views\NombreCampoClinicos\Delete.cshtml" />
+    <Content Include="Views\NombreCampoClinicos\Details.cshtml" />
+    <Content Include="Views\NombreCampoClinicos\Edit.cshtml" />
+    <Content Include="Views\NombreCampoClinicos\Index.cshtml" />
+    <Content Include="Views\Servicios\Create.cshtml" />
+    <Content Include="Views\Servicios\Delete.cshtml" />
+    <Content Include="Views\Servicios\Details.cshtml" />
+    <Content Include="Views\Servicios\Edit.cshtml" />
+    <Content Include="Views\Servicios\Index.cshtml" />
+    <Content Include="Views\Supervisions\Create.cshtml" />
+    <Content Include="Views\Supervisions\Delete.cshtml" />
+    <Content Include="Views\Supervisions\Details.cshtml" />
+    <Content Include="Views\Supervisions\Edit.cshtml" />
+    <Content Include="Views\Supervisions\Index.cshtml" />
+    <Content Include="Views\Periodos\Create.cshtml" />
+    <Content Include="Views\Periodos\Delete.cshtml" />
+    <Content Include="Views\Periodos\Details.cshtml" />
+    <Content Include="Views\Periodos\Edit.cshtml" />
+    <Content Include="Views\Periodos\Index.cshtml" />
+    <Content Include="Views\NombreJornadas\Create.cshtml" />
+    <Content Include="Views\NombreJornadas\Delete.cshtml" />
+    <Content Include="Views\NombreJornadas\Details.cshtml" />
+    <Content Include="Views\NombreJornadas\Edit.cshtml" />
+    <Content Include="Views\NombreJornadas\Index.cshtml" />
+    <Content Include="Views\DocenciaHospitalarias\Create.cshtml" />
+    <Content Include="Views\DocenciaHospitalarias\Delete.cshtml" />
+    <Content Include="Views\DocenciaHospitalarias\Details.cshtml" />
+    <Content Include="Views\DocenciaHospitalarias\Edit.cshtml" />
+    <Content Include="Views\DocenciaHospitalarias\Index.cshtml" />
+    <Content Include="Views\ProyeccionDeCupos\VerProyeccionPorCarrera.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -34,7 +34,11 @@
         </script>
         
     }
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+    <!-- Moment Js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 
 </head>
 <body>
@@ -51,6 +55,8 @@
                 <label for="Carrera-name" class="col-form-label">Año:</label>
                 @Html.DropDownList("AnioId", null, htmlAttributes: new { @class = "form-control" })
             </div>
+
+
             <p>Nombre Hoja:</p>
             <input class="form-control" type="text" name="NombreHoja" />
             <input type="file" name="archivo" class="form-control-file" /><br />
@@ -91,5 +97,5 @@
         
 
     }
-
+    
 </script>

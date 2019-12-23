@@ -12,7 +12,8 @@ namespace SAS.v1.Controllers
         // GET: Inicio
         public ActionResult Index()
         {
-            
+            InitServices init = new InitServices();
+            init.CrearAnios();
             return View();
         }
     }

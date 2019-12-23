@@ -33,7 +33,7 @@ namespace SAS.v1.Models
         public int NombreCampoClinicoId { get; set; }
     
         public virtual Alumno Alumno { get; set; }
-        public virtual ProfesionalSupervisor ProfesionalSupervidor { get; set; }
+        //public virtual ProfesionalSupervisor ProfesionalSupervidor { get; set; }
         public virtual Periodo Periodo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CampoClinicoAlumnoDias> CampoClinicoAlumnoDias { get; set; }

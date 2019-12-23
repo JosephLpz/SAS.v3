@@ -1,0 +1,75 @@
+﻿@model IEnumerable<SAS.v1.Models.NombreCampoClinico>
+
+@{
+    ViewBag.Title = "Establecimientos";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table" id="TablaEstablecimientos">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NombreCampo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Institucion.NombreInstitucion)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreCampo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Institucion.NombreInstitucion)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+
+        $('#TablaEstablecimientos').DataTable(
+         {
+            "bFilter": false,
+
+            "oLanguage": {
+                "sLengthMenu": "Mostrar _MENU_ registros por página",
+                "sZeroRecords": "No se encontraron resultados.",
+                "sInfo": "Mostrando _START_ al _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 al 0 de 0 registros",
+                "sInfoFiltered": "(filtrado(s) de _MAX_ registro(s))",
+                "oPaginate": {
+                    "sFirst": "Inicio",
+                    "sLast": "Final",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                }
+            },
+            "sDom": '<"top"Blip>rt<p"clear">',
+            buttons: ['excel']
+         });
+    });
+</script>

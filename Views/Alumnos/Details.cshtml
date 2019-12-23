@@ -159,49 +159,55 @@
                 <dd>
                     @Html.DisplayFor(model => model.ProfesionalDocenteGuia.Inmunizacion.NombreInmunizacion)
                 </dd>
+                <dt>
+                    Tipo Docente
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ProfesionalDocenteGuia.TipoDocente)
+                </dd>
             </dl>
 
         </fieldset>
     </form>
 
     <br />
-    <form>
-        <fieldset>
-            <legend>Profesior Supervisor</legend>
-            <dl class="dl-horizontal">
-                <dt>
-                    Rut
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.Rut)-@Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.Dv)
-                </dd>
-                <dt>
-                    Nombre
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.Nombre)
-                </dd>
-                <dt>
-                    Apellidos
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.ApPaterno) @Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.ApMaterno)
-                </dd>
-                <dt>
-                    Valor
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.ProfesionalSupervidor.ValorSupervisor)
-                </dd>
-                <dt>
-                    Observaciones
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.ProfesionalSupervidor.Observaciones)
-                </dd>
-            </dl>
-         </fieldset>
-    </form>
+    @*<form>
+    <fieldset>
+        <legend>Profesior Supervisor</legend>
+        <dl class="dl-horizontal">
+            <dt>
+                Rut
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.Rut)-@Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.Dv)
+            </dd>
+            <dt>
+                Nombre
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.Nombre)
+            </dd>
+            <dt>
+                Apellidos
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.ApPaterno) @Html.DisplayFor(model => model.ProfesionalSupervidor.Persona.ApMaterno)
+            </dd>
+            <dt>
+                Valor
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProfesionalSupervidor.ValorSupervisor)
+            </dd>
+            <dt>
+                Observaciones
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProfesionalSupervidor.Observaciones)
+            </dd>
+        </dl>
+     </fieldset>
+    </form>*@
     <br />
     <form>
     <fieldset>

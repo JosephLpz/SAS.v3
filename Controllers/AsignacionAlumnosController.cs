@@ -51,17 +51,17 @@ namespace SAS.v1.Controllers
                 });
             }
 
-            foreach (var item in db.ProfesionalSupervisorSet)
-            {
-                person = new Persona();
-                person = ingreso.PersonaFindById(item.PersonaPersonaId);
+            //foreach (var item in db.ProfesionalSupervisorSet)
+            //{
+            //    person = new Persona();
+            //    person = ingreso.PersonaFindById(item.PersonaPersonaId);
 
-                ProfSup.Add(new SelectListItem
-                {
-                    Text = person.Nombre.ToString() + person.ApPaterno.ToString(),
-                    Value = item.ProfesionalSupervisorId.ToString()
-                });
-            }
+            //    ProfSup.Add(new SelectListItem
+            //    {
+            //        Text = person.Nombre.ToString() + person.ApPaterno.ToString(),
+            //        Value = item.ProfesionalSupervisorId.ToString()
+            //    });
+            //}
 
             ViewBag.ProfesorSupervisor = ProfSup;
             ViewBag.ProfesorGuia = ProfGuia;
@@ -94,24 +94,24 @@ namespace SAS.v1.Controllers
 
                 ProfGuia.Add(new SelectListItem
                 {
-                    Text = person.Nombre.ToString() + person.ApPaterno.ToString(),
+                    Text = person.Nombre.ToString() +" "+ person.ApPaterno.ToString() + " " +item.TipoDocente,
                     Value = item.ProfesionalDocenteGuiaId.ToString()
                 });
             }
 
-            foreach (var item in db.ProfesionalSupervisorSet)
-            {
-                person = new Persona();
-                person = ingreso.PersonaFindById(item.PersonaPersonaId);
+            //foreach (var item in db.ProfesionalSupervisorSet)
+            //{
+            //    person = new Persona();
+            //    person = ingreso.PersonaFindById(item.PersonaPersonaId);
 
-                ProfSup.Add(new SelectListItem
-                {
-                    Text = person.Nombre.ToString() + person.ApPaterno.ToString(),
-                    Value = item.ProfesionalSupervisorId.ToString()
-                });
-            }
+            //    ProfSup.Add(new SelectListItem
+            //    {
+            //        Text = person.Nombre.ToString() + person.ApPaterno.ToString(),
+            //        Value = item.ProfesionalSupervisorId.ToString()
+            //    });
+            //}
 
-            ViewBag.ProfesorSupervisor = ProfSup;
+            //ViewBag.ProfesorSupervisor = ProfSup;
             ViewBag.ProfesorGuia = ProfGuia;
             ViewBag.Solicitud = Solicitud;
 
@@ -125,15 +125,15 @@ namespace SAS.v1.Controllers
         {
             IngresoServices ingreso = new IngresoServices();
             int profesorGuiaId = Int32.Parse(ProfesorGuia);
-            int profesorSupervisorId = Int32.Parse(ProfesorSupervisor);
+           // int profesorSupervisorId = Int32.Parse(ProfesorSupervisor);
             ProfesionalDocenteGuia DocenteGuia = db.ProfesionalDocenteGuias.Include(p=>p.Persona).Where(p => p.ProfesionalDocenteGuiaId== profesorGuiaId).FirstOrDefault();
-            ProfesionalSupervisor DocenteSupervisor = db.ProfesionalSupervisorSet.Include(p => p.Persona).Where(p => p.ProfesionalSupervisorId == profesorSupervisorId).FirstOrDefault();
+           // ProfesionalSupervisor DocenteSupervisor = db.ProfesionalSupervisorSet.Include(p => p.Persona).Where(p => p.ProfesionalSupervisorId == profesorSupervisorId).FirstOrDefault();
             SolicitudDeCupo SolicitudCupo = db.SolicitudDeCupos.Where(s => s.Id == Solicitud).FirstOrDefault();
             Alumno alumno = db.Alumnos.Include(p => p.Persona).Where(a => a.AlumnoId == AlumnoId).FirstOrDefault();
             Anio anio = db.Anios.Where(a => a.Id == Ano).FirstOrDefault();
             Semestre semestre = db.Semestres.Where(s => s.Id == Semestre).FirstOrDefault();
 
-           CampoClinicoAlumno campoClinico= ingreso.CrearCampoClinicoAlumno(alumno, DocenteGuia, DocenteSupervisor, SolicitudCupo.Periodo, SolicitudCupo.Asignatura, semestre, anio, SolicitudCupo.NombreCampoClinico);
+           CampoClinicoAlumno campoClinico= ingreso.CrearCampoClinicoAlumno(alumno, DocenteGuia, SolicitudCupo.Periodo, SolicitudCupo.Asignatura, semestre, anio, SolicitudCupo.NombreCampoClinico);
            
                 foreach(var result in check)
                 {                  

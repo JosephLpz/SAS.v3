@@ -32,14 +32,17 @@
                     <div class="form-group">
                         <label for="Institucion-name" class="col-form-label">institución:</label>
                         @Html.DropDownList("InstitucionId",null, htmlAttributes: new { @class = "form-control" })
+                        <a class="dropdown-item">@Html.ActionLink("Crear Instituciones", "Create", "Institucions")</a>
                     </div>
                     <div class="form-group">
                         <label for="Establecimiento-name" class="col-form-label">Establecimiento:</label>
                         @Html.DropDownList("NombreCampoId", null, htmlAttributes: new { @class = "form-control" })
+                        <a class="dropdown-item">@Html.ActionLink("Crear Campo Clínico", "Create", "NombreCampoClinicos")</a>
                     </div>
                     <div class="form-group">
                         <label for="Servicio-name" class="col-form-label">Servicio:</label>
-                        @Html.EditorFor(model => model.Servicio.NombreServicio, new { htmlAttributes = new { @class = "form-control", @id = "Servicio-name" } })
+                        @Html.DropDownList("ServicioId", null, htmlAttributes: new { @class = "form-control" })
+                        <a class="dropdown-item">@Html.ActionLink("Crear Servicios", "Create", "Servicios")</a>
                     </div>
                     <div class="form-group">
                         <label for="Cupos-name" class="col-form-label">Cupos Alumnos:</label>
@@ -63,14 +66,16 @@
                     <div class="form-group">
                         <label for="jornada-name" class="col-form-label">Jornada y Horarios:</label>
                         @Html.DropDownList("NombreJornadaId", null, htmlAttributes: new { @class = "form-control" })
+                        <a class="dropdown-item">@Html.ActionLink("Crear Jornada", "Create", "NombreJornadas")</a>
                     </div>
 
                     <div class="form-group">
-                        <label for="Supervicion-name" class="col-form-label">Tipo Supervicion:</label>
-                        @Html.EditorFor(model => model.Supervision.NombreSupervision, new { htmlAttributes = new { @class = "form-control", @id = "Supervicion-name" } })
+                        <label for="Supervision-name" class="col-form-label">Supervisión:</label>
+                        @Html.DropDownList("SupervisionId", null, htmlAttributes: new { @class = "form-control" })
+                        <a class="dropdown-item">@Html.ActionLink("Crear Supervisión", "Create", "Supervisions")</a>
                     </div>
                     <div class="form-group">
-                        <label for="Establecimiento-name" class="col-form-label">Asignatura:</label>
+                        <label for="Asignatura-name" class="col-form-label">Asignatura:</label>
                         @Html.DropDownList("AsignaturaId", null, htmlAttributes: new { @class = "form-control",@disable="disable"})
                     </div>
                     @*<div class="form-group">

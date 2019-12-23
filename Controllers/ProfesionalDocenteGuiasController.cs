@@ -93,12 +93,19 @@ namespace SAS.v1.Controllers
         [Authorize(Roles = ("Administrador"))]
         [HttpPost]
        [ValidateAntiForgeryToken]
-       public ActionResult Create([Bind(Include = "Rut, Dv, Nombre, ApPaterno, ApMaterno, Profesion,NumeroSuperintendencia,Telefono,Correo,ValorDocente,CumpleDatos,NombreDocenciaHospitalaria,InmunizacionId")] Persona persona, ProfesionalDocenteGuia profesionalDocenteGuia,DocenciaHospitalaria docenciaHospitalaria, Inmunizacion inmunizacion)
+       public ActionResult Create([Bind(Include = "Rut, Dv, Nombre, ApPaterno, ApMaterno, Profesion,NumeroSuperintendencia,Telefono,Correo,ValorDocente,CumpleDatos,NombreDocenciaHospitalaria,InmunizacionId,TipoDocente")] Persona persona, ProfesionalDocenteGuia profesionalDocenteGuia,DocenciaHospitalaria docenciaHospitalaria, Inmunizacion inmunizacion,int TipoDocente)
        {
             IngresoServices ingresoDatos = new IngresoServices();
             ValidacionCorreo validar = new ValidacionCorreo();
             UtilRut ValidacionRut = new UtilRut();
-
+            if (TipoDocente == 1)
+            {
+            profesionalDocenteGuia.TipoDocente = Models.TipoDocente.DocenteGuia;
+            }else if (TipoDocente == 2)
+            {
+            profesionalDocenteGuia.TipoDocente = Models.TipoDocente.DocenteSupervisor;
+            }
+            
             if (ModelState.IsValid)
            {
                 if (ValidacionRut.validarRut((persona.Rut + "-" + persona.Dv)))

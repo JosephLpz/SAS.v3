@@ -30,6 +30,7 @@ namespace SAS.v1.Models
         public int PersonaPersonaId { get; set; }
         public int DocenciaHospitalariaDocenciaHospitalariaId { get; set; }
         public int InmunizacionInmunizacionId { get; set; }
+        public TipoDocente TipoDocente { get; set; }
     
         public virtual Persona Persona { get; set; }
         public virtual DocenciaHospitalaria DocenciaHospitalaria { get; set; }

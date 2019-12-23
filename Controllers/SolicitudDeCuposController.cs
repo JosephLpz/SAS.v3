@@ -55,15 +55,26 @@ namespace SAS.v1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string Solicitudes, string index, string DataPoint,[Bind(Include ="CarreraId,NombreCampoId,NombreServicio,CuposAlumnos,Observacion,TotalSemanaPorGrupo,FechaInicio,FechaTermino,NombreJornadaId,NombreSupervision,NombreAsignatura")]
-      Carrera carrera, Servicio servicio, SolicitudDeCupo solicitudCupo, Periodo periodo, NombreJornada jornada, Supervision supervision, int AsignaturaId, string InstitucionId,string NombreCampoId,int CarreraId)
+        public ActionResult Index(string Solicitudes, string index, string DataPoint,[Bind(Include ="CarreraId,NombreCampoId,CuposAlumnos,Observacion,TotalSemanaPorGrupo,FechaInicio,FechaTermino,NombreJornadaId,NombreAsignatura,ServicioId,SupervisionId")]
+      Carrera carrera, SolicitudDeCupo solicitudCupo, Periodo periodo, NombreJornada jornada, int AsignaturaId, string InstitucionId,string NombreCampoId,int CarreraId,int ServicioId,int SupervisionId)
         {
             IngresoServices ingreso = new IngresoServices();
+        
             
+           
+            
+
             Institucion institucion = new Institucion();
             NombreCampoClinico nombreCampo = new NombreCampoClinico();
+
             Servicio serv = new Servicio();
+            serv.Id = ServicioId;
+            serv = ingreso.SevicioFindById(serv);
+
             Supervision superv = new Supervision();
+            superv.Id = SupervisionId;
+            superv = ingreso.SupervisionFindById(superv);
+
             SolicitudDeCuposNP solicitud = new SolicitudDeCuposNP();
             UtilSolicitudDeCupos util = new UtilSolicitudDeCupos();
             Carrera carr = new Carrera();
@@ -86,8 +97,8 @@ namespace SAS.v1.Controllers
             ingreso.CrearProyeccion(ListaSolicitudes[i],1);
 
 
-            serv = ingreso.CrearServicio(servicio, 1);
-            superv = ingreso.CrearSupervision(supervision, 1);
+            serv = ingreso.CrearServicio(serv, 1);
+            superv = ingreso.CrearSupervision(superv, 1);
             //asignatura = ingreso.AsignaturaFindById(asignatura.Id);
             carr = ingreso.CarreraFindById(carrera.CarreraId);
             solicitudCupo.CarreraCarreraId = carr.CarreraId;
@@ -98,7 +109,7 @@ namespace SAS.v1.Controllers
             solicitudCupo.AsignaturaId = AsignaturaId;
             institucion = ingreso.CrearInstitucion(InstitucionId,1);
             nombreCampo = ingreso.CrearNombreCampoClinico(NombreCampoId,1,institucion);
-
+            solicitudCupo.NombreCampoClinicoId = nombreCampo.Id;
             
             
             solicitudCupo.ProyeccionDeCupoId = proyeccion[i];
@@ -132,6 +143,8 @@ namespace SAS.v1.Controllers
             ViewBag.NombreJornadaId = new SelectList(db.NombreJornadas, "NombreJornadaId", "Nombre");
             ViewBag.NombreCampoId = new SelectList(db.NombreCampoClinicoSet, "NombreCampo", "NombreCampo");
             ViewBag.AsignaturaId = new SelectList(db.Asignaturas, "Id", "NombreAsignatura", AsignaturaId);
+            ViewBag.SupervisionId = new SelectList(db.Supervicions, "Id", "NombreSupervision");
+            ViewBag.ServicioId = new SelectList(db.Servicios, "Id", "NombreServicio");
             //ViewBag.Asignatura = db.Asignaturas.Where(a => a.Id == AsignaturaId).FirstOrDefault();
             TempData["Proyeccion"] = proyeccion;
 

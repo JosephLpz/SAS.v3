@@ -51,13 +51,21 @@ namespace SAS.v1.Controllers
                 string NombreArchivo = Path.GetFileName(archivo.FileName);
                 
                 CargarAsignaturas Cargar = new CargarAsignaturas();
-               if(Cargar.procesarCargaDatos(NombreArchivo, NombreHoja, carrera))
+                try
                 {
-                    ViewBag.EstadoDeProceso = true;
+             
+                   if(Cargar.procesarCargaDatos(NombreArchivo, NombreHoja, carrera))
+                    {
+                        ViewBag.EstadoDeProceso = true;
+                    }
+                    else
+                    {
+                        ViewBag.EstadoDeProceso = false;
+                    }
                 }
-                else
+                catch (System.IO.IOException )
                 {
-                    ViewBag.EstadoDeProceso = false;
+                    throw new IOException("Existe un error con el archivo");
                 }
             }
 

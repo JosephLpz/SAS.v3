@@ -32,7 +32,7 @@ namespace SAS.v1.Services
                         Persona personaDocenteGuia = new Persona();
                         Persona personaSupervisor = new Persona();
                         Alumno Alumn = new Alumno();
-                        ProfesionalSupervisor Supervisor = new ProfesionalSupervisor();
+                        //ProfesionalSupervisor Supervisor = new ProfesionalSupervisor();
                         // UnidadDeServicio UServicio = new UnidadDeServicio();
                         Inmunizacion inmun = new Inmunizacion();
                         CentroFormador CentroF = new CentroFormador();
@@ -348,33 +348,33 @@ namespace SAS.v1.Services
                         
 
                             #region ProfesionalSupervisor
-                            personaSupervisor.Rut = RutProfesionalSupervisor;
-                            personaSupervisor.Dv = DvProfesionalSupervisor;
-                            personaSupervisor.Nombre = NombreProfesionalSupervisor;
-                            personaSupervisor.ApPaterno = ApPaternoProfesionalSupervisor;
-                            personaSupervisor.ApMaterno = ApMaternoProfesionalSupervisor;
-                            if (ValorProfesionalSupervisor == "")
-                            {
-                                Supervisor.ValorSupervisor = 0;
-                            }
-                            else
-                            {
-                                Supervisor.ValorSupervisor = Int32.Parse(ValorProfesionalSupervisor);
-                            }
+                            //personaSupervisor.Rut = RutProfesionalSupervisor;
+                            //personaSupervisor.Dv = DvProfesionalSupervisor;
+                            //personaSupervisor.Nombre = NombreProfesionalSupervisor;
+                            //personaSupervisor.ApPaterno = ApPaternoProfesionalSupervisor;
+                            //personaSupervisor.ApMaterno = ApMaternoProfesionalSupervisor;
+                            //if (ValorProfesionalSupervisor == "")
+                            //{
+                            //    Supervisor.ValorSupervisor = 0;
+                            //}
+                            //else
+                            //{
+                            //    Supervisor.ValorSupervisor = Int32.Parse(ValorProfesionalSupervisor);
+                            //}
 
-                            Supervisor.Observaciones = ObservacionesProfesionalSupervisor;
+                            //Supervisor.Observaciones = ObservacionesProfesionalSupervisor;
 
-                            if (personaSupervisor.Rut == "" && personaSupervisor.Dv == "" && personaSupervisor.Nombre == "")
-                            {
-                                personaSupervisor.Rut = "Ninguno";
-                                personaSupervisor.Dv = "Ninguno";
-                                personaSupervisor.Nombre = "Ninguno";
-                                personaSupervisor.ApPaterno = "Ninguno";
-                                personaSupervisor.ApMaterno = "Ninguno";
-                                Supervisor.Observaciones = "Ninguno";
-                            }
-                            personaSupervisor = ingreso.CrearPersona(personaSupervisor,Estado);
-                            Supervisor = ingreso.crearProfesionalSupervisor(personaSupervisor, Supervisor, Estado);
+                            //if (personaSupervisor.Rut == "" && personaSupervisor.Dv == "" && personaSupervisor.Nombre == "")
+                            //{
+                            //    personaSupervisor.Rut = "Ninguno";
+                            //    personaSupervisor.Dv = "Ninguno";
+                            //    personaSupervisor.Nombre = "Ninguno";
+                            //    personaSupervisor.ApPaterno = "Ninguno";
+                            //    personaSupervisor.ApMaterno = "Ninguno";
+                            //    Supervisor.Observaciones = "Ninguno";
+                            //}
+                            //personaSupervisor = ingreso.CrearPersona(personaSupervisor,Estado);
+                            //Supervisor = ingreso.crearProfesionalSupervisor(personaSupervisor, Supervisor, Estado);
                             #endregion
 
                            
@@ -405,7 +405,7 @@ namespace SAS.v1.Services
                            
 
                             #region CampoClinicosAlumnos
-                            CampoAlumnos = ingreso.CrearCampoClinicoAlumno(Alumn, DocenteGuia, Supervisor, Per, Asignaturas, Semestres, Ano, NCampo);
+                            CampoAlumnos = ingreso.CrearCampoClinicoAlumno(Alumn, DocenteGuia, Per, Asignaturas, Semestres, Ano, NCampo);
                             #endregion
 
 

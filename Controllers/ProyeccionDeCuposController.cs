@@ -74,7 +74,13 @@ namespace SAS.v1.Controllers
 
             return View();
         }
+        public ActionResult VerProyeccionPorCarrera()
+        {
+            List<ProyeccionDeCupo> proyección = db.ProyeccionDeCupos.ToList();
 
+            return View(proyección);
+        }
+          
         public ActionResult MuestraProyeccionPorCarrera(int ano)
         {
             int TotalCupos=0;

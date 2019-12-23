@@ -39,7 +39,6 @@ namespace SAS.v1.Models
         public virtual DbSet<Institucion> Institucions { get; set; }
         public virtual DbSet<CampoClinicoAlumno> CampoClinicoAlumnos { get; set; }
         public virtual DbSet<Alumno> Alumnos { get; set; }
-        public virtual DbSet<ProfesionalSupervisor> ProfesionalSupervisorSet { get; set; }
         public virtual DbSet<Asignatura> Asignaturas { get; set; }
         public virtual DbSet<Semestre> Semestres { get; set; }
         public virtual DbSet<Anio> Anios { get; set; }

@@ -18,7 +18,6 @@ namespace SAS.v1.Models
         public Persona()
         {
             this.Alumno = new HashSet<Alumno>();
-            this.ProfesionalSupervidor = new HashSet<ProfesionalSupervisor>();
             this.ProfesionalDocenteGuia = new HashSet<ProfesionalDocenteGuia>();
             this.Usuario = new HashSet<Usuario>();
         }
@@ -33,8 +32,6 @@ namespace SAS.v1.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Alumno> Alumno { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProfesionalSupervisor> ProfesionalSupervidor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProfesionalDocenteGuia> ProfesionalDocenteGuia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

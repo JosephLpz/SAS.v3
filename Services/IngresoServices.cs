@@ -206,6 +206,12 @@ namespace SAS.v1.Services
             Inmunizacion inmune = (from i in db.Inmunizacions where i.NombreInmunizacion.ToUpper().Trim() == Inmunizacion.ToUpper().Trim() select i).FirstOrDefault();
             return inmune;
         }
+
+        public Inmunizacion InmunizacionFindById(int InmunizacionId)
+        {
+            Inmunizacion inmune = (from i in db.Inmunizacions where i.InmunizacionId == InmunizacionId select i).FirstOrDefault();
+            return inmune;
+        }
         #endregion
         #region ProfesionalDocenteGuia
         public ProfesionalDocenteGuia CrearProfesionalDocenteGuia(Persona person,ProfesionalDocenteGuia profesional, Inmunizacion inmunizacion, DocenciaHospitalaria docencia, int Estado)
@@ -235,6 +241,7 @@ namespace SAS.v1.Services
                 Docente.Correo = profesional.Correo;
                 Docente.ValorDocente = profesional.ValorDocente;
                 Docente.CumpleDatos = profesional.CumpleDatos;
+                Docente.TipoDocente = profesional.TipoDocente;
                 db.ProfesionalDocenteGuias.Add(Docente);
                 db.SaveChanges();
                 
@@ -252,7 +259,8 @@ namespace SAS.v1.Services
         {
             ProfesionalDocenteGuia Docente = (from p in db.ProfesionalDocenteGuias where p.PersonaPersonaId == person.PersonaId &&
                                               p.DocenciaHospitalariaDocenciaHospitalariaId == docencia.DocenciaHospitalariaId &&
-                                              p.Profesion.ToUpper().Trim()==profesional.Profesion.ToUpper().Trim() select p).FirstOrDefault();
+                                              p.Profesion.ToUpper().Trim()==profesional.Profesion.ToUpper().Trim() &&p.TipoDocente==profesional.TipoDocente
+                                              select p).FirstOrDefault();
             return Docente;
         }
         #endregion
@@ -643,15 +651,15 @@ namespace SAS.v1.Services
         }
         #endregion
         #region CampoClinicoAlumno
-        public CampoClinicoAlumno CrearCampoClinicoAlumno(Alumno Alumn, ProfesionalDocenteGuia DocenteGuia, ProfesionalSupervisor Supervisor, Periodo Periodo,Asignatura Asignatura, Semestre Semestre,Anio ano,NombreCampoClinico CampoClinico)
+        public CampoClinicoAlumno CrearCampoClinicoAlumno(Alumno Alumn, ProfesionalDocenteGuia DocenteGuia, Periodo Periodo,Asignatura Asignatura, Semestre Semestre,Anio ano,NombreCampoClinico CampoClinico)
         {
-            CampoClinicoAlumno CampoAlumno = BuscarCampoClinicoAlumno(Alumn, DocenteGuia, Supervisor, Periodo,Asignatura, Semestre,ano,CampoClinico);
+            CampoClinicoAlumno CampoAlumno = BuscarCampoClinicoAlumno(Alumn, DocenteGuia, Periodo,Asignatura, Semestre,ano,CampoClinico);
             if (CampoAlumno == null)
             {
                 CampoAlumno = new CampoClinicoAlumno();
                 CampoAlumno.AlumnoAlumnoId = Alumn.AlumnoId;
                 CampoAlumno.ProfesionalDocenteGuiaProfesionalDocenteGuiaId= DocenteGuia.ProfesionalDocenteGuiaId;
-                CampoAlumno.ProfesionalSupervidorProfesionalSupervisorId = Supervisor.ProfesionalSupervisorId;
+                //CampoAlumno.ProfesionalSupervidorProfesionalSupervisorId = Supervisor.ProfesionalSupervisorId;
                 CampoAlumno.PeriodoPeriodoId = Periodo.PeriodoId;
                 CampoAlumno.NombreCampoClinicoId = CampoClinico.Id;    
                 CampoAlumno.AsignaturaId = Asignatura.Id;
@@ -667,12 +675,11 @@ namespace SAS.v1.Services
             }
             return CampoAlumno;
         }
-        public CampoClinicoAlumno BuscarCampoClinicoAlumno(Alumno Alumn, ProfesionalDocenteGuia DocenteGuia, ProfesionalSupervisor Supervisor, Periodo Periodo,Asignatura Asignatura, Semestre Semestre, Anio ano, NombreCampoClinico CampoClinico)
+        public CampoClinicoAlumno BuscarCampoClinicoAlumno(Alumno Alumn, ProfesionalDocenteGuia DocenteGuia, Periodo Periodo,Asignatura Asignatura, Semestre Semestre, Anio ano, NombreCampoClinico CampoClinico)
         {
             //Puede arrojar error debido a que el profesional supervisor o docente guia pueden ser nulos
             CampoClinicoAlumno CampoAlumno = (from c in db.CampoClinicoAlumnos
-                                              where c.AlumnoAlumnoId == Alumn.AlumnoId && c.ProfesionalDocenteGuiaProfesionalDocenteGuiaId == DocenteGuia.ProfesionalDocenteGuiaId &&
-                                              c.ProfesionalSupervidorProfesionalSupervisorId == Supervisor.ProfesionalSupervisorId && c.PeriodoPeriodoId == Periodo.PeriodoId && 
+                                              where c.AlumnoAlumnoId == Alumn.AlumnoId && c.ProfesionalDocenteGuiaProfesionalDocenteGuiaId == DocenteGuia.ProfesionalDocenteGuiaId && c.PeriodoPeriodoId == Periodo.PeriodoId && 
                                               c.AsignaturaId==Asignatura.Id && c.SemestreId== Semestre.Id && c.AnioId==ano.Id&&c.NombreCampoClinicoId==CampoClinico.Id
                                               select c).FirstOrDefault();
 
@@ -682,6 +689,7 @@ namespace SAS.v1.Services
         #region CampoClinicoAlumnosDias
         public CampoClinicoAlumnoDias CrearCampoClinicoAlumnosDias(CampoClinicoAlumno CampoAlumno, string Dia)
         {
+            CrearDias();
             Dias Dias = BuscarDia(Dia.ToUpper().Trim());
             CampoClinicoAlumnoDias CampoAlumnoDias = BuscarCampoClinicoAlumnoDias(CampoAlumno, Dias);
             if (CampoAlumnoDias == null)
@@ -708,40 +716,44 @@ namespace SAS.v1.Services
         }
         #endregion 
         #region ProfesionalSupervisor
-        public ProfesionalSupervisor crearProfesionalSupervisor(Persona person,ProfesionalSupervisor profSup,int Estado)
-        {
-            ProfesionalSupervisor Profesional = new ProfesionalSupervisor();
-            Profesional = BuscarProfesionalSupervisor(person);
-            if (Profesional != null && Estado == 1)
-            {
+        //public ProfesionalSupervisor crearProfesionalSupervisor(Persona person,ProfesionalSupervisor profSup,int Estado)
+        //{
+        //    ProfesionalSupervisor Profesional = new ProfesionalSupervisor();
+        //    Profesional = BuscarProfesionalSupervisor(person);
+        //    if (Profesional != null && Estado == 1)
+        //    {
              
-                Profesional.ValorSupervisor = profSup.ValorSupervisor;
-                Profesional.Observaciones =profSup.Observaciones;
-                db.SaveChanges();
-            }
-                if (Profesional == null && Estado == 1 || Profesional == null && Estado == 0)
-            {
+        //        Profesional.ValorSupervisor = profSup.ValorSupervisor;
+        //        Profesional.Observaciones =profSup.Observaciones;
+        //        db.SaveChanges();
+        //    }
+        //        if (Profesional == null && Estado == 1 || Profesional == null && Estado == 0)
+        //    {
 
-                Profesional = new ProfesionalSupervisor();
-                Profesional.PersonaPersonaId = person.PersonaId;
-                Profesional.ValorSupervisor = profSup.ValorSupervisor;
-                Profesional.Observaciones = profSup.Observaciones;
-                db.ProfesionalSupervisorSet.Add(Profesional);
-                db.SaveChanges();
+        //        Profesional = new ProfesionalSupervisor();
+        //        Profesional.PersonaPersonaId = person.PersonaId;
+        //        Profesional.ValorSupervisor = profSup.ValorSupervisor;
+        //        if (profSup.Observaciones == null)
+        //        {
+        //            profSup.Observaciones = "";
+        //        }
+        //        Profesional.Observaciones = profSup.Observaciones;
+        //        db.ProfesionalSupervisorSet.Add(Profesional);
+        //        db.SaveChanges();
 
-                Profesional = BuscarProfesionalSupervisor(person);
-            }
-            else
-            {
-                return Profesional;
-            }
-            return Profesional;
-        }
-        public ProfesionalSupervisor BuscarProfesionalSupervisor(Persona person)
-        {
-            ProfesionalSupervisor Profesional = (from p in db.ProfesionalSupervisorSet where p.PersonaPersonaId == person.PersonaId select p).FirstOrDefault();
-            return Profesional;
-        }
+        //        Profesional = BuscarProfesionalSupervisor(person);
+        //    }
+        //    else
+        //    {
+        //        return Profesional;
+        //    }
+        //    return Profesional;
+        //}
+        //public ProfesionalSupervisor BuscarProfesionalSupervisor(Persona person)
+        //{
+        //    ProfesionalSupervisor Profesional = (from p in db.ProfesionalSupervisorSet where p.PersonaPersonaId == person.PersonaId select p).FirstOrDefault();
+        //    return Profesional;
+        //}
         #endregion
         #region Asignatura 
 
@@ -1275,7 +1287,12 @@ public PlanEstudioAlumno CrearPlanEstudioAlumno(PlanEstudioAlumno planAlumno, in
             }
             return supervision;
         }
+        public Supervision SupervisionFindById(Supervision supervision)
+        {
+            Supervision superv = (from s in db.Supervicions where s.Id == supervision.Id select s).FirstOrDefault();
 
+            return superv;
+        }
         public Supervision BuscarSupervision(Supervision supervision)
         {
             Supervision superv = (from s in db.Supervicions where s.NombreSupervision.ToUpper() == supervision.NombreSupervision.ToUpper() select s).FirstOrDefault();
@@ -1310,7 +1327,12 @@ public PlanEstudioAlumno CrearPlanEstudioAlumno(PlanEstudioAlumno planAlumno, in
             }
             return servicio;
         }
+        public Servicio SevicioFindById(Servicio serv)
+        {
+            Servicio servicio = db.Servicios.Where(s => s.Id == serv.Id).FirstOrDefault();
 
+            return servicio;
+        }
         public Servicio BuscarServicio(Servicio serv)
         {
             Servicio servicio = (from s in db.Servicios where s.NombreServicio.ToUpper() == serv.NombreServicio.ToUpper() select s).FirstOrDefault();
