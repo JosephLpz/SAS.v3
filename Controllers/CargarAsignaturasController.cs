@@ -37,7 +37,7 @@ namespace SAS.v1.Controllers
                 CargarArchivo(archivo,NombreHoja, CarreraId);
                 
                 }
-                catch (ArgumentException ex)
+                catch (ArgumentException ex) 
                 {
                     ViewBag.Exception =  ex.Message+" "+"Nombre:"+NombreHoja;
                     
