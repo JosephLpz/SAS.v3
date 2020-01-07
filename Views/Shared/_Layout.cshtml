@@ -92,23 +92,23 @@
                             </li>
 
                             <li class="dropdown-submenu">
-                                <a class="dropdown-toggle test">Profesor Guia<span class="caret"></span></a>
+                                <a class="dropdown-toggle test">Docentes<span class="caret"></span></a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item">@Html.ActionLink("Crear Docente", "Create", "ProfesionalDocenteGuias")</a></li>
                                     <li><a class="dropdown-item">@Html.ActionLink("Ver Docente", "Index", "ProfesionalDocenteGuias")</a></li>
                                 </ul>
                             </li>
 
-                            <li class="dropdown-submenu">
+                            @*<li class="dropdown-submenu">
                                 <a class="dropdown-toggle test">Profesor Supervisor<span class="caret"></span></a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item">@Html.ActionLink("Crear Profesional Supervisor", "Create", "ProfesionalSupervisors")</a></li>
                                     <li><a class="dropdown-item">@Html.ActionLink("Ver Profesional Supervisor", "Index", "ProfesionalSupervisors")</a></li>
                                 </ul>
-                            </li>
+                            </li>*@
 
                             <li class="dropdown-submenu">
-                                <a class="dropdown-toggle test">Insituciones<span class="caret"></span></a>
+                                <a class="dropdown-toggle test">Instiuciones<span class="caret"></span></a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item">@Html.ActionLink("Crear Instituciones", "Create", "Institucions")</a></li>
                                     <li><a class="dropdown-item">@Html.ActionLink("Ver Instituciones", "Index", "Institucions")</a></li>
@@ -173,6 +173,13 @@
                                     <li><a class="dropdown-item">@Html.ActionLink("Ver Jornadas", "Index", "NombreJornadas")</a></li>
                                 </ul>
                             </li>
+
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-toggle test">Situacion Alumno<span class="caret"></span></a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item">@Html.ActionLink("Ver Situaciones Alumnos", "Index", "ContadorSituacions")</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
 
@@ -194,9 +201,9 @@
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="navbarDropdown">
 
-                           <li><a class="dropdown-item">@Html.ActionLink("Profesional Guia", "Create", "ProfesionalDocenteGuias")</a></li>
                             <li><a class="dropdown-item">@Html.ActionLink("Crear Usuarios", "Create", "Usuarios")</a></li>        
-                            
+                            <li><a class="dropdown-item">@Html.ActionLink("Ver Usuarios", "Index", "Usuarios")</a></li>
+
 
                                        
                         </ul>

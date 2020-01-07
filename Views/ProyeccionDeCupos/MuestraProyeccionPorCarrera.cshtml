@@ -34,11 +34,33 @@ chart.render();
     </script>
 </head>
 <body>
-    <h1>Proyeccion de cupos</h1>
+    @if (ViewBag.NetConnection)
+    {
+        <div id="alerta" class="alert alert-danger" role="alert" display="none">
+            Para Ver la proyección debe estar conectado a <strong>Internet</strong>
+        </div>
+
+        <script>
+           disableButton();
+        </script>
+    }
+    
+    @if (ViewBag.Exception != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.Exception
+        </div>
+
+       <script>
+           disableButton();
+       </script>
+    }
+    
+    <h1>Proyeccion de Alumnos</h1>
     <h2 style="color:#444444"> Total Cupos= @ViewBag.TotalCupos</h2>
     @*<H4>@Html.ActionLink("Crear Solicitud", "Index", "SolicitudDeCupos", new { Data= Json.Encode(@ViewBag.data)}, null)</H4>*@
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        CrearSolicitud
+    <button id="ButtonCrearSolicitud" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Crear Solicitud
     </button>
 
     <div id="chartContainer" style="height: 370px; width: 100%;"></div>
@@ -79,6 +101,10 @@ chart.render();
                 //modal.find('.modal-title').text('New message to ' + recipient)
                 //modal.find('.modal-body input').val(recipient)
             })
+        }
+
+        function disableButton(){
+            document.getElementById("ButtonCrearSolicitud").style.visibility="hidden";
         }
     </script>
 </body>

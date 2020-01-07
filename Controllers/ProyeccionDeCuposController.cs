@@ -88,24 +88,38 @@ namespace SAS.v1.Controllers
             List<DataPoint> data = new List<DataPoint>();
             List<Alumno> alumnos = new List<Alumno>();
             Carrera carr = (Carrera)TempData["Carrera"];
-
-            foreach (var item in dataPointsAlumno)
+            InitServices init = new InitServices();
+            try
             {
-                TotalCupos +=(int)item.dataPoint.Y;
-                data.Add(item.dataPoint);
-               
+                if (!init.CheckForInternetConnection())
+                {
+                    ViewBag.NetConnection = true;
+                }else
+                {
+                    ViewBag.NetConnection = false;
+                }
+
+                foreach (var item in dataPointsAlumno)
+                {
+                    TotalCupos += (int)item.dataPoint.Y;
+                    data.Add(item.dataPoint);
+
+                }
+                ViewBag.TotalCupos = TotalCupos;
+                ViewBag.data = data;
+                ViewBag.AnioId = ano;
+                ViewBag.Carrera = carr.CarreraId;
+
+                //ViewBag.Asignatura = asignatura.NombreAsignatura;
+                TempData["CantidadAlumnos"] = dataPointsAlumno;
+                TempData["Carrera"] = carr;
+
+                ViewBag.DataPoints = JsonConvert.SerializeObject(data);
             }
-            ViewBag.TotalCupos = TotalCupos;
-            ViewBag.data = data;
-            ViewBag.AnioId = ano;
-            ViewBag.Carrera = carr.CarreraId;
-
-            //ViewBag.Asignatura = asignatura.NombreAsignatura;
-            TempData["CantidadAlumnos"] = dataPointsAlumno;
-            TempData["Carrera"] = carr;
-
-            ViewBag.DataPoints = JsonConvert.SerializeObject(data);
-
+            catch (NullReferenceException ex)
+            {
+                ViewBag.Exception = "Error:"+ex;
+            }
             return View();
         }
         public ActionResult GuardarProyeccion(string Data,int AnioId, int CarreraId)

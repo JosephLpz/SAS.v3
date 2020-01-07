@@ -33,6 +33,13 @@
     <div> 
 @using (Html.BeginForm("Index", "CargarAsignaturas", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    if (ViewBag.Exception != null)
+    {
+        <div class="alert alert-danger" role="alert">
+          <strong>Error!:</strong>  @ViewBag.Exception
+        </div>     
+    }
+
         <p>Nombre Hoja Excel:</p>
         <input class="form-control" type="text" name="NombreHoja" />
         <div class="form-group">

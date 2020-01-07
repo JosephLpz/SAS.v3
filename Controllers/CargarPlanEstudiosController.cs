@@ -31,9 +31,30 @@ namespace SAS.v1.Controllers
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase archivo, string CarreraId,string AnioId,string NombreHoja)
         {
+            ViewBag.CarreraId = new SelectList(db.Carreras, "NombreCarrera", "NombreCarrera");
+            ViewBag.AnioId = new SelectList(db.Anios, "Ano", "Ano");
+
             if (archivo != null && archivo.ContentLength > 0)
             {
-                CargarArchivo(archivo, CarreraId, AnioId, NombreHoja);
+                try
+                {
+                    CargarArchivo(archivo, CarreraId, AnioId, NombreHoja);
+                }catch (ArgumentException ex)
+                {
+                    ViewBag.Exception =  ex.Message + " " + "Nombre:" + NombreHoja;
+
+                }catch(FormatException ex)
+                {
+                    ViewBag.Exception =  ex.Message; 
+                }catch(IOException ex)
+                {
+                    ViewBag.Exception =  ex.Message;
+                }
+                catch (NullReferenceException ex)
+                {
+                    ViewBag.Exception = ex.Message;
+                }
+
             }
             else
             {
@@ -41,8 +62,10 @@ namespace SAS.v1.Controllers
                 ViewBag.EstadoDeProceso = true;
                 ViewBag.showErrorAlert =  true;
             }
-            ViewBag.CarreraId = new SelectList(db.Carreras, "NombreCarrera", "NombreCarrera");
-            ViewBag.AnioId = new SelectList(db.Anios, "Ano", "Ano");
+            
+            ViewBag.EstadoDeProceso = true;
+            ViewBag.showSuccessAlert = true;
+            ViewBag.showErrorAlert = false;
             return View();
         }
 
@@ -62,6 +85,8 @@ namespace SAS.v1.Controllers
                 }
                 else
                 {
+                    ViewBag.Exception = "Existe un problema con el formato del archivo o no es el archivo correcto!";
+
                     ViewBag.EstadoDeProceso = false;
                     ViewBag.showSuccessAlert = false;
                 }

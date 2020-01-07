@@ -661,6 +661,7 @@
     <Compile Include="Controllers\CargarAsignaturasController.cs" />
     <Compile Include="Controllers\CargarPlanEstudiosController.cs" />
     <Compile Include="Controllers\CarrerasController.cs" />
+    <Compile Include="Controllers\ContadorSituacionsController.cs" />
     <Compile Include="Controllers\DocenciaHospitalariasController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\InmunizacionsController.cs" />
@@ -1003,6 +1004,12 @@
     <Content Include="Views\DocenciaHospitalarias\Edit.cshtml" />
     <Content Include="Views\DocenciaHospitalarias\Index.cshtml" />
     <Content Include="Views\ProyeccionDeCupos\VerProyeccionPorCarrera.cshtml" />
+    <Content Include="Views\ProfesionalDocenteGuias\IndexJefeCarrera.cshtml" />
+    <Content Include="Views\ContadorSituacions\Create.cshtml" />
+    <Content Include="Views\ContadorSituacions\Delete.cshtml" />
+    <Content Include="Views\ContadorSituacions\Details.cshtml" />
+    <Content Include="Views\ContadorSituacions\Edit.cshtml" />
+    <Content Include="Views\ContadorSituacions\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

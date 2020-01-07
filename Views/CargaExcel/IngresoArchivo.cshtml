@@ -29,8 +29,14 @@
 <body>
     <h2>IngresoArchivo</h2>
     <div>
-        @using (Html.BeginForm("IngresoArchivo", "CargaExcel",FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("IngresoArchivo", "CargaExcel", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
+            if (ViewBag.Exception != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewBag.Exception
+                </div>
+            }
             <div>
                 <p style="display:inline-block">Semestre:</p>
                 <select id="selectValue" name="selectValue" class="form-control" style="display:inline-block">
@@ -63,12 +69,12 @@
                 </div>
             </div>*@
        
-        <div class="modal js-loading-bar" id="ProgressBar">
+        <div class="modal js-loading-bar fade" id="ProgressBar">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="progress progress-popup">
-                            <div class="progress-bar progress-bar-striped active progress-bar-animated" role="progressbar" style="width: 100%">Cargando...</div>
+                            <div class="progress-bar progress-bar-striped active progress-bar-animated animate" role="progressbar" style="width: 100%">Cargando...</div>
                         </div>
                     </div>
                 </div>
@@ -86,6 +92,7 @@
 
         $bar = $modal.find('.progress-bar');
         $bar.addClass('animate');
+       
 
     }
    

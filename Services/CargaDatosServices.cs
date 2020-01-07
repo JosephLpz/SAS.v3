@@ -228,6 +228,7 @@ namespace SAS.v1.Services
                             personaAlumno.ApMaterno = ApellidoMaAlumno;
                             //Alumn.CursoNivel = CursoNivel;
                             Alumn.Observaciones = ObservacionAlumno;
+                            Alumn.SituacionAlumno = "VI";
                         if (ObservacionAlumno == "")
                         {
                             Alumn.Observaciones = " ";
@@ -236,6 +237,7 @@ namespace SAS.v1.Services
                             personaAlumno = ingreso.CrearPersona(personaAlumno,Estado);
                             
                             Alumn = ingreso.CrearAlumno(personaAlumno, Alumn, CentroF, Estado);
+                            
                         #endregion
 
                         #region CursoNivel
@@ -298,6 +300,7 @@ namespace SAS.v1.Services
                             personaDocenteGuia.ApMaterno = ApMaternoDocenteGuia;
                             //Capturar datos profesional docnete guia
                             DocenteGuia.Profesion = ProfesionDocenteGuia;
+                        DocenteGuia.TipoDocente = TipoDocente.DocenteGuia;
                             if (Nregistro == "")
                             {
                                 DocenteGuia.NumeroSuperintendencia = 0;
@@ -393,7 +396,7 @@ namespace SAS.v1.Services
 
                             #region Asignatura 
                             Asignaturas.NombreAsignatura = Asignatura;
-                            Asignaturas = ingreso.BuscarAsignatura(Asignaturas);
+                            Asignaturas = ingreso.CrearAsignatura(Asignaturas,1);
                             #endregion
 
                             #region Semestre 

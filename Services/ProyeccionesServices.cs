@@ -67,208 +67,228 @@ namespace SAS.v1.Services
                 int[,] ContenedorEficiencia = new int[CantidadDeAlumnosCursantes, 11];
                 int count = 0;
 
-                foreach (var result in AlumnosCursantes)
-                {
-                    foreach (var item in result.PlanEstudioAlumno)
-                    {
-                        if (item.EstadoAsignatura == EstadoAsignatura.Aprobado)
-                        {
-                            ContenedorEficiencia[count, 0] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnSegunda)
-                        {
-                            ContenedorEficiencia[count, 1] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnTercera)
-                        {
-                            ContenedorEficiencia[count, 2] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnCuarta)
-                        {
-                            ContenedorEficiencia[count, 3] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.Cursando)
-                        {
-                            ContenedorEficiencia[count, 4] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnSegunda)
-                        {
-                            ContenedorEficiencia[count, 5] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnTercera)
-                        {
-                            ContenedorEficiencia[count, 6] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnCuarta)
-                        {
-                            ContenedorEficiencia[count, 7] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscrito)
-                        {
-                            ContenedorEficiencia[count, 8] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscritoSegunda)
-                        {
-                            ContenedorEficiencia[count, 9] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscritoTercera)
-                        {
-                            ContenedorEficiencia[count, 10] += 1;
-                        }
+                #region comentario util
+                //foreach (var result in AlumnosCursantes)
+                //{
+                //    foreach (var item in result.PlanEstudioAlumno)
+                //    {
+                //        if (item.EstadoAsignatura == EstadoAsignatura.Aprobado)
+                //        {
+                //            ContenedorEficiencia[count, 0] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnSegunda)
+                //        {
+                //            ContenedorEficiencia[count, 1] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnTercera)
+                //        {
+                //            ContenedorEficiencia[count, 2] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnCuarta)
+                //        {
+                //            ContenedorEficiencia[count, 3] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.Cursando)
+                //        {
+                //            ContenedorEficiencia[count, 4] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnSegunda)
+                //        {
+                //            ContenedorEficiencia[count, 5] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnTercera)
+                //        {
+                //            ContenedorEficiencia[count, 6] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnCuarta)
+                //        {
+                //            ContenedorEficiencia[count, 7] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscrito)
+                //        {
+                //            ContenedorEficiencia[count, 8] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscritoSegunda)
+                //        {
+                //            ContenedorEficiencia[count, 9] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscritoTercera)
+                //        {
+                //            ContenedorEficiencia[count, 10] += 1;
+                //        }
 
-                    }
-                    count += 1;
-                }
-                List<EstadoAsignatura> estadoMasprobable = new List<EstadoAsignatura>();
-                int[] PosicionEstado = new int[AlumnosCursantes.Count];
-                int contenedorNumeroMax = -100;
+                //    }
+                //    count += 1;
+                //}
+                //List<EstadoAsignatura> estadoMasprobable = new List<EstadoAsignatura>();
+                //int[] PosicionEstado = new int[AlumnosCursantes.Count];
+                //int contenedorNumeroMax = -100;
 
-                for (int i = 0; i < AlumnosCursantes.Count; i++)
-                {
+                //for (int i = 0; i < AlumnosCursantes.Count; i++)
+                //{
 
-                    for (int j = 0; j < 10; j++)
-                    {
+                //    for (int j = 0; j < 10; j++)
+                //    {
 
-                        if (ContenedorEficiencia[i, j] > contenedorNumeroMax)
-                        {
-                            contenedorNumeroMax = ContenedorEficiencia[i, j];
-                            PosicionEstado[i] = j + 1;
+                //        if (ContenedorEficiencia[i, j] > contenedorNumeroMax)
+                //        {
+                //            contenedorNumeroMax = ContenedorEficiencia[i, j];
+                //            PosicionEstado[i] = j + 1;
 
-                        }
+                //        }
 
-                    }
-                    contenedorNumeroMax = -100;
+                //    }
+                //    contenedorNumeroMax = -100;
 
-                }
-                for (int i = 0; i < PosicionEstado.Length; i++)
-                {
-                    estadoMasprobable.Add((EstadoAsignatura)PosicionEstado[i]);
-                }
+                //}
+                //for (int i = 0; i < PosicionEstado.Length; i++)
+                //{
+                //    estadoMasprobable.Add((EstadoAsignatura)PosicionEstado[i]);
+                //}
 
-                int Index = 0;
-                List<Alumno> AlumnosCursanteParaCampo = new List<Alumno>();
-                foreach (var item in AlumnosCursantes)
-                {
-                    if (estadoMasprobable[Index] == EstadoAsignatura.Aprobado)
-                    {
-                        AlumnosCursanteParaCampo.Add(item);
-                    }
-                    Index += 1;
-                }
-                DataPoint dataPoint = new DataPoint(asignatura.NombreAsignatura.ToString(), AlumnosCursanteParaCampo.Count());
-                resultado.Add(new DataPointAlumno(dataPoint, AlumnosCursanteParaCampo));
+                //int Index = 0;
+                //List<Alumno> AlumnosCursanteParaCampo = new List<Alumno>();
+                //foreach (var item in AlumnosCursantes)
+                //{
+                //    if (estadoMasprobable[Index] == EstadoAsignatura.Aprobado)
+                //    {
+                //        AlumnosCursanteParaCampo.Add(item);
+                //    }
+                //    Index += 1;
+                //}
+                //DataPoint dataPoint = new DataPoint(asignatura.NombreAsignatura.ToString(), AlumnosCursanteParaCampo.Count());
+                //resultado.Add(new DataPointAlumno(dataPoint, AlumnosCursanteParaCampo));
+                #endregion
+                resultado = ProyectarAlumnos(AlumnosCursantes, asignatura);
 
             }
             else
             {
 
-
+                #region comentario util
                 //cada alumno de el plan de estudio que esta cursando esa asignatura
-                foreach (var item in plan.PlanEstudioAlumno)
-                {
-                    if (item.EstadoAsignatura.Equals(EstadoAsignatura.Cursando) || item.EstadoAsignatura.Equals(EstadoAsignatura.CursandoEnSegunda)
-                        || item.EstadoAsignatura.Equals(EstadoAsignatura.CursandoEnTercera) || item.EstadoAsignatura.Equals(EstadoAsignatura.CursandoEnCuarta))
-                    {
-                        AlumnosCursantes.Add(item.Alumno);
-                        CantidadDeAlumnosCursantes += 1;
-                    }
+                //foreach (var item in plan.PlanEstudioAlumno)
+                //{
+                //    if (item.EstadoAsignatura.Equals(EstadoAsignatura.Cursando) || item.EstadoAsignatura.Equals(EstadoAsignatura.CursandoEnSegunda)
+                //        || item.EstadoAsignatura.Equals(EstadoAsignatura.CursandoEnTercera) || item.EstadoAsignatura.Equals(EstadoAsignatura.CursandoEnCuarta))
+                //    {
+                //        AlumnosCursantes.Add(item.Alumno);
+                //        CantidadDeAlumnosCursantes += 1;
+                //    }
 
-                }
-                int[,] ContenedorEficiencia = new int[CantidadDeAlumnosCursantes, 11];
-                int count = 0;
+                //}
+                //int[,] ContenedorEficiencia = new int[CantidadDeAlumnosCursantes, 11];
+                //int count = 0;
 
-                foreach (var result in AlumnosCursantes)
-                {
-                    foreach (var item in result.PlanEstudioAlumno)
-                    {
-                        if (item.EstadoAsignatura == EstadoAsignatura.Aprobado)
-                        {
-                            ContenedorEficiencia[count, 0] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnSegunda)
-                        {
-                            ContenedorEficiencia[count, 1] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnTercera)
-                        {
-                            ContenedorEficiencia[count, 2] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnCuarta)
-                        {
-                            ContenedorEficiencia[count, 3] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.Cursando)
-                        {
-                            ContenedorEficiencia[count, 4] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnSegunda)
-                        {
-                            ContenedorEficiencia[count, 5] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnTercera)
-                        {
-                            ContenedorEficiencia[count, 6] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnCuarta)
-                        {
-                            ContenedorEficiencia[count, 7] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscrito)
-                        {
-                            ContenedorEficiencia[count, 8] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscritoSegunda)
-                        {
-                            ContenedorEficiencia[count, 9] += 1;
-                        }
-                        else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscritoTercera)
-                        {
-                            ContenedorEficiencia[count, 10] += 1;
-                        }
+                //foreach (var result in AlumnosCursantes)
+                //{
+                //    foreach (var item in result.PlanEstudioAlumno)
+                //    {
+                //        if (item.EstadoAsignatura == EstadoAsignatura.Aprobado)
+                //        {
+                //            ContenedorEficiencia[count, 0] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnSegunda)
+                //        {
+                //            ContenedorEficiencia[count, 1] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnTercera)
+                //        {
+                //            ContenedorEficiencia[count, 2] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnCuarta)
+                //        {
+                //            ContenedorEficiencia[count, 3] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.Cursando)
+                //        {
+                //            ContenedorEficiencia[count, 4] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnSegunda)
+                //        {
+                //            ContenedorEficiencia[count, 5] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnTercera)
+                //        {
+                //            ContenedorEficiencia[count, 6] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnCuarta)
+                //        {
+                //            ContenedorEficiencia[count, 7] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscrito)
+                //        {
+                //            ContenedorEficiencia[count, 8] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscritoSegunda)
+                //        {
+                //            ContenedorEficiencia[count, 9] += 1;
+                //        }
+                //        else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscritoTercera)
+                //        {
+                //            ContenedorEficiencia[count, 10] += 1;
+                //        }
 
-                    }
-                    count += 1;
-                }
-                List<EstadoAsignatura> estadoMasprobable = new List<EstadoAsignatura>();
-                int[] PosicionEstado = new int[AlumnosCursantes.Count];
-                int contenedorNumeroMax = -100;
+                //    }
+                //    count += 1;
+                //}
+                //List<EstadoAsignatura> estadoMasprobable = new List<EstadoAsignatura>();
+                //int[] PosicionEstado = new int[AlumnosCursantes.Count];
+                //int contenedorNumeroMax = -100;
 
-                for (int i = 0; i < AlumnosCursantes.Count; i++)
-                {
+                //for (int i = 0; i < AlumnosCursantes.Count; i++)
+                //{
 
-                    for (int j = 0; j < 10; j++)
-                    {
+                //    for (int j = 0; j < 10; j++)
+                //    {
 
-                        if (ContenedorEficiencia[i, j] > contenedorNumeroMax)
-                        {
-                            contenedorNumeroMax = ContenedorEficiencia[i, j];
-                            PosicionEstado[i] = j + 1;
+                //        if (ContenedorEficiencia[i, j] > contenedorNumeroMax)
+                //        {
+                //            contenedorNumeroMax = ContenedorEficiencia[i, j];
+                //            PosicionEstado[i] = j + 1;
 
-                        }
+                //        }
 
-                    }
-                    contenedorNumeroMax = -100;
+                //    }
+                //    contenedorNumeroMax = -100;
 
-                }
-                for (int i = 0; i < PosicionEstado.Length; i++)
-                {
-                    estadoMasprobable.Add((EstadoAsignatura)PosicionEstado[i]);
-                }
+                //}
+                //for (int i = 0; i < PosicionEstado.Length; i++)
+                //{
+                //    estadoMasprobable.Add((EstadoAsignatura)PosicionEstado[i]);
+                //}
 
-                int Index = 0;
-                List<Alumno> AlumnosCursanteParaCampo = new List<Alumno>();
-                foreach (var item in AlumnosCursantes)
-                {
-                    if (estadoMasprobable[Index] == EstadoAsignatura.Aprobado)
-                    {
-                        AlumnosCursanteParaCampo.Add(item);
-                    }
-                    Index += 1;
-                }
-                DataPoint dataPoint = new DataPoint(asignatura.NombreAsignatura.ToString(), AlumnosCursanteParaCampo.Count());
-                resultado.Add(new DataPointAlumno(dataPoint, AlumnosCursanteParaCampo));
+                //int Index = 0;
+                //List<Alumno> AlumnosCursanteParaCampo = new List<Alumno>();
+                //foreach (var item in AlumnosCursantes)
+                //{
+                //    if (estadoMasprobable[Index] == EstadoAsignatura.Aprobado)
+                //    {
+                //        AlumnosCursanteParaCampo.Add(item);
+                //    }
+                //    Index += 1;
+                //}
+                //DataPoint dataPoint = new DataPoint(asignatura.NombreAsignatura.ToString(), AlumnosCursanteParaCampo.Count());
+                //resultado.Add(new DataPointAlumno(dataPoint, AlumnosCursanteParaCampo));
+                #endregion
+
+                AlumnosCursantes = ObtenerAlumnosCursantes(plan);
+                resultado = ProyectarAlumnos(AlumnosCursantes,asignatura);
             }
-
+            PlanDeEstudio planDeAsignaturaActual = new PlanDeEstudio();
+            planDeAsignaturaActual = BuscarPlanDeEstudios(asignatura.Id);
+            AlumnosCursantes = ObtenerAlumnosCursantes(planDeAsignaturaActual);
+            List<DataPointAlumno>AlumnosCursandoCampo= ProyectarAlumnos(AlumnosCursantes, asignatura);
+            foreach(var item in AlumnosCursandoCampo)
+            {
+                foreach(var result in item.alumno)
+                {
+                    resultado[0].alumno.Add(result);
+                    resultado[0].dataPoint.Y += 1;
+                }
+                
+            }
+           
             return resultado;
         }
 
@@ -308,7 +328,11 @@ namespace SAS.v1.Services
             //Buscar asignatura de campo clinico
             PlanDeEstudio plan = (from p in db.PlanDeEstudios where p.AsignaturaId == Id select p).FirstOrDefault();
 
-
+            if (plan.AsignaturaPreRequisito.Contains("-"))
+            {
+                string[] NombrePlanes = plan.AsignaturaPreRequisito.Split('-');
+                plan.AsignaturaPreRequisito = NombrePlanes[0];
+            }
             //Buscar asignatura pre requisito de la anterior
             plan = (from p in db.PlanDeEstudios where p.Asignatura.NombreAsignatura.ToUpper() == plan.AsignaturaPreRequisito.ToUpper() select p).FirstOrDefault();
 
@@ -350,6 +374,128 @@ namespace SAS.v1.Services
 
             return planes;
         }
+        public List<Alumno> ObtenerAlumnosCursantes(PlanDeEstudio plan)
+        {
+            List<Alumno> AlumnosCursantes = new List<Alumno>();
+            int CantidadDeAlumnosCursantes = 0;
+            foreach (var item in plan.PlanEstudioAlumno)
+            {
+                if (item.EstadoAsignatura.Equals(EstadoAsignatura.Cursando) || item.EstadoAsignatura.Equals(EstadoAsignatura.CursandoEnSegunda)
+                    || item.EstadoAsignatura.Equals(EstadoAsignatura.CursandoEnTercera) || item.EstadoAsignatura.Equals(EstadoAsignatura.CursandoEnCuarta))
+                {
+                    AlumnosCursantes.Add(item.Alumno);
+                    CantidadDeAlumnosCursantes += 1;
+                }
 
+            }
+            return AlumnosCursantes;
+        }
+        public List<DataPointAlumno> ProyectarAlumnos(List<Alumno>AlumCurs ,Asignatura asignatura)
+        {
+
+            List<DataPointAlumno> resultado = new List<DataPointAlumno>();
+            List<Alumno> AlumnosCursantes = new List<Alumno>();
+            int CantidadDeAlumnosCursantes = 0;
+
+            AlumnosCursantes = AlumCurs;
+            CantidadDeAlumnosCursantes = AlumnosCursantes.Count();
+            int[,] ContenedorEficiencia = new int[CantidadDeAlumnosCursantes, 11];
+            int count = 0;
+            
+            foreach (var result in AlumnosCursantes)
+            {
+                foreach (var item in result.PlanEstudioAlumno)
+                {
+                    if (item.EstadoAsignatura == EstadoAsignatura.Aprobado)
+                    {
+                        ContenedorEficiencia[count, 0] += 1;
+                    }
+                    else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnSegunda)
+                    {
+                        ContenedorEficiencia[count, 1] += 1;
+                    }
+                    else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnTercera)
+                    {
+                        ContenedorEficiencia[count, 2] += 1;
+                    }
+                    else if (item.EstadoAsignatura == EstadoAsignatura.AprobadoEnCuarta)
+                    {
+                        ContenedorEficiencia[count, 3] += 1;
+                    }
+                    else if (item.EstadoAsignatura == EstadoAsignatura.Cursando)
+                    {
+                        ContenedorEficiencia[count, 4] += 1;
+                    }
+                    else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnSegunda)
+                    {
+                        ContenedorEficiencia[count, 5] += 1;
+                    }
+                    else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnTercera)
+                    {
+                        ContenedorEficiencia[count, 6] += 1;
+                    }
+                    else if (item.EstadoAsignatura == EstadoAsignatura.CursandoEnCuarta)
+                    {
+                        ContenedorEficiencia[count, 7] += 1;
+                    }
+                    else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscrito)
+                    {
+                        ContenedorEficiencia[count, 8] += 1;
+                    }
+                    else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscritoSegunda)
+                    {
+                        ContenedorEficiencia[count, 9] += 1;
+                    }
+                    else if (item.EstadoAsignatura == EstadoAsignatura.ReprobadoYNoInscritoTercera)
+                    {
+                        ContenedorEficiencia[count, 10] += 1;
+                    }
+
+                }
+                count += 1;
+            }
+            List<EstadoAsignatura> estadoMasprobable = new List<EstadoAsignatura>();
+            int[] PosicionEstado = new int[AlumnosCursantes.Count];
+            int contenedorNumeroMax = -100;
+
+            for (int i = 0; i < AlumnosCursantes.Count; i++)
+            {
+
+                for (int j = 0; j < 10; j++)
+                {
+
+                    if (ContenedorEficiencia[i, j] > contenedorNumeroMax)
+                    {
+                        contenedorNumeroMax = ContenedorEficiencia[i, j];
+                        PosicionEstado[i] = j + 1;
+
+                    }
+
+                }
+                contenedorNumeroMax = -100;
+
+            }
+            for (int i = 0; i < PosicionEstado.Length; i++)
+            {
+                estadoMasprobable.Add((EstadoAsignatura)PosicionEstado[i]);
+            }
+
+            int Index = 0;
+            List<Alumno> AlumnosCursanteParaCampo = new List<Alumno>();
+            foreach (var item in AlumnosCursantes)
+            {
+                if (estadoMasprobable[Index] == EstadoAsignatura.Aprobado)
+                {
+                    AlumnosCursanteParaCampo.Add(item);
+                }
+                Index += 1;
+            }
+            DataPoint dataPoint = new DataPoint(asignatura.NombreAsignatura.ToString(), AlumnosCursanteParaCampo.Count());
+            resultado.Add(new DataPointAlumno(dataPoint, AlumnosCursanteParaCampo));
+
+            return resultado;
+        }
+   
+        
     }
 }

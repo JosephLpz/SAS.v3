@@ -29,7 +29,7 @@ namespace WebPedigree.Utiles
             // Throw an exception if there is no sheet.
             if (theSheet == null)
             {
-                throw new ArgumentException("sheetName");
+                throw new ArgumentException("El nombre de la Hoja No existe!");
             }
             return true;
         }

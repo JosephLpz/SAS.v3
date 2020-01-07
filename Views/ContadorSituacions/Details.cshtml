@@ -1,0 +1,90 @@
+﻿@model SAS.v1.Models.ContadorSituacion
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>ContadorSituacion</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Vigente)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Vigente)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.RetiroTemporal)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.RetiroTemporal)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.RetiroDefinitivo)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.RetiroDefinitivo)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.EliminadoAcademica)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EliminadoAcademica)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.RetractoMatricula)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.RetractoMatricula)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.EiminadoNoMatricula)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EiminadoNoMatricula)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Abandono)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Abandono)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Anio.Ano)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Anio.Ano)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

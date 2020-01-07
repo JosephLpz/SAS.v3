@@ -33,7 +33,27 @@ namespace SAS.v1.Controllers
                
                 if (archivo != null && archivo.ContentLength > 0)
                 {
+                    try
+                    {
                     CargarArchivo(archivo, selectValue, selectValueAccion);
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        ViewBag.Exception = "Error:" + ex.Message;
+
+                    }
+                    catch (FormatException ex)
+                    {
+                        ViewBag.Exception = "Error:" + ex.Message;
+                    }
+                    catch (IOException ex)
+                    {
+                        ViewBag.Exception = "Error:" + ex.Message;
+                    }catch(NullReferenceException ex)
+                    {
+                        ViewBag.Exception = "Error:" + ex.Message;
+                    }
+
                     ViewBag.showSuccessAlert = false;
                     ViewBag.EstadoDeProceso = false;
                 }

@@ -130,7 +130,7 @@ namespace SAS.v1.Services
                 Alumn.SituacionAlumno = AlumnoDatos.SituacionAlumno;
                 //Alumn.CursoNivel = AlumnoDatos.CursoNivel;
                 Alumn.Observaciones = AlumnoDatos.Observaciones;
-             
+                
                 db.Alumnos.Add(Alumn);
                 db.SaveChanges();
 
@@ -220,6 +220,10 @@ namespace SAS.v1.Services
             Docente= BuscarProfesional(person,docencia,profesional);
             if (Docente != null && Estado == 1)
             {
+                if (profesional.Profesion == "")
+                {
+                    profesional.Profesion = "Profesion sin especificar";
+                }
                 Docente.Profesion = Docente.Profesion.Replace(Docente.Profesion,profesional.Profesion);
                 Docente.NumeroSuperintendencia = profesional.NumeroSuperintendencia;
                 Docente.Telefono = profesional.Telefono;
@@ -386,6 +390,10 @@ namespace SAS.v1.Services
             NombreCampoClinico NCampo = BuscarNombreCampoClinico(NcampoClinico,Institucion);
             if (NCampo != null && Estado == 1)
             {
+                if (NcampoClinico == "")
+                {
+                    NcampoClinico = "Sin nombre";
+                }
                 NCampo.NombreCampo = NCampo.NombreCampo.Replace(NCampo.NombreCampo,NcampoClinico);
                 db.SaveChanges();
             }
@@ -1410,6 +1418,38 @@ public PlanEstudioAlumno CrearPlanEstudioAlumno(PlanEstudioAlumno planAlumno, in
             ProyeccionAlumno proyeccionAlumno = db.ProyeccionAlumnos.Where(p => p.AlumnoAlumnoId == proyeccion.AlumnoAlumnoId && p.ProyeccionDeCupoId == proyeccion.ProyeccionDeCupoId).FirstOrDefault();
 
             return proyeccionAlumno;
+        }
+        #endregion
+
+        #region ContadroSituacionAlumno
+        public ContadorSituacion ContarSituaciones(ContadorSituacion contadorSituacion)
+        {
+            ContadorSituacion contador = BuscarCuentaSituacion(contadorSituacion);
+            if (contador == null)
+            {
+                contador.Vigente = contadorSituacion.Vigente;
+                contador.RetiroTemporal = contadorSituacion.RetiroTemporal;
+                contador.RetiroDefinitivo = contadorSituacion.RetiroDefinitivo;
+                contador.EliminadoAcademica = contadorSituacion.EliminadoAcademica;
+                contador.RetractoMatricula = contadorSituacion.RetractoMatricula;
+                contador.EiminadoNoMatricula = contadorSituacion.EiminadoNoMatricula;
+                contador.Abandono = contadorSituacion.Abandono;
+                contador.AnioId = contadorSituacion.AnioId;
+                db.ContadorSituacions.Add(contador);
+                db.SaveChanges();
+            }
+            return contador;
+
+        }
+        public ContadorSituacion BuscarCuentaSituacion(ContadorSituacion contadorSituacion)
+        {
+            ContadorSituacion contador = db.ContadorSituacions.Where(c => c.AnioId == contadorSituacion.AnioId).FirstOrDefault();
+            return contador;
+        }
+        public ContadorSituacion ContadorSituacionFindById(ContadorSituacion contadorSituacion)
+        {
+            ContadorSituacion contador = db.ContadorSituacions.Where(c => c.Id == contadorSituacion.Id).FirstOrDefault();
+            return contador;
         }
         #endregion
     }

@@ -16,12 +16,21 @@ namespace SAS.v1.Controllers
     {
         private ModeloContainer db = new ModeloContainer();
 
-        [Authorize(Roles = ("Administrador"))]
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: ProfesionalDocenteGuias
         public ActionResult Index()
         {
+            if (User.IsInRole("Administrador"))
+            {
             var profesionalDocenteGuias = db.ProfesionalDocenteGuias.Include(p => p.Persona).Include(p => p.DocenciaHospitalaria).Include(p => p.Inmunizacion);
-            return View(profesionalDocenteGuias.ToList());
+
+                return View(profesionalDocenteGuias.ToList());
+
+            }else if (User.IsInRole("JefeDeCarrera"))
+            {
+                return RedirectToAction("IndexJefeCarrera");
+            }
+            return View();
         }
 
         [Authorize(Roles = ("Administrador"))]
@@ -33,7 +42,11 @@ namespace SAS.v1.Controllers
             return View(profesionalDocenteGuias.ToList());
         }
         // GET: ProfesionalDocenteGuias/Details/5
-
+        [Authorize(Roles = ("JefeDeCarrera"))]
+        public ActionResult IndexJefeCarrera()
+        {
+            return View();
+        }
         [Authorize(Roles = ("Administrador"))]
         [HttpGet]
         public ActionResult Details(int? id)
@@ -77,12 +90,20 @@ namespace SAS.v1.Controllers
         }
 
 
-        [Authorize(Roles = ("Administrador"))]
+        [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         // GET: ProfesionalDocenteGuias/Create
         public ActionResult Create()
        {
-          ViewBag.NombreDocenciaHospitalaria = new SelectList(db.DocenciaHospitalarias, "NombreDocenciaHospitalaria", "NombreDocenciaHospitalaria");
-           ViewBag.InmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
+            if (User.IsInRole("JefeDeCarrera"))
+            {
+                return RedirectToAction("IndexJefeCarrera");
+
+            }else
+            {
+            ViewBag.NombreDocenciaHospitalaria = new SelectList(db.DocenciaHospitalarias, "NombreDocenciaHospitalaria", "NombreDocenciaHospitalaria");
+            ViewBag.InmunizacionId = new SelectList(db.Inmunizacions, "InmunizacionId", "NombreInmunizacion");
+            }
+            
            return View();
        }
 

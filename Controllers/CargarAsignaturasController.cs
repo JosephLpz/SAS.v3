@@ -32,20 +32,44 @@ namespace SAS.v1.Controllers
         {
             if (archivo != null && archivo.ContentLength > 0)
             {
+                try
+                {
                 CargarArchivo(archivo,NombreHoja, CarreraId);
-                ViewBag.showSuccessAlert = false;
+                
+                }
+                catch (ArgumentException ex)
+                {
+                    ViewBag.Exception =  ex.Message+" "+"Nombre:"+NombreHoja;
+                    
+                }
+                catch (FormatException ex)
+                {
+                    ViewBag.Exception =  ex.Message;
+                }
+                catch (IOException ex)
+                {
+                    ViewBag.Exception =   ex.Message;
+                }
+                catch (NullReferenceException ex)
+                {
+                    ViewBag.Exception =  ex.Message;
+                }
+
             }
             else
             {
                 ViewBag.showSuccessAlert = true;
             }
             ViewBag.CarreraId = new SelectList(db.Carreras, "NombreCarrera", "NombreCarrera");
-
+            ViewBag.showSuccessAlert = false;
+            ViewBag.EstadoDeProceso = false;
             return View();
         }
         [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
         public ActionResult CargarArchivo(HttpPostedFileBase archivo,string NombreHoja,string carrera)
         {
+           
+           
             if (archivo != null && archivo.ContentLength > 0)
             {
                 string NombreArchivo = Path.GetFileName(archivo.FileName);
@@ -61,6 +85,7 @@ namespace SAS.v1.Controllers
                     else
                     {
                         ViewBag.EstadoDeProceso = false;
+                        ViewBag.Exception = "Existe un problema con el formato del archivo o no es el archivo correcto!";
                     }
                 }
                 catch (System.IO.IOException )
@@ -68,7 +93,7 @@ namespace SAS.v1.Controllers
                     throw new IOException("Existe un error con el archivo");
                 }
             }
-
+            
             return View();
         }
         [Authorize(Roles = ("Administrador,JefeDeCarrera"))]
