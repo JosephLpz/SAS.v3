@@ -52,7 +52,7 @@ namespace SAS.v1.Controllers
                 }
                 catch (NullReferenceException ex)
                 {
-                    ViewBag.Exception =  ex.Message;
+                    ViewBag.Exception =  ex.Message; 
                 }
 
             }
