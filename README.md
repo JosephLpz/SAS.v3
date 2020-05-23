@@ -1,5 +1,5 @@
 # SAS.v3
-#Descripción
+# Descripción
 
 SAS es Sistema de Gestión para campos Clinicos, el cual fue desarrollado para apoyar los procesos de negocio de la escuela de Ciencias de la Salud de
 la Universidad Viña del Mar.
@@ -8,6 +8,6 @@ para realizar una pasantia o practica curricular, SAS facilita la gestión de lo
 alumnos que se encuentran capacitados, para dirigirse a un centro de salud evaluando su rendimiento academico.
 
 
-##Compilación
+## Compilación
 
-Para poder ejecutar este sistema, debe poseer el IDE *Visual studio 2015* en adelante, junto con *SQL SERVER 2014* como motor de base de datos
+Para poder ejecutar este sistema, debe poseer el IDE **Visual studio 2015** en adelante, junto con **SQL SERVER 2014** como motor de base de datos.
